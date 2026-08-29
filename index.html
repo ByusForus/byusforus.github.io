@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ImanI — Live Stage, Cultural Vault & Doctrine</title>
   
-  <!-- PWA Manifest & App Metas -->
+  <!-- Tab Favicon & PWA Manifest Metas -->
+  <link rel="icon" type="image/png" href="header-emblem.png.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1841,19 +1842,19 @@
         title: "chapter 0 — the imani manifesto: blueprint for collective flourishing", 
         lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass through Justice and Correctness across the Ten Activities of Life.", 
         tag: "manifesto • foundational blueprint", 
-        src: "media/imani pictures/chapter 0 the_imani_manifesto_blueprint.png" 
+        src: "media/ImanI Pictures/chapter 0 the_imani_manifesto_blueprint.png" 
       },
       { 
         title: "chapter 1a — the imani neighborhood community blueprint", 
         lore: "A holistic framework uniting Justice & Correctness, the Council of Ten, economic and social stability, and intergenerational family protection.", 
         tag: "Community • Strategic Blueprint", 
-        src: "media/imani pictures/chapter 1a the_imani_neighborhood_community_blueprint.png" 
+        src: "media/ImanI Pictures/chapter 1a the_imani_neighborhood_community_blueprint.png" 
       },
       { 
         title: "chapter 2a — the imani home: the first school of life", 
         lore: "Organizing the household around development over consumption, intergenerational wisdom exchange, and nurturing the Child of Promise.", 
         tag: "Home Life • Educational Blueprint", 
-        src: "media/imani pictures/chapter 2a the_imani_home_life_school.png" 
+        src: "media/ImanI Pictures/chapter 2a the_imani_home_life_school.png" 
       }
     ];
 
@@ -1868,7 +1869,7 @@
         title: "Declaration Day — June 15th", 
         lore: "We declare, we remember, and we reclaim our sovereign power. Fast the lies, honor our lineage, and celebrate true independence from commercial rituals.", 
         tag: "Declaration Day • Sovereignty", 
-        src: "media/imani boycott celebration pix/iahbc fast_the_lies_chatgpt image may 19, 2025, 06_15_50 am2.png" 
+        src: "media/imani boycott celebration pix/iahbc fast_the_lies_chatgpt image may 19, 2025, 06_15_50 am2.png.png" 
       },
       { 
         title: "June 13 — George Floyd Day: We Do We", 
@@ -2260,16 +2261,14 @@
       const streamUrl = document.getElementById('stream-source-url').value.trim();
       if (!streamUrl || !streamUrl.includes('.m3u8')) return;
 
-      fetch(streamUrl, { method: 'HEAD', cache: 'no-store' })
-        .then(res => {
-          if (res.ok) {
-            const liveVideo = document.getElementById('live-video-player');
-            if (liveVideo.style.display === "none") connectLiveStream();
-          } else {
-            setStageState(false);
-          }
+      fetch(streamUrl, { method: 'HEAD', cache: 'no-store', mode: 'no-cors' })
+        .then(() => {
+          const liveVideo = document.getElementById('live-video-player');
+          if (liveVideo.style.display === "none") connectLiveStream();
         })
-        .catch(() => {});
+        .catch(() => {
+          setStageState(false);
+        });
     }
 
     setInterval(pollStreamHealth, 15000);
