@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ImanI — Live Stage, Cultural Vault & Doctrine</title>
   
-  <!-- Tab Favicon & PWA Manifest Metas -->
   <link rel="icon" type="image/png" href="header-emblem.png.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
@@ -13,7 +12,6 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ImanI">
 
-  <!-- Direct HLS Live Streaming Engine -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   
   <style>
@@ -1477,13 +1475,11 @@
             </div>
           </div>
 
-          <!-- Audio Element with Auto Next-Track Listener -->
           <audio id="main-audio" controls onended="handleTrackEnded()">
             <source id="main-audio-source" src="media/audio/imani story/i m imani (2).mp3" type="audio/mpeg">
             Your browser does not support audio elements.
           </audio>
 
-          <!-- Playback Modes Control Bar -->
           <div class="audio-playback-controls">
             <div style="display: flex; gap: 8px;">
               <button class="playback-toggle-btn active" id="btn-continuous" onclick="toggleContinuousPlay()">
@@ -1582,10 +1578,6 @@
   </div>
 
   <script>
-    // =========================================================================
-    // PERMANENT AUDIO MANIFEST
-    // =========================================================================
-
     let permanentAudioLibrary = [
       { title: "mystery 1 cycle of imani female", category: "the mysteries", src: "media/audio/the mysteries/mystery 1 cycle of imani female.mp3", duration: "song" },
       { title: "mystery 1 cycle of imani male", category: "the mysteries", src: "media/audio/the mysteries/mystery 1 cycle of imani male.mp3", duration: "song" },
@@ -1618,7 +1610,7 @@
       { title: "agreement 5: be skeptical, but listen", category: "audio agreements", src: "media/audio/audio agreements/imani be skeptical, but learn to listen the 5th agreement.mp3", duration: "song" }
     ];
 
-    let currentAudioCategory = "ALL";
+    let currentAudioCategory = "all";
     let activeTrackIndex = 0;
     let isContinuousPlay = true;
     let isRandomPlay = false;
@@ -1631,7 +1623,8 @@
     }
 
     function getFilteredTrackPool() {
-      return permanentAudioLibrary.filter(t => currentAudioCategory === "all" || t.category.toLowerCase() === currentAudioCategory);
+      const cat = currentAudioCategory.toLowerCase();
+      return permanentAudioLibrary.filter(t => cat === "all" || t.category.toLowerCase() === cat);
     }
 
     function renderPlaylistItems() {
@@ -1774,10 +1767,6 @@
       renderPlaylistItems();
     }
 
-    // =========================================================================
-    // ON-DEMAND ARCHIVE VIDEO LOADER
-    // =========================================================================
-
     let userArchiveVideos = [
       { title: "session #01: grand awakening launch", author: "DJ Karma Live", duration: "live replay", src: "media/video/live-session-1.mp4" }
     ];
@@ -1813,10 +1802,6 @@
       });
     }
 
-    // =========================================================================
-    // GALLERIES & MEDIA LISTS
-    // =========================================================================
-
     const myMusicVideosList = [
       { 
         title: "imani code of alignment (official music video)", 
@@ -1842,19 +1827,19 @@
         title: "chapter 0 — the imani manifesto: blueprint for collective flourishing", 
         lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass through Justice and Correctness across the Ten Activities of Life.", 
         tag: "manifesto • foundational blueprint", 
-        src: "media/ImanI Pictures/chapter 0 the_imani_manifesto_blueprint.png" 
+        src: "media/ImanI Pictures/Chapter 0 The_Imani_Manifesto_Blueprint.png" 
       },
       { 
         title: "chapter 1a — the imani neighborhood community blueprint", 
         lore: "A holistic framework uniting Justice & Correctness, the Council of Ten, economic and social stability, and intergenerational family protection.", 
         tag: "Community • Strategic Blueprint", 
-        src: "media/ImanI Pictures/chapter 1a the_imani_neighborhood_community_blueprint.png" 
+        src: "media/ImanI Pictures/Chapter 1A The_Imani_Neighborhood_Community_Blueprint.png" 
       },
       { 
         title: "chapter 2a — the imani home: the first school of life", 
         lore: "Organizing the household around development over consumption, intergenerational wisdom exchange, and nurturing the Child of Promise.", 
         tag: "Home Life • Educational Blueprint", 
-        src: "media/ImanI Pictures/chapter 2a the_imani_home_life_school.png" 
+        src: "media/ImanI Pictures/Chapter 2A The_Imani_Home_Life_School.png" 
       }
     ];
 
