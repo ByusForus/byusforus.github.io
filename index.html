@@ -975,6 +975,7 @@
       font-size: 0.9rem;
       font-weight: 600;
       color: var(--text-main);
+      text-transform: capitalize;
     }
 
     .track-duration {
@@ -1026,6 +1027,7 @@
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--text-main);
+      text-transform: capitalize;
     }
 
     .gallery-card-lore {
@@ -1251,7 +1253,7 @@
       </div>
       <div class="header-center">
         <img 
-          id="header-emblem-view"
+          id="header-emblem-view" 
           src="header-emblem.png.png" 
           alt="ImanI Golden Sovereign Man Between Pillars" 
           class="header-emblem-large"
@@ -1286,7 +1288,7 @@
             id="standby-motion-player" 
             class="stream-video-element" 
             src="unity in motion.mp4"
-            poster="media/images/we-r-imani-poster.png"
+            poster="header-emblem.png.png"
             autoplay loop muted playsinline
             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
           ></video>
@@ -1470,13 +1472,13 @@
             <div class="track-art">IM</div>
             <div class="track-details">
               <h4 id="current-title">I M ImanI (We Rise & We Grind)</h4>
-              <p id="current-category">ImanI story</p>
+              <p id="current-category">imani story</p>
             </div>
           </div>
 
           <!-- Audio Element with Auto Next-Track Listener -->
           <audio id="main-audio" controls onended="handleTrackEnded()">
-            <source id="main-audio-source" src="media/audio/ImanI story/I M ImanI/I M ImanI (2).mp3" type="audio/mpeg">
+            <source id="main-audio-source" src="media/audio/imani story/i m imani/i m imani (2).mp3" type="audio/mpeg">
             Your browser does not support audio elements.
           </audio>
 
@@ -1502,9 +1504,9 @@
             <div style="display: flex; gap: 6px;" id="audio-tabs-container">
               <button class="audio-tab-btn active" onclick="setAudioCategory('ALL', this)">All Audio</button>
               <button class="audio-tab-btn" onclick="setAudioCategory('the mysteries', this)">the mysteries</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('ImanI story', this)">ImanI story</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('Audio Agreements', this)">Audio Agreements</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('Chatty Wisdom', this)">Chatty Wisdom</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('imani story', this)">imani story</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('audio agreements', this)">audio agreements</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('chatty wisdom', this)">chatty wisdom</button>
             </div>
             <div>
               <button class="btn-load-audio-files" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
@@ -1546,7 +1548,7 @@
       </div>
 
       <div class="wisdom-card revealed" id="wisdom-card-container">
-        <img id="chatty-header-view" src="media/images/Chatty%20Wisdom%20Header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="triggerFileSelect('chatty-file-input')" title="Click to select Chatty graphic">
+        <img id="chatty-header-view" src="Chatty Wisdom Header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="triggerFileSelect('chatty-file-input')" title="Click to select Chatty graphic">
         <div id="chatty-fallback-text" class="chatty-fallback-text" onclick="triggerFileSelect('chatty-file-input')">💜 CHATTY'S WISDOM</div>
         <input type="file" id="chatty-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-header-view', 'chatty-fallback-text', 'chatty_wisdom_header')">
 
@@ -1595,7 +1597,7 @@
       { title: "mystery 8 the initiation the scraed circle", category: "the mysteries", src: "media/audio/the mysteries/mystery 8 the initiation the scraed circle.wav", duration: "song" },
       { title: "mystery 9 we got systems too", category: "the mysteries", src: "media/audio/the mysteries/mystery 9 we got systems too.mp3", duration: "song" },
       { title: "mystery 10 rythm of return", category: "the mysteries", src: "media/audio/the mysteries/mystery 10 rythm of return.wav", duration: "song" },
-      { title: "i m ani i m beautiful no permission required)", category: "the mysteries", src: "media/audio/ImanI story/i m imani/i m ani i m beautiful.mp3", duration: "song" },
+      { title: "i m ani i m beautiful (no permission required)", category: "the mysteries", src: "media/audio/imani story/i m imani/i m ani i m beautiful.mp3", duration: "song" },
       { title: "checkmate mindset (strategy over noise)", category: "the mysteries", src: "media/audio/imani story/i m imani/checkmate mindset.mp3", duration: "song" },
 
       { title: "i m imani (we rise & we grind)", category: "imani story", src: "media/audio/imani story/i m imani/i m imani (2).mp3", duration: "song" },
@@ -1621,14 +1623,14 @@
     let isRandomPlay = false;
 
     function setAudioCategory(category, btn) {
-      currentAudioCategory = category;
+      currentAudioCategory = category.toLowerCase();
       document.querySelectorAll('.audio-tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       renderPlaylistItems();
     }
 
     function getFilteredTrackPool() {
-      return permanentAudioLibrary.filter(t => currentAudioCategory === "ALL" || t.category === currentAudioCategory);
+      return permanentAudioLibrary.filter(t => currentAudioCategory === "all" || t.category.toLowerCase() === currentAudioCategory);
     }
 
     function renderPlaylistItems() {
@@ -1648,7 +1650,7 @@
         item.innerHTML = `
           <div>
             <div class="track-title">${track.title}</div>
-            <div style="font-size: 0.72rem; color: var(--text-muted);">${track.category}</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: capitalize;">${track.category}</div>
           </div>
           <span class="track-duration">${index === activeTrackIndex ? '▶ Playing' : '▶ Play'}</span>
         `;
@@ -1753,11 +1755,11 @@
 
         let lower = (file.webkitRelativePath || file.name).toLowerCase();
         if (lower.includes("agreement") || lower.includes("agreements") || lower.includes("assumptions") || lower.includes("personally") || lower.includes("word") || lower.includes("best")) {
-          detectedCategory = "Audio Agreements";
+          detectedCategory = "audio agreements";
         } else if (lower.includes("chatty")) {
-          detectedCategory = "Chatty Wisdom";
+          detectedCategory = "chatty wisdom";
         } else if (lower.includes("story") || lower.includes("imani story") || lower.includes("i m imani") || lower.includes("law")) {
-          detectedCategory = "ImanI story";
+          detectedCategory = "imani story";
         }
 
         permanentAudioLibrary.push({
@@ -1811,26 +1813,26 @@
     }
 
     // =========================================================================
-    // GALLERIES & OtheR ENGINES
+    // GALLERIES & MEDIA LISTS
     // =========================================================================
 
     const myMusicVideosList = [
       { 
         title: "imani code of alignment (official music video)", 
-        lore: "walking in rhythm and harmony with the imani iode—music and cinematic visuals created by Karma.", 
+        lore: "walking in rhythm and harmony with the imani code—music and cinematic visuals created by Karma.", 
         tag: "🎵 Music Video • 4K Master", 
         poster: "header-emblem.png.png", 
-        src: "Media/Video%20Music/ImanI%20Story/ImanI%20Code%20of%20Alignment%20(Official%20Music%20Video).mp4" 
+        src: "media/video/imani code of alignment (official music video).mp4" 
       }
     ];
 
     const myCinemaList = [
       { 
-        title: "we r written in the Law (14th amendment americans)", 
+        title: "we r written in the law (14th amendment americans)", 
         lore: "Exploring the legal lineage, sovereign ontology, and historical foundation of the 14th Amendment Americans—transforming identity through the spirit of ImanI.", 
         tag: "🎬 Documentary Cinema • Chapter 1", 
         poster: "header-emblem.png.png", 
-        src: "Media/Videos/Written%20in%20the%20law%20letter.mp4" 
+        src: "media/video/written in the law letter.mp4" 
       }
     ];
 
@@ -1857,20 +1859,20 @@
 
     const myBoycottArtList = [
       { 
-        title: "the price of participation: reclaiming our economic sovereignty", 
-        lore: "Breaking the relentless cycle of commercialized American holidays. Questioning who is truly enriched and reclaiming community financial reservoirs through the 7-Day Economic Fast.", 
+        title: "The Price of Participation: Reclaiming Our Economic Sovereignty", 
+        lore: "Every year, billions pour into commercialized traditions that drain community financial reservoirs. Question who is truly enriched, reclaim identity, and build lasting power through the 7-Day Economic Fast.", 
         tag: "Economic Sovereignty • 7-Day Fast", 
         src: "media/imani boycott celebration pix/iahbc_94dd97f5-89c2-413b-b044-892f0670f326.png" 
       },
       { 
-        title: "june 15th — declaration day", 
-        lore: "We declare, we remember, and we reclaim our sovereign power. Honoring our lineage and fallen soldiers with true independence.", 
+        title: "Declaration Day — June 15th", 
+        lore: "We declare, we remember, and we reclaim our sovereign power. Fast the lies, honor our lineage, and celebrate true independence from commercial rituals.", 
         tag: "Declaration Day • Sovereignty", 
-        src: "media/imani boycott celebration pix/iahbc  fast_the_Lies_chatgpt image may 19, 2025, 06_15_50 AM2.png" 
+        src: "media/imani boycott celebration pix/iahbc fast_the_lies_chatgpt image may 19, 2025, 06_15_50 am2.png" 
       },
       { 
-        title: "june 13 — george floyd day", 
-        lore: "We Do We. Correct the narrative, control the economy, and create our legacy across the 3+1+3 economic fast framework.", 
+        title: "June 13 — George Floyd Day: We Do We", 
+        lore: "Correct the narrative, control the economy, and create our legacy across the 3+1+3 economic fast framework. We build, we buy, we own.", 
         tag: "Juneteenth • We Do We", 
         src: "media/imani boycott celebration pix/iahbc_5dbd3257-419a-4e5b-a736-12aa4612bbaf.png" 
       }
@@ -1922,7 +1924,7 @@
         const card = document.createElement('div');
         card.className = 'picture-card';
         card.innerHTML = `
-          <img src="${art.src}" alt="${art.title}" class="picture-frame-img" onerror="this.src='header-emblem.png.png'" onclick="openMediaLightbox('${art.src}', 'image', '${art.title}')" title="Click to expand">
+          <img src="${art.src}" alt="${art.title}" class="picture-frame-img" onerror="this.onerror=null; this.src='header-emblem.png.png';" onclick="openMediaLightbox(this.src, 'image', '${art.title}')" title="Click to expand">
           <div class="gallery-card-info">
             <h3 class="gallery-card-title">${art.title}</h3>
             <p class="gallery-card-lore">${art.lore}</p>
@@ -1940,7 +1942,7 @@
         const card = document.createElement('div');
         card.className = 'picture-card';
         card.innerHTML = `
-          <img src="${item.src}" alt="${item.title}" class="picture-frame-img" onerror="this.src='header-emblem.png.png'" onclick="openMediaLightbox('${item.src}', 'image', '${item.title}')" title="Click to expand">
+          <img src="${item.src}" alt="${item.title}" class="picture-frame-img" onerror="this.onerror=null; this.src='header-emblem.png.png';" onclick="openMediaLightbox(this.src, 'image', '${item.title}')" title="Click to expand">
           <div class="gallery-card-info">
             <h3 class="gallery-card-title">${item.title}</h3>
             <p class="gallery-card-lore">${item.lore}</p>
