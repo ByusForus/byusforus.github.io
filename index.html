@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ImanI — Live Stage, Cultural Vault & Doctrine</title>
   
+  <!-- Tab Favicon & PWA Manifest Metas -->
   <link rel="icon" type="image/png" href="header-emblem.png.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
@@ -12,6 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ImanI">
 
+  <!-- Direct HLS Live Streaming Engine -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   
   <style>
@@ -47,12 +49,12 @@
       min-height: 100vh;
       background: linear-gradient(
         90deg,
-        rgba(0, 75, 40, 0.95) 0%,
-        rgba(0, 110, 58, 0.8) 30%,
-        #000000 33.33%,
-        #000000 66.66%,
-        rgba(145, 105, 15, 0.8) 70%,
-        rgba(100, 72, 10, 0.95) 100%
+        rgba(4, 50, 27, 0.96) 0%,       /* Deep Emerald Vein */
+        rgba(0, 110, 58, 0.82) 28%,     /* Raw Emerald Crystal */
+        #000000 33.33%,                 /* Pure Onyx Bedrock */
+        #000000 66.66%,                 /* Pure Onyx Bedrock */
+        rgba(145, 105, 15, 0.82) 72%,   /* Raw Gold Specie */
+        rgba(75, 54, 8, 0.96) 100%      /* Deep Bullion Ore */
       );
       background-attachment: fixed;
       background-size: cover;
@@ -1266,7 +1268,7 @@
         <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'emblem-picker-box', 'imani_header_emblem')">
       </div>
       <div class="header-right">
-        <div class="header-proclamation gold">Onyx is the new black</div>
+        <div class="header-proclamation gold">Onyx is the mineral stone</div>
       </div>
     </div>
   </header>
@@ -1348,7 +1350,7 @@
           <div><div class="rev-tag" id="origin-tag">Ontology</div><h3 class="rev-title" id="origin-title">Sovereign Ontology</h3></div>
           <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
         </div>
-        <p class="rev-content" id="origin-desc">Moving away from assigned, descriptive adjectives like "black" that describe a shadow or condition, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
+        <p class="rev-content" id="origin-desc">Moving away from assigned, descriptive adjectives that describe a condition, <strong>ImanI</strong> is a proper noun anchored by the sacred mineral triad: <strong>Emerald</strong> for growth and awakening, <strong>Onyx</strong> for foundation and strength, and <strong>Gold</strong> for eternal value and sovereignty.</p>
       </div>
     </section>
 
@@ -1499,7 +1501,7 @@
         <div class="playlist-card">
           <div class="audio-tabs-bar">
             <div style="display: flex; gap: 6px;" id="audio-tabs-container">
-              <button class="audio-tab-btn active" onclick="setAudioCategory('ALL', this)">All Audio</button>
+              <button class="audio-tab-btn active" onclick="setAudioCategory('all', this)">All Audio</button>
               <button class="audio-tab-btn" onclick="setAudioCategory('the mysteries', this)">the mysteries</button>
               <button class="audio-tab-btn" onclick="setAudioCategory('imani story', this)">imani story</button>
               <button class="audio-tab-btn" onclick="setAudioCategory('audio agreements', this)">audio agreements</button>
@@ -1843,24 +1845,24 @@
       }
     ];
 
-    const myStillArtList = [
+    const myBoycottArtList = [
       { 
-        title: "chapter 0 — the imani manifesto: blueprint for collective flourishing", 
-        lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass through Justice and Correctness across the Ten Activities of Life.", 
-        tag: "manifesto • foundational blueprint", 
-        src: "media/ImanI Pictures/Chapter 0 The_Imani_Manifesto_Blueprint.png" 
+        title: "The Price of Participation: Reclaiming Our Economic Sovereignty", 
+        lore: "Every year, billions pour into commercialized traditions that drain community financial reservoirs. Question who is truly enriched, reclaim identity, and build lasting power through the 7-Day Economic Fast.", 
+        tag: "Economic Sovereignty • 7-Day Fast", 
+        src: "media/ImanI Boycott Celebration Pix/IAHBC_94dd97f5-89c2-413b-b044-892f0670f326.png" 
       },
       { 
-        title: "chapter 1a — the imani neighborhood community blueprint", 
-        lore: "A holistic framework uniting Justice & Correctness, the Council of Ten, economic and social stability, and intergenerational family protection.", 
-        tag: "Community • Strategic Blueprint", 
-        src: "media/ImanI Pictures/Chapter 1A The_Imani_Neighborhood_Community_Blueprint.png" 
+        title: "Declaration Day — June 15th", 
+        lore: "We declare, we remember, and we reclaim our sovereign power. Fast the lies, honor our lineage, and celebrate true independence from commercial rituals.", 
+        tag: "Declaration Day • Sovereignty", 
+        src: "media/imani boycott celebration pix/iahbc fast_the_lies_chatgpt image may 19, 2025, 06_15_50 am2.png" 
       },
       { 
-        title: "chapter 2a — the imani home: the first school of life", 
-        lore: "Organizing the household around development over consumption, intergenerational wisdom exchange, and nurturing the Child of Promise.", 
-        tag: "Home Life • Educational Blueprint", 
-        src: "media/ImanI Pictures/Chapter 2A The_Imani_Home_Life_School.png" 
+        title: "June 13 — George Floyd Day: We Do We", 
+        lore: "Correct the narrative, control the economy, and create our legacy across the 3+1+3 economic fast framework. We build, we buy, we own.", 
+        tag: "Juneteenth • We Do We", 
+        src: "media/ImanI Boycott Celebration Pix/IAHBC_5dbd3257-419a-4e5b-a736-12aa4612bbaf.png" 
       }
     ];
 
@@ -2282,10 +2284,10 @@
     }
 
     const originsData = [
-      { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned, descriptive adjectives like 'black' that describe a shadow or condition, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character." },
-      { id: "02", btnTitle: "the People of Faith", tag: "Lineage & Faith", title: "the People of Faith", desc: "After slavery, Reconstruction, Jim Crow, Civil Rights Bill who is better to be called the people of faith here in america then the descendants of the emaciated slaves of 1863 the original 14th amendment americans. This is a part of our lineage." },
-      { id: "03", btnTitle: "Faith in Action", tag: "Origin", title: "Faith in Action", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law and collective purpose." },
-      { id: "04", btnTitle: "Proper Noun Identity", tag: "Grammar of Spirit", title: "Proper Noun Identity", desc: "Replacing modifiers that depend on external systems with a sovereign name that declares self-existence and heritage." },
+      { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned, descriptive adjectives that describe a condition, <strong>ImanI</strong> is a proper noun anchored by the sacred mineral triad: <strong>Emerald</strong> for growth and awakening, <strong>Onyx</strong> for foundation and strength, and <strong>Gold</strong> for eternal value and sovereignty." },
+      { id: "02", btnTitle: "the Three Minerals", tag: "Sacred Minerals", title: "Emerald, Onyx & Gold: The Mineral Standard", desc: "We replace pigment labels with geological reality. <strong>Emerald</strong> (crystalline awakening), <strong>Onyx</strong> (uncrushable black chalcedony bedrock), and <strong>Gold</strong> (unreactive sovereign wealth standard) represent our true spiritual and material value." },
+      { id: "03", btnTitle: "the People of Faith", tag: "Lineage & Faith", title: "the People of Faith", desc: "After slavery, Reconstruction, Jim Crow, Civil Rights Bill who is better to be called the people of faith here in america then the descendants of the emaciated slaves of 1863 the original 14th amendment americans. This is a part of our lineage." },
+      { id: "04", btnTitle: "Faith in Action", tag: "Origin", title: "Faith in Action", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law and collective purpose." },
       { id: "05", btnTitle: "I M Very Beautiful", tag: "the Affirmation", title: "I M Very Beautiful", desc: "Combining 'I M' (existence) with the ancient 'ani' (very beautiful). Every time the name is spoken, it carries a sacred blessing." }
     ];
 
