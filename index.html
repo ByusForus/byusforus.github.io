@@ -1663,24 +1663,26 @@
 
     function renderPlaylistItems() {
       const container = document.getElementById('playlist-items-container');
+      if (!container) return;
       container.innerHTML = '';
 
       const filtered = getFilteredTrackPool();
 
       if (filtered.length === 0) {
-        container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; padding: 12px; text-align: center;">No tracks found in <strong>${currentAudioCategory}</strong>.</p>`;
+        container.innerHTML = `<p style="color: var(--gold-accent); font-size: 0.9rem; padding: 16px; text-align: center; font-weight: 700;">No tracks found in ${currentAudioCategory}.</p>`;
         return;
       }
 
       filtered.forEach((track, index) => {
         const item = document.createElement('div');
         item.className = `playlist-item ${index === activeTrackIndex ? 'active' : ''}`;
+        item.style.cssText = "display:flex; justify-content:space-between; align-items:center; padding:12px 16px; margin-bottom:6px; background:#141414; border:1px solid " + (index === activeTrackIndex ? "var(--emerald-accent)" : "var(--onyx-border)") + "; border-radius:8px; cursor:pointer;";
         item.innerHTML = `
-          <div>
-            <div class="track-title">${track.title}</div>
-            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: capitalize;">${track.category}</div>
+          <div style="text-align:left;">
+            <div style="font-size:0.95rem; font-weight:700; color:#ffffff; text-transform:capitalize;">${track.title}</div>
+            <div style="font-size:0.75rem; color:var(--emerald-accent); text-transform:capitalize; margin-top:2px;">${track.category}</div>
           </div>
-          <span class="track-duration">${index === activeTrackIndex ? '▶ Playing' : '▶ Play'}</span>
+          <span style="font-size:0.82rem; font-weight:700; color:var(--gold-accent);">${index === activeTrackIndex ? '▶ Playing' : '▶ Play'}</span>
         `;
         item.onclick = () => playTrackByIndex(index);
         container.appendChild(item);
@@ -1851,9 +1853,9 @@
       { 
         title: "we r written in the law (14th amendment americans)", 
         lore: "Exploring the legal lineage, sovereign ontology, and historical foundation of the 14th Amendment Americans—transforming identity through the spirit of ImanI.", 
-        tag: "🎬 Documentary Cinema • Chapter 1 (Full 11 Min)", 
+        tag: "🎬 Documentary Cinema • Chapter 1", 
         poster: "header-emblem.png.png", 
-        src: "https://archive.org/download/written-in-the-law-letter/written%20in%20the%20law%20letter.mp4" 
+        src: "https://archive.org/download/written-in-the-law/written-in-the-law.mp4" 
       }
     ];
 
