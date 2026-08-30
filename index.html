@@ -1079,11 +1079,21 @@
       box-shadow: 0 10px 24px var(--emerald-glow);
     }
 
-    .video-player-container video {
+    .video-player-container {
       width: 100%;
       aspect-ratio: 16 / 9;
       background: #000;
       display: block;
+      position: relative;
+    }
+
+    .video-player-container video, .video-player-container iframe {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      display: block;
+      border: none;
       border-bottom: 1px solid var(--onyx-border);
     }
 
@@ -1845,7 +1855,7 @@
         lore: "Walking in rhythm and sovereign identity under the 14th Amendment framework—music and visuals produced by Karma.", 
         tag: "🎵 Music Video • Full Master", 
         poster: "header-emblem.png.png", 
-        src: "https://archive.org/download/written-in-the-law-letter/imani%20videos/imani_music_videos/written_in_the-law.mp4" 
+        src: "https://archive.org/download/written-in-the-law/written-in-the-law.mp4" 
       }
     ];
 
@@ -1904,23 +1914,31 @@
 
     function renderVideoVault(containerId, list) {
       const container = document.getElementById(containerId);
+      if (!container) return;
       container.innerHTML = '';
       list.forEach((v, index) => {
         const inputId = `${containerId}-file-${index}`;
         const videoId = `${containerId}-video-${index}`;
         const card = document.createElement('div');
         card.className = 'video-vault-card';
-        card.innerHTML = `
-          <div class="video-player-container" style="position: relative;">
-            <video id="${videoId}" controls playsinline poster="${v.poster}" preload="metadata">
+
+        const isEmbed = v.src.includes('archive.org/embed') || v.src.includes('youtube.com') || v.src.includes('rumble.com');
+
+        const mediaMarkup = isEmbed
+          ? `<iframe src="${v.src}" allowfullscreen webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`
+          : `<video id="${videoId}" controls playsinline poster="${v.poster}" preload="metadata">
               <source src="${v.src}" type="video/mp4">
               Your browser does not support HTML5 video.
-            </video>
-            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-              <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
-              <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
-            </div>
+            </video>`;
+
+        card.innerHTML = `
+          <div class="video-player-container">
+            ${mediaMarkup}
+          </div>
+          <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
+            <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
+            <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
           </div>
           <div class="gallery-card-info">
             <h3 class="gallery-card-title">${v.title}</h3>
@@ -1936,8 +1954,10 @@
       const file = event.target.files[0];
       if (file) {
         const vid = document.getElementById(videoElementId);
-        vid.src = URL.createObjectURL(file);
-        vid.play().catch(() => {});
+        if (vid) {
+          vid.src = URL.createObjectURL(file);
+          vid.play().catch(() => {});
+        }
       }
     }
 
