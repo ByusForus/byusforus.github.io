@@ -173,9 +173,11 @@
 
     .header-left, .header-right {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
+      gap: 8px;
     }
 
     .header-proclamation {
@@ -194,6 +196,26 @@
     .header-proclamation.gold {
       color: var(--gold-accent);
       text-shadow: 0 0 16px var(--gold-glow), 0 0 30px rgba(255, 209, 92, 0.35);
+    }
+
+    .btn-talk-modal-trigger {
+      background: var(--onyx-card);
+      border: 1px solid var(--gold-accent);
+      color: var(--gold-accent);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+
+    .btn-talk-modal-trigger:hover {
+      background: var(--gold-accent);
+      color: #000;
+      transform: translateY(-1px);
     }
 
     @media (max-width: 900px) {
@@ -501,6 +523,16 @@
       display: flex;
       align-items: center;
       gap: 6px;
+    }
+
+    .council-sub-banner {
+      background: rgba(0, 0, 0, 0.75);
+      border-bottom: 1px solid var(--onyx-border);
+      padding: 6px 16px;
+      font-size: 0.76rem;
+      color: var(--gold-accent);
+      font-weight: 600;
+      letter-spacing: 0.03em;
     }
 
     .chat-messages-scroll {
@@ -974,6 +1006,7 @@
       cursor: pointer;
     }
 
+    /* Modal / Lightbox System */
     .lightbox-backdrop {
       display: none;
       position: fixed;
@@ -1030,6 +1063,52 @@
       font-size: 2rem;
       cursor: pointer;
     }
+
+    /* Dialogue Modal Specifics */
+    .dialogue-modal-box {
+      background: var(--onyx-surface);
+      border: 1px solid var(--gold-accent);
+      border-radius: var(--radius-md);
+      box-shadow: 0 0 35px var(--gold-glow);
+      width: 100%;
+      max-width: 580px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .dialogue-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .dialogue-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold-accent);
+      letter-spacing: 0.05em;
+    }
+
+    .dialogue-input, .dialogue-textarea, .dialogue-select {
+      background: var(--onyx-card);
+      border: 1px solid var(--onyx-border);
+      color: var(--text-main);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .dialogue-input:focus, .dialogue-textarea:focus, .dialogue-select:focus {
+      border-color: var(--emerald-accent);
+    }
   </style>
 </head>
 <body>
@@ -1058,6 +1137,7 @@
     <div class="header-layout">
       <div class="header-left">
         <div class="header-proclamation emerald">ImanI is the new breed</div>
+        <button class="btn-talk-modal-trigger" onclick="openDialogueModal()">💬 Let's Talk About It</button>
       </div>
       <div class="header-center">
         <img 
@@ -1075,7 +1155,7 @@
 
   <main>
 
-    <!-- 1. Live Broadcast Stage & Chat -->
+    <!-- 1. Live Broadcast Stage & Council Feed -->
     <section>
       <div class="stage-column-layout">
         <div class="stream-viewport" id="stream-viewport-container">
@@ -1103,8 +1183,11 @@
 
         <div class="stage-chat-card">
           <div class="chat-header">
-            <h4>💬 Stage Chat & Live Feed</h4>
-            <span style="font-size: 0.72rem; color: var(--emerald-accent); font-weight: 700;">🟢 LIVE SYNC</span>
+            <h4>🏛️ Enter the Council</h4>
+            <span style="font-size: 0.72rem; color: var(--emerald-accent); font-weight: 700;">🟢 STAGE FEED</span>
+          </div>
+          <div class="council-sub-banner">
+            🛡️ Operating under the Code of Silence: We move with intention and preserve internal unity.
           </div>
           <div class="chat-messages-scroll" id="chat-messages-container">
             <div class="chat-bubble council">
@@ -1340,11 +1423,52 @@
 
   </main>
 
+  <!-- Media Lightbox Modal -->
   <div id="lightbox-modal" class="lightbox-backdrop" onclick="closeMediaLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeMediaLightbox()">&times;</button>
       <div id="lightbox-media-container" class="lightbox-media-holder"></div>
       <div id="lightbox-caption-text" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- "Let's Talk About It" Private Dialogue Modal -->
+  <div id="dialogue-modal" class="lightbox-backdrop" onclick="closeDialogueModal()">
+    <div class="dialogue-modal-box" onclick="event.stopPropagation()">
+      <button class="lightbox-close-btn" onclick="closeDialogueModal()">&times;</button>
+      <div style="text-align: left; border-bottom: 1px solid var(--onyx-border); padding-bottom: 10px;">
+        <h3 style="color: var(--gold-accent); font-size: 1.25rem; font-weight: 800;">Let's Talk About It</h3>
+        <p style="font-size: 0.8rem; color: var(--emerald-accent); margin-top: 2px;">🛡️ Operating under the Code of Silence: Direct Lineage Transmission</p>
+      </div>
+
+      <div class="dialogue-field-group">
+        <label class="dialogue-label">Sovereign / Full Name</label>
+        <input type="text" id="dialogue-name" class="dialogue-input" placeholder="Your name...">
+      </div>
+
+      <div class="dialogue-field-group">
+        <label class="dialogue-label">Transmission Line (Email)</label>
+        <input type="email" id="dialogue-email" class="dialogue-input" placeholder="email@domain.com...">
+      </div>
+
+      <div class="dialogue-field-group">
+        <label class="dialogue-label">Focus Area</label>
+        <select id="dialogue-focus" class="dialogue-select">
+          <option value="private-arrangement">Private Arrangement & Access</option>
+          <option value="economic-fast">7-Day Economic Fast Strategy</option>
+          <option value="lineage-ontology">Lineage & Sovereign Ontology</option>
+          <option value="music-visuals">Music, Visuals & Cultural Vault</option>
+        </select>
+      </div>
+
+      <div class="dialogue-field-group">
+        <label class="dialogue-label">Your Perspective / Message</label>
+        <textarea id="dialogue-message" class="dialogue-textarea" rows="4" placeholder="Transmit thought or inquiry..."></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px;">
+        <button class="btn-talk-modal-trigger" style="background: var(--gold-accent); color: #000;" onclick="submitDialogue()">Transmit Message</button>
+      </div>
     </div>
   </div>
 
@@ -1822,6 +1946,32 @@
     function closeMediaLightbox() {
       document.getElementById('lightbox-modal').style.display = 'none';
       document.getElementById('lightbox-media-container').innerHTML = '';
+    }
+
+    function openDialogueModal() {
+      document.getElementById('dialogue-modal').style.display = 'flex';
+    }
+
+    function closeDialogueModal() {
+      document.getElementById('dialogue-modal').style.display = 'none';
+    }
+
+    function submitDialogue() {
+      const name = document.getElementById('dialogue-name').value.trim();
+      const email = document.getElementById('dialogue-email').value.trim();
+      const focus = document.getElementById('dialogue-focus').value;
+      const message = document.getElementById('dialogue-message').value.trim();
+
+      if (!name || !email || !message) {
+        alert("Please complete all fields to transmit your message under the Code of Silence.");
+        return;
+      }
+
+      const subject = encodeURIComponent(`ImanI Dialogue: ${focus} - from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nTransmission Line (Email): ${email}\nFocus: ${focus}\n\nPerspective / Message:\n${message}\n\n[Transmitted under the Code of Silence]`);
+      
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+      closeDialogueModal();
     }
 
     let hlsInstance = null;
