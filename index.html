@@ -219,26 +219,6 @@
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 20px rgba(255, 209, 92, 0.35));
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .header-emblem-large:hover {
-      transform: scale(1.02);
-    }
-
-    .emblem-fallback-picker {
-      display: none;
-      border: 2px dashed var(--gold-accent);
-      background: var(--onyx-card);
-      padding: 16px 24px;
-      border-radius: var(--radius-sm);
-      text-align: center;
-      cursor: pointer;
-      color: var(--gold-accent);
-      font-size: 0.9rem;
-      font-weight: 700;
-      box-shadow: 0 0 15px var(--gold-glow);
     }
 
     main {
@@ -490,83 +470,6 @@
       color: #000;
     }
 
-    .stream-controls-bar {
-      position: absolute;
-      bottom: 14px;
-      left: 14px;
-      right: 14px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(14, 14, 14, 0.9);
-      border: 1px solid var(--onyx-border);
-      border-radius: var(--radius-sm);
-      padding: 10px 14px;
-      backdrop-filter: blur(10px);
-      gap: 10px;
-      z-index: 10;
-    }
-
-    .stream-url-input {
-      background: var(--onyx-card);
-      border: 1px solid var(--onyx-border);
-      color: var(--text-main);
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      flex: 1;
-      min-width: 180px;
-      outline: none;
-    }
-
-    .stream-url-input:focus {
-      border-color: var(--emerald-accent);
-    }
-
-    .stream-actions-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-stream-action {
-      background: var(--emerald-accent);
-      color: #000;
-      border: none;
-      font-weight: 700;
-      font-size: 0.82rem;
-      padding: 8px 14px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-stream-action:hover {
-      transform: translateY(-1px);
-      opacity: 0.92;
-    }
-
-    .standby-file-btn {
-      background: var(--onyx-card);
-      color: var(--gold-accent);
-      border: 1px solid var(--gold-accent);
-      font-weight: 700;
-      font-size: 0.82rem;
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .standby-file-btn:hover {
-      background: rgba(255, 209, 92, 0.15);
-      transform: translateY(-1px);
-    }
-
     .stage-chat-card {
       background: var(--onyx-surface);
       border: 1px solid var(--onyx-border);
@@ -669,68 +572,6 @@
       padding: 8px 18px;
       border-radius: var(--radius-sm);
       cursor: pointer;
-    }
-
-    .stream-archive-card {
-      background: var(--onyx-surface);
-      border: 1px solid var(--emerald-accent);
-      border-radius: var(--radius-md);
-      padding: 18px 22px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--emerald-glow);
-    }
-
-    .archive-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .archive-header-row h3 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--emerald-accent);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .stream-archive-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
-    }
-
-    .archive-item-card {
-      background: var(--onyx-card);
-      border: 1px solid var(--onyx-border);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .archive-item-card:hover {
-      border-color: var(--gold-accent);
-      transform: translateY(-2px);
-      background: rgba(255, 209, 92, 0.08);
-    }
-
-    .archive-item-title {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .archive-item-meta {
-      font-size: 0.76rem;
-      color: var(--gold-accent);
-      display: flex;
-      justify-content: space-between;
     }
 
     .calendar-card {
@@ -919,8 +760,6 @@
       margin-bottom: 6px;
       border-bottom: 1px solid var(--onyx-border);
       padding-bottom: 8px;
-      justify-content: space-between;
-      align-items: center;
     }
 
     .audio-tab-btn {
@@ -939,22 +778,6 @@
       border-color: var(--emerald-accent);
       color: var(--emerald-accent);
       background: rgba(0, 208, 108, 0.15);
-    }
-
-    .btn-load-audio-files {
-      background: var(--gold-accent);
-      color: #000;
-      border: none;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .btn-load-audio-files:hover {
-      transform: translateY(-1px);
     }
 
     .playlist-items-scroll {
@@ -1057,7 +880,7 @@
       position: relative;
     }
 
-    .video-player-container video, .video-player-container iframe {
+    .video-player-container video {
       width: 100%;
       height: 100%;
       aspect-ratio: 16 / 9;
@@ -1116,35 +939,24 @@
       backdrop-filter: blur(12px);
     }
 
-    .chatty-transparent-emblem {
-      width: 100%;
-      max-width: 480px;
-      height: auto;
-      max-height: 190px;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto 16px auto;
-      cursor: pointer;
-    }
-
     .chatty-landscape-frame {
       width: 100%;
-      max-width: 820px;
+      max-width: 720px;
       margin: 12px auto 24px auto;
       border-radius: var(--radius-md);
       overflow: hidden;
       border: 1px solid var(--purple-accent);
-      background: #080808;
+      background: #000;
     }
 
     .chatty-landscape-img {
       width: 100%;
       height: auto;
-      max-height: 420px;
+      max-height: 380px;
       aspect-ratio: 16 / 9;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
-      cursor: pointer;
+      margin: 0 auto;
     }
 
     .btn-draw-card {
@@ -1249,14 +1061,7 @@
           src="header-emblem.png.png" 
           alt="ImanI Golden Sovereign Man Between Pillars" 
           class="header-emblem-large"
-          onerror="handleImageError(this)"
-          onclick="triggerFileSelect('emblem-file-input')"
-          title="Click to select header emblem"
         >
-        <div id="emblem-picker-box" class="emblem-fallback-picker" onclick="triggerFileSelect('emblem-file-input')">
-          🏛️ Click to Select Header Emblem Image
-        </div>
-        <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'emblem-picker-box', 'imani_header_emblem')">
       </div>
       <div class="header-right">
         <div class="header-proclamation gold">Onyx is the mineral stone</div>
@@ -1290,17 +1095,6 @@
             controls playsinline 
             style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; display: none; background: #000;"
           >Your browser does not support HTML5 video.</video>
-
-          <div class="stream-controls-bar">
-            <input type="text" id="stream-source-url" class="stream-url-input" placeholder="HLS Stream URL (.m3u8) or video file path (.mp4)..." value="http://localhost:8888/live/stage/index.m3u8">
-            <div class="stream-actions-group">
-              <button class="btn-stream-action" onclick="connectLiveStream()">📡 Connect Stream</button>
-              <button class="btn-stream-action" style="background: var(--gold-accent);" onclick="triggerFileSelect('local-video-input')">📁 Load Live</button>
-              <button class="standby-file-btn" onclick="triggerFileSelect('standby-file-input')">🎬 Set Standby</button>
-              <input type="file" id="local-video-input" accept="video/*" style="display: none;" onchange="loadLocalVideoFile(event)">
-              <input type="file" id="standby-file-input" accept="video/*" style="display: none;" onchange="loadStandbyVideoFile(event)">
-            </div>
-          </div>
         </div>
 
         <div class="stage-chat-card">
@@ -1318,15 +1112,6 @@
             <input type="text" id="chat-input-field" class="chat-input" placeholder="Transmit thought to the Stage..." onkeydown="if(event.key==='Enter') sendChatMessage()">
             <button class="chat-send-btn" onclick="sendChatMessage()">Send</button>
           </div>
-        </div>
-
-        <div class="stream-archive-card">
-          <div class="archive-header-row">
-            <h3>📼 On-Demand Live Stream Archive</h3>
-            <button class="btn-load-audio-files" onclick="triggerFileSelect('archive-video-input')">➕ Add Archive Video</button>
-            <input type="file" id="archive-video-input" accept="video/*" multiple style="display: none;" onchange="loadUserArchiveVideos(event)">
-          </div>
-          <div class="stream-archive-grid" id="stream-archive-container"></div>
         </div>
       </div>
     </section>
@@ -1497,10 +1282,6 @@
               <button class="audio-tab-btn" onclick="setAudioCategory('audio agreements', this)">Audio Agreements</button>
               <button class="audio-tab-btn" onclick="setAudioCategory('chatty wisdom', this)">Chatty Wisdom</button>
             </div>
-            <div>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
-              <input type="file" id="audio-folder-input" accept="audio/*" multiple style="display: none;" onchange="handleUserAudioUpload(event)">
-            </div>
           </div>
           <div class="playlist-items-scroll" id="playlist-items-container"></div>
         </div>
@@ -1537,14 +1318,8 @@
       </div>
 
       <div class="wisdom-card revealed" id="wisdom-card-container">
-        <img id="chatty-header-view" src="Chatty Wisdom Header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="triggerFileSelect('chatty-file-input')" title="Click to select Chatty graphic">
-        <div id="chatty-fallback-text" class="chatty-fallback-text" onclick="triggerFileSelect('chatty-file-input')">💜 CHATTY'S WISDOM</div>
-        <input type="file" id="chatty-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-header-view', 'chatty-fallback-text', 'chatty_wisdom_header')">
-
         <div class="chatty-landscape-frame">
-          <img id="chatty-landscape-view" src="media/images/chatty-wisdom-landscape.png" alt="Chatty Wisdom Landscape Showcase" class="chatty-landscape-img" onerror="handleChattyLandscapeError(this)" onclick="triggerFileSelect('chatty-landscape-file-input')" title="Click to select Chatty landscape image">
-          <div id="chatty-landscape-picker" class="chatty-landscape-fallback" onclick="triggerFileSelect('chatty-landscape-file-input')">🖼️ Click to Select Chatty's Wisdom Landscape Picture</div>
-          <input type="file" id="chatty-landscape-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-landscape-view', 'chatty-landscape-picker', 'chatty_landscape_image')">
+          <img id="chatty-landscape-view" src="Chatty Wisdom Header.png" alt="Chatty's Wisdom" class="chatty-landscape-img">
         </div>
 
         <div class="card-body-frame">
@@ -1552,7 +1327,7 @@
           <p class="card-message-text" id="deck-quote">"Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction."</p>
           <span class="card-number-label" id="deck-number">Card #01 of 99</span>
         </div>
-        <div style="display: flex; gap: 12px; justify-content: center;">
+        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 14px;">
           <button class="btn-draw-card" onclick="drawWisdomCard()">Draw Next Card</button>
           <button class="btn-audio-narrate" style="border-color: var(--purple-accent); color: var(--gold-accent);" onclick="narrateText('deck-title', 'deck-quote')">🔊 Listen to Wisdom</button>
         </div>
@@ -1598,7 +1373,7 @@
       { title: "i m ani (2)", category: "imani story", src: "media/audio/imani story/i m imani/i m ani (2).mp3", duration: "song" },
       { title: "i m ani", category: "imani story", src: "media/audio/imani story/i m imani/i m ani.mp3", duration: "song" },
       { title: "i m imani because", category: "imani story", src: "media/audio/imani story/i m imani/i m imani because.mp3", duration: "song" },
-      { title: "i m imani ignited", category: "imani story", src: "media/audio/imani story/i m imani/i m imani ignited.mp3", duration: "song" },
+      { title: "i m imani ignited", category: "imani story", src: "media/audio/imani story/i m imani/i m ignited.mp3", duration: "song" },
       { title: "i m imani", category: "imani story", src: "media/audio/imani story/i m imani/i m imani.mp3", duration: "song" },
       { title: "i m onyx in the middle", category: "imani story", src: "media/audio/imani story/i m imani/i m onyx in the middle.mp3", duration: "song" },
       { title: "i m unlocking the imani mind", category: "imani story", src: "media/audio/imani story/i m unlocking the imani mind.mp3", duration: "song" },
@@ -1755,69 +1530,6 @@
       }
     }
 
-    function handleUserAudioUpload(event) {
-      const files = Array.from(event.target.files);
-      if (!files.length) return;
-
-      files.forEach(file => {
-        let cleanName = file.name.replace(/\.[^/.]+$/, "");
-        let detectedCategory = "the mysteries";
-
-        let lower = (file.webkitRelativePath || file.name).toLowerCase();
-        if (lower.includes("agreement") || lower.includes("agreements") || lower.includes("assumptions") || lower.includes("personally") || lower.includes("word") || lower.includes("best")) {
-          detectedCategory = "audio agreements";
-        } else if (lower.includes("chatty")) {
-          detectedCategory = "chatty wisdom";
-        } else if (lower.includes("story") || lower.includes("imani story") || lower.includes("law")) {
-          detectedCategory = "imani story";
-        }
-
-        permanentAudioLibrary.push({
-          title: cleanName,
-          category: detectedCategory,
-          src: URL.createObjectURL(file),
-          duration: "Audio File"
-        });
-      });
-
-      renderPlaylistItems();
-    }
-
-    let userArchiveVideos = [
-      { title: "session #01: grand awakening launch", author: "DJ Karma Live", duration: "live replay", src: "media/video/live-session-1.mp4" }
-    ];
-
-    function loadUserArchiveVideos(event) {
-      const files = Array.from(event.target.files);
-      files.forEach(file => {
-        userArchiveVideos.push({
-          title: file.name.replace(/\.[^/.]+$/, ""),
-          author: "Recorded Broadcast",
-          duration: "Local Video",
-          src: URL.createObjectURL(file)
-        });
-      });
-      renderStreamArchive();
-    }
-
-    function renderStreamArchive() {
-      const container = document.getElementById('stream-archive-container');
-      container.innerHTML = '';
-      userArchiveVideos.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'archive-item-card';
-        card.innerHTML = `
-          <span class="archive-item-title">${item.title}</span>
-          <div class="archive-item-meta">
-            <span>${item.author}</span>
-            <span>${item.duration}</span>
-          </div>
-        `;
-        card.onclick = () => playArchivedStream(item.src, item.title);
-        container.appendChild(card);
-      });
-    }
-
     /* 1. MUSIC VIDEO VAULT (02:55 Short Version) */
     const myMusicVideosList = [
       { 
@@ -1888,28 +1600,16 @@
       if (!container) return;
       container.innerHTML = '';
       list.forEach((v, index) => {
-        const inputId = `${containerId}-file-${index}`;
         const videoId = `${containerId}-video-${index}`;
         const card = document.createElement('div');
         card.className = 'video-vault-card';
 
-        const isEmbed = v.src.includes('archive.org/embed') || v.src.includes('youtube.com') || v.src.includes('rumble.com');
-
-        const mediaMarkup = isEmbed
-          ? `<iframe src="${v.src}" allowfullscreen webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`
-          : `<video id="${videoId}" controls playsinline poster="${v.poster}" preload="metadata">
-              <source src="${v.src}" type="video/mp4">
-              Your browser does not support HTML5 video.
-            </video>`;
-
         card.innerHTML = `
           <div class="video-player-container">
-            ${mediaMarkup}
-          </div>
-          <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-            <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
-            <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
-            <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
+            <video id="${videoId}" controls playsinline poster="${v.poster}" preload="metadata">
+              <source src="${v.src}" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
           </div>
           <div class="gallery-card-info">
             <h3 class="gallery-card-title">${v.title}</h3>
@@ -1919,17 +1619,6 @@
         `;
         container.appendChild(card);
       });
-    }
-
-    function loadCardVideo(event, videoElementId) {
-      const file = event.target.files[0];
-      if (file) {
-        const vid = document.getElementById(videoElementId);
-        if (vid) {
-          vid.src = URL.createObjectURL(file);
-          vid.play().catch(() => {});
-        }
-      }
     }
 
     function renderStillGallery(containerId, list) {
@@ -2097,18 +1786,6 @@
       input.value = '';
     }
 
-    function playArchivedStream(srcUrl, sessionTitle) {
-      const liveVideo = document.getElementById('live-video-player');
-      if (hlsInstance) {
-        hlsInstance.destroy();
-        hlsInstance = null;
-      }
-      setStageState(true, `REPLAY: ${sessionTitle.slice(0, 20)}...`);
-      liveVideo.src = srcUrl;
-      liveVideo.play().catch(() => {});
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
     function narrateText(titleId, descId) {
       if (!('speechSynthesis' in window)) {
         alert("Text-to-speech is not supported on this browser.");
@@ -2143,171 +1820,29 @@
       document.getElementById('lightbox-media-container').innerHTML = '';
     }
 
-    function handleImageError(img) {
-      const savedEmblem = localStorage.getItem('imani_header_emblem');
-      if (savedEmblem) {
-        img.src = savedEmblem;
-        img.style.display = 'block';
-        document.getElementById('emblem-picker-box').style.display = 'none';
-      } else {
-        img.style.display = 'none';
-        document.getElementById('emblem-picker-box').style.display = 'inline-block';
-      }
-    }
-
-    function handleChattyImageError(img) {
-      const savedChatty = localStorage.getItem('chatty_wisdom_header');
-      if (savedChatty) {
-        img.src = savedChatty;
-        img.style.display = 'block';
-        document.getElementById('chatty-fallback-text').style.display = 'none';
-      } else {
-        img.style.display = 'none';
-        document.getElementById('chatty-fallback-text').style.display = 'block';
-      }
-    }
-
-    function handleChattyLandscapeError(img) {
-      const savedLandscape = localStorage.getItem('chatty_landscape_image');
-      if (savedLandscape) {
-        img.src = savedLandscape;
-        img.style.display = 'block';
-        document.getElementById('chatty-landscape-picker').style.display = 'none';
-      } else {
-        img.style.display = 'none';
-        document.getElementById('chatty-landscape-picker').style.display = 'block';
-      }
-    }
-
-    function triggerFileSelect(inputId) {
-      document.getElementById(inputId).click();
-    }
-
-    function loadUserImage(event, imgId, fallbackId, storageKey) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const imgData = e.target.result;
-          localStorage.setItem(storageKey, imgData);
-          const img = document.getElementById(imgId);
-          if (img) {
-            img.src = imgData;
-            img.style.display = 'block';
-          }
-          if (fallbackId && document.getElementById(fallbackId)) {
-            document.getElementById(fallbackId).style.display = 'none';
-          }
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
     let hlsInstance = null;
-
-    function setStageState(isLive, badgeText = "ON AIR • LIVE") {
-      const liveVideo = document.getElementById('live-video-player');
-      const standbyVideo = document.getElementById('standby-motion-player');
-      const liveBadge = document.getElementById('live-indicator');
-      const muteBtn = document.getElementById('standby-mute-btn');
-
-      if (isLive) {
-        standbyVideo.style.display = "none";
-        standbyVideo.pause();
-        muteBtn.style.display = "none";
-        liveVideo.style.display = "block";
-        liveBadge.innerText = badgeText;
-        liveBadge.style.borderColor = "var(--gold-accent)";
-        liveBadge.style.color = "var(--gold-accent)";
-      } else {
-        liveVideo.pause();
-        liveVideo.src = "";
-        liveVideo.style.display = "none";
-        standbyVideo.style.display = "block";
-        muteBtn.style.display = "flex";
-        standbyVideo.play().catch(() => {});
-        liveBadge.innerText = "STANDBY • WE R IMANI";
-        liveBadge.style.borderColor = "var(--emerald-accent)";
-        liveBadge.style.color = "var(--emerald-accent)";
-      }
-    }
 
     function connectLiveStream() {
       const video = document.getElementById('live-video-player');
-      const streamUrl = document.getElementById('stream-source-url').value.trim();
-      if (!streamUrl) return;
+      const streamUrl = "http://localhost:8888/live/stage/index.m3u8";
 
       if (hlsInstance) {
         hlsInstance.destroy();
         hlsInstance = null;
       }
 
-      if (streamUrl.includes('.m3u8')) {
-        if (Hls.isSupported()) {
-          hlsInstance = new Hls({ liveSyncDurationCount: 3, liveMaxLatencyDurationCount: 5, enableWorker: true });
-          hlsInstance.loadSource(streamUrl);
-          hlsInstance.attachMedia(video);
-          hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
-            setStageState(true, "ON AIR • HLS LIVE");
-            video.play().catch(() => {});
-          });
-          hlsInstance.on(Hls.Events.ERROR, function (event, data) {
-            if (data.fatal) setStageState(false);
-          });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-          video.src = streamUrl;
-          video.onloadedmetadata = () => {
-            setStageState(true, "ON AIR • LIVE");
-            video.play().catch(() => {});
-          };
-          video.onerror = () => setStageState(false);
-        }
-      } else {
-        video.src = streamUrl;
-        video.onloadeddata = () => {
-          setStageState(true, "MEDIA FEED ACTIVE");
+      if (Hls.isSupported()) {
+        hlsInstance = new Hls({ liveSyncDurationCount: 3, liveMaxLatencyDurationCount: 5, enableWorker: true });
+        hlsInstance.loadSource(streamUrl);
+        hlsInstance.attachMedia(video);
+        hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.style.display = "block";
+          document.getElementById('standby-motion-player').style.display = "none";
+          document.getElementById('live-indicator').innerText = "ON AIR • HLS LIVE";
+          document.getElementById('live-indicator').style.borderColor = "var(--gold-accent)";
+          document.getElementById('live-indicator').style.color = "var(--gold-accent)";
           video.play().catch(() => {});
-        };
-        video.onerror = () => setStageState(false);
-      }
-    }
-
-    function pollStreamHealth() {
-      const streamUrl = document.getElementById('stream-source-url').value.trim();
-      if (!streamUrl || !streamUrl.includes('.m3u8')) return;
-
-      fetch(streamUrl, { method: 'HEAD', cache: 'no-store', mode: 'no-cors' })
-        .then(() => {
-          const liveVideo = document.getElementById('live-video-player');
-          if (liveVideo.style.display === "none") connectLiveStream();
-        })
-        .catch(() => {
-          setStageState(false);
         });
-    }
-
-    setInterval(pollStreamHealth, 15000);
-
-    function loadLocalVideoFile(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const video = document.getElementById('live-video-player');
-        if (hlsInstance) {
-          hlsInstance.destroy();
-          hlsInstance = null;
-        }
-        setStageState(true, `PLAYING: ${file.name.slice(0, 18)}...`);
-        video.src = URL.createObjectURL(file);
-        video.play().catch(() => {});
-      }
-    }
-
-    function loadStandbyVideoFile(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const standbyVideo = document.getElementById('standby-motion-player');
-        standbyVideo.src = URL.createObjectURL(file);
-        standbyVideo.play().catch(() => {});
       }
     }
 
@@ -2447,7 +1982,6 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       renderPlaylistItems();
-      renderStreamArchive();
       renderVideoVault('music-video-gallery-container', myMusicVideosList);
       renderVideoVault('cinema-gallery-container', myCinemaList);
       renderStillGallery('still-gallery-container', myStillArtList);
@@ -2465,36 +1999,8 @@
       renderMatrixButtons('codes-buttons', codesData, 'code-tag', 'code-title', 'code-desc', 'code-display');
       renderMatrixButtons('boycott-buttons', boycottData, 'boycott-tag', 'boycott-title', 'boycott-desc', 'boycott-display');
 
-      const savedEmblem = localStorage.getItem('imani_header_emblem');
-      if (savedEmblem) {
-        const img = document.getElementById('header-emblem-view');
-        img.src = savedEmblem;
-        img.style.display = 'block';
-        document.getElementById('emblem-picker-box').style.display = 'none';
-      }
-
-      const savedChatty = localStorage.getItem('chatty_wisdom_header');
-      if (savedChatty) {
-        const img = document.getElementById('chatty-header-view');
-        img.src = savedChatty;
-        img.style.display = 'block';
-        document.getElementById('chatty-fallback-text').style.display = 'none';
-      }
-
-      const savedLandscape = localStorage.getItem('chatty_landscape_image');
-      if (savedLandscape) {
-        const img = document.getElementById('chatty-landscape-view');
-        img.src = savedLandscape;
-        img.style.display = 'block';
-        document.getElementById('chatty-landscape-picker').style.display = 'none';
-      }
-
       const standbyVideo = document.getElementById('standby-motion-player');
       standbyVideo.play().catch(() => {});
-
-      setTimeout(() => {
-        connectLiveStream();
-      }, 1000);
     });
   </script>
 </body>
