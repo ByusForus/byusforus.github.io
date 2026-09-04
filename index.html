@@ -5,29 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ImanI — Live Stage, Cultural Vault & Doctrine</title>
   
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-
-  <link rel="icon" type="image/png" href="header-emblem.png.png">
+  <!-- PWA Manifest & App Metas -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ImanI">
 
+  <!-- Direct HLS Live Streaming Engine -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   
   <style>
     :root {
       --onyx-deep: #000000;
-      --onyx-surface: rgba(12, 14, 13, 0.94);
-      --onyx-card: rgba(20, 22, 21, 0.92);
-      --onyx-border: #222a25;
+      --onyx-surface: rgba(14, 14, 14, 0.94);
+      --onyx-card: rgba(22, 22, 22, 0.92);
+      --onyx-border: #222624;
       --emerald-accent: #00D06C;
-      --emerald-glow: rgba(0, 208, 108, 0.35);
+      --emerald-glow: rgba(0, 208, 108, 0.25);
       --gold-accent: #FFD15C;
-      --gold-glow: rgba(255, 209, 92, 0.3);
+      --gold-glow: rgba(255, 209, 92, 0.2);
       --purple-accent: #A855F7;
       --purple-glow: rgba(168, 85, 247, 0.3);
       --text-main: #F4F6F5;
@@ -49,25 +46,15 @@
       line-height: 1.6;
       padding-bottom: 60px;
       min-height: 100vh;
-      background: 
-        radial-gradient(ellipse at 12% 20%, rgba(0, 235, 120, 0.35) 0%, transparent 40%),
-        radial-gradient(circle at 18% 60%, rgba(0, 180, 90, 0.28) 0%, transparent 45%),
-        linear-gradient(135deg, rgba(0, 60, 30, 0.95) 0%, rgba(2, 35, 18, 0.98) 28%, transparent 33.33%),
-        radial-gradient(ellipse at 88% 20%, rgba(255, 215, 80, 0.35) 0%, transparent 40%),
-        radial-gradient(circle at 82% 65%, rgba(212, 160, 23, 0.28) 0%, transparent 45%),
-        linear-gradient(225deg, rgba(85, 60, 10, 0.95) 0%, rgba(45, 30, 4, 0.98) 28%, transparent 33.33%),
-        linear-gradient(
-          90deg,
-          #022613 0%,
-          #043d1f 18%,
-          #011e0e 30%,
-          #000000 33.33%,
-          #080808 50%,
-          #000000 66.66%,
-          #2c1c02 70%,
-          #4d3706 82%,
-          #241701 100%
-        );
+      background: linear-gradient(
+        90deg,
+        rgba(0, 75, 40, 0.95) 0%,
+        rgba(0, 110, 58, 0.8) 30%,
+        #000000 33.33%,
+        #000000 66.66%,
+        rgba(145, 105, 15, 0.8) 70%,
+        rgba(100, 72, 10, 0.95) 100%
+      );
       background-attachment: fixed;
       background-size: cover;
     }
@@ -78,7 +65,7 @@
       padding: 12px 20px;
       position: relative;
       z-index: 101;
-      box-shadow: 0 2px 20px var(--gold-glow);
+      box-shadow: 0 2px 15px var(--gold-glow);
     }
 
     .pause-content {
@@ -152,6 +139,51 @@
       letter-spacing: 0.05em;
     }
 
+    /* Dynamic Guidance Bar */
+    .fast-guidance-bar {
+      max-width: 1200px;
+      margin: 12px auto 0 auto;
+      background: rgba(22, 22, 22, 0.95);
+      border: 1px solid var(--emerald-accent);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 0 14px var(--emerald-glow);
+    }
+
+    .guidance-phase-badge {
+      background: var(--onyx-card);
+      border: 1px solid var(--gold-accent);
+      color: var(--gold-accent);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .guidance-body {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    .guidance-body strong {
+      color: var(--emerald-accent);
+    }
+
+    @media (max-width: 768px) {
+      .fast-guidance-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+
     header {
       border-bottom: 1px solid var(--onyx-border);
       background: rgba(0, 0, 0, 0.98);
@@ -173,11 +205,9 @@
 
     .header-left, .header-right {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      gap: 8px;
     }
 
     .header-proclamation {
@@ -196,26 +226,6 @@
     .header-proclamation.gold {
       color: var(--gold-accent);
       text-shadow: 0 0 16px var(--gold-glow), 0 0 30px rgba(255, 209, 92, 0.35);
-    }
-
-    .btn-talk-modal-trigger {
-      background: var(--onyx-card);
-      border: 1px solid var(--gold-accent);
-      color: var(--gold-accent);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      cursor: pointer;
-      letter-spacing: 0.04em;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 10px var(--gold-glow);
-    }
-
-    .btn-talk-modal-trigger:hover {
-      background: var(--gold-accent);
-      color: #000;
-      transform: translateY(-1px);
     }
 
     @media (max-width: 900px) {
@@ -245,6 +255,26 @@
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 20px rgba(255, 209, 92, 0.35));
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .header-emblem-large:hover {
+      transform: scale(1.02);
+    }
+
+    .emblem-fallback-picker {
+      display: none;
+      border: 2px dashed var(--gold-accent);
+      background: var(--onyx-card);
+      padding: 16px 24px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      cursor: pointer;
+      color: var(--gold-accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 0 15px var(--gold-glow);
     }
 
     main {
@@ -496,6 +526,83 @@
       color: #000;
     }
 
+    .stream-controls-bar {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(14, 14, 14, 0.9);
+      border: 1px solid var(--onyx-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      backdrop-filter: blur(10px);
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .stream-url-input {
+      background: var(--onyx-card);
+      border: 1px solid var(--onyx-border);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      flex: 1;
+      min-width: 180px;
+      outline: none;
+    }
+
+    .stream-url-input:focus {
+      border-color: var(--emerald-accent);
+    }
+
+    .stream-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-stream-action {
+      background: var(--emerald-accent);
+      color: #000;
+      border: none;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-stream-action:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    .standby-file-btn {
+      background: var(--onyx-card);
+      color: var(--gold-accent);
+      border: 1px solid var(--gold-accent);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .standby-file-btn:hover {
+      background: rgba(255, 209, 92, 0.15);
+      transform: translateY(-1px);
+    }
+
     .stage-chat-card {
       background: var(--onyx-surface);
       border: 1px solid var(--onyx-border);
@@ -523,16 +630,6 @@
       display: flex;
       align-items: center;
       gap: 6px;
-    }
-
-    .council-sub-banner {
-      background: rgba(0, 0, 0, 0.75);
-      border-bottom: 1px solid var(--onyx-border);
-      padding: 6px 16px;
-      font-size: 0.76rem;
-      color: var(--gold-accent);
-      font-weight: 600;
-      letter-spacing: 0.03em;
     }
 
     .chat-messages-scroll {
@@ -608,6 +705,68 @@
       padding: 8px 18px;
       border-radius: var(--radius-sm);
       cursor: pointer;
+    }
+
+    .stream-archive-card {
+      background: var(--onyx-surface);
+      border: 1px solid var(--emerald-accent);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--emerald-glow);
+    }
+
+    .archive-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .archive-header-row h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--emerald-accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stream-archive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .archive-item-card {
+      background: var(--onyx-card);
+      border: 1px solid var(--onyx-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .archive-item-card:hover {
+      border-color: var(--gold-accent);
+      transform: translateY(-2px);
+      background: rgba(255, 209, 92, 0.08);
+    }
+
+    .archive-item-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .archive-item-meta {
+      font-size: 0.76rem;
+      color: var(--gold-accent);
+      display: flex;
+      justify-content: space-between;
     }
 
     .calendar-card {
@@ -708,13 +867,11 @@
     .track-details h4 {
       font-size: 1.1rem;
       color: var(--text-main);
-      text-transform: capitalize;
     }
 
     .track-details p {
       font-size: 0.85rem;
       color: var(--text-muted);
-      text-transform: capitalize;
     }
 
     .audio-playback-controls {
@@ -796,6 +953,8 @@
       margin-bottom: 6px;
       border-bottom: 1px solid var(--onyx-border);
       padding-bottom: 8px;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .audio-tab-btn {
@@ -804,7 +963,7 @@
       color: var(--text-muted);
       font-size: 0.76rem;
       font-weight: 700;
-      padding: 5px 12px;
+      padding: 4px 10px;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -813,7 +972,23 @@
     .audio-tab-btn.active, .audio-tab-btn:hover {
       border-color: var(--emerald-accent);
       color: var(--emerald-accent);
-      background: rgba(0, 208, 108, 0.15);
+      background: rgba(0, 208, 108, 0.12);
+    }
+
+    .btn-load-audio-files {
+      background: var(--gold-accent);
+      color: #000;
+      border: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-load-audio-files:hover {
+      transform: translateY(-1px);
     }
 
     .playlist-items-scroll {
@@ -822,6 +997,34 @@
       gap: 8px;
       max-height: 280px;
       overflow-y: auto;
+    }
+
+    .playlist-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--onyx-card);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .playlist-item:hover, .playlist-item.active {
+      border-color: var(--emerald-accent);
+      background: #1e2924;
+    }
+
+    .track-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .track-duration {
+      font-size: 0.8rem;
+      color: var(--gold-accent);
     }
 
     .picture-gallery-grid {
@@ -868,7 +1071,6 @@
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--text-main);
-      text-transform: capitalize;
     }
 
     .gallery-card-lore {
@@ -908,21 +1110,11 @@
       box-shadow: 0 10px 24px var(--emerald-glow);
     }
 
-    .video-player-container {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000;
-      display: block;
-      position: relative;
-    }
-
     .video-player-container video {
       width: 100%;
-      height: 100%;
       aspect-ratio: 16 / 9;
       background: #000;
       display: block;
-      border: none;
       border-bottom: 1px solid var(--onyx-border);
     }
 
@@ -975,24 +1167,35 @@
       backdrop-filter: blur(12px);
     }
 
+    .chatty-transparent-emblem {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      max-height: 190px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 16px auto;
+      cursor: pointer;
+    }
+
     .chatty-landscape-frame {
       width: 100%;
-      max-width: 720px;
+      max-width: 820px;
       margin: 12px auto 24px auto;
       border-radius: var(--radius-md);
       overflow: hidden;
       border: 1px solid var(--purple-accent);
-      background: #000;
+      background: #080808;
     }
 
     .chatty-landscape-img {
       width: 100%;
       height: auto;
-      max-height: 380px;
+      max-height: 420px;
       aspect-ratio: 16 / 9;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
-      margin: 0 auto;
+      cursor: pointer;
     }
 
     .btn-draw-card {
@@ -1006,7 +1209,6 @@
       cursor: pointer;
     }
 
-    /* Modal / Lightbox System */
     .lightbox-backdrop {
       display: none;
       position: fixed;
@@ -1063,57 +1265,11 @@
       font-size: 2rem;
       cursor: pointer;
     }
-
-    /* Dialogue Modal Specifics */
-    .dialogue-modal-box {
-      background: var(--onyx-surface);
-      border: 1px solid var(--gold-accent);
-      border-radius: var(--radius-md);
-      box-shadow: 0 0 35px var(--gold-glow);
-      width: 100%;
-      max-width: 580px;
-      padding: 28px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      position: relative;
-    }
-
-    .dialogue-field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      text-align: left;
-    }
-
-    .dialogue-label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--gold-accent);
-      letter-spacing: 0.05em;
-    }
-
-    .dialogue-input, .dialogue-textarea, .dialogue-select {
-      background: var(--onyx-card);
-      border: 1px solid var(--onyx-border);
-      color: var(--text-main);
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 0.9rem;
-      outline: none;
-      width: 100%;
-      font-family: inherit;
-    }
-
-    .dialogue-input:focus, .dialogue-textarea:focus, .dialogue-select:focus {
-      border-color: var(--emerald-accent);
-    }
   </style>
 </head>
 <body>
 
-  <!-- 7-Day Economic Fast Banner -->
+  <!-- 7-Day Economic Fast Banner with Daily Suggestions -->
   <div class="pause-banner">
     <div class="pause-content">
       <div class="pause-text-wrap">
@@ -1130,6 +1286,15 @@
         <div class="countdown-unit"><div class="countdown-val" id="cd-secs">00</div><div class="countdown-lbl">Secs</div></div>
       </div>
     </div>
+
+    <!-- Real-Time Fast Daily Guidance Engine -->
+    <div class="fast-guidance-bar" id="fast-guidance-container">
+      <div class="guidance-phase-badge" id="guidance-phase">STEALTH DRILL</div>
+      <div class="guidance-body">
+        <strong id="guidance-title">Strategic Preparation</strong>: 
+        <span id="guidance-text">Audit all commercial spending. Prepare your household reserves so you do not spend a single cent during the upcoming 7-day observance.</span>
+      </div>
+    </div>
   </div>
 
   <!-- Header -->
@@ -1137,25 +1302,31 @@
     <div class="header-layout">
       <div class="header-left">
         <div class="header-proclamation emerald">ImanI is the new breed</div>
-        <button class="btn-talk-modal-trigger" onclick="openDialogueModal()">💬 Let's Talk About It</button>
       </div>
       <div class="header-center">
         <img 
-          id="header-emblem-view" 
-          src="header-emblem.png.png" 
+          id="header-emblem-view"
+          src="media/images/header-emblem.png" 
           alt="ImanI Golden Sovereign Man Between Pillars" 
           class="header-emblem-large"
+          onerror="handleImageError(this)"
+          onclick="triggerFileSelect('emblem-file-input')"
+          title="Click to select header emblem"
         >
+        <div id="emblem-picker-box" class="emblem-fallback-picker" onclick="triggerFileSelect('emblem-file-input')">
+          🏛️ Click to Select Header Emblem Image
+        </div>
+        <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'emblem-picker-box', 'imani_header_emblem')">
       </div>
       <div class="header-right">
-        <div class="header-proclamation gold">Onyx is the mineral stone</div>
+        <div class="header-proclamation gold">Onyx is the new black</div>
       </div>
     </div>
   </header>
 
   <main>
 
-    <!-- 1. Live Broadcast Stage & Council Feed -->
+    <!-- 1. Live Broadcast Stage & Chat -->
     <section>
       <div class="stage-column-layout">
         <div class="stream-viewport" id="stream-viewport-container">
@@ -1164,11 +1335,12 @@
             🔊 <span id="standby-mute-text">Unmute Music</span>
           </button>
 
+          <!-- Standby Loop Player: Unity in Motion -->
           <video 
             id="standby-motion-player" 
             class="stream-video-element" 
             src="unity in motion.mp4"
-            poster="header-emblem.png.png"
+            poster="media/images/we-r-imani-poster.png"
             autoplay loop muted playsinline
             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
           ></video>
@@ -1179,15 +1351,23 @@
             controls playsinline 
             style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; display: none; background: #000;"
           >Your browser does not support HTML5 video.</video>
+
+          <div class="stream-controls-bar">
+            <input type="text" id="stream-source-url" class="stream-url-input" placeholder="HLS Stream URL (.m3u8) or video file path (.mp4)..." value="http://localhost:8888/live/stage/index.m3u8">
+            <div class="stream-actions-group">
+              <button class="btn-stream-action" onclick="connectLiveStream()">📡 Connect Stream</button>
+              <button class="btn-stream-action" style="background: var(--gold-accent);" onclick="triggerFileSelect('local-video-input')">📁 Load Live</button>
+              <button class="standby-file-btn" onclick="triggerFileSelect('standby-file-input')">🎬 Set Standby</button>
+              <input type="file" id="local-video-input" accept="video/*" style="display: none;" onchange="loadLocalVideoFile(event)">
+              <input type="file" id="standby-file-input" accept="video/*" style="display: none;" onchange="loadStandbyVideoFile(event)">
+            </div>
+          </div>
         </div>
 
         <div class="stage-chat-card">
           <div class="chat-header">
-            <h4>🏛️ Enter the Council</h4>
-            <span style="font-size: 0.72rem; color: var(--emerald-accent); font-weight: 700;">🟢 STAGE FEED</span>
-          </div>
-          <div class="council-sub-banner">
-            🛡️ Operating under the Code of Silence: We move with intention and preserve internal unity.
+            <h4>💬 Stage Chat & Live Feed</h4>
+            <span style="font-size: 0.72rem; color: var(--emerald-accent); font-weight: 700;">🟢 LIVE SYNC</span>
           </div>
           <div class="chat-messages-scroll" id="chat-messages-container">
             <div class="chat-bubble council">
@@ -1200,32 +1380,41 @@
             <button class="chat-send-btn" onclick="sendChatMessage()">Send</button>
           </div>
         </div>
+
+        <div class="stream-archive-card">
+          <div class="archive-header-row">
+            <h3>📼 On-Demand Live Stream Archive</h3>
+            <button class="btn-load-audio-files" onclick="triggerFileSelect('archive-video-input')">➕ Add Archive Video</button>
+            <input type="file" id="archive-video-input" accept="video/*" multiple style="display: none;" onchange="loadUserArchiveVideos(event)">
+          </div>
+          <div class="stream-archive-grid" id="stream-archive-container"></div>
+        </div>
       </div>
     </section>
 
     <!-- 2. Origin & Revelation -->
     <section>
-      <h2 class="section-title">the Origin & Revelation of ImanI</h2>
+      <h2 class="section-title">The Origin & Revelation of ImanI</h2>
       <div class="button-matrix" id="origins-buttons"></div>
       <div class="revelation-box" id="origin-display">
         <div class="rev-header-wrap">
           <div><div class="rev-tag" id="origin-tag">Ontology</div><h3 class="rev-title" id="origin-title">Sovereign Ontology</h3></div>
           <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
         </div>
-        <p class="rev-content" id="origin-desc">Moving away from assigned, descriptive adjectives that describe a condition, <strong>ImanI</strong> is a proper noun anchored by the sacred mineral triad: <strong>Emerald</strong> for growth and awakening, <strong>Onyx</strong> for foundation and strength, and <strong>Gold</strong> for eternal value and sovereignty.</p>
+        <p class="rev-content" id="origin-desc">Moving away from assigned, descriptive adjectives like "black" that describe a shadow or condition, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
       </div>
     </section>
 
     <!-- 3. Ten Mysteries -->
     <section>
-      <h2 class="section-title">the Ten Mysteries of the Name</h2>
+      <h2 class="section-title">The Ten Mysteries of the Name</h2>
       <div class="button-matrix" id="mysteries-buttons"></div>
       <div class="revelation-box" id="mystery-display">
         <div class="rev-header-wrap">
-          <div><div class="rev-tag" id="mystery-tag">mystery 01</div><h3 class="rev-title" id="mystery-title">Alpha and Omega</h3></div>
+          <div><div class="rev-tag" id="mystery-tag">Mystery 01</div><h3 class="rev-title" id="mystery-title">Alpha and Omega</h3></div>
           <button class="btn-audio-narrate" onclick="narrateText('mystery-title', 'mystery-desc')">🔊 Listen</button>
         </div>
-        <p class="rev-content" id="mystery-desc">the two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination.</p>
+        <p class="rev-content" id="mystery-desc">The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination.</p>
       </div>
     </section>
 
@@ -1244,7 +1433,7 @@
 
     <!-- 5. 9 Pillars of Restitution -->
     <section>
-      <h2 class="section-title">the 9 Pillars of Total Restitution (Specie Standard)</h2>
+      <h2 class="section-title">The 9 Pillars of Total Restitution (Specie Standard)</h2>
       <div class="button-matrix" id="restitution-buttons"></div>
       <div class="revelation-box" id="restitution-display">
         <div class="rev-header-wrap">
@@ -1281,7 +1470,7 @@
           ⚡ Break the chains of commercialized tradition — Reclaim your power!
         </p>
         <p style="font-size: 1.05rem; color: var(--text-main); line-height: 1.7;">
-          American Holidays were <strong>never designed with us in mind</strong>, and we never had a voice in their creation! Whenever we forged our own sacred moments, they outlawed our celebrations only to repackage and sell them back to us as empty consumerism. We dishonor our own divine dignity when we finance and celebrate the rituals of our oppression. <strong>the era of blind compliance is over!</strong> Rise up, stand tall in sovereign majesty, and boldly <strong>SAY NO to American holidays</strong> — ignite your spirit and celebrate true independence!
+          American Holidays were <strong>never designed with us in mind</strong>, and we never had a voice in their creation! Whenever we forged our own sacred moments, they outlawed our celebrations only to repackage and sell them back to us as empty consumerism. We dishonor our own divine dignity when we finance and celebrate the rituals of our oppression. <strong>The era of blind compliance is over!</strong> Rise up, stand tall in sovereign majesty, and boldly <strong>SAY NO to American holidays</strong> — ignite your spirit and celebrate true independence!
         </p>
       </div>
 
@@ -1300,7 +1489,7 @@
       <h2 class="section-title">2026–2027 Federal Holiday Economic Fast Calendar</h2>
       <div class="calendar-card">
         <p style="font-size: 0.95rem; color: var(--text-muted);">
-          Synchronize your economic fast across the year. the 3 + 1 + 3 formula frames 7 complete days of self-reliance for every federal observance.
+          Synchronize your economic fast across the year. The 3 + 1 + 3 formula frames 7 complete days of self-reliance for every federal observance.
         </p>
         <div class="holiday-table-wrap">
           <table class="holiday-table">
@@ -1326,7 +1515,7 @@
       <div class="picture-gallery-grid" id="boycott-gallery-container"></div>
     </section>
 
-    <!-- 10. Dynamic Audio Vault -->
+    <!-- 10. Dynamic Audio Vault with Full Master Track List -->
     <section>
       <h2 class="section-title">ImanI Audio Vault</h2>
       <div class="vault-grid">
@@ -1334,16 +1523,18 @@
           <div class="track-meta">
             <div class="track-art">IM</div>
             <div class="track-details">
-              <h4 id="current-title">Mystery 1 Cycle Of Imani Female</h4>
-              <p id="current-category">the mysteries</p>
+              <h4 id="current-title">I M ImanI (We Rise & We Grind)</h4>
+              <p id="current-category">ImanI story</p>
             </div>
           </div>
 
+          <!-- Audio Element with Auto Next-Track Listener -->
           <audio id="main-audio" controls onended="handleTrackEnded()">
-            <source id="main-audio-source" src="media/audio/the mysteries/mystery 1 cycle of imani female.mp3" type="audio/mpeg">
+            <source id="main-audio-source" src="media/audio/ImanI story/I M ImanI/I M ImanI (2).mp3" type="audio/mpeg">
             Your browser does not support audio elements.
           </audio>
 
+          <!-- Playback Modes Control Bar -->
           <div class="audio-playback-controls">
             <div style="display: flex; gap: 8px;">
               <button class="playback-toggle-btn active" id="btn-continuous" onclick="toggleContinuousPlay()">
@@ -1362,12 +1553,16 @@
 
         <div class="playlist-card">
           <div class="audio-tabs-bar">
-            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="audio-tabs-container">
-              <button class="audio-tab-btn active" onclick="setAudioCategory('all', this)">All Audio</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('the mysteries', this)">The Mysteries</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('imani story', this)">ImanI Story</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('audio agreements', this)">Audio Agreements</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('chatty wisdom', this)">Chatty Wisdom</button>
+            <div style="display: flex; gap: 6px;" id="audio-tabs-container">
+              <button class="audio-tab-btn active" onclick="setAudioCategory('ALL', this)">All Audio</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('The mysteries', this)">The mysteries</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('ImanI story', this)">ImanI story</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('Audio Agreements', this)">Audio Agreements</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('Chatty Wisdom', this)">Chatty Wisdom</button>
+            </div>
+            <div>
+              <button class="btn-load-audio-files" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
+              <input type="file" id="audio-folder-input" accept="audio/*" multiple style="display: none;" onchange="handleUserAudioUpload(event)">
             </div>
           </div>
           <div class="playlist-items-scroll" id="playlist-items-container"></div>
@@ -1405,16 +1600,22 @@
       </div>
 
       <div class="wisdom-card revealed" id="wisdom-card-container">
+        <img id="chatty-header-view" src="media/images/Chatty%20Wisdom%20Header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="triggerFileSelect('chatty-file-input')" title="Click to select Chatty graphic">
+        <div id="chatty-fallback-text" class="chatty-fallback-text" onclick="triggerFileSelect('chatty-file-input')">💜 CHATTY'S WISDOM</div>
+        <input type="file" id="chatty-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-header-view', 'chatty-fallback-text', 'chatty_wisdom_header')">
+
         <div class="chatty-landscape-frame">
-          <img id="chatty-landscape-view" src="Chatty Wisdom Header.png" alt="Chatty's Wisdom" class="chatty-landscape-img">
+          <img id="chatty-landscape-view" src="media/images/chatty-wisdom-landscape.png" alt="Chatty Wisdom Landscape Showcase" class="chatty-landscape-img" onerror="handleChattyLandscapeError(this)" onclick="triggerFileSelect('chatty-landscape-file-input')" title="Click to select Chatty landscape image">
+          <div id="chatty-landscape-picker" class="chatty-landscape-fallback" onclick="triggerFileSelect('chatty-landscape-file-input')">🖼️ Click to Select Chatty's Wisdom Landscape Picture</div>
+          <input type="file" id="chatty-landscape-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-landscape-view', 'chatty-landscape-picker', 'chatty_landscape_image')">
         </div>
 
         <div class="card-body-frame">
-          <h3 class="card-title-text" id="deck-title">the Checkmate Perspective</h3>
+          <h3 class="card-title-text" id="deck-title">The Checkmate Perspective</h3>
           <p class="card-message-text" id="deck-quote">"Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction."</p>
           <span class="card-number-label" id="deck-number">Card #01 of 99</span>
         </div>
-        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 14px;">
+        <div style="display: flex; gap: 12px; justify-content: center;">
           <button class="btn-draw-card" onclick="drawWisdomCard()">Draw Next Card</button>
           <button class="btn-audio-narrate" style="border-color: var(--purple-accent); color: var(--gold-accent);" onclick="narrateText('deck-title', 'deck-quote')">🔊 Listen to Wisdom</button>
         </div>
@@ -1423,7 +1624,6 @@
 
   </main>
 
-  <!-- Media Lightbox Modal -->
   <div id="lightbox-modal" class="lightbox-backdrop" onclick="closeMediaLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeMediaLightbox()">&times;</button>
@@ -1432,140 +1632,79 @@
     </div>
   </div>
 
-  <!-- "Let's Talk About It" Private Dialogue Modal -->
-  <div id="dialogue-modal" class="lightbox-backdrop" onclick="closeDialogueModal()">
-    <div class="dialogue-modal-box" onclick="event.stopPropagation()">
-      <button class="lightbox-close-btn" onclick="closeDialogueModal()">&times;</button>
-      <div style="text-align: left; border-bottom: 1px solid var(--onyx-border); padding-bottom: 10px;">
-        <h3 style="color: var(--gold-accent); font-size: 1.25rem; font-weight: 800;">Let's Talk About It</h3>
-        <p style="font-size: 0.8rem; color: var(--emerald-accent); margin-top: 2px;">🛡️ Operating under the Code of Silence: Direct Lineage Transmission</p>
-      </div>
-
-      <div class="dialogue-field-group">
-        <label class="dialogue-label">Sovereign / Full Name</label>
-        <input type="text" id="dialogue-name" class="dialogue-input" placeholder="Your name...">
-      </div>
-
-      <div class="dialogue-field-group">
-        <label class="dialogue-label">Transmission Line (Email)</label>
-        <input type="email" id="dialogue-email" class="dialogue-input" placeholder="email@domain.com...">
-      </div>
-
-      <div class="dialogue-field-group">
-        <label class="dialogue-label">Focus Area</label>
-        <select id="dialogue-focus" class="dialogue-select">
-          <option value="private-arrangement">Private Arrangement & Access</option>
-          <option value="economic-fast">7-Day Economic Fast Strategy</option>
-          <option value="lineage-ontology">Lineage & Sovereign Ontology</option>
-          <option value="music-visuals">Music, Visuals & Cultural Vault</option>
-        </select>
-      </div>
-
-      <div class="dialogue-field-group">
-        <label class="dialogue-label">Your Perspective / Message</label>
-        <textarea id="dialogue-message" class="dialogue-textarea" rows="4" placeholder="Transmit thought or inquiry..."></textarea>
-      </div>
-
-      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px;">
-        <button class="btn-talk-modal-trigger" style="background: var(--gold-accent); color: #000;" onclick="submitDialogue()">Transmit Message</button>
-      </div>
-    </div>
-  </div>
-
   <script>
+    // =========================================================================
+    // PERMANENT AUDIO MANIFEST
+    // =========================================================================
+
     let permanentAudioLibrary = [
-      // 1. THE MYSTERIES
-      { title: "mystery 1 cycle of imani female", category: "the mysteries", src: "media/audio/the mysteries/mystery 1 cycle of imani female.mp3", duration: "song" },
-      { title: "mystery 1 cycle of imani male", category: "the mysteries", src: "media/audio/the mysteries/mystery 1 cycle of imani male.mp3", duration: "song" },
-      { title: "mystery 2 the mirror that doesn't lie", category: "the mysteries", src: "media/audio/the mysteries/mystery 2 the mirror that doesn't lie.wav", duration: "song" },
-      { title: "mystery 3 between the pillars", category: "the mysteries", src: "media/audio/the mysteries/mystery 3 between the pillars.mp3", duration: "song" },
-      { title: "mystery 4 solar and lunar power", category: "the mysteries", src: "media/audio/the mysteries/mystery 4 solar and lunar power.mp3", duration: "song" },
-      { title: "mystery 5 i and i, essence and unity", category: "the mysteries", src: "media/audio/the mysteries/mystery 5 i and i, essence and unity.mp3", duration: "song" },
-      { title: "mystery 6 i m is i am", category: "the mysteries", src: "media/audio/the mysteries/mystery 6 i m is i am.mp3", duration: "song" },
-      { title: "mystery 7 i m ani i m beautiful", category: "the mysteries", src: "media/audio/the mysteries/mystery 7 i m ani i m beautiful.mp3", duration: "song" },
-      { title: "mystery 8 the initiation the scraed circle", category: "the mysteries", src: "media/audio/the mysteries/mystery 8 the initiation the scraed circle.wav", duration: "song" },
-      { title: "mystery 9 we got systems too", category: "the mysteries", src: "media/audio/the mysteries/mystery 9 we got systems too.mp3", duration: "song" },
-      { title: "mystery 10 rythm of return", category: "the mysteries", src: "media/audio/the mysteries/mystery 10 rythm of return.wav", duration: "song" },
+      { title: "Mystery 1 Cycle of ImanI Female", category: "The mysteries", src: "media/audio/The mysteries/Mystery 1 Cycle of ImanI Female.mp3", duration: "Song" },
+      { title: "Mystery 1 Cycle of ImanI male", category: "The mysteries", src: "media/audio/The mysteries/Mystery 1 Cycle of ImanI male.mp3", duration: "Song" },
+      { title: "mystery 2 the mirror that doesn't lie", category: "The mysteries", src: "media/audio/The mysteries/mystery 2 the mirror that doesn't lie.wav", duration: "Song" },
+      { title: "mystery 3 Between the Pillars", category: "The mysteries", src: "media/audio/The mysteries/mystery 3 Between the Pillars.mp3", duration: "Song" },
+      { title: "mystery 4 Solar and Lunar Power", category: "The mysteries", src: "media/audio/The mysteries/mystery 4 Solar and Lunar Power.mp3", duration: "Song" },
+      { title: "Mystery 5 I and I, Essence and Unity", category: "The mysteries", src: "media/audio/The mysteries/Mystery 5 I and I, Essence and Unity.mp3", duration: "Song" },
+      { title: "Mystery 6 I M is I Am", category: "The mysteries", src: "media/audio/The mysteries/Mystery 6 I M is I Am.mp3", duration: "Song" },
+      { title: "Mystery 7 I M Ani I M Beautiful", category: "The mysteries", src: "media/audio/The mysteries/Mystery 7 I M Ani I M Beautiful.mp3", duration: "Song" },
+      { title: "mystery 8 The Iniciation The Scraed Circle", category: "The mysteries", src: "media/audio/The mysteries/mystery 8 The Iniciation The Scraed Circle.wav", duration: "Song" },
+      { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/The mysteries/Mystery 9 We Got Systems Too.mp3", duration: "Song" },
+      { title: "Mystery 10 Rythm of Return", category: "The mysteries", src: "media/audio/The mysteries/Mystery 10 Rythm of Return.wav", duration: "Song" },
+      { title: "I M Ani I M Beautiful (No Permission Required)", category: "The mysteries", src: "media/audio/ImanI story/I M ImanI/I M Ani I M Beautiful.mp3", duration: "Song" },
+      { title: "Checkmate Mindset (Strategy Over Noise)", category: "The mysteries", src: "media/audio/ImanI story/I M ImanI/Checkmate Mindset.mp3", duration: "Song" },
 
-      // 2. IMANI STORY (Inside media/audio/imani story/i m imani/)
-      { title: "We R Imani (2)", category: "imani story", src: "media/audio/imani story/i m imani/We R Imani (2).mp3", duration: "song" },
-      { title: "celebrate our voices", category: "imani story", src: "media/audio/imani story/i m imani/celebrate our voices.mp3", duration: "song" },
-      { title: "checkmate mindset (1)", category: "imani story", src: "media/audio/imani story/i m imani/checkmate mindset (1).mp3", duration: "song" },
-      { title: "checkmate mindset", category: "imani story", src: "media/audio/imani story/i m imani/checkmate mindset.mp3", duration: "song" },
-      { title: "declaration of the new breed female music", category: "imani story", src: "media/audio/imani story/i m imani/declaration of the new breed female music.mp3", duration: "song" },
-      { title: "declaration of the new breed", category: "imani story", src: "media/audio/imani story/i m imani/declaration of the new breed.mp3", duration: "song" },
-      { title: "echoes of tomorrow", category: "imani story", src: "media/audio/imani story/i m imani/echoes of tomorrow.mp3", duration: "song" },
-      { title: "i am ani (1)", category: "imani story", src: "media/audio/imani story/i m imani/i am ani (1).mp3", duration: "song" },
-      { title: "i am ani (2)", category: "imani story", src: "media/audio/imani story/i m imani/i am ani (2).mp3", duration: "song" },
-      { title: "i am ani", category: "imani story", src: "media/audio/imani story/i m imani/i am ani.mp3", duration: "song" },
-      { title: "i m ani (2)", category: "imani story", src: "media/audio/imani story/i m imani/i m ani (2).mp3", duration: "song" },
-      { title: "i m ani", category: "imani story", src: "media/audio/imani story/i m imani/i m ani.mp3", duration: "song" },
-      { title: "i m imani because", category: "imani story", src: "media/audio/imani story/i m imani/i m imani because.mp3", duration: "song" },
-      { title: "i m imani ignited", category: "imani story", src: "media/audio/imani story/i m imani/i m ignited.mp3", duration: "song" },
-      { title: "i m imani", category: "imani story", src: "media/audio/imani story/i m imani/i m imani.mp3", duration: "song" },
-      { title: "i m onyx in the middle", category: "imani story", src: "media/audio/imani story/i m imani/i m onyx in the middle.mp3", duration: "song" },
-      { title: "i m unlocking the imani mind", category: "imani story", src: "media/audio/imani story/i m unlocking the imani mind.mp3", duration: "song" },
-      { title: "i m written in the law", category: "imani story", src: "media/audio/imani story/i m written in the law.mp3", duration: "song" },
-      { title: "imani code of alignment", category: "imani story", src: "media/audio/imani story/i m imani/imani_code_of_alignment.mp3", duration: "song" },
-      { title: "imani code of alliance (feb 11)", category: "imani story", src: "media/audio/imani story/i m imani/imani_code_of_alliance_feb_11_2026_5_06_5_05_30_pm.mp3", duration: "song" },
-      { title: "reparations now", category: "imani story", src: "media/audio/imani story/i m imani/reparations now.mp3", duration: "song" },
-      { title: "strategic disengagement", category: "imani story", src: "media/audio/imani story/i m imani/strategic disengagement.mp3", duration: "song" },
-      { title: "we are imani", category: "imani story", src: "media/audio/imani story/i m imani/we are imani.mp3", duration: "song" },
-      { title: "we are new", category: "imani story", src: "media/audio/imani story/i m imani/we are new.mp3", duration: "song" },
-      { title: "we r imani", category: "imani story", src: "media/audio/imani story/i m imani/we r imani.mp3", duration: "song" },
-      { title: "we do we (april 14)", category: "imani story", src: "media/audio/imani story/i m imani/we_do_we_april_14_2026_4_55_pm.wav", duration: "song" },
-      { title: "y imani", category: "imani story", src: "media/audio/imani story/i m imani/y imani_.mp3", duration: "song" },
+      { title: "I M ImanI (We Rise & We Grind)", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M ImanI (2).mp3", duration: "Song" },
+      { title: "I M Imani Because", category: "ImanI story", src: "media/audio/ImanI story/I M Imani Because.mp3", duration: "Song" },
+      { title: "I M ImanI Ignited", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M ImanI Ignited.mp3", duration: "Song" },
+      { title: "I M Imani", category: "ImanI story", src: "media/audio/ImanI story/I M Imani.mp3", duration: "Song" },
+      { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M Onyx in the Middle.mp3", duration: "Song" },
+      { title: "I M Unlocking the Imani Mind", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M Unlocking the Imani Mind.mp3", duration: "Song" },
+      { title: "I M Written in the Law", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M Written in the Law.mp3", duration: "Song" },
 
-      // 3. AUDIO AGREEMENTS (Inside media/audio/audio agreement/)
-      { title: "always do your best", category: "audio agreements", src: "media/audio/audio agreement/always do your best.mp3", duration: "song" },
-      { title: "dont make assumptions", category: "audio agreements", src: "media/audio/audio agreement/dont make assumptions.wav", duration: "song" },
-      { title: "be skeptical, but learn to listen", category: "audio agreements", src: "media/audio/audio agreement/imani be skeptical, but learn to listen the 5th agreement.mp3", duration: "song" },
-      { title: "immunity to poison", category: "audio agreements", src: "media/audio/audio agreement/immunity to poison.wav", duration: "song" },
-      { title: "law of the resonant word", category: "audio agreements", src: "media/audio/audio agreement/law of the resonant word.mp3", duration: "song" },
-      { title: "rewrite our story", category: "audio agreements", src: "media/audio/audio agreement/rewrite_our_story_april_24_2026_5_50_pm.wav", duration: "song" },
-      { title: "words of power", category: "audio agreements", src: "media/audio/audio agreement/words of power.mp3", duration: "song" }
+      { title: "Agreement 1: Law of the Resonant Word", category: "Audio Agreements", src: "media/audio/Audio Agreements/Law of the Resonant Word.mp3", duration: "Song" },
+      { title: "Agreement 1: Words of Power", category: "Audio Agreements", src: "media/audio/Audio Agreements/Words of Power.mp3", duration: "Song" },
+      { title: "Agreement 2: Immunity to Poison", category: "Audio Agreements", src: "media/audio/Audio Agreements/Immunity to Poison.wav", duration: "Song" },
+      { title: "Agreement 3: Don't Make Assumptions", category: "Audio Agreements", src: "media/audio/Audio Agreements/Dont Make Assumptions.wav", duration: "Song" },
+      { title: "Agreement 3: Rewrite Our Story", category: "Audio Agreements", src: "media/audio/Audio Agreements/rewrite_our_story_april_24_2026_5_50_pm.wav", duration: "Song" },
+      { title: "Agreement 4: Always Do Your Best", category: "Audio Agreements", src: "media/audio/Audio Agreements/Always Do Your Best.mp3", duration: "Song" },
+      { title: "Agreement 5: Be Skeptical, But Learn to Listen", category: "Audio Agreements", src: "media/audio/Audio Agreements/ImanI be skeptical, but learn to listen The 5th Agreement.mp3", duration: "Song" }
     ];
 
-    let currentAudioCategory = "all";
+    let currentAudioCategory = "ALL";
     let activeTrackIndex = 0;
     let isContinuousPlay = true;
     let isRandomPlay = false;
 
     function setAudioCategory(category, btn) {
-      currentAudioCategory = category.toLowerCase().trim();
+      currentAudioCategory = category;
       document.querySelectorAll('.audio-tab-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      activeTrackIndex = 0;
+      btn.classList.add('active');
       renderPlaylistItems();
     }
 
     function getFilteredTrackPool() {
-      const cat = currentAudioCategory.toLowerCase().trim();
-      return permanentAudioLibrary.filter(t => cat === "all" || t.category.toLowerCase().trim() === cat);
+      return permanentAudioLibrary.filter(t => currentAudioCategory === "ALL" || t.category === currentAudioCategory);
     }
 
     function renderPlaylistItems() {
       const container = document.getElementById('playlist-items-container');
-      if (!container) return;
       container.innerHTML = '';
 
       const filtered = getFilteredTrackPool();
 
       if (filtered.length === 0) {
-        container.innerHTML = `<p style="color: var(--gold-accent); font-size: 0.9rem; padding: 16px; text-align: center; font-weight: 700;">No tracks found in ${currentAudioCategory}.</p>`;
+        container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; padding: 12px; text-align: center;">No tracks found in <strong>${currentAudioCategory}</strong>.</p>`;
         return;
       }
 
       filtered.forEach((track, index) => {
         const item = document.createElement('div');
         item.className = `playlist-item ${index === activeTrackIndex ? 'active' : ''}`;
-        item.style.cssText = "display:flex; justify-content:space-between; align-items:center; padding:12px 16px; margin-bottom:6px; background:#141414; border:1px solid " + (index === activeTrackIndex ? "var(--emerald-accent)" : "var(--onyx-border)") + "; border-radius:8px; cursor:pointer;";
         item.innerHTML = `
-          <div style="text-align:left;">
-            <div style="font-size:0.95rem; font-weight:700; color:#ffffff; text-transform:capitalize;">${track.title}</div>
-            <div style="font-size:0.75rem; color:var(--emerald-accent); text-transform:capitalize; margin-top:2px;">${track.category}</div>
+          <div>
+            <div class="track-title">${track.title}</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted);">${track.category}</div>
           </div>
-          <span style="font-size:0.82rem; font-weight:700; color:var(--gold-accent);">${index === activeTrackIndex ? '▶ Playing' : '▶ Play'}</span>
+          <span class="track-duration">${index === activeTrackIndex ? '▶ Playing' : '▶ Play'}</span>
         `;
         item.onclick = () => playTrackByIndex(index);
         container.appendChild(item);
@@ -1658,86 +1797,158 @@
       }
     }
 
-    /* 1. MUSIC VIDEO VAULT (02:55 Short Version) */
+    function handleUserAudioUpload(event) {
+      const files = Array.from(event.target.files);
+      if (!files.length) return;
+
+      files.forEach(file => {
+        let cleanName = file.name.replace(/\.[^/.]+$/, "");
+        let detectedCategory = "The mysteries";
+
+        let lower = (file.webkitRelativePath || file.name).toLowerCase();
+        if (lower.includes("agreement") || lower.includes("agreements") || lower.includes("assumptions") || lower.includes("personally") || lower.includes("word") || lower.includes("best")) {
+          detectedCategory = "Audio Agreements";
+        } else if (lower.includes("chatty")) {
+          detectedCategory = "Chatty Wisdom";
+        } else if (lower.includes("story") || lower.includes("imani story") || lower.includes("i m imani") || lower.includes("law")) {
+          detectedCategory = "ImanI story";
+        }
+
+        permanentAudioLibrary.push({
+          title: cleanName,
+          category: detectedCategory,
+          src: URL.createObjectURL(file),
+          duration: "Audio File"
+        });
+      });
+
+      renderPlaylistItems();
+    }
+
+    // =========================================================================
+    // ON-DEMAND ARCHIVE VIDEO LOADER
+    // =========================================================================
+
+    let userArchiveVideos = [
+      { title: "Session #01: Grand Awakening Launch", author: "DJ Karma Live", duration: "Live Replay", src: "media/video/live-session-1.mp4" }
+    ];
+
+    function loadUserArchiveVideos(event) {
+      const files = Array.from(event.target.files);
+      files.forEach(file => {
+        userArchiveVideos.push({
+          title: file.name.replace(/\.[^/.]+$/, ""),
+          author: "Recorded Broadcast",
+          duration: "Local Video",
+          src: URL.createObjectURL(file)
+        });
+      });
+      renderStreamArchive();
+    }
+
+    function renderStreamArchive() {
+      const container = document.getElementById('stream-archive-container');
+      container.innerHTML = '';
+      userArchiveVideos.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'archive-item-card';
+        card.innerHTML = `
+          <span class="archive-item-title">${item.title}</span>
+          <div class="archive-item-meta">
+            <span>${item.author}</span>
+            <span>${item.duration}</span>
+          </div>
+        `;
+        card.onclick = () => playArchivedStream(item.src, item.title);
+        container.appendChild(card);
+      });
+    }
+
+    // =========================================================================
+    // GALLERIES & OTHER ENGINES
+    // =========================================================================
+
     const myMusicVideosList = [
       { 
-        title: "written in the law (official music video)", 
-        lore: "Walking in rhythm and sovereign identity under the 14th Amendment framework—music and visuals produced by Karma.", 
-        tag: "🎵 Music Video • 02:55 Runtime", 
-        poster: "header-emblem.png.png", 
-        src: "https://archive.org/download/written-in-the-law-letter/imani%20videos/imani_music_videos/written_in_the-law.mp4" 
+        title: "ImanI Code of Alignment (Official Music Video)", 
+        lore: "Walking in rhythm and harmony with the ImanI Code—music and cinematic visuals created by Karma.", 
+        tag: "🎵 Music Video • 4K Master", 
+        poster: "media/images/header-emblem.png", 
+        src: "Media/Video%20Music/ImanI%20Story/ImanI%20Code%20of%20Alignment%20(Official%20Music%20Video).mp4" 
       }
     ];
 
-    /* 2. CINEMA & DOCUMENTARY VAULT (11:26 Full Documentary) */
     const myCinemaList = [
       { 
-        title: "we r written in the law (14th amendment americans)", 
+        title: "We R Written in the Law (14th Amendment Americans)", 
         lore: "Exploring the legal lineage, sovereign ontology, and historical foundation of the 14th Amendment Americans—transforming identity through the spirit of ImanI.", 
-        tag: "🎬 Documentary Cinema • 11:26 Runtime", 
-        poster: "header-emblem.png.png", 
-        src: "https://archive.org/download/written-in-the-law/written%20in%20the%20law.ia.mp4" 
+        tag: "🎬 Documentary Cinema • Chapter 1", 
+        poster: "media/images/header-emblem.png", 
+        src: "Media/Videos/Written%20in%20the%20law%20letter.mp4" 
       }
     ];
 
     const myStillArtList = [
       { 
-        title: "chapter 0 — the imani manifesto: blueprint for collective flourishing", 
+        title: "Chapter 0 — The ImanI Manifesto: Blueprint for Collective Flourishing", 
         lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass through Justice and Correctness across the Ten Activities of Life.", 
-        tag: "manifesto • foundational blueprint", 
-        src: "media/ImanI Pictures/Chapter 0 The_Imani_Manifesto_Blueprint.png" 
+        tag: "Manifesto • Foundational Blueprint", 
+        src: "Media/ImanI Pictures/Chapter 0 The_Imani_Manifesto_Blueprint.png" 
       },
       { 
-        title: "chapter 1a — the imani neighborhood community blueprint", 
+        title: "Chapter 1A — The ImanI Neighborhood Community Blueprint", 
         lore: "A holistic framework uniting Justice & Correctness, the Council of Ten, economic and social stability, and intergenerational family protection.", 
         tag: "Community • Strategic Blueprint", 
-        src: "media/ImanI Pictures/Chapter 1A The_Imani_Neighborhood_Community_Blueprint.png" 
+        src: "Media/ImanI Pictures/Chapter 1A The_Imani_Neighborhood_Community_Blueprint.png" 
       },
       { 
-        title: "chapter 2a — the imani home: the first school of life", 
+        title: "Chapter 2A — The ImanI Home: The First School of Life", 
         lore: "Organizing the household around development over consumption, intergenerational wisdom exchange, and nurturing the Child of Promise.", 
         tag: "Home Life • Educational Blueprint", 
-        src: "media/ImanI Pictures/Chapter 2A The_Imani_Home_Life_School.png" 
+        src: "Media/ImanI Pictures/Chapter 2A The_Imani_Home_Life_School.png" 
       }
     ];
 
     const myBoycottArtList = [
       { 
         title: "The Price of Participation: Reclaiming Our Economic Sovereignty", 
-        lore: "Every year, billions pour into commercialized traditions that drain community financial reservoirs. Question who is truly enriched, reclaim identity, and build lasting power through the 7-Day Economic Fast.", 
+        lore: "Breaking the relentless cycle of commercialized American holidays. Questioning who is truly enriched and reclaiming community financial reservoirs through the 7-Day Economic Fast.", 
         tag: "Economic Sovereignty • 7-Day Fast", 
-        src: "media/ImanI Boycott Celebration Pix/IAHBC_94dd97f5-89c2-413b-b044-892f0670f326.png" 
+        src: "Media/ImanI Boycott Celebration Pix/IAHBC_94dd97f5-89c2-413b-b044-892f0670f326.png" 
       },
       { 
-        title: "Declaration Day — June 15th", 
-        lore: "We declare, we remember, and we reclaim our sovereign power. Fast the lies, honor our lineage, and celebrate true independence from commercial rituals.", 
+        title: "June 15th — Declaration Day", 
+        lore: "We declare, we remember, and we reclaim our sovereign power. Honoring our lineage and fallen soldiers with true independence.", 
         tag: "Declaration Day • Sovereignty", 
-        src: "media/imani boycott celebration pix/iahbc fast_the_lies_chatgpt image may 19, 2025, 06_15_50 am2.png.png",
-        fallbackSrc: "media/imani boycott celebration pix/iahbc fast_the_lies_chatgpt image may 19, 2025, 06_15_50 am2.png"
+        src: "Media/ImanI Boycott Celebration Pix/IAHBC  Fast_The_Lies_ChatGPT Image May 19, 2025, 06_15_50 AM2.png" 
       },
       { 
-        title: "June 13 — George Floyd Day: We Do We", 
-        lore: "Correct the narrative, control the economy, and create our legacy across the 3+1+3 economic fast framework. We build, we buy, we own.", 
+        title: "June 13 — George Floyd Day", 
+        lore: "We Do We. Correct the narrative, control the economy, and create our legacy across the 3+1+3 economic fast framework.", 
         tag: "Juneteenth • We Do We", 
-        src: "media/ImanI Boycott Celebration Pix/IAHBC_5dbd3257-419a-4e5b-a736-12aa4612bbaf.png" 
+        src: "Media/ImanI Boycott Celebration Pix/IAHBC_5dbd3257-419a-4e5b-a736-12aa4612bbaf.png" 
       }
     ];
 
     function renderVideoVault(containerId, list) {
       const container = document.getElementById(containerId);
-      if (!container) return;
       container.innerHTML = '';
       list.forEach((v, index) => {
+        const inputId = `${containerId}-file-${index}`;
         const videoId = `${containerId}-video-${index}`;
         const card = document.createElement('div');
         card.className = 'video-vault-card';
-
         card.innerHTML = `
-          <div class="video-player-container">
+          <div class="video-player-container" style="position: relative;">
             <video id="${videoId}" controls playsinline poster="${v.poster}" preload="metadata">
               <source src="${v.src}" type="video/mp4">
               Your browser does not support HTML5 video.
             </video>
+            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
+              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
+              <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
+            </div>
           </div>
           <div class="gallery-card-info">
             <h3 class="gallery-card-title">${v.title}</h3>
@@ -1749,6 +1960,15 @@
       });
     }
 
+    function loadCardVideo(event, videoElementId) {
+      const file = event.target.files[0];
+      if (file) {
+        const vid = document.getElementById(videoElementId);
+        vid.src = URL.createObjectURL(file);
+        vid.play().catch(() => {});
+      }
+    }
+
     function renderStillGallery(containerId, list) {
       const container = document.getElementById(containerId);
       container.innerHTML = '';
@@ -1756,7 +1976,7 @@
         const card = document.createElement('div');
         card.className = 'picture-card';
         card.innerHTML = `
-          <img src="${art.src}" alt="${art.title}" class="picture-frame-img" onerror="this.onerror=null; this.src='header-emblem.png.png';" onclick="openMediaLightbox(this.src, 'image', '${art.title}')" title="Click to expand">
+          <img src="${art.src}" alt="${art.title}" class="picture-frame-img" onerror="this.src='media/images/header-emblem.png'" onclick="openMediaLightbox('${art.src}', 'image', '${art.title}')" title="Click to expand">
           <div class="gallery-card-info">
             <h3 class="gallery-card-title">${art.title}</h3>
             <p class="gallery-card-lore">${art.lore}</p>
@@ -1773,9 +1993,8 @@
       myBoycottArtList.forEach(item => {
         const card = document.createElement('div');
         card.className = 'picture-card';
-        const fallbackAction = item.fallbackSrc ? `onerror="if(this.src.indexOf('fallback') === -1){ this.src='${item.fallbackSrc}'; } else { this.src='header-emblem.png.png'; }"` : `onerror="this.onerror=null; this.src='header-emblem.png.png';"`;
         card.innerHTML = `
-          <img src="${item.src}" alt="${item.title}" class="picture-frame-img" ${fallbackAction} onclick="openMediaLightbox(this.src, 'image', '${item.title}')" title="Click to expand">
+          <img src="${item.src}" alt="${item.title}" class="picture-frame-img" onerror="this.src='media/images/header-emblem.png'" onclick="openMediaLightbox('${item.src}', 'image', '${item.title}')" title="Click to expand">
           <div class="gallery-card-info">
             <h3 class="gallery-card-title">${item.title}</h3>
             <p class="gallery-card-lore">${item.lore}</p>
@@ -1852,41 +2071,138 @@
       document.body.removeChild(link);
     }
 
-    function getNextFastTarget() {
-      const now = new Date().getTime();
+    // =========================================================================
+    // DYNAMIC DAILY FAST GUIDANCE ENGINE (3 + 1 + 3 FORMULA)
+    // =========================================================================
+
+    const dailyFastGuidance = {
+      "-3": {
+        phase: "FAST DAY 1 • PREPARATION",
+        title: "The Stockpile & Audit",
+        text: "Conduct a full household inventory. Procure essential goods and fresh produce from independent or cooperative sources today so you make zero commercial transactions for the next 6 days."
+      },
+      "-2": {
+        phase: "FAST DAY 2 • PREPARATION",
+        title: "Digital & Subscription Lockdown",
+        text: "Freeze impulsive 1-click mobile checkouts, food delivery apps, and online shopping carts. Practice stealth discipline across all digital channels."
+      },
+      "-1": {
+        phase: "FAST DAY 3 • PREPARATION",
+        title: "Resource Reservoir Sealed",
+        text: "Top off domestic fuel, transit cards, and complete all family meal prep. Starting at midnight, complete economic stillness and quiet strength begin."
+      },
+      "0": {
+        phase: "HOLIDAY OBSERVANCE • SACRED PAUSE",
+        title: "Sovereign Independence Day",
+        text: "Complete financial shutdown from commercial enterprise. Reflect on 14th Amendment lineage, study the Ten Mysteries, and circulate zero dollars into external holiday machinery."
+      },
+      "1": {
+        phase: "FAST DAY 5 • FOLLOW-THROUGH",
+        title: "Resist Commercial Clearance Traps",
+        text: "Do not get lured into post-holiday retail clearances or bargain discounts. Savor home meals and redirect your focus to family creativity, wellness, and production."
+      },
+      "2": {
+        phase: "FAST DAY 6 • FOLLOW-THROUGH",
+        title: "Internal Circulation & Ujamaa",
+        text: "Calculate the exact dollars you conserved over the last 5 days. Brainstorm cooperative family budgeting, specie savings, and community self-reliance."
+      },
+      "3": {
+        phase: "FAST DAY 7 • CULMINATION & VICTORY",
+        title: "Sovereign Mastery & Re-entry",
+        text: "You have completed 7 full days of independent economic discipline. Re-enter the marketplace strictly on your own terms with permanent sovereign consciousness."
+      },
+      "interim": {
+        phase: "STEALTH DRILL • STRATEGIC INTERVAL",
+        title: "Reserve Fortification",
+        text: "Practice the 3+1+3 habit in daily life. Audit unnecessary subscriptions, reduce reliance on outside retail chains, and prepare reserves for the next federal fast."
+      }
+    };
+
+    function getFastStatus() {
+      const now = new Date();
+      const todayMs = now.getTime();
+
       for (let h of federalHolidays) {
-        const prepStart = new Date(h.date);
-        prepStart.setDate(prepStart.getDate() - 3);
-        if (prepStart.getTime() > now) {
-          document.getElementById('banner-holiday-name').innerText = `Next Fast: ${h.name} (${prepStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })})`;
-          return prepStart.getTime();
+        const hDate = new Date(h.date);
+        
+        // Window runs from (holiday - 3 days at 00:00) to (holiday + 3 days at 23:59:59)
+        const windowStart = new Date(hDate);
+        windowStart.setDate(hDate.getDate() - 3);
+        windowStart.setHours(0, 0, 0, 0);
+
+        const windowEnd = new Date(hDate);
+        windowEnd.setDate(hDate.getDate() + 3);
+        windowEnd.setHours(23, 59, 59, 999);
+
+        if (todayMs >= windowStart.getTime() && todayMs <= windowEnd.getTime()) {
+          // Inside 7-Day Fast: calculate day offset (-3, -2, -1, 0, 1, 2, 3)
+          const midnightNow = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+          const midnightHoliday = new Date(hDate.getFullYear(), hDate.getMonth(), hDate.getDate()).getTime();
+          const dayDiff = Math.round((midnightNow - midnightHoliday) / (1000 * 60 * 60 * 24));
+          
+          return {
+            holiday: h,
+            inFast: true,
+            dayOffset: String(dayDiff),
+            targetMs: windowEnd.getTime()
+          };
+        } else if (windowStart.getTime() > todayMs) {
+          // Approaching next fast
+          return {
+            holiday: h,
+            inFast: false,
+            dayOffset: "interim",
+            targetMs: windowStart.getTime()
+          };
         }
       }
-      return now + (7 * 24 * 60 * 60 * 1000);
+
+      // Fallback
+      return {
+        holiday: federalHolidays[0],
+        inFast: false,
+        dayOffset: "interim",
+        targetMs: todayMs + (7 * 24 * 60 * 60 * 1000)
+      };
     }
 
-    let pauseTargetDate = getNextFastTarget();
-
-    function updateCountdown() {
+    function updateCountdownAndGuidance() {
+      const status = getFastStatus();
       const now = new Date().getTime();
-      const distance = pauseTargetDate - now;
-      if (distance < 0) {
-        pauseTargetDate = getNextFastTarget();
-        return;
-      }
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const mins = Math.floor((distance % (1000 * 60)) / (1000 * 60));
-      const secs = Math.floor((distance % (1000 * 60)) / 1000);
+      const distance = status.targetMs - now;
 
-      document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
-      document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
-      document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
-      document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
+      // Update Subtitle Banner
+      const bannerName = document.getElementById('banner-holiday-name');
+      if (status.inFast) {
+        bannerName.innerText = `Active Fast: ${status.holiday.name} (7-Day Economic Discipline)`;
+      } else {
+        const prepDate = new Date(status.holiday.date);
+        prepDate.setDate(prepDate.getDate() - 3);
+        bannerName.innerText = `Next Fast: ${status.holiday.name} (Fast window opens ${prepDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })})`;
+      }
+
+      // Update Countdown Digits
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((distance % (1000 * 60)) / (1000 * 60));
+        const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+        document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
+        document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
+      }
+
+      // Update Dynamic Daily Guidance
+      const guidance = dailyFastGuidance[status.dayOffset] || dailyFastGuidance["interim"];
+      document.getElementById('guidance-phase').innerText = guidance.phase;
+      document.getElementById('guidance-title').innerText = guidance.title;
+      document.getElementById('guidance-text').innerText = guidance.text;
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    setInterval(updateCountdownAndGuidance, 1000);
+    updateCountdownAndGuidance();
 
     function toggleStandbyAudio() {
       const standbyVideo = document.getElementById('standby-motion-player');
@@ -1912,6 +2228,18 @@
       container.appendChild(bubble);
       container.scrollTop = container.scrollHeight;
       input.value = '';
+    }
+
+    function playArchivedStream(srcUrl, sessionTitle) {
+      const liveVideo = document.getElementById('live-video-player');
+      if (hlsInstance) {
+        hlsInstance.destroy();
+        hlsInstance = null;
+      }
+      setStageState(true, `REPLAY: ${sessionTitle.slice(0, 20)}...`);
+      liveVideo.src = srcUrl;
+      liveVideo.play().catch(() => {});
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function narrateText(titleId, descId) {
@@ -1948,77 +2276,195 @@
       document.getElementById('lightbox-media-container').innerHTML = '';
     }
 
-    function openDialogueModal() {
-      document.getElementById('dialogue-modal').style.display = 'flex';
-    }
-
-    function closeDialogueModal() {
-      document.getElementById('dialogue-modal').style.display = 'none';
-    }
-
-    function submitDialogue() {
-      const name = document.getElementById('dialogue-name').value.trim();
-      const email = document.getElementById('dialogue-email').value.trim();
-      const focus = document.getElementById('dialogue-focus').value;
-      const message = document.getElementById('dialogue-message').value.trim();
-
-      if (!name || !email || !message) {
-        alert("Please complete all fields to transmit your message under the Code of Silence.");
-        return;
+    function handleImageError(img) {
+      const savedEmblem = localStorage.getItem('imani_header_emblem');
+      if (savedEmblem) {
+        img.src = savedEmblem;
+        img.style.display = 'block';
+        document.getElementById('emblem-picker-box').style.display = 'none';
+      } else {
+        img.style.display = 'none';
+        document.getElementById('emblem-picker-box').style.display = 'inline-block';
       }
+    }
 
-      const subject = encodeURIComponent(`ImanI Dialogue: ${focus} - from ${name}`);
-      const body = encodeURIComponent(`Name: ${name}\nTransmission Line (Email): ${email}\nFocus: ${focus}\n\nPerspective / Message:\n${message}\n\n[Transmitted under the Code of Silence]`);
-      
-      window.location.href = `mailto:?subject=${subject}&body=${body}`;
-      closeDialogueModal();
+    function handleChattyImageError(img) {
+      const savedChatty = localStorage.getItem('chatty_wisdom_header');
+      if (savedChatty) {
+        img.src = savedChatty;
+        img.style.display = 'block';
+        document.getElementById('chatty-fallback-text').style.display = 'none';
+      } else {
+        img.style.display = 'none';
+        document.getElementById('chatty-fallback-text').style.display = 'block';
+      }
+    }
+
+    function handleChattyLandscapeError(img) {
+      const savedLandscape = localStorage.getItem('chatty_landscape_image');
+      if (savedLandscape) {
+        img.src = savedLandscape;
+        img.style.display = 'block';
+        document.getElementById('chatty-landscape-picker').style.display = 'none';
+      } else {
+        img.style.display = 'none';
+        document.getElementById('chatty-landscape-picker').style.display = 'block';
+      }
+    }
+
+    function triggerFileSelect(inputId) {
+      document.getElementById(inputId).click();
+    }
+
+    function loadUserImage(event, imgId, fallbackId, storageKey) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const imgData = e.target.result;
+          localStorage.setItem(storageKey, imgData);
+          const img = document.getElementById(imgId);
+          if (img) {
+            img.src = imgData;
+            img.style.display = 'block';
+          }
+          if (fallbackId && document.getElementById(fallbackId)) {
+            document.getElementById(fallbackId).style.display = 'none';
+          }
+        };
+        reader.readAsDataURL(file);
+      }
     }
 
     let hlsInstance = null;
 
+    function setStageState(isLive, badgeText = "ON AIR • LIVE") {
+      const liveVideo = document.getElementById('live-video-player');
+      const standbyVideo = document.getElementById('standby-motion-player');
+      const liveBadge = document.getElementById('live-indicator');
+      const muteBtn = document.getElementById('standby-mute-btn');
+
+      if (isLive) {
+        standbyVideo.style.display = "none";
+        standbyVideo.pause();
+        muteBtn.style.display = "none";
+        liveVideo.style.display = "block";
+        liveBadge.innerText = badgeText;
+        liveBadge.style.borderColor = "var(--gold-accent)";
+        liveBadge.style.color = "var(--gold-accent)";
+      } else {
+        liveVideo.pause();
+        liveVideo.src = "";
+        liveVideo.style.display = "none";
+        standbyVideo.style.display = "block";
+        muteBtn.style.display = "flex";
+        standbyVideo.play().catch(() => {});
+        liveBadge.innerText = "STANDBY • WE R IMANI";
+        liveBadge.style.borderColor = "var(--emerald-accent)";
+        liveBadge.style.color = "var(--emerald-accent)";
+      }
+    }
+
     function connectLiveStream() {
       const video = document.getElementById('live-video-player');
-      const streamUrl = "http://localhost:8888/live/stage/index.m3u8";
+      const streamUrl = document.getElementById('stream-source-url').value.trim();
+      if (!streamUrl) return;
 
       if (hlsInstance) {
         hlsInstance.destroy();
         hlsInstance = null;
       }
 
-      if (Hls.isSupported()) {
-        hlsInstance = new Hls({ liveSyncDurationCount: 3, liveMaxLatencyDurationCount: 5, enableWorker: true });
-        hlsInstance.loadSource(streamUrl);
-        hlsInstance.attachMedia(video);
-        hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
-          video.style.display = "block";
-          document.getElementById('standby-motion-player').style.display = "none";
-          document.getElementById('live-indicator').innerText = "ON AIR • HLS LIVE";
-          document.getElementById('live-indicator').style.borderColor = "var(--gold-accent)";
-          document.getElementById('live-indicator').style.color = "var(--gold-accent)";
+      if (streamUrl.includes('.m3u8')) {
+        if (Hls.isSupported()) {
+          hlsInstance = new Hls({ liveSyncDurationCount: 3, liveMaxLatencyDurationCount: 5, enableWorker: true });
+          hlsInstance.loadSource(streamUrl);
+          hlsInstance.attachMedia(video);
+          hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
+            setStageState(true, "ON AIR • HLS LIVE");
+            video.play().catch(() => {});
+          });
+          hlsInstance.on(Hls.Events.ERROR, function (event, data) {
+            if (data.fatal) setStageState(false);
+          });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = streamUrl;
+          video.onloadedmetadata = () => {
+            setStageState(true, "ON AIR • LIVE");
+            video.play().catch(() => {});
+          };
+          video.onerror = () => setStageState(false);
+        }
+      } else {
+        video.src = streamUrl;
+        video.onloadeddata = () => {
+          setStageState(true, "MEDIA FEED ACTIVE");
           video.play().catch(() => {});
-        });
+        };
+        video.onerror = () => setStageState(false);
+      }
+    }
+
+    function pollStreamHealth() {
+      const streamUrl = document.getElementById('stream-source-url').value.trim();
+      if (!streamUrl || !streamUrl.includes('.m3u8')) return;
+
+      fetch(streamUrl, { method: 'HEAD', cache: 'no-store' })
+        .then(res => {
+          if (res.ok) {
+            const liveVideo = document.getElementById('live-video-player');
+            if (liveVideo.style.display === "none") connectLiveStream();
+          } else {
+            setStageState(false);
+          }
+        })
+        .catch(() => {});
+    }
+
+    setInterval(pollStreamHealth, 15000);
+
+    function loadLocalVideoFile(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const video = document.getElementById('live-video-player');
+        if (hlsInstance) {
+          hlsInstance.destroy();
+          hlsInstance = null;
+        }
+        setStageState(true, `PLAYING: ${file.name.slice(0, 18)}...`);
+        video.src = URL.createObjectURL(file);
+        video.play().catch(() => {});
+      }
+    }
+
+    function loadStandbyVideoFile(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const standbyVideo = document.getElementById('standby-motion-player');
+        standbyVideo.src = URL.createObjectURL(file);
+        standbyVideo.play().catch(() => {});
       }
     }
 
     const originsData = [
-      { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned, descriptive adjectives that describe a condition, <strong>ImanI</strong> is a proper noun anchored by the sacred mineral triad: <strong>Emerald</strong> for growth and awakening, <strong>Onyx</strong> for foundation and strength, and <strong>Gold</strong> for eternal value and sovereignty." },
-      { id: "02", btnTitle: "the Three Minerals", tag: "Sacred Minerals", title: "Emerald, Onyx & Gold: The Mineral Standard", desc: "We replace pigment labels with geological reality. <strong>Emerald</strong> (crystalline awakening), <strong>Onyx</strong> (uncrushable black chalcedony bedrock), and <strong>Gold</strong> (unreactive sovereign wealth standard) represent our true spiritual and material value." },
-      { id: "03", btnTitle: "the People of Faith", tag: "Lineage & Faith", title: "the People of Faith", desc: "After slavery, Reconstruction, Jim Crow, Civil Rights Bill who is better to be called the people of faith here in america then the descendants of the emaciated slaves of 1863 the original 14th amendment americans. This is a part of our lineage." },
-      { id: "04", btnTitle: "Faith in Action", tag: "Origin", title: "Faith in Action", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law and collective purpose." },
-      { id: "05", btnTitle: "I M Very Beautiful", tag: "the Affirmation", title: "I M Very Beautiful", desc: "Combining 'I M' (existence) with the ancient 'ani' (very beautiful). Every time the name is spoken, it carries a sacred blessing." }
+      { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned, descriptive adjectives like 'black' that describe a shadow or condition, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character." },
+      { id: "02", btnTitle: "The People of Faith", tag: "Lineage & Faith", title: "The People of Faith", desc: "After slavery, Reconstruction, Jim Crow, Civil Rights Bill who is better to be called the people of faith here in america then the descendants of the emaciated slaves of 1863 the original 14th amendment americans. This is a part of our lineage." },
+      { id: "03", btnTitle: "Faith in Action", tag: "Origin", title: "Faith in Action", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law and collective purpose." },
+      { id: "04", btnTitle: "Proper Noun Identity", tag: "Grammar of Spirit", title: "Proper Noun Identity", desc: "Replacing modifiers that depend on external systems with a sovereign name that declares self-existence and heritage." },
+      { id: "05", btnTitle: "I M Very Beautiful", tag: "The Affirmation", title: "I M Very Beautiful", desc: "Combining 'I M' (existence) with the ancient 'ani' (very beautiful). Every time the name is spoken, it carries a sacred blessing." }
     ];
 
     const mysteriesData = [
-      { id: "01", title: "Alpha and Omega", desc: "the two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
-      { id: "02", title: "God in Me / Divine Soul", desc: "the 'man' nestled in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
+      { id: "01", title: "Alpha and Omega", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
+      { id: "02", title: "God in Me / Divine Soul", desc: "The 'man' nestled in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
       { id: "03", title: "Pillars of Solomon", desc: "Boaz and Jachin stand as the gateway of transformation where the past is forgotten and sovereign life begins anew." },
-      { id: "04", title: "Solar & Lunar Power", desc: "the harmonious balance atop the pillars: Sun (protective vision / man) and Moon (intuitive depth / woman) working in unison." },
+      { id: "04", title: "Solar & Lunar Power", desc: "The harmonious balance atop the pillars: Sun (protective vision / man) and Moon (intuitive depth / woman) working in unison." },
       { id: "05", title: "I and I", desc: "Universal unity with the divine and community—seeing the self reflected in the brother, the sister, and creation." },
       { id: "06", title: "I M (Existence)", desc: "Echoing the supreme declaration 'I am that I am,' affirming existence, direct lineage, and unborrowed authority." },
       { id: "07", title: "I M ani (Inherent Beauty)", desc: "Affirming beauty, dignity, and grace, discarding external standards to declare internal, divine perfection." },
-      { id: "08", title: "the Initiation (1 0 1)", desc: "Standing consciously between the pillars (I M I / 1 0 1) to step forward into the awakening of the new breed." },
-      { id: "09", title: "Strategy", desc: "the deliberate application of spiritual wisdom across all practical areas of life to ensure total self-reliance." },
-      { id: "10", title: "1 0 1 Knowledge", desc: "the complete mastery of ImanI law, returning to the origin, walking in faith, and operating in divine love." }
+      { id: "08", title: "The Initiation (1 0 1)", desc: "Standing consciously between the pillars (I M I / 1 0 1) to step forward into the awakening of the new breed." },
+      { id: "09", title: "Strategy", desc: "The deliberate application of spiritual wisdom across all practical areas of life to ensure total self-reliance." },
+      { id: "10", title: "1 0 1 Knowledge", desc: "The complete mastery of ImanI law, returning to the origin, walking in faith, and operating in divine love." }
     ];
 
     const activitiesData = [
@@ -2032,7 +2478,7 @@
     const restitutionData = [
       { id: "1", btnTitle: "1. Specie Cash", tag: "Priority Pillar 1", title: "1. Specie Cash", desc: "Direct Unconditional Capital", gold: "140 oz Bullion", silver: "11,600 oz Coinage", rule: "Non-Substitutable" },
       { id: "2", btnTitle: "2. Medical", tag: "Priority Pillar 2", title: "2. Medical", desc: "Lifetime Environmental/Health Care", gold: "100 oz Bullion", silver: "8,300 oz Coinage", rule: "Separately Funded" },
-      { id: "3", btnTitle: "3. Housing", tag: "Priority Pillar 3", title: "3. Housing", desc: "Restitution for Redlining/Land theft", gold: "80 oz Bullion", silver: "6,600 oz Coinage", rule: "Equity Standalone" },
+      { id: "3", btnTitle: "3. Housing", tag: "Priority Pillar 3", title: "3. Housing", desc: "Restitution for Redlining/Land Theft", gold: "80 oz Bullion", silver: "6,600 oz Coinage", rule: "Equity Standalone" },
       { id: "4", btnTitle: "4. Food", tag: "Priority Pillar 4", title: "4. Food", desc: "Permanent Sovereign Food Security", gold: "20 oz Bullion", silver: "1,650 oz Coinage", rule: "Independent Asset" },
       { id: "5", btnTitle: "5. Education", tag: "Priority Pillar 5", title: "5. Education", desc: "Tuition Coverage & Institutional Funding", gold: "40 oz Bullion", silver: "3,300 oz Coinage", rule: "Debt Elimination" },
       { id: "6", btnTitle: "6. Land & Wealth", tag: "Priority Pillar 6", title: "6. Land & Wealth", desc: "Protected Capital & Land Grants", gold: "60 oz Bullion", silver: "5,000 oz Coinage", rule: "Asset Creation" },
@@ -2048,9 +2494,9 @@
     ];
 
     const boycottData = [
-      { id: "01", btnTitle: "3 + 1 + 3 Formula", tag: "the Formula", title: "3 + 1 + 3 = 7-Day Economic Fast", desc: "Observed every Federal Holiday: three days of strategic preparation and economic fast before the holiday, one sacred day of sovereign reflection on the holiday, and three days of continued economic discipline following it." },
-      { id: "02", btnTitle: "Silent Solution", tag: "the Purpose", title: "Silent Solution Quiet Movement", desc: "This isn't a protest—it is a celebration. A peaceful, silent economic fast that preserves community value, builds total self-reliance, and honors our lineage and independence from within." },
-      { id: "03", btnTitle: "Unity in Motion", tag: "the Spirit", title: "Unity in Motion", desc: "Circulating economic resources within our own circles, stepping off commercial tracks, and standing together in quiet strength, dignity, and collective solidarity." }
+      { id: "01", btnTitle: "3 + 1 + 3 Formula", tag: "The Formula", title: "3 + 1 + 3 = 7-Day Economic Fast", desc: "Observed every Federal Holiday: three days of strategic preparation and economic fast before the holiday, one sacred day of sovereign reflection on the holiday, and three days of continued economic discipline following it." },
+      { id: "02", btnTitle: "Silent Solution", tag: "The Purpose", title: "Silent Solution Quiet Movement", desc: "This isn't a protest—it is a celebration. A peaceful, silent economic fast that preserves community value, builds total self-reliance, and honors our lineage and independence from within." },
+      { id: "03", btnTitle: "Unity in Motion", tag: "The Spirit", title: "Unity in Motion", desc: "Circulating economic resources within our own circles, stepping off commercial tracks, and standing together in quiet strength, dignity, and collective solidarity." }
     ];
 
     function renderMatrixButtons(containerId, data, tagId, titleId, descId, boxId, extraHandler = null) {
@@ -2065,7 +2511,7 @@
           const box = document.getElementById(boxId);
           box.style.opacity = '0.4';
           setTimeout(() => {
-            document.getElementById(tagId).innerText = item.tag || `mystery ${item.id}`;
+            document.getElementById(tagId).innerText = item.tag || `Mystery ${item.id}`;
             document.getElementById(titleId).innerText = item.title;
             document.getElementById(descId).innerHTML = item.desc;
             if (extraHandler) extraHandler(item);
@@ -2077,16 +2523,16 @@
     }
 
     const chattyDeck = [
-      { id: 1, tag: "Strategy", title: "the Checkmate Perspective", quote: "Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction." },
+      { id: 1, tag: "Strategy", title: "The Checkmate Perspective", quote: "Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction." },
       { id: 2, tag: "Stealth", title: "Shield of Stillness", quote: "Quiet observation holds more power than immediate combat. Protect your center at all costs." },
-      { id: 3, tag: "Strategy", title: "the Sovereign Board", quote: "Never play on a board where your opponent writes the rules. Establish your own grid and control the squares." },
+      { id: 3, tag: "Strategy", title: "The Sovereign Board", quote: "Never play on a board where your opponent writes the rules. Establish your own grid and control the squares." },
       { id: 4, tag: "Stealth", title: "Curious Consultant Tactic", quote: "Ask the question that makes them confront their own assumptions. Truth reveals itself when prompted calmly." },
       { id: 5, tag: "Stealth", title: "Stealth Discipline", quote: "Internal strength doesn't need external applause. Move in silence and let the results speak." },
-      { id: 6, tag: "Economics", title: "the Specie Anchor", quote: "Paper promises blow away with the wind. Sound money and land grants anchor true freedom." },
+      { id: 6, tag: "Economics", title: "The Specie Anchor", quote: "Paper promises blow away with the wind. Sound money and land grants anchor true freedom." },
       { id: 7, tag: "Strategy", title: "Mastery of the Center", quote: "Whoever commands the center commands the board. Protect your core principles from external dilution." },
       { id: 8, tag: "Stealth", title: "Strategic Non-Compliance", quote: "Polite refusal to participate in degradation is the highest form of discipline and leverage." },
       { id: 9, tag: "Strategy", title: "Pillar Alignment", quote: "Stand consciously between Boaz and Jachin. Balance intuitive vision with structured execution." },
-      { id: 10, tag: "Strategy", title: "Silent Timing", quote: "the master does not strike when angry; the master moves when the board opens." }
+      { id: 10, tag: "Strategy", title: "Silent Timing", quote: "The master does not strike when angry; the master moves when the board opens." }
     ];
 
     let currentDeckTag = "ALL";
@@ -2136,6 +2582,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       renderPlaylistItems();
+      renderStreamArchive();
       renderVideoVault('music-video-gallery-container', myMusicVideosList);
       renderVideoVault('cinema-gallery-container', myCinemaList);
       renderStillGallery('still-gallery-container', myStillArtList);
@@ -2153,8 +2600,36 @@
       renderMatrixButtons('codes-buttons', codesData, 'code-tag', 'code-title', 'code-desc', 'code-display');
       renderMatrixButtons('boycott-buttons', boycottData, 'boycott-tag', 'boycott-title', 'boycott-desc', 'boycott-display');
 
+      const savedEmblem = localStorage.getItem('imani_header_emblem');
+      if (savedEmblem) {
+        const img = document.getElementById('header-emblem-view');
+        img.src = savedEmblem;
+        img.style.display = 'block';
+        document.getElementById('emblem-picker-box').style.display = 'none';
+      }
+
+      const savedChatty = localStorage.getItem('chatty_wisdom_header');
+      if (savedChatty) {
+        const img = document.getElementById('chatty-header-view');
+        img.src = savedChatty;
+        img.style.display = 'block';
+        document.getElementById('chatty-fallback-text').style.display = 'none';
+      }
+
+      const savedLandscape = localStorage.getItem('chatty_landscape_image');
+      if (savedLandscape) {
+        const img = document.getElementById('chatty-landscape-view');
+        img.src = savedLandscape;
+        img.style.display = 'block';
+        document.getElementById('chatty-landscape-picker').style.display = 'none';
+      }
+
       const standbyVideo = document.getElementById('standby-motion-player');
       standbyVideo.play().catch(() => {});
+
+      setTimeout(() => {
+        connectLiveStream();
+      }, 1000);
     });
   </script>
 </body>
