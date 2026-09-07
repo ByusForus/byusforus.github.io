@@ -679,7 +679,6 @@
       </div>
     </div>
 
-    <!-- Real-Time Fast Daily Guidance Engine -->
     <div class="fast-guidance-bar" id="fast-guidance-container">
       <div class="guidance-phase-badge" id="guidance-phase">STEALTH DRILL</div>
       <div class="guidance-body">
@@ -1022,7 +1021,6 @@
   </div>
 
   <script>
-    // Audio Library
     let permanentAudioLibrary = [
       { title: "Mystery 1 Cycle of ImanI Female", category: "The mysteries", src: "media/audio/The mysteries/Mystery 1 Cycle of ImanI Female.mp3", duration: "Song" },
       { title: "Mystery 1 Cycle of ImanI male", category: "The mysteries", src: "media/audio/The mysteries/Mystery 1 Cycle of ImanI male.mp3", duration: "Song" },
@@ -1210,7 +1208,6 @@
       });
     }
 
-    // Media Lists
     const myMusicVideosList = [
       { 
         title: "ImanI Code of Alignment (Official Music Video)", 
@@ -1338,7 +1335,14 @@
         const card = document.createElement('div');
         card.className = 'picture-card';
         card.innerHTML = `
-          <img src="${encodeURI(item.src)}" alt="${item.title}" class="picture-frame-img" onerror="this.onerror=null; this.style.opacity='0.4';" onclick="openMediaLightbox('${encodeURI(item.src)}', 'image', '${item.title}')" title="Click to expand">
+          <img 
+            src="${encodeURI(item.src)}" 
+            alt="${item.title}" 
+            class="picture-frame-img" 
+            onerror="this.onerror=null; this.style.opacity='0.4';" 
+            onclick="openMediaLightbox('${encodeURI(item.src)}', 'image', '${item.title}')" 
+            title="Click to expand"
+          >
           <div class="gallery-card-info">
             <h3 class="gallery-card-title">${item.title}</h3>
             <p class="gallery-card-lore">${item.lore}</p>
@@ -1410,7 +1414,6 @@
       document.body.removeChild(link);
     }
 
-    // Guidance Data
     const dailyFastGuidance = {
       "-3": { phase: "FAST DAY 1 • PREPARATION", title: "The Stockpile & Audit", text: "Conduct a full household inventory. Procure essential goods from cooperative sources today so you make zero commercial transactions for the next 6 days." },
       "-2": { phase: "FAST DAY 2 • PREPARATION", title: "Digital & Subscription Lockdown", text: "Freeze impulsive 1-click mobile checkouts, delivery apps, and online carts. Practice stealth discipline." },
@@ -1790,7 +1793,6 @@
       }, 150);
     }
 
-    // Single DOMContentLoaded Initializer
     window.addEventListener('DOMContentLoaded', () => {
       renderPlaylistItems();
       renderStreamArchive();
