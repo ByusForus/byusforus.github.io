@@ -661,7 +661,6 @@
 </head>
 <body>
 
-  <!-- 7-Day Economic Fast Banner with Daily Suggestions -->
   <div class="pause-banner">
     <div class="pause-content">
       <div class="pause-text-wrap">
@@ -688,7 +687,6 @@
     </div>
   </div>
 
-  <!-- Header -->
   <header>
     <div class="header-layout">
       <div class="header-left">
@@ -899,7 +897,7 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery -->
+    <!-- 9. Boycott Celebration Gallery with Direct Local Pickers -->
     <section>
       <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
       <div class="picture-gallery-grid" id="boycott-gallery-container"></div>
@@ -1251,22 +1249,25 @@
 
     const myBoycottArtList = [
       { 
+        id: "boycott_0",
         title: "The Price of Participation: Reclaiming Our Economic Sovereignty", 
-        lore: "Breaking the relentless cycle of commercialized American holidays. Questioning who is truly enriched and reclaiming community financial reservoirs through the 7-Day Economic Fast.", 
+        lore: "Breaking the relentless cycle of commercialized American holidays through the 7-Day Economic Fast.", 
         tag: "Economic Sovereignty • 7-Day Fast", 
-        src: "media/imani boycott celebration pix/iahbc_94dd97f5-89c2-413b-b044-892f0670f326.png" 
+        src: "media/imani%20boycott%20celebration%20pix/iahbc_94dd97f5-89c2-413b-b044-892f0670f326.png" 
       },
       { 
+        id: "boycott_1",
         title: "June 15th — Declaration Day", 
-        lore: "We declare, we remember, and we reclaim our sovereign power. Honoring our lineage and fallen soldiers with true independence.", 
+        lore: "We declare, we remember, and we reclaim our sovereign power. Honoring our lineage with true independence.", 
         tag: "Declaration Day • Sovereignty", 
-        src: "media/imani boycott celebration pix/june15-declaration-day.png" 
+        src: "media/imani%20boycott%20celebration%20pix/june15-declaration-day.png" 
       },
       { 
+        id: "boycott_2",
         title: "June 13 — George Floyd Day", 
-        lore: "We Do We. Correct the narrative, control the economy, and create our legacy across the 3+1+3 economic fast framework.", 
+        lore: "We Do We. Correct the narrative, control the economy, and create our legacy.", 
         tag: "Juneteenth • We Do We", 
-        src: "media/imani boycott celebration pix/iahbc_5dbd3257-419a-4e5b-a736-12aa4612bbaf.png" 
+        src: "media/imani%20boycott%20celebration%20pix/iahbc_5dbd3257-419a-4e5b-a736-12aa4612bbaf.png" 
       }
     ];
 
@@ -1274,22 +1275,81 @@
       const container = document.getElementById('boycott-gallery-container');
       if (!container) return;
       container.innerHTML = '';
-      myBoycottArtList.forEach(item => {
+      myBoycottArtList.forEach((item, index) => {
+        const inputId = `boycott-input-${index}`;
+        const imgId = `boycott-view-${index}`;
+        const storageKey = `boycott_cached_${item.id}`;
+        const savedSrc = localStorage.getItem(storageKey);
+
         const card = document.createElement('div');
         card.className = 'picture-card';
         card.innerHTML = `
-          <img 
-            src="${encodeURI(item.src)}" 
-            alt="${item.title}" 
-            class="picture-frame-img" 
-            onerror="this.onerror=null; this.style.opacity='0.4';" 
-            onclick="openMediaLightbox('${encodeURI(item.src)}', 'image', '${item.title}')" 
-            title="Click to expand"
-          >
+          <div style="position: relative; background: #000;">
+            <img 
+              id="${imgId}" 
+              src="${savedSrc || item.src}" 
+              alt="${item.title}" 
+              class="picture-frame-img" 
+              onerror="this.style.opacity='0.25';" 
+              onclick="openMediaLightbox(this.src, 'image', '${item.title}')" 
+              title="Click to expand"
+            >
+            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+              <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Fallback</span>
+              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
+              <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadBoycottCardImage(event, '${imgId}', '${storageKey}')">
+            </div>
+          </div>
           <div class="gallery-card-info">
             <h3 class="gallery-card-title">${item.title}</h3>
             <p class="gallery-card-lore">${item.lore}</p>
             <span class="gallery-card-tag">${item.tag}</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function loadBoycottCardImage(event, imgId, storageKey) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          localStorage.setItem(storageKey, e.target.result);
+          const img = document.getElementById(imgId);
+          if (img) {
+            img.src = e.target.result;
+            img.style.opacity = '1';
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function renderVideoVault(containerId, list) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      list.forEach((v, index) => {
+        const inputId = `${containerId}-file-${index}`;
+        const videoId = `${containerId}-video-${index}`;
+        const card = document.createElement('div');
+        card.className = 'video-vault-card';
+        card.innerHTML = `
+          <div class="video-player-container" style="position: relative;">
+            <video id="${videoId}" controls playsinline poster="${v.poster}" preload="metadata">
+              <source src="${encodeURI(v.src)}" type="video/mp4">
+            </video>
+            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
+              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
+              <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
+            </div>
+          </div>
+          <div class="gallery-card-info">
+            <h3 class="gallery-card-title">${v.title}</h3>
+            <p class="gallery-card-lore">${v.lore}</p>
+            <span class="gallery-card-tag">${v.tag}</span>
           </div>
         `;
         container.appendChild(card);
@@ -1317,32 +1377,6 @@
             <h3 class="gallery-card-title">${art.title}</h3>
             <p class="gallery-card-lore">${art.lore}</p>
             <span class="gallery-card-tag">${art.tag}</span>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function renderBoycottGallery() {
-      const container = document.getElementById('boycott-gallery-container');
-      if (!container) return;
-      container.innerHTML = '';
-      myBoycottArtList.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'picture-card';
-        card.innerHTML = `
-          <img 
-            src="${encodeURI(item.src)}" 
-            alt="${item.title}" 
-            class="picture-frame-img" 
-            onerror="this.onerror=null; this.style.opacity='0.4';" 
-            onclick="openMediaLightbox('${encodeURI(item.src)}', 'image', '${item.title}')" 
-            title="Click to expand"
-          >
-          <div class="gallery-card-info">
-            <h3 class="gallery-card-title">${item.title}</h3>
-            <p class="gallery-card-lore">${item.lore}</p>
-            <span class="gallery-card-tag">${item.tag}</span>
           </div>
         `;
         container.appendChild(card);
