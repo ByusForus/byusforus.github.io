@@ -727,7 +727,7 @@
           <video 
             id="standby-motion-player" 
             class="stream-video-element" 
-            src="unity in motion.mp4"
+            src="unity-in-motion.mp4"
             poster="media/images/we-r-imani-poster.png"
             autoplay loop muted playsinline
             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
@@ -897,7 +897,7 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery with Direct Local Pickers -->
+    <!-- 9. Boycott Celebration Gallery with Clean Paths & Override Pickers -->
     <section>
       <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
       <div class="picture-gallery-grid" id="boycott-gallery-container"></div>
@@ -917,7 +917,7 @@
           </div>
 
           <audio id="main-audio" controls onended="handleTrackEnded()">
-            <source id="main-audio-source" src="media/audio/ImanI story/I M ImanI/I M ImanI (2).mp3" type="audio/mpeg">
+            <source id="main-audio-source" src="media/audio/story/i-m-imani-rise-grind.mp3" type="audio/mpeg">
             Your browser does not support audio elements.
           </audio>
 
@@ -944,7 +944,6 @@
               <button class="audio-tab-btn" onclick="setAudioCategory('The mysteries', this)">The mysteries</button>
               <button class="audio-tab-btn" onclick="setAudioCategory('ImanI story', this)">ImanI story</button>
               <button class="audio-tab-btn" onclick="setAudioCategory('Audio Agreements', this)">Audio Agreements</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('Chatty Wisdom', this)">Chatty Wisdom</button>
             </div>
             <div>
               <button class="btn-load-audio-files" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
@@ -986,7 +985,7 @@
       </div>
 
       <div class="wisdom-card revealed" id="wisdom-card-container">
-        <img id="chatty-header-view" src="media/images/Chatty%20Wisdom%20Header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="triggerFileSelect('chatty-file-input')" title="Click to select Chatty graphic">
+        <img id="chatty-header-view" src="media/images/chatty-wisdom-header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="triggerFileSelect('chatty-file-input')" title="Click to select Chatty graphic">
         <div id="chatty-fallback-text" class="chatty-fallback-text" onclick="triggerFileSelect('chatty-file-input')">💜 CHATTY'S WISDOM</div>
         <input type="file" id="chatty-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-header-view', 'chatty-fallback-text', 'chatty_wisdom_header')">
 
@@ -1020,33 +1019,36 @@
 
   <script>
     let permanentAudioLibrary = [
-      { title: "Mystery 1 Cycle of ImanI Female", category: "The mysteries", src: "media/audio/The mysteries/Mystery 1 Cycle of ImanI Female.mp3", duration: "Song" },
-      { title: "Mystery 1 Cycle of ImanI male", category: "The mysteries", src: "media/audio/The mysteries/Mystery 1 Cycle of ImanI male.mp3", duration: "Song" },
-      { title: "mystery 2 the mirror that doesn't lie", category: "The mysteries", src: "media/audio/The mysteries/mystery 2 the mirror that doesn't lie.wav", duration: "Song" },
-      { title: "mystery 3 Between the Pillars", category: "The mysteries", src: "media/audio/The mysteries/mystery 3 Between the Pillars.mp3", duration: "Song" },
-      { title: "mystery 4 Solar and Lunar Power", category: "The mysteries", src: "media/audio/The mysteries/mystery 4 Solar and Lunar Power.mp3", duration: "Song" },
-      { title: "Mystery 5 I and I, Essence and Unity", category: "The mysteries", src: "media/audio/The mysteries/Mystery 5 I and I, Essence and Unity.mp3", duration: "Song" },
-      { title: "Mystery 6 I M is I Am", category: "The mysteries", src: "media/audio/The mysteries/Mystery 6 I M is I Am.mp3", duration: "Song" },
-      { title: "Mystery 7 I M Ani I M Beautiful", category: "The mysteries", src: "media/audio/The mysteries/Mystery 7 I M Ani I M Beautiful.mp3", duration: "Song" },
-      { title: "mystery 8 The Iniciation The Scraed Circle", category: "The mysteries", src: "media/audio/The mysteries/mystery 8 The Iniciation The Scraed Circle.wav", duration: "Song" },
-      { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/The mysteries/Mystery 9 We Got Systems Too.mp3", duration: "Song" },
-      { title: "Mystery 10 Rythm of Return", category: "The mysteries", src: "media/audio/The mysteries/Mystery 10 Rythm of Return.wav", duration: "Song" },
-      { title: "I M Ani I M Beautiful (No Permission Required)", category: "The mysteries", src: "media/audio/ImanI story/I M ImanI/I M Ani I M Beautiful.mp3", duration: "Song" },
-      { title: "Checkmate Mindset (Strategy Over Noise)", category: "The mysteries", src: "media/audio/ImanI story/I M ImanI/Checkmate Mindset.mp3", duration: "Song" },
-      { title: "I M ImanI (We Rise & We Grind)", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M ImanI (2).mp3", duration: "Song" },
-      { title: "I M Imani Because", category: "ImanI story", src: "media/audio/ImanI story/I M Imani Because.mp3", duration: "Song" },
-      { title: "I M ImanI Ignited", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M ImanI Ignited.mp3", duration: "Song" },
-      { title: "I M Imani", category: "ImanI story", src: "media/audio/ImanI story/I M Imani.mp3", duration: "Song" },
-      { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M Onyx in the Middle.mp3", duration: "Song" },
-      { title: "I M Unlocking the Imani Mind", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M Unlocking the Imani Mind.mp3", duration: "Song" },
-      { title: "I M Written in the Law", category: "ImanI story", src: "media/audio/ImanI story/I M ImanI/I M Written in the Law.mp3", duration: "Song" },
-      { title: "Agreement 1: Law of the Resonant Word", category: "Audio Agreements", src: "media/audio/Audio Agreements/Law of the Resonant Word.mp3", duration: "Song" },
-      { title: "Agreement 1: Words of Power", category: "Audio Agreements", src: "media/audio/Audio Agreements/Words of Power.mp3", duration: "Song" },
-      { title: "Agreement 2: Immunity to Poison", category: "Audio Agreements", src: "media/audio/Audio Agreements/Immunity to Poison.wav", duration: "Song" },
-      { title: "Agreement 3: Don't Make Assumptions", category: "Audio Agreements", src: "media/audio/Audio Agreements/Dont Make Assumptions.wav", duration: "Song" },
-      { title: "Agreement 3: Rewrite Our Story", category: "Audio Agreements", src: "media/audio/Audio Agreements/rewrite_our_story_april_24_2026_5_50_pm.wav", duration: "Song" },
-      { title: "Agreement 4: Always Do Your Best", category: "Audio Agreements", src: "media/audio/Audio Agreements/Always Do Your Best.mp3", duration: "Song" },
-      { title: "Agreement 5: Be Skeptical, But Learn to Listen", category: "Audio Agreements", src: "media/audio/Audio Agreements/ImanI be skeptical, but learn to listen The 5th Agreement.mp3", duration: "Song" }
+      // Agreements
+      { title: "Agreement 1: Law of the Resonant Word", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-resonant-word.mp3", duration: "Song" },
+      { title: "Agreement 1: Words of Power", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-words-of-power.mp3", duration: "Song" },
+      { title: "Agreement 2: Immunity to Poison", category: "Audio Agreements", src: "media/audio/agreements/agreement-2-immunity-to-poison.wav", duration: "Song" },
+      { title: "Agreement 3: Don't Make Assumptions", category: "Audio Agreements", src: "media/audio/agreements/agreement-3-no-assumptions.wav", duration: "Song" },
+      { title: "Agreement 3: Rewrite Our Story", category: "Audio Agreements", src: "media/audio/agreements/agreement-3-rewrite-our-story.wav", duration: "Song" },
+      { title: "Agreement 4: Always Do Your Best", category: "Audio Agreements", src: "media/audio/agreements/agreement-4-always-do-your-best.mp3", duration: "Song" },
+      { title: "Agreement 5: Be Skeptical, But Learn to Listen", category: "Audio Agreements", src: "media/audio/agreements/agreement-5-listen.mp3", duration: "Song" },
+
+      // Mysteries
+      { title: "Mystery 1 Cycle of ImanI Female", category: "The mysteries", src: "media/audio/mysteries/mystery-01-female.mp3", duration: "Song" },
+      { title: "Mystery 1 Cycle of ImanI male", category: "The mysteries", src: "media/audio/mysteries/mystery-01-male.mp3", duration: "Song" },
+      { title: "Mystery 2 The Mirror That Doesn't Lie", category: "The mysteries", src: "media/audio/mysteries/mystery-02-mirror.wav", duration: "Song" },
+      { title: "Mystery 3 Between the Pillars", category: "The mysteries", src: "media/audio/mysteries/mystery-03-pillars.mp3", duration: "Song" },
+      { title: "Mystery 4 Solar and Lunar Power", category: "The mysteries", src: "media/audio/mysteries/mystery-04-solar-lunar.mp3", duration: "Song" },
+      { title: "Mystery 5 I and I, Essence and Unity", category: "The mysteries", src: "media/audio/mysteries/mystery-05-essence-unity.mp3", duration: "Song" },
+      { title: "Mystery 6 I M is I Am", category: "The mysteries", src: "media/audio/mysteries/mystery-06-i-m-is-i-am.mp3", duration: "Song" },
+      { title: "Mystery 7 I M Ani I M Beautiful", category: "The mysteries", src: "media/audio/mysteries/mystery-07-very-beautiful.mp3", duration: "Song" },
+      { title: "Mystery 8 The Initiation The Sacred Circle", category: "The mysteries", src: "media/audio/mysteries/mystery-08-sacred-circle.wav", duration: "Song" },
+      { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/mysteries/mystery-09-systems.mp3", duration: "Song" },
+      { title: "Mystery 10 Rhythm of Return", category: "The mysteries", src: "media/audio/mysteries/mystery-10-return.wav", duration: "Song" },
+
+      // Story
+      { title: "I M ImanI (We Rise & We Grind)", category: "ImanI story", src: "media/audio/story/i-m-imani-rise-grind.mp3", duration: "Song" },
+      { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", duration: "Song" },
+      { title: "I M ImanI Ignited", category: "ImanI story", src: "media/audio/story/i-m-imani-ignited.mp3", duration: "Song" },
+      { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", duration: "Song" },
+      { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/story/i-m-onyx-in-the-middle.mp3", duration: "Song" },
+      { title: "I M Unlocking the Imani Mind", category: "ImanI story", src: "media/audio/story/i-m-unlocking-the-mind.mp3", duration: "Song" },
+      { title: "I M Written in the Law", category: "ImanI story", src: "media/audio/story/i-m-written-in-the-law.mp3", duration: "Song" }
     ];
 
     let currentAudioCategory = "ALL";
@@ -1160,9 +1162,19 @@
       const files = Array.from(event.target.files);
       if (!files.length) return;
       files.forEach(file => {
+        let clean = file.name.replace(/\.[^/.]+$/, "");
+        let cat = "The mysteries";
+        let low = clean.toLowerCase();
+        if (low.includes("agreement") || low.includes("word") || low.includes("poison") || low.includes("assumptions")) {
+          cat = "Audio Agreements";
+        } else if (low.includes("story") || low.includes("imani") || low.includes("law")) {
+          cat = "ImanI story";
+        } else if (low.includes("chatty")) {
+          cat = "Chatty Wisdom";
+        }
         permanentAudioLibrary.push({
-          title: file.name.replace(/\.[^/.]+$/, ""),
-          category: "User Uploads",
+          title: clean,
+          category: cat,
           src: URL.createObjectURL(file),
           duration: "Audio"
         });
@@ -1171,7 +1183,12 @@
     }
 
     let userArchiveVideos = [
-      { title: "Session #01: Grand Awakening Launch", author: "DJ Karma Live", duration: "Live Replay", src: "media/video/live-session-1.mp4" }
+      { 
+        title: "Written in the Law Letter", 
+        author: "Dj Karma Live", 
+        duration: "Lineage Session", 
+        src: "media/videos/written-in-the-law-letter.mp4" 
+      }
     ];
 
     function loadUserArchiveVideos(event) {
@@ -1208,11 +1225,11 @@
 
     const myMusicVideosList = [
       { 
-        title: "ImanI Code of Alignment (Official Music Video)", 
-        lore: "Walking in rhythm and harmony with the ImanI Code—music and cinematic visuals created by Karma.", 
-        tag: "🎵 Music Video • 4K Master", 
+        title: "ImanI Official Music Video", 
+        lore: "Walking in rhythm and harmony with the ImanI Code—music and visuals by Dj Karma.", 
+        tag: "🎵 Music Video • HD Master", 
         poster: "media/images/header-emblem.png", 
-        src: "media/video music/ImanI Story/ImanI Code of Alignment (Official Music Video).mp4" 
+        src: "media/videos/music-videos/music-video-1.mp4" 
       }
     ];
 
@@ -1222,7 +1239,7 @@
         lore: "Exploring the legal lineage, sovereign ontology, and historical foundation of the 14th Amendment Americans.", 
         tag: "🎬 Documentary Cinema • Chapter 1", 
         poster: "media/images/header-emblem.png", 
-        src: "media/videos/Written in the law letter.mp4" 
+        src: "media/videos/written-in-the-law-video.mp4" 
       }
     ];
 
@@ -1231,19 +1248,7 @@
         title: "Chapter 0 — The ImanI Manifesto: Blueprint for Collective Flourishing", 
         lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass.", 
         tag: "Manifesto • Foundational Blueprint", 
-        src: "media/ImanI Pictures/Chapter 0 The_Imani_Manifesto_Blueprint.png" 
-      },
-      { 
-        title: "Chapter 1A — The ImanI Neighborhood Community Blueprint", 
-        lore: "A holistic framework uniting Justice & Correctness, economic and social stability.", 
-        tag: "Community • Strategic Blueprint", 
-        src: "media/ImanI Pictures/Chapter 1A The_Imani_Neighborhood_Community_Blueprint.png" 
-      },
-      { 
-        title: "Chapter 2A — The ImanI Home: The First School of Life", 
-        lore: "Organizing the household around development over consumption and intergenerational wisdom.", 
-        tag: "Home Life • Educational Blueprint", 
-        src: "media/ImanI Pictures/Chapter 2A The_Imani_Home_Life_School.png" 
+        src: "media/images/chapter-0-manifesto.png" 
       }
     ];
 
@@ -1253,21 +1258,21 @@
         title: "The Price of Participation: Reclaiming Our Economic Sovereignty", 
         lore: "Breaking the relentless cycle of commercialized American holidays through the 7-Day Economic Fast.", 
         tag: "Economic Sovereignty • 7-Day Fast", 
-        src: "media/imani%20boycott%20celebration%20pix/iahbc_94dd97f5-89c2-413b-b044-892f0670f326.png" 
+        src: "media/boycott/economic-sovereignty.png" 
       },
       { 
         id: "boycott_1",
         title: "June 15th — Declaration Day", 
         lore: "We declare, we remember, and we reclaim our sovereign power. Honoring our lineage with true independence.", 
         tag: "Declaration Day • Sovereignty", 
-        src: "media/imani%20boycott%20celebration%20pix/june15-declaration-day.png" 
+        src: "media/boycott/june15-declaration-day.png" 
       },
       { 
         id: "boycott_2",
         title: "June 13 — George Floyd Day", 
         lore: "We Do We. Correct the narrative, control the economy, and create our legacy.", 
         tag: "Juneteenth • We Do We", 
-        src: "media/imani%20boycott%20celebration%20pix/iahbc_5dbd3257-419a-4e5b-a736-12aa4612bbaf.png" 
+        src: "media/boycott/george-floyd-day.png" 
       }
     ];
 
@@ -1290,12 +1295,12 @@
               src="${savedSrc || item.src}" 
               alt="${item.title}" 
               class="picture-frame-img" 
-              onerror="this.style.opacity='0.25';" 
+              onerror="this.style.opacity='0.35';" 
               onclick="openMediaLightbox(this.src, 'image', '${item.title}')" 
               title="Click to expand"
             >
             <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-              <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Fallback</span>
+              <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Override</span>
               <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
               <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadBoycottCardImage(event, '${imgId}', '${storageKey}')">
             </div>
