@@ -903,7 +903,7 @@
       <div class="picture-gallery-grid" id="boycott-gallery-container"></div>
     </section>
 
-    <!-- 10. Dynamic Audio Vault (Mapped with .mp3 and .wav Fallback) -->
+    <!-- 10. Dynamic Audio Vault (Mapped to Exact Folder File Names) -->
     <section>
       <h2 class="section-title">ImanI Audio Vault</h2>
       <div class="vault-grid">
@@ -955,13 +955,13 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery -->
+    <!-- 11. Dedicated Still Picture Gallery (Direct links to media/images/imanipix/) -->
     <section>
       <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
       <div class="picture-gallery-grid" id="still-gallery-container"></div>
     </section>
 
-    <!-- 12. Music Video Vault -->
+    <!-- 12. Music Video Vault (Mapped to written-in-the-law.mp4) -->
     <section>
       <h2 class="section-title">ImanI Official Music Video Vault</h2>
       <div class="video-gallery-grid" id="music-video-gallery-container"></div>
@@ -1041,7 +1041,7 @@
       { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/mysteries/mystery-09-systems.mp3", duration: "Song" },
       { title: "Mystery 10 Rhythm of Return", category: "The mysteries", src: "media/audio/mysteries/mystery-10-return.wav", duration: "Song" },
 
-      // Story (Exact disk match from File Explorer)
+      // Story (Exact filenames from File Explorer)
       { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", duration: "Song" },
       { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", duration: "Song" },
       { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/story/i-m-onyx-in-the-middle.mp3", duration: "Song" },
@@ -1113,7 +1113,6 @@
       const audio = document.getElementById('main-audio');
       if (audio) {
         audio.onerror = function() {
-          // If .mp3 fails on disk, try .wav automatically
           if (audio.src.endsWith('.mp3')) {
             audio.src = audio.src.replace('.mp3', '.wav');
             audio.play().catch(() => {});
@@ -1240,11 +1239,11 @@
 
     const myMusicVideosList = [
       { 
-        title: "ImanI Official Music Video", 
-        lore: "Walking in rhythm and harmony with the ImanI Code—music and visuals by Dj Karma.", 
+        title: "Written in the Law", 
+        lore: "Official music video — Walking in rhythm and harmony with the ImanI Code by Dj Karma.", 
         tag: "🎵 Music Video • HD Master", 
         poster: "media/images/header-emblem.png", 
-        src: "media/videos/music-videos/music-video-1.mp4" 
+        src: "media/videos/music-videos/written-in-the-law.mp4" 
       }
     ];
 
