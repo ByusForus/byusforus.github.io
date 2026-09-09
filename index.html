@@ -903,7 +903,7 @@
       <div class="picture-gallery-grid" id="boycott-gallery-container"></div>
     </section>
 
-    <!-- 10. Dynamic Audio Vault -->
+    <!-- 10. Dynamic Audio Vault (Mapped with .mp3 and .wav Fallback) -->
     <section>
       <h2 class="section-title">ImanI Audio Vault</h2>
       <div class="vault-grid">
@@ -911,13 +911,13 @@
           <div class="track-meta">
             <div class="track-art">IM</div>
             <div class="track-details">
-              <h4 id="current-title">I M ImanI (We Rise & We Grind)</h4>
+              <h4 id="current-title">I M Imani</h4>
               <p id="current-category">ImanI story</p>
             </div>
           </div>
 
           <audio id="main-audio" controls onended="handleTrackEnded()">
-            <source id="main-audio-source" src="media/audio/story/i-m-imani-rise-grind.mp3" type="audio/mpeg">
+            <source id="main-audio-source" src="media/audio/story/i-m-imani.mp3" type="audio/mpeg">
             Your browser does not support audio elements.
           </audio>
 
@@ -955,7 +955,7 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery (Points to media/images/imanipix/) -->
+    <!-- 11. Dedicated Still Picture Gallery -->
     <section>
       <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
       <div class="picture-gallery-grid" id="still-gallery-container"></div>
@@ -1041,14 +1041,21 @@
       { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/mysteries/mystery-09-systems.mp3", duration: "Song" },
       { title: "Mystery 10 Rhythm of Return", category: "The mysteries", src: "media/audio/mysteries/mystery-10-return.wav", duration: "Song" },
 
-      // Story
-      { title: "I M ImanI (We Rise & We Grind)", category: "ImanI story", src: "media/audio/story/i-m-imani-rise-grind.mp3", duration: "Song" },
-      { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", duration: "Song" },
-      { title: "I M ImanI Ignited", category: "ImanI story", src: "media/audio/story/i-m-imani-ignited.mp3", duration: "Song" },
+      // Story (Exact disk match from File Explorer)
       { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", duration: "Song" },
+      { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", duration: "Song" },
       { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/story/i-m-onyx-in-the-middle.mp3", duration: "Song" },
-      { title: "I M Unlocking the Imani Mind", category: "ImanI story", src: "media/audio/story/i-m-unlocking-the-mind.mp3", duration: "Song" },
-      { title: "I M Written in the Law", category: "ImanI story", src: "media/audio/story/i-m-written-in-the-law.mp3", duration: "Song" }
+      { title: "I M Unlocking the Imani Mind", category: "ImanI story", src: "media/audio/story/i-m-unlocking-the-imani-mind.mp3", duration: "Song" },
+      { title: "I M We R Imani", category: "ImanI story", src: "media/audio/story/i-m-we-r-imani.mp3", duration: "Song" },
+      { title: "I M We R Imani 2", category: "ImanI story", src: "media/audio/story/i-m-we-r-imani2.mp3", duration: "Song" },
+      { title: "I M Reparations Now", category: "ImanI story", src: "media/audio/story/i-m-reparations-now.mp3", duration: "Song" },
+      { title: "I M Strategic Disengagement", category: "ImanI story", src: "media/audio/story/i-m-strategic-disengagement.mp3", duration: "Song" },
+      { title: "ImanI Ignited", category: "ImanI story", src: "media/audio/story/imani-ignited.mp3", duration: "Song" },
+      { title: "ImanI Code of Alignment", category: "ImanI story", src: "media/audio/story/imani-code-of-alignment.mp3", duration: "Song" },
+      { title: "ImanI Code of Alliance", category: "ImanI story", src: "media/audio/story/imani-code-of-alliance.mp3", duration: "Song" },
+      { title: "Written in the Law", category: "ImanI story", src: "media/audio/story/written-in-the-law.mp3", duration: "Song" },
+      { title: "Declaration of the New Breed", category: "ImanI story", src: "media/audio/story/declaration-of-the-new-breed.mp3", duration: "Song" },
+      { title: "Checkmate Mindset", category: "ImanI story", src: "media/audio/story/checkmate-mindset.mp3", duration: "Song" }
     ];
 
     let currentAudioCategory = "ALL";
@@ -1102,8 +1109,16 @@
       const curCat = document.getElementById('current-category');
       if (curTitle) curTitle.innerText = track.title;
       if (curCat) curCat.innerText = track.category;
+      
       const audio = document.getElementById('main-audio');
       if (audio) {
+        audio.onerror = function() {
+          // If .mp3 fails on disk, try .wav automatically
+          if (audio.src.endsWith('.mp3')) {
+            audio.src = audio.src.replace('.mp3', '.wav');
+            audio.play().catch(() => {});
+          }
+        };
         audio.src = track.src;
         audio.play().catch(() => {});
       }
