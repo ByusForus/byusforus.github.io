@@ -955,7 +955,7 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery (All 3 Blueprints with Local Overrides) -->
+    <!-- 11. Dedicated Still Picture Gallery (Points to media/images/imanipix/) -->
     <section>
       <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
       <div class="picture-gallery-grid" id="still-gallery-container"></div>
@@ -1249,21 +1249,21 @@
         title: "Chapter 0 — The ImanI Manifesto: Blueprint for Collective Flourishing", 
         lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass.", 
         tag: "Manifesto • Foundational Blueprint", 
-        src: "media/images/chapter-0-manifesto.png" 
+        src: "media/images/imanipix/chapter-0-manifesto.png" 
       },
       { 
         id: "still_chapter_1a",
         title: "Chapter 1A — The ImanI Neighborhood Community Blueprint", 
         lore: "A holistic framework uniting Justice & Correctness, economic and social stability.", 
         tag: "Community • Strategic Blueprint", 
-        src: "media/images/chapter-1a-blueprint.png" 
+        src: "media/images/imanipix/chapter-1a-blueprint.png" 
       },
       { 
         id: "still_chapter_2a",
         title: "Chapter 2A — The ImanI Home: The First School of Life", 
         lore: "Organizing the household around development over consumption and intergenerational wisdom.", 
         tag: "Home Life • Educational Blueprint", 
-        src: "media/images/chapter-2a-home-school.png" 
+        src: "media/images/imanipix/chapter-2a-home-school.png" 
       }
     ];
 
@@ -1311,7 +1311,6 @@
       if (!file) return;
 
       const img = document.getElementById(imgId);
-      // Instant display via blob URL without quota restriction
       const objectUrl = URL.createObjectURL(file);
       if (img) {
         img.src = objectUrl;
@@ -1319,7 +1318,6 @@
         img.style.display = 'block';
       }
 
-      // Safe cache attempt with error handling
       const reader = new FileReader();
       reader.onload = function(e) {
         try {
