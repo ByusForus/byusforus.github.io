@@ -1280,7 +1280,7 @@
         const card = document.createElement('div');
         card.className = 'picture-card';
         card.innerHTML = `
-          <div style="position: relative; background: #000;">
+          <div style="position: relative; background: #000; min-height: 200px;">
             <img 
               id="${imgId}"
               src="${savedSrc || encodeURI(art.src)}" 
@@ -1308,18 +1308,27 @@
 
     function loadStillCardImage(event, imgId, storageKey) {
       const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          localStorage.setItem(storageKey, e.target.result);
-          const img = document.getElementById(imgId);
-          if (img) {
-            img.src = e.target.result;
-            img.style.opacity = '1';
-          }
-        };
-        reader.readAsDataURL(file);
+      if (!file) return;
+
+      const img = document.getElementById(imgId);
+      // Instant display via blob URL without quota restriction
+      const objectUrl = URL.createObjectURL(file);
+      if (img) {
+        img.src = objectUrl;
+        img.style.opacity = '1';
+        img.style.display = 'block';
       }
+
+      // Safe cache attempt with error handling
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          localStorage.setItem(storageKey, e.target.result);
+        } catch (err) {
+          console.warn("Storage quota exceeded; image active in current session.");
+        }
+      };
+      reader.readAsDataURL(file);
     }
 
     const myBoycottArtList = [
@@ -1359,7 +1368,7 @@
         const card = document.createElement('div');
         card.className = 'picture-card';
         card.innerHTML = `
-          <div style="position: relative; background: #000;">
+          <div style="position: relative; background: #000; min-height: 200px;">
             <img 
               id="${imgId}" 
               src="${savedSrc || item.src}" 
@@ -1387,18 +1396,25 @@
 
     function loadBoycottCardImage(event, imgId, storageKey) {
       const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          localStorage.setItem(storageKey, e.target.result);
-          const img = document.getElementById(imgId);
-          if (img) {
-            img.src = e.target.result;
-            img.style.opacity = '1';
-          }
-        };
-        reader.readAsDataURL(file);
+      if (!file) return;
+
+      const img = document.getElementById(imgId);
+      const objectUrl = URL.createObjectURL(file);
+      if (img) {
+        img.src = objectUrl;
+        img.style.opacity = '1';
+        img.style.display = 'block';
       }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          localStorage.setItem(storageKey, e.target.result);
+        } catch (err) {
+          console.warn("Storage quota exceeded; image active in current session.");
+        }
+      };
+      reader.readAsDataURL(file);
     }
 
     function renderVideoVault(containerId, list) {
@@ -1663,13 +1679,15 @@
     function loadUserImage(event, imgId, fallbackId, storageKey) {
       const file = event.target.files[0];
       if (file) {
+        const img = document.getElementById(imgId);
+        const objectUrl = URL.createObjectURL(file);
+        if (img) { img.src = objectUrl; img.style.display = 'block'; }
+        const fallback = document.getElementById(fallbackId);
+        if (fallback) fallback.style.display = 'none';
+
         const reader = new FileReader();
         reader.onload = function(e) {
-          localStorage.setItem(storageKey, e.target.result);
-          const img = document.getElementById(imgId);
-          if (img) { img.src = e.target.result; img.style.display = 'block'; }
-          const fallback = document.getElementById(fallbackId);
-          if (fallback) fallback.style.display = 'none';
+          try { localStorage.setItem(storageKey, e.target.result); } catch(err) {}
         };
         reader.readAsDataURL(file);
       }
