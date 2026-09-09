@@ -955,7 +955,7 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery -->
+    <!-- 11. Dedicated Still Picture Gallery (All 3 Blueprints with Local Overrides) -->
     <section>
       <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
       <div class="picture-gallery-grid" id="still-gallery-container"></div>
@@ -1245,12 +1245,82 @@
 
     const myStillArtList = [
       { 
+        id: "still_chapter_0",
         title: "Chapter 0 — The ImanI Manifesto: Blueprint for Collective Flourishing", 
         lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass.", 
         tag: "Manifesto • Foundational Blueprint", 
         src: "media/images/chapter-0-manifesto.png" 
+      },
+      { 
+        id: "still_chapter_1a",
+        title: "Chapter 1A — The ImanI Neighborhood Community Blueprint", 
+        lore: "A holistic framework uniting Justice & Correctness, economic and social stability.", 
+        tag: "Community • Strategic Blueprint", 
+        src: "media/images/chapter-1a-blueprint.png" 
+      },
+      { 
+        id: "still_chapter_2a",
+        title: "Chapter 2A — The ImanI Home: The First School of Life", 
+        lore: "Organizing the household around development over consumption and intergenerational wisdom.", 
+        tag: "Home Life • Educational Blueprint", 
+        src: "media/images/chapter-2a-home-school.png" 
       }
     ];
+
+    function renderStillGallery(containerId, list) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      list.forEach((art, index) => {
+        const inputId = `still-input-${index}`;
+        const imgId = `still-view-${index}`;
+        const storageKey = `still_cached_${art.id}`;
+        const savedSrc = localStorage.getItem(storageKey);
+
+        const card = document.createElement('div');
+        card.className = 'picture-card';
+        card.innerHTML = `
+          <div style="position: relative; background: #000;">
+            <img 
+              id="${imgId}"
+              src="${savedSrc || encodeURI(art.src)}" 
+              alt="${art.title}" 
+              class="picture-frame-img" 
+              onerror="this.onerror=null; this.style.opacity='0.35';" 
+              onclick="openMediaLightbox(this.src, 'image', '${art.title}')" 
+              title="Click to expand"
+            >
+            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+              <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Override</span>
+              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
+              <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadStillCardImage(event, '${imgId}', '${storageKey}')">
+            </div>
+          </div>
+          <div class="gallery-card-info">
+            <h3 class="gallery-card-title">${art.title}</h3>
+            <p class="gallery-card-lore">${art.lore}</p>
+            <span class="gallery-card-tag">${art.tag}</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function loadStillCardImage(event, imgId, storageKey) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          localStorage.setItem(storageKey, e.target.result);
+          const img = document.getElementById(imgId);
+          if (img) {
+            img.src = e.target.result;
+            img.style.opacity = '1';
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
 
     const myBoycottArtList = [
       { 
@@ -1367,25 +1437,6 @@
         const vid = document.getElementById(videoElementId);
         if (vid) { vid.src = URL.createObjectURL(file); vid.play().catch(() => {}); }
       }
-    }
-
-    function renderStillGallery(containerId, list) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-      list.forEach(art => {
-        const card = document.createElement('div');
-        card.className = 'picture-card';
-        card.innerHTML = `
-          <img src="${encodeURI(art.src)}" alt="${art.title}" class="picture-frame-img" onerror="this.onerror=null; this.style.opacity='0.4';" onclick="openMediaLightbox('${encodeURI(art.src)}', 'image', '${art.title}')" title="Click to expand">
-          <div class="gallery-card-info">
-            <h3 class="gallery-card-title">${art.title}</h3>
-            <p class="gallery-card-lore">${art.lore}</p>
-            <span class="gallery-card-tag">${art.tag}</span>
-          </div>
-        `;
-        container.appendChild(card);
-      });
     }
 
     const federalHolidays = [
