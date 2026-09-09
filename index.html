@@ -961,13 +961,13 @@
       <div class="picture-gallery-grid" id="still-gallery-container"></div>
     </section>
 
-    <!-- 12. Music Video Vault (Mapped to written-in-the-law.mp4) -->
+    <!-- 12. Music Video Vault (Streaming direct from Archive.org) -->
     <section>
       <h2 class="section-title">ImanI Official Music Video Vault</h2>
       <div class="video-gallery-grid" id="music-video-gallery-container"></div>
     </section>
 
-    <!-- 13. Cinema & Documentary Vault -->
+    <!-- 13. Cinema & Documentary Vault (Streaming direct from Archive.org) -->
     <section>
       <h2 class="section-title">ImanI Documentary & Cinema Vault</h2>
       <div class="video-gallery-grid" id="cinema-gallery-container"></div>
@@ -1198,10 +1198,10 @@
 
     let userArchiveVideos = [
       { 
-        title: "Written in the Law Letter", 
-        author: "Dj Karma Live", 
-        duration: "Lineage Session", 
-        src: "media/videos/written-in-the-law-letter.mp4" 
+        title: "Written in the Law", 
+        author: "Dj Karma Master", 
+        duration: "Archive Stream", 
+        src: "https://archive.org/download/written_in_the-law-video/written_in_the-law-video.mp4" 
       }
     ];
 
@@ -1243,7 +1243,7 @@
         lore: "Official music video — Walking in rhythm and harmony with the ImanI Code by Dj Karma.", 
         tag: "🎵 Music Video • HD Master", 
         poster: "media/images/header-emblem.png", 
-        src: "media/videos/music-videos/written-in-the-law.mp4" 
+        src: "https://archive.org/download/written_in_the-law-video/written_in_the-law-video.mp4" 
       }
     ];
 
@@ -1253,7 +1253,7 @@
         lore: "Exploring the legal lineage, sovereign ontology, and historical foundation of the 14th Amendment Americans.", 
         tag: "🎬 Documentary Cinema • Chapter 1", 
         poster: "media/images/header-emblem.png", 
-        src: "media/videos/written-in-the-law-video.mp4" 
+        src: "https://archive.org/download/written_in_the-law-video/written_in_the-law-video.mp4" 
       }
     ];
 
@@ -1440,9 +1440,7 @@
         card.className = 'video-vault-card';
         card.innerHTML = `
           <div class="video-player-container" style="position: relative;">
-            <video id="${videoId}" controls playsinline poster="${v.poster}" preload="metadata">
-              <source src="${encodeURI(v.src)}" type="video/mp4">
-            </video>
+            <video id="${videoId}" src="${v.src}" controls playsinline poster="${v.poster}" preload="metadata"></video>
             <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
               <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
               <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
