@@ -529,6 +529,7 @@
       border-radius: var(--radius-md); overflow: hidden; display: flex;
       flex-direction: column; backdrop-filter: blur(12px);
       transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
     }
 
     .picture-card:hover {
@@ -556,6 +557,7 @@
       border-radius: var(--radius-md); overflow: hidden; display: flex;
       flex-direction: column; backdrop-filter: blur(12px);
       transition: transform 0.25s ease, border-color 0.25s ease;
+      position: relative;
     }
 
     .video-vault-card:hover {
@@ -566,6 +568,91 @@
     .video-player-container video {
       width: 100%; aspect-ratio: 16 / 9; background: #000; display: block;
       border-bottom: 1px solid var(--onyx-border);
+    }
+
+    /* Sovereign Membership Locked Cards */
+    .card-locked-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-locked-wrapper .locked-content-blur {
+      filter: blur(10px) brightness(0.45);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .card-lock-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 8, 8, 0.88);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 24px 18px;
+      z-index: 15;
+    }
+
+    .card-lock-badge {
+      font-size: 2rem;
+      margin-bottom: 6px;
+      color: var(--gold-accent);
+      filter: drop-shadow(0 0 8px var(--gold-glow));
+    }
+
+    .card-lock-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--gold-accent);
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .card-lock-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      max-width: 260px;
+      margin-bottom: 14px;
+    }
+
+    .btn-join-membership {
+      background: linear-gradient(135deg, var(--gold-accent), #d19a22);
+      color: #000000;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 14px var(--gold-glow);
+      transition: transform 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-join-membership:hover {
+      transform: scale(1.04);
+    }
+
+    .btn-enter-pass {
+      background: transparent;
+      color: var(--emerald-accent);
+      border: 1px solid var(--emerald-accent);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 14px;
+      margin-top: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-enter-pass:hover {
+      background: rgba(0, 208, 108, 0.15);
     }
 
     .wisdom-filter-bar {
@@ -886,7 +973,7 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery with Clean Paths & Override Pickers -->
+    <!-- 9. Boycott Celebration Gallery (Free Preview + Locked Members Content) -->
     <section>
       <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
       <div class="picture-gallery-grid" id="boycott-gallery-container"></div>
@@ -941,19 +1028,19 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery (Direct links to media/images/imanipix/) -->
+    <!-- 11. Dedicated Still Picture Gallery (Free Preview + Locked Members Content) -->
     <section>
       <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
       <div class="picture-gallery-grid" id="still-gallery-container"></div>
     </section>
 
-    <!-- 12. Music Video Vault (Written in the Law Video) -->
+    <!-- 12. Music Video Vault (Free Preview + Locked Members Content) -->
     <section>
       <h2 class="section-title">ImanI Official Music Video Vault</h2>
       <div class="video-gallery-grid" id="music-video-gallery-container"></div>
     </section>
 
-    <!-- 13. Cinema & Documentary Vault (Written in the Law Letter) -->
+    <!-- 13. Cinema & Documentary Vault (Free Preview + Locked Members Content) -->
     <section>
       <h2 class="section-title">ImanI Documentary & Cinema Vault</h2>
       <div class="video-gallery-grid" id="cinema-gallery-container"></div>
@@ -995,6 +1082,7 @@
 
   </main>
 
+  <!-- Media Preview Lightbox -->
   <div id="lightbox-modal" class="lightbox-backdrop" onclick="closeMediaLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeMediaLightbox()">&times;</button>
@@ -1003,7 +1091,66 @@
     </div>
   </div>
 
+  <!-- Membership Gate Modal -->
+  <div id="membership-modal" class="lightbox-backdrop" onclick="closeMembershipModal()">
+    <div class="lightbox-content" onclick="event.stopPropagation()" style="max-width: 440px; background: var(--onyx-surface); border: 1px solid var(--gold-accent); border-radius: var(--radius-md); padding: 28px; text-align: center; box-shadow: 0 0 35px var(--gold-glow);">
+      <button class="lightbox-close-btn" onclick="closeMembershipModal()">&times;</button>
+      
+      <div style="font-size: 2.5rem; margin-bottom: 8px;">🏛️</div>
+      <h3 style="color: var(--gold-accent); font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">ImanI Sovereign Membership</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
+        Join our membership community to unlock the full collection of creative work, exclusive documentary films, extended video archives, and complete high-resolution art galleries.
+      </p>
+
+      <a href="https://your-membership-signup-link.com" target="_blank" class="btn-join-membership" style="display: inline-block; text-decoration: none; padding: 12px 28px; font-size: 0.92rem; margin-bottom: 18px;">
+        ⚡ Join Membership Today
+      </a>
+
+      <div style="border-top: 1px solid var(--onyx-border); padding-top: 16px; margin-top: 6px;">
+        <p style="color: var(--text-main); font-size: 0.82rem; margin-bottom: 8px;">Already a Member? Enter your Access Pass:</p>
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <input type="password" id="member-pass-input" class="chat-input" placeholder="Passphrase..." style="max-width: 220px;" onkeydown="if(event.key==='Enter') submitMemberPass()">
+          <button class="chat-send-btn" onclick="submitMemberPass()">Unlock</button>
+        </div>
+        <p id="member-pass-error" style="color: #ff5555; font-size: 0.75rem; margin-top: 8px; display: none;">Invalid Passphrase. Please try again.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // Sovereign Member Verification
+    const SECRET_MEMBER_KEY = "IMANI2026";
+
+    function isMemberUnlocked() {
+      return localStorage.getItem("imani_member_active") === "true";
+    }
+
+    function openMembershipModal() {
+      const modal = document.getElementById('membership-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeMembershipModal() {
+      const modal = document.getElementById('membership-modal');
+      if (modal) modal.style.display = 'none';
+      const err = document.getElementById('member-pass-error');
+      if (err) err.style.display = 'none';
+    }
+
+    function submitMemberPass() {
+      const input = document.getElementById('member-pass-input')?.value.trim();
+      const errorMsg = document.getElementById('member-pass-error');
+      
+      if (input && input.toUpperCase() === SECRET_MEMBER_KEY) {
+        localStorage.setItem("imani_member_active", "true");
+        closeMembershipModal();
+        renderAllGalleries();
+        alert("Sovereign Membership Activated. All vaults and galleries are now fully unlocked.");
+      } else {
+        if (errorMsg) errorMsg.style.display = 'block';
+      }
+    }
+
     // Audio Library - Exclusively ImanI Story Files
     let permanentAudioLibrary = [
       { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", duration: "Song" },
@@ -1182,47 +1329,99 @@
       });
     }
 
+    // Official Music Video Vault: First video is unlocked for everyone; additional videos require membership
     const myMusicVideosList = [
       { 
         title: "Written in the Law Video", 
         lore: "Official music video — Walking in rhythm and harmony with the ImanI Code by Dj Karma.", 
-        tag: "🎵 Music Video • HD Master", 
+        tag: "🎵 Music Video • Free Access", 
         poster: "media/images/header-emblem.png", 
-        src: "https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4" 
+        src: "https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4",
+        isLocked: false
+      },
+      { 
+        title: "Declaration of the New Breed (Extended Cut)", 
+        lore: "Exclusive Sovereign member release. Extended visual arrangement and remastered lineage audio.", 
+        tag: "🔒 Members Only Vault", 
+        poster: "media/images/header-emblem.png", 
+        src: "https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4",
+        isLocked: true
       }
     ];
 
+    // Documentary Cinema Vault: First video is unlocked for everyone; additional documentaries require membership
     const myCinemaList = [
       { 
         title: "Written in the Law Letter", 
         lore: "Exploring the legal lineage, sovereign ontology, and historical foundation of the 14th Amendment Americans.", 
-        tag: "🎬 Documentary Cinema • Chapter 1", 
+        tag: "🎬 Documentary Cinema • Free Access", 
         poster: "media/images/header-emblem.png", 
-        src: "https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4" 
+        src: "https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4",
+        isLocked: false
+      },
+      { 
+        title: "14th Amendment Sovereign Ontology — Part II", 
+        lore: "In-depth documentary study on restitution, federal treaties, and lineage sovereignty.", 
+        tag: "🔒 Members Only Cinema", 
+        poster: "media/images/header-emblem.png", 
+        src: "https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4",
+        isLocked: true
       }
     ];
 
+    // Still Art Gallery: First item unlocked; subsequent blueprints require membership
     const myStillArtList = [
       { 
         id: "still_chapter_0",
         title: "Chapter 0 — The ImanI Manifesto: Blueprint for Collective Flourishing", 
         lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass.", 
-        tag: "Manifesto • Foundational Blueprint", 
-        src: "media/images/imanipix/chapter-0-manifesto.png" 
+        tag: "Manifesto • Free Access", 
+        src: "media/images/imanipix/chapter-0-manifesto.png",
+        isLocked: false
       },
       { 
         id: "still_chapter_1a",
         title: "Chapter 1A — The ImanI Neighborhood Community Blueprint", 
         lore: "A holistic framework uniting Justice & Correctness, economic and social stability.", 
-        tag: "Community • Strategic Blueprint", 
-        src: "media/images/imanipix/chapter-1a-blueprint.png" 
+        tag: "🔒 Members Only Blueprint", 
+        src: "media/images/imanipix/chapter-1a-blueprint.png",
+        isLocked: true
       },
       { 
         id: "still_chapter_2a",
         title: "Chapter 2A — The ImanI Home: The First School of Life", 
         lore: "Organizing the household around development over consumption and intergenerational wisdom.", 
-        tag: "Home Life • Educational Blueprint", 
-        src: "media/images/imanipix/chapter-2a-home-school.png" 
+        tag: "🔒 Members Only Blueprint", 
+        src: "media/images/imanipix/chapter-2a-home-school.png",
+        isLocked: true
+      }
+    ];
+
+    // Holiday Boycott Celebration Gallery: First item unlocked; subsequent art requires membership
+    const myBoycottArtList = [
+      { 
+        id: "boycott_0",
+        title: "The Price of Participation: Reclaiming Our Economic Sovereignty", 
+        lore: "Breaking the relentless cycle of commercialized American holidays through the 7-Day Economic Fast.", 
+        tag: "Economic Sovereignty • Free Access", 
+        src: "media/boycott/economic-sovereignty.png",
+        isLocked: false
+      },
+      { 
+        id: "boycott_1",
+        title: "June 15th — Declaration Day", 
+        lore: "We declare, we remember, and we reclaim our sovereign power. Honoring our lineage with true independence.", 
+        tag: "🔒 Members Only Artwork", 
+        src: "media/boycott/june15-declaration-day.png",
+        isLocked: true
+      },
+      { 
+        id: "boycott_2",
+        title: "June 13 — George Floyd Day", 
+        lore: "We Do We. Correct the narrative, control the economy, and create our legacy.", 
+        tag: "🔒 Members Only Artwork", 
+        src: "media/boycott/george-floyd-day.png",
+        isLocked: true
       }
     ];
 
@@ -1230,37 +1429,60 @@
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = '';
+      const unlocked = isMemberUnlocked();
+
       list.forEach((art, index) => {
         const inputId = `still-input-${index}`;
         const imgId = `still-view-${index}`;
         const storageKey = `still_cached_${art.id}`;
         const savedSrc = localStorage.getItem(storageKey);
+        const cardIsLocked = art.isLocked && !unlocked;
 
         const card = document.createElement('div');
-        card.className = 'picture-card';
-        card.innerHTML = `
-          <div style="position: relative; background: #000; min-height: 200px;">
-            <img 
-              id="${imgId}"
-              src="${savedSrc || encodeURI(art.src)}" 
-              alt="${art.title}" 
-              class="picture-frame-img" 
-              onerror="this.onerror=null; this.style.opacity='0.35';" 
-              onclick="openMediaLightbox(this.src, 'image', '${art.title}')" 
-              title="Click to expand"
-            >
-            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-              <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Override</span>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
-              <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadStillCardImage(event, '${imgId}', '${storageKey}')">
+        card.className = `picture-card ${cardIsLocked ? 'card-locked-wrapper' : ''}`;
+
+        if (cardIsLocked) {
+          card.innerHTML = `
+            <div class="locked-content-blur" style="min-height: 220px; background: #000;">
+              <img src="${savedSrc || encodeURI(art.src)}" class="picture-frame-img" style="filter: blur(8px);">
             </div>
-          </div>
-          <div class="gallery-card-info">
-            <h3 class="gallery-card-title">${art.title}</h3>
-            <p class="gallery-card-lore">${art.lore}</p>
-            <span class="gallery-card-tag">${art.tag}</span>
-          </div>
-        `;
+            <div class="card-lock-overlay">
+              <div class="card-lock-badge">🔒</div>
+              <h4 class="card-lock-title">Member Sovereign Pass</h4>
+              <p class="card-lock-text">To access extended gallery art and blueprints, become a member.</p>
+              <button class="btn-join-membership" onclick="openMembershipModal()">Join to Unlock</button>
+              <button class="btn-enter-pass" onclick="openMembershipModal()">Member Login</button>
+            </div>
+            <div class="gallery-card-info" style="opacity: 0.5;">
+              <h3 class="gallery-card-title">${art.title}</h3>
+              <span class="gallery-card-tag">${art.tag}</span>
+            </div>
+          `;
+        } else {
+          card.innerHTML = `
+            <div style="position: relative; background: #000; min-height: 200px;">
+              <img 
+                id="${imgId}"
+                src="${savedSrc || encodeURI(art.src)}" 
+                alt="${art.title}" 
+                class="picture-frame-img" 
+                onerror="this.onerror=null; this.style.opacity='0.35';" 
+                onclick="openMediaLightbox(this.src, 'image', '${art.title}')" 
+                title="Click to expand"
+              >
+              <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+                <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Override</span>
+                <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
+                <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadStillCardImage(event, '${imgId}', '${storageKey}')">
+              </div>
+            </div>
+            <div class="gallery-card-info">
+              <h3 class="gallery-card-title">${art.title}</h3>
+              <p class="gallery-card-lore">${art.lore}</p>
+              <span class="gallery-card-tag">${art.tag}</span>
+            </div>
+          `;
+        }
         container.appendChild(card);
       });
     }
@@ -1288,65 +1510,64 @@
       reader.readAsDataURL(file);
     }
 
-    const myBoycottArtList = [
-      { 
-        id: "boycott_0",
-        title: "The Price of Participation: Reclaiming Our Economic Sovereignty", 
-        lore: "Breaking the relentless cycle of commercialized American holidays through the 7-Day Economic Fast.", 
-        tag: "Economic Sovereignty • 7-Day Fast", 
-        src: "media/boycott/economic-sovereignty.png" 
-      },
-      { 
-        id: "boycott_1",
-        title: "June 15th — Declaration Day", 
-        lore: "We declare, we remember, and we reclaim our sovereign power. Honoring our lineage with true independence.", 
-        tag: "Declaration Day • Sovereignty", 
-        src: "media/boycott/june15-declaration-day.png" 
-      },
-      { 
-        id: "boycott_2",
-        title: "June 13 — George Floyd Day", 
-        lore: "We Do We. Correct the narrative, control the economy, and create our legacy.", 
-        tag: "Juneteenth • We Do We", 
-        src: "media/boycott/george-floyd-day.png" 
-      }
-    ];
-
     function renderBoycottGallery() {
       const container = document.getElementById('boycott-gallery-container');
       if (!container) return;
       container.innerHTML = '';
+      const unlocked = isMemberUnlocked();
+
       myBoycottArtList.forEach((item, index) => {
         const inputId = `boycott-input-${index}`;
         const imgId = `boycott-view-${index}`;
         const storageKey = `boycott_cached_${item.id}`;
         const savedSrc = localStorage.getItem(storageKey);
+        const cardIsLocked = item.isLocked && !unlocked;
 
         const card = document.createElement('div');
-        card.className = 'picture-card';
-        card.innerHTML = `
-          <div style="position: relative; background: #000; min-height: 200px;">
-            <img 
-              id="${imgId}" 
-              src="${savedSrc || item.src}" 
-              alt="${item.title}" 
-              class="picture-frame-img" 
-              onerror="this.style.opacity='0.35';" 
-              onclick="openMediaLightbox(this.src, 'image', '${item.title}')" 
-              title="Click to expand"
-            >
-            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-              <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Override</span>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
-              <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadBoycottCardImage(event, '${imgId}', '${storageKey}')">
+        card.className = `picture-card ${cardIsLocked ? 'card-locked-wrapper' : ''}`;
+
+        if (cardIsLocked) {
+          card.innerHTML = `
+            <div class="locked-content-blur" style="min-height: 220px; background: #000;">
+              <img src="${savedSrc || item.src}" class="picture-frame-img" style="filter: blur(8px);">
             </div>
-          </div>
-          <div class="gallery-card-info">
-            <h3 class="gallery-card-title">${item.title}</h3>
-            <p class="gallery-card-lore">${item.lore}</p>
-            <span class="gallery-card-tag">${item.tag}</span>
-          </div>
-        `;
+            <div class="card-lock-overlay">
+              <div class="card-lock-badge">🔒</div>
+              <h4 class="card-lock-title">Member Sovereign Pass</h4>
+              <p class="card-lock-text">To access the full IAHBC celebration gallery, join our movement membership.</p>
+              <button class="btn-join-membership" onclick="openMembershipModal()">Join to Unlock</button>
+              <button class="btn-enter-pass" onclick="openMembershipModal()">Member Login</button>
+            </div>
+            <div class="gallery-card-info" style="opacity: 0.5;">
+              <h3 class="gallery-card-title">${item.title}</h3>
+              <span class="gallery-card-tag">${item.tag}</span>
+            </div>
+          `;
+        } else {
+          card.innerHTML = `
+            <div style="position: relative; background: #000; min-height: 200px;">
+              <img 
+                id="${imgId}" 
+                src="${savedSrc || item.src}" 
+                alt="${item.title}" 
+                class="picture-frame-img" 
+                onerror="this.style.opacity='0.35';" 
+                onclick="openMediaLightbox(this.src, 'image', '${item.title}')" 
+                title="Click to expand"
+              >
+              <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+                <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Override</span>
+                <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
+                <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadBoycottCardImage(event, '${imgId}', '${storageKey}')">
+              </div>
+            </div>
+            <div class="gallery-card-info">
+              <h3 class="gallery-card-title">${item.title}</h3>
+              <p class="gallery-card-lore">${item.lore}</p>
+              <span class="gallery-card-tag">${item.tag}</span>
+            </div>
+          `;
+        }
         container.appendChild(card);
       });
     }
@@ -1378,26 +1599,50 @@
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = '';
+      const unlocked = isMemberUnlocked();
+
       list.forEach((v, index) => {
         const inputId = `${containerId}-file-${index}`;
         const videoId = `${containerId}-video-${index}`;
+        const cardIsLocked = v.isLocked && !unlocked;
+
         const card = document.createElement('div');
-        card.className = 'video-vault-card';
-        card.innerHTML = `
-          <div class="video-player-container" style="position: relative;">
-            <video id="${videoId}" src="${v.src}" controls playsinline poster="${v.poster}" preload="metadata"></video>
-            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-              <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
-              <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
+        card.className = `video-vault-card ${cardIsLocked ? 'card-locked-wrapper' : ''}`;
+
+        if (cardIsLocked) {
+          card.innerHTML = `
+            <div class="locked-content-blur" style="aspect-ratio: 16 / 9; background: #000; position: relative;">
+              <img src="${v.poster}" style="width: 100%; height: 100%; object-fit: cover; filter: blur(10px);">
             </div>
-          </div>
-          <div class="gallery-card-info">
-            <h3 class="gallery-card-title">${v.title}</h3>
-            <p class="gallery-card-lore">${v.lore}</p>
-            <span class="gallery-card-tag">${v.tag}</span>
-          </div>
-        `;
+            <div class="card-lock-overlay">
+              <div class="card-lock-badge">🔒</div>
+              <h4 class="card-lock-title">Member Sovereign Vault</h4>
+              <p class="card-lock-text">Unlock full video vault access, documentary editions, and master streams by joining the membership.</p>
+              <button class="btn-join-membership" onclick="openMembershipModal()">Join to Unlock</button>
+              <button class="btn-enter-pass" onclick="openMembershipModal()">Member Login</button>
+            </div>
+            <div class="gallery-card-info" style="opacity: 0.5;">
+              <h3 class="gallery-card-title">${v.title}</h3>
+              <span class="gallery-card-tag">${v.tag}</span>
+            </div>
+          `;
+        } else {
+          card.innerHTML = `
+            <div class="video-player-container" style="position: relative;">
+              <video id="${videoId}" src="${v.src}" controls playsinline poster="${v.poster}" preload="metadata"></video>
+              <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
+                <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
+                <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
+              </div>
+            </div>
+            <div class="gallery-card-info">
+              <h3 class="gallery-card-title">${v.title}</h3>
+              <p class="gallery-card-lore">${v.lore}</p>
+              <span class="gallery-card-tag">${v.tag}</span>
+            </div>
+          `;
+        }
         container.appendChild(card);
       });
     }
@@ -1408,6 +1653,13 @@
         const vid = document.getElementById(videoElementId);
         if (vid) { vid.src = URL.createObjectURL(file); vid.play().catch(() => {}); }
       }
+    }
+
+    function renderAllGalleries() {
+      renderVideoVault('music-video-gallery-container', myMusicVideosList);
+      renderVideoVault('cinema-gallery-container', myCinemaList);
+      renderStillGallery('still-gallery-container', myStillArtList);
+      renderBoycottGallery();
     }
 
     const federalHolidays = [
@@ -1901,10 +2153,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       renderPlaylistItems();
       renderStreamArchive();
-      renderVideoVault('music-video-gallery-container', myMusicVideosList);
-      renderVideoVault('cinema-gallery-container', myCinemaList);
-      renderStillGallery('still-gallery-container', myStillArtList);
-      renderBoycottGallery();
+      renderAllGalleries();
       renderHolidayCalendar();
 
       initDailyWisdomCard();
