@@ -714,7 +714,7 @@
     .track-title { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
     .track-duration { font-size: 0.8rem; color: var(--gold-accent); }
 
-    /* Media Vault Left Viewer Frame (Pictures & Videos) */
+    /* Picture Vault Left Viewer Frame */
     .picture-viewer-card {
       background: var(--onyx-surface);
       border: 1px solid var(--onyx-border);
@@ -772,7 +772,7 @@
       text-transform: uppercase;
     }
 
-    /* Media Vault Right List Rows (Pictures & Videos) */
+    /* Picture Vault Right List Rows */
     .pic-queue-item {
       display: flex;
       align-items: center;
@@ -1300,7 +1300,7 @@
       </div>
     </section>
 
-    <!-- 12. Music Video Vault (Split Vault System: Left Video Canvas + Right Scrollable List) -->
+    <!-- 12. Music Video Vault (Split Vault System) -->
     <section>
       <h2 class="section-title">ImanI Official Music Video Vault</h2>
       <div class="vault-grid">
@@ -1330,7 +1330,7 @@
       </div>
     </section>
 
-    <!-- 13. Cinema & Documentary Vault (Split Vault System: Left Video Canvas + Right Scrollable List) -->
+    <!-- 13. Cinema & Documentary Vault (Split Vault System) -->
     <section>
       <h2 class="section-title">ImanI Documentary & Cinema Vault</h2>
       <div class="vault-grid">
@@ -1383,7 +1383,7 @@
         <div class="card-body-frame">
           <h3 class="card-title-text" id="deck-title">The Checkmate Perspective</h3>
           <p class="card-message-text" id="deck-quote">"Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction."</p>
-          <span class="card-number-label" id="deck-number">Card #01 of 99</span>
+          <span class="card-number-label" id="deck-number">Card 01 • Daily Message</span>
         </div>
         <div style="display: flex; gap: 12px; justify-content: center;">
           <button class="btn-draw-card" onclick="drawWisdomCard()">Draw Next Card</button>
@@ -1707,7 +1707,7 @@
       renderPlaylistItems();
     }
 
-    // ALL CURRENT PICTURES ARE UNLOCKED (FREE TO ACCESS)
+    // Picture Vault Collections (Unlocked)
     let boycottPictureLibrary = [
       {
         title: "The Price of Participation: Reclaiming Our Economic Sovereignty",
@@ -1750,7 +1750,7 @@
       }
     ];
 
-    // ALL CURRENT VIDEOS ARE UNLOCKED (FREE TO ACCESS)
+    // Video Vault Collections (Unlocked)
     let myMusicVideosList = [
       { 
         title: "Written in the Law Video", 
@@ -1776,7 +1776,6 @@
     let activeMusicVideoIndex = 0;
     let activeCinemaIndex = 0;
 
-    // Render Picture Lists
     function renderPictureList(containerId, list, activeIndex, onSelectCallback) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -1847,7 +1846,7 @@
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
     }
 
-    // Render Video Lists (Identical Split-System to Photo Gallery)
+    // Render Video Lists
     function renderVideoList(containerId, list, activeIndex, onSelectCallback) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -2419,137 +2418,6 @@
       }
     ];
 
-    function renderMatrixButtons(containerId, data, tagId, titleId, descId, boxId, extraHandler = null) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      data.forEach((item, idx) => {
-        const btn = document.createElement('button');
-        btn.className = `doctrine-btn ${idx === 0 ? 'active' : ''}`;
-        btn.innerHTML = `<span class="badge">${item.id}</span> ${item.btnTitle || item.title}`;
-        btn.onclick = () => {
-          document.querySelectorAll(`#${containerId} .doctrine-btn`).forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const box = document.getElementById(boxId);
-          if (box) {
-            box.style.opacity = '0.4';
-            setTimeout(() => {
-              document.getElementById(tagId).innerText = item.tag || `Mystery ${item.id}`;
-              document.getElementById(titleId).innerText = item.title;
-              document.getElementById(descId).innerHTML = item.desc;
-              if (extraHandler) extraHandler(item);
-              box.style.opacity = '1';
-            }, 120);
-          }
-        };
-        container.appendChild(btn);
-      });
-    }
-
-    const chattyDeck = [
-      { id: 1, tag: "Strategy", title: "The Checkmate Perspective", quote: "Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction." },
-      { id: 2, tag: "Stealth", title: "Shield of Stillness", quote: "Quiet observation holds more power than immediate combat. Protect your center at all costs." },
-      { id: 3, tag: "Strategy", title: "The Sovereign Board", quote: "Never play on a board where your opponent writes the rules. Establish your own grid and control the squares." },
-      { id: 4, tag: "Stealth", title: "Curious Consultant Tactic", quote: "Ask the question that makes them confront their own assumptions. Truth reveals itself when prompted calmly." },
-      { id: 5, tag: "Stealth", title: "Stealth Discipline", quote: "Internal strength doesn't need external applause. Move in silence and let the results speak." },
-      { id: 6, tag: "Economics", title: "The Specie Anchor", quote: "Paper promises blow away with the wind. Sound money and land grants anchor true freedom." },
-      { id: 7, tag: "Strategy", title: "Mastery of the Center", quote: "Whoever commands the center commands the board. Protect your core principles from external dilution." },
-      { id: 8, tag: "Stealth", title: "Strategic Non-Compliance", quote: "Polite refusal to participate in degradation is the highest form of discipline and leverage." },
-      { id: 9, tag: "Strategy", title: "Pillar Alignment", quote: "Stand consciously between Boaz and Jachin. Balance intuitive vision with structured execution." },
-      { id: 10, tag: "Strategy", title: "Silent Timing", quote: "The master does not strike when angry; the master moves when the board opens." }
-    ];
-
-    let currentDeckTag = "ALL";
-    let activeWisdomPool = [...chattyDeck];
-    let lastDrawnIndex = -1;
-
-    function setDeckTagFilter(tag, btn) {
-      currentDeckTag = tag;
-      document.querySelectorAll('.filter-tag-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filterWisdomDeck();
-    }
-
-    function filterWisdomDeck() {
-      const search = document.getElementById('wisdom-search')?.value.toLowerCase().trim() || '';
-      activeWisdomPool = chattyDeck.filter(card => {
-        const matchesTag = (currentDeckTag === "ALL" || card.tag === currentDeckTag);
-        const matchesSearch = (!search || card.title.toLowerCase().includes(search) || card.quote.toLowerCase().includes(search));
-        return matchesTag && matchesSearch;
-      });
-      
-      if (search || currentDeckTag !== "ALL") {
-        drawWisdomCard();
-      } else {
-        initDailyWisdomCard();
-      }
-    }
-
-    function getDailyCardIndex(pool) {
-      if (!pool || pool.length === 0) return 0;
-      const now = new Date();
-      const startOfYear = new Date(now.getFullYear(), 0, 0);
-      const diff = now - startOfYear;
-      const oneDay = 1000 * 60 * 60 * 24;
-      const dayOfYear = Math.floor(diff / oneDay);
-      return dayOfYear % pool.length;
-    }
-
-    function displayCard(card, animate = true) {
-      const deckTitle = document.getElementById('deck-title');
-      const deckQuote = document.getElementById('deck-quote');
-      const deckNumber = document.getElementById('deck-number');
-      const container = document.getElementById('wisdom-card-container');
-
-      if (!card) {
-        if (deckTitle) deckTitle.innerText = "No Matching Wisdom Found";
-        if (deckQuote) deckQuote.innerText = "Adjust your search filter.";
-        if (deckNumber) deckNumber.innerText = "Card 0 of 0";
-        return;
-      }
-
-      if (animate && container) {
-        container.style.opacity = '0.5';
-        setTimeout(() => {
-          if (deckTitle) deckTitle.innerText = card.title;
-          if (deckQuote) deckQuote.innerText = `"${card.quote}"`;
-          if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} of 99 [${card.tag}] • Daily Message`;
-          container.style.opacity = '1';
-        }, 150);
-      } else {
-        if (deckTitle) deckTitle.innerText = card.title;
-        if (deckQuote) deckQuote.innerText = `"${card.quote}"`;
-        if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} of 99 [${card.tag}] • Daily Message`;
-      }
-    }
-
-    function initDailyWisdomCard() {
-      if (activeWisdomPool.length > 0) {
-        const dailyIndex = getDailyCardIndex(activeWisdomPool);
-        lastDrawnIndex = dailyIndex;
-        displayCard(activeWisdomPool[dailyIndex], false);
-      }
-    }
-
-    function drawWisdomCard() {
-      if (activeWisdomPool.length === 0) {
-        displayCard(null, false);
-        return;
-      }
-      let randomIndex;
-      do { 
-        randomIndex = Math.floor(Math.random() * activeWisdomPool.length); 
-      } while (randomIndex === lastDrawnIndex && activeWisdomPool.length > 1);
-      
-      lastDrawnIndex = randomIndex;
-      const card = activeWisdomPool[randomIndex];
-      
-      const deckNumber = document.getElementById('deck-number');
-      displayCard(card, true);
-      setTimeout(() => {
-        if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} of 99 [${card.tag}] • Drawn`;
-      }, 160);
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
       if (isEditModeActive()) {
         document.body.classList.add("admin-mode");
@@ -2558,11 +2426,9 @@
       renderPlaylistItems();
       renderStreamArchive();
       
-      // 1. Picture Vaults
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
 
-      // 2. Video Vaults (Now unified into split-screen vaults identical to the photo gallery)
       renderVideoList('music-video-list-container', myMusicVideosList, activeMusicVideoIndex, selectMusicVideo);
       renderVideoList('cinema-list-container', myCinemaList, activeCinemaIndex, selectCinemaVideo);
 
