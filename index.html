@@ -522,69 +522,93 @@
     .track-title { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
     .track-duration { font-size: 0.8rem; color: var(--gold-accent); }
 
-    /* Interactive All-Pictures Gallery Grid */
-    .unified-gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .interactive-pic-card {
+    /* Compact Audio-Vault-Style Picture Panel */
+    .compact-pic-vault {
       background: var(--onyx-surface);
       border: 1px solid var(--onyx-border);
       border-radius: var(--radius-md);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
+      padding: 16px 18px;
       backdrop-filter: blur(12px);
-      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
     }
 
-    .interactive-pic-card:hover {
-      transform: translateY(-4px) scale(1.02);
-      border-color: var(--gold-accent);
-      box-shadow: 0 10px 25px var(--gold-glow);
-    }
-
-    .interactive-pic-thumb {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      display: block;
-      background: #000;
-      border-bottom: 1px solid var(--onyx-border);
-    }
-
-    .interactive-pic-meta {
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .interactive-pic-title {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.3;
-    }
-
-    .interactive-pic-tag {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--emerald-accent);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .gallery-header-bar {
+    .compact-vault-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--onyx-border);
+    }
+
+    .compact-vault-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--gold-accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .compact-thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 12px;
-      margin-bottom: 16px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .compact-thumb-card {
+      background: var(--onyx-card);
+      border: 1px solid var(--onyx-border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .compact-thumb-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      border-color: var(--emerald-accent);
+      box-shadow: 0 4px 14px var(--emerald-glow);
+    }
+
+    .compact-thumb-img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    .compact-thumb-info {
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .compact-thumb-name {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+
+    .compact-thumb-tag {
+      font-size: 0.64rem;
+      font-weight: 600;
+      color: var(--emerald-accent);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .video-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
@@ -933,16 +957,19 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery (All Pictures Visible + Click to Expand + Add More) -->
+    <!-- 9. Boycott Celebration Gallery (Compact Audio-Vault Style) -->
     <section>
-      <div class="gallery-header-bar">
-        <h2 class="section-title" style="margin-bottom: 0;">Holiday Boycott Celebration Picture Gallery</h2>
-        <div>
-          <button class="btn-load-audio-files" onclick="triggerFileSelect('boycott-add-input')">➕ Add Pictures to Gallery</button>
-          <input type="file" id="boycott-add-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
+      <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
+      <div class="compact-pic-vault">
+        <div class="compact-vault-header">
+          <span class="compact-vault-title">IAHBC Picture Archive (Click to Enlarge)</span>
+          <div>
+            <button class="btn-load-audio-files" onclick="triggerFileSelect('boycott-add-input')">📁 Add Pictures</button>
+            <input type="file" id="boycott-add-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
+          </div>
         </div>
+        <div class="compact-thumb-grid" id="boycott-gallery-grid"></div>
       </div>
-      <div class="unified-gallery-grid" id="boycott-gallery-grid"></div>
     </section>
 
     <!-- 10. Dynamic Audio Vault (ImanI Story Tracks Only) -->
@@ -994,16 +1021,19 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery (All Pictures Visible + Click to Expand + Add More) -->
+    <!-- 11. Dedicated Still Picture Gallery (Compact Audio-Vault Style) -->
     <section>
-      <div class="gallery-header-bar">
-        <h2 class="section-title" style="margin-bottom: 0;">ImanI Still Art & Lore Gallery</h2>
-        <div>
-          <button class="btn-load-audio-files" onclick="triggerFileSelect('still-add-input')">➕ Add Pictures to Gallery</button>
-          <input type="file" id="still-add-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'still')">
+      <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
+      <div class="compact-pic-vault">
+        <div class="compact-vault-header">
+          <span class="compact-vault-title">Still Art & Lore Blueprint Archive (Click to Enlarge)</span>
+          <div>
+            <button class="btn-load-audio-files" onclick="triggerFileSelect('still-add-input')">📁 Add Pictures</button>
+            <input type="file" id="still-add-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'still')">
+          </div>
         </div>
+        <div class="compact-thumb-grid" id="still-gallery-grid"></div>
       </div>
-      <div class="unified-gallery-grid" id="still-gallery-grid"></div>
     </section>
 
     <!-- 12. Music Video Vault -->
@@ -1102,28 +1132,28 @@
       }
     ];
 
-    // Render Picture Grids where EVERY picture is visible and clicks open fullscreen
-    function renderPictureGrid(containerId, list) {
+    // Render Compact Picture Grid with smaller thumbnails
+    function renderCompactPictureGrid(containerId, list) {
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = '';
 
       list.forEach(pic => {
         const card = document.createElement('div');
-        card.className = 'interactive-pic-card';
+        card.className = 'compact-thumb-card';
         card.onclick = () => openMediaLightbox(pic.src, 'image', pic.title);
         card.innerHTML = `
-          <img src="${encodeURI(pic.src)}" alt="${pic.title}" class="interactive-pic-thumb" onerror="this.style.opacity='0.4';">
-          <div class="interactive-pic-meta">
-            <span class="interactive-pic-title">${pic.title}</span>
-            <span class="interactive-pic-tag">${pic.tag}</span>
+          <img src="${encodeURI(pic.src)}" alt="${pic.title}" class="compact-thumb-img" onerror="this.style.opacity='0.4';">
+          <div class="compact-thumb-info">
+            <span class="compact-thumb-name" title="${pic.title}">${pic.title}</span>
+            <span class="compact-thumb-tag">${pic.tag}</span>
           </div>
         `;
         container.appendChild(card);
       });
     }
 
-    // Dynamic Upload to Add More Pictures to either gallery
+    // Dynamic Upload to Add More Pictures
     function handleUserAddPictures(event, galleryType) {
       const files = Array.from(event.target.files);
       if (!files.length) return;
@@ -1135,22 +1165,22 @@
         if (galleryType === 'boycott') {
           boycottPictureLibrary.push({
             title: cleanName,
-            tag: "Added Archive",
+            tag: "Uploaded Fast Image",
             src: objectUrl
           });
         } else if (galleryType === 'still') {
           stillPictureLibrary.push({
             title: cleanName,
-            tag: "Added Lore Art",
+            tag: "Uploaded Blueprint",
             src: objectUrl
           });
         }
       });
 
       if (galleryType === 'boycott') {
-        renderPictureGrid('boycott-gallery-grid', boycottPictureLibrary);
+        renderCompactPictureGrid('boycott-gallery-grid', boycottPictureLibrary);
       } else {
-        renderPictureGrid('still-gallery-grid', stillPictureLibrary);
+        renderCompactPictureGrid('still-gallery-grid', stillPictureLibrary);
       }
     }
 
@@ -1880,9 +1910,9 @@
       renderPlaylistItems();
       renderStreamArchive();
       
-      // Render clean picture galleries
-      renderPictureGrid('boycott-gallery-grid', boycottPictureLibrary);
-      renderPictureGrid('still-gallery-grid', stillPictureLibrary);
+      // Render compact picture grids
+      renderCompactPictureGrid('boycott-gallery-grid', boycottPictureLibrary);
+      renderCompactPictureGrid('still-gallery-grid', stillPictureLibrary);
 
       // Render Video Vaults
       renderVideoVault('music-video-gallery-container', myMusicVideosList);
