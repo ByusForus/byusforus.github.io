@@ -903,7 +903,7 @@
       <div class="picture-gallery-grid" id="boycott-gallery-container"></div>
     </section>
 
-    <!-- 10. Dynamic Audio Vault (Mapped to Exact Folder File Names) -->
+    <!-- 10. Dynamic Audio Vault (ImanI Story Tracks Only) -->
     <section>
       <h2 class="section-title">ImanI Audio Vault</h2>
       <div class="vault-grid">
@@ -940,10 +940,7 @@
         <div class="playlist-card">
           <div class="audio-tabs-bar">
             <div style="display: flex; gap: 6px;" id="audio-tabs-container">
-              <button class="audio-tab-btn active" onclick="setAudioCategory('ALL', this)">All Audio</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('The mysteries', this)">The mysteries</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('ImanI story', this)">ImanI story</button>
-              <button class="audio-tab-btn" onclick="setAudioCategory('Audio Agreements', this)">Audio Agreements</button>
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-accent); padding: 4px 8px;">ImanI Story Audio Vault</span>
             </div>
             <div>
               <button class="btn-load-audio-files" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
@@ -1018,30 +1015,8 @@
   </div>
 
   <script>
+    // Audio Library - Exclusively ImanI Story Files
     let permanentAudioLibrary = [
-      // Agreements
-      { title: "Agreement 1: Law of the Resonant Word", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-resonant-word.mp3", duration: "Song" },
-      { title: "Agreement 1: Words of Power", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-words-of-power.mp3", duration: "Song" },
-      { title: "Agreement 2: Immunity to Poison", category: "Audio Agreements", src: "media/audio/agreements/agreement-2-immunity-to-poison.wav", duration: "Song" },
-      { title: "Agreement 3: Don't Make Assumptions", category: "Audio Agreements", src: "media/audio/agreements/agreement-3-no-assumptions.wav", duration: "Song" },
-      { title: "Agreement 3: Rewrite Our Story", category: "Audio Agreements", src: "media/audio/agreements/agreement-3-rewrite-our-story.wav", duration: "Song" },
-      { title: "Agreement 4: Always Do Your Best", category: "Audio Agreements", src: "media/audio/agreements/agreement-4-always-do-your-best.mp3", duration: "Song" },
-      { title: "Agreement 5: Be Skeptical, But Learn to Listen", category: "Audio Agreements", src: "media/audio/agreements/agreement-5-listen.mp3", duration: "Song" },
-
-      // Mysteries
-      { title: "Mystery 1 Cycle of ImanI Female", category: "The mysteries", src: "media/audio/mysteries/mystery-01-female.mp3", duration: "Song" },
-      { title: "Mystery 1 Cycle of ImanI male", category: "The mysteries", src: "media/audio/mysteries/mystery-01-male.mp3", duration: "Song" },
-      { title: "Mystery 2 The Mirror That Doesn't Lie", category: "The mysteries", src: "media/audio/mysteries/mystery-02-mirror.wav", duration: "Song" },
-      { title: "Mystery 3 Between the Pillars", category: "The mysteries", src: "media/audio/mysteries/mystery-03-pillars.mp3", duration: "Song" },
-      { title: "Mystery 4 Solar and Lunar Power", category: "The mysteries", src: "media/audio/mysteries/mystery-04-solar-lunar.mp3", duration: "Song" },
-      { title: "Mystery 5 I and I, Essence and Unity", category: "The mysteries", src: "media/audio/mysteries/mystery-05-essence-unity.mp3", duration: "Song" },
-      { title: "Mystery 6 I M is I Am", category: "The mysteries", src: "media/audio/mysteries/mystery-06-i-m-is-i-am.mp3", duration: "Song" },
-      { title: "Mystery 7 I M Ani I M Beautiful", category: "The mysteries", src: "media/audio/mysteries/mystery-07-very-beautiful.mp3", duration: "Song" },
-      { title: "Mystery 8 The Initiation The Sacred Circle", category: "The mysteries", src: "media/audio/mysteries/mystery-08-sacred-circle.wav", duration: "Song" },
-      { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/mysteries/mystery-09-systems.mp3", duration: "Song" },
-      { title: "Mystery 10 Rhythm of Return", category: "The mysteries", src: "media/audio/mysteries/mystery-10-return.wav", duration: "Song" },
-
-      // Story (Exact filenames from File Explorer)
       { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", duration: "Song" },
       { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", duration: "Song" },
       { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/story/i-m-onyx-in-the-middle.mp3", duration: "Song" },
@@ -1058,34 +1033,21 @@
       { title: "Checkmate Mindset", category: "ImanI story", src: "media/audio/story/checkmate-mindset.mp3", duration: "Song" }
     ];
 
-    let currentAudioCategory = "ALL";
     let activeTrackIndex = 0;
     let isContinuousPlay = true;
     let isRandomPlay = false;
-
-    function setAudioCategory(category, btn) {
-      currentAudioCategory = category;
-      document.querySelectorAll('.audio-tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderPlaylistItems();
-    }
-
-    function getFilteredTrackPool() {
-      return permanentAudioLibrary.filter(t => currentAudioCategory === "ALL" || t.category === currentAudioCategory);
-    }
 
     function renderPlaylistItems() {
       const container = document.getElementById('playlist-items-container');
       if (!container) return;
       container.innerHTML = '';
-      const filtered = getFilteredTrackPool();
 
-      if (filtered.length === 0) {
-        container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; padding: 12px; text-align: center;">No tracks found.</p>`;
+      if (permanentAudioLibrary.length === 0) {
+        container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; padding: 12px; text-align: center;">No story tracks found.</p>`;
         return;
       }
 
-      filtered.forEach((track, index) => {
+      permanentAudioLibrary.forEach((track, index) => {
         const item = document.createElement('div');
         item.className = `playlist-item ${index === activeTrackIndex ? 'active' : ''}`;
         item.innerHTML = `
@@ -1101,10 +1063,9 @@
     }
 
     function playTrackByIndex(index) {
-      const filtered = getFilteredTrackPool();
-      if (index < 0 || index >= filtered.length) return;
+      if (index < 0 || index >= permanentAudioLibrary.length) return;
       activeTrackIndex = index;
-      const track = filtered[index];
+      const track = permanentAudioLibrary[index];
       const curTitle = document.getElementById('current-title');
       const curCat = document.getElementById('current-category');
       if (curTitle) curTitle.innerText = track.title;
@@ -1146,25 +1107,23 @@
     }
 
     function playNextTrack() {
-      const filtered = getFilteredTrackPool();
-      if (filtered.length <= 1) return;
+      if (permanentAudioLibrary.length <= 1) return;
       if (isRandomPlay) {
         let randomIndex;
-        do { randomIndex = Math.floor(Math.random() * filtered.length); }
-        while (randomIndex === activeTrackIndex && filtered.length > 1);
+        do { randomIndex = Math.floor(Math.random() * permanentAudioLibrary.length); }
+        while (randomIndex === activeTrackIndex && permanentAudioLibrary.length > 1);
         playTrackByIndex(randomIndex);
       } else {
         let nextIndex = activeTrackIndex + 1;
-        if (nextIndex >= filtered.length) nextIndex = 0;
+        if (nextIndex >= permanentAudioLibrary.length) nextIndex = 0;
         playTrackByIndex(nextIndex);
       }
     }
 
     function playPreviousTrack() {
-      const filtered = getFilteredTrackPool();
-      if (filtered.length <= 1) return;
+      if (permanentAudioLibrary.length <= 1) return;
       let prevIndex = activeTrackIndex - 1;
-      if (prevIndex < 0) prevIndex = filtered.length - 1;
+      if (prevIndex < 0) prevIndex = permanentAudioLibrary.length - 1;
       playTrackByIndex(prevIndex);
     }
 
@@ -1177,18 +1136,9 @@
       if (!files.length) return;
       files.forEach(file => {
         let clean = file.name.replace(/\.[^/.]+$/, "");
-        let cat = "The mysteries";
-        let low = clean.toLowerCase();
-        if (low.includes("agreement") || low.includes("word") || low.includes("poison") || low.includes("assumptions")) {
-          cat = "Audio Agreements";
-        } else if (low.includes("story") || low.includes("imani") || low.includes("law")) {
-          cat = "ImanI story";
-        } else if (low.includes("chatty")) {
-          cat = "Chatty Wisdom";
-        }
         permanentAudioLibrary.push({
           title: clean,
-          category: cat,
+          category: "ImanI story",
           src: URL.createObjectURL(file),
           duration: "Audio"
         });
