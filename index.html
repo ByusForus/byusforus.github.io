@@ -201,7 +201,7 @@
       text-shadow: 0 0 10px var(--emerald-glow);
     }
 
-    /* MAIN PAGE IAHBC SECTION ENLARGEMENTS */
+    /* MAIN PAGE IAHBC SECTION */
     .iahbc-manifesto-card {
       background: var(--onyx-surface); 
       border: 2px solid var(--gold-accent);
@@ -235,7 +235,6 @@
       font-weight: 800;
     }
 
-    /* ENLARGED STEALTH DRILL / 7-DAY FORMULA BOX */
     .iahbc-stealth-revelation-box {
       background: linear-gradient(145deg, rgba(14, 14, 14, 0.98), rgba(20, 24, 22, 0.96));
       border: 2.5px solid var(--emerald-accent);
@@ -992,7 +991,7 @@
       </div>
     </div>
 
-    <!-- Top Stealth Drill Guidance Banner -->
+    <!-- Top Guidance Bar -->
     <div class="fast-guidance-bar" id="fast-guidance-container">
       <div class="guidance-phase-badge" id="guidance-phase">STEALTH DRILL</div>
       <div class="guidance-body">
@@ -1165,7 +1164,6 @@
     <section>
       <h2 class="section-title">ImanI American Holiday Boycott Celebration — 7-Day Economic Fast</h2>
       
-      <!-- Primary Large Callout Card -->
       <div class="iahbc-manifesto-card">
         <div class="iahbc-manifesto-headline">
           ⚡ Break the chains of commercialized tradition — Reclaim your power!
@@ -1175,10 +1173,8 @@
         </p>
       </div>
 
-      <!-- Navigation Matrix -->
       <div class="button-matrix" id="boycott-buttons"></div>
 
-      <!-- High-Visibility Stealth Drill / 7-Day Formula Display Box -->
       <div class="iahbc-stealth-revelation-box" id="boycott-display">
         <div class="rev-header-wrap">
           <div>
@@ -1218,7 +1214,7 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery (Split Vault System: Left Frame + Right Scrollable List) -->
+    <!-- 9. Boycott Celebration Gallery (Split Vault System) -->
     <section>
       <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
       <div class="vault-grid">
@@ -1297,7 +1293,7 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery (Split Vault System: Left Frame + Right Scrollable List) -->
+    <!-- 11. Dedicated Still Picture Gallery (Split Vault System) -->
     <section>
       <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
       <div class="vault-grid">
@@ -1394,7 +1390,7 @@
       <div style="font-size: 2.5rem; margin-bottom: 8px;">🏛️</div>
       <h3 style="color: var(--gold-accent); font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">ImanI Sovereign Pass</h3>
       <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
-        This item is exclusive to our Sovereign Membership community. Join or enter your member pass to unlock the full Mysteries and Agreements audio vaults, plus all uncompressed picture archives.
+        This item is exclusive to our Sovereign Membership community. Join or enter your member pass to unlock all additional member vaults and archives.
       </p>
 
       <a href="https://your-membership-signup-link.com" target="_blank" class="btn-join-membership" style="display: inline-block; text-decoration: none; padding: 12px 28px; font-size: 0.92rem; margin-bottom: 18px;">
@@ -1476,7 +1472,7 @@
         renderPlaylistItems();
         renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
         renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
-        alert("Sovereign Membership Activated. All locked audio and picture vaults are now unlocked.");
+        alert("Sovereign Membership Activated. All locked archives are now unlocked.");
       } else {
         if (errorMsg) errorMsg.style.display = 'block';
       }
@@ -1681,7 +1677,7 @@
       renderPlaylistItems();
     }
 
-    // Picture Vault Collections (First is Free, rest are locked for members)
+    // ALL CURRENT PICTURES ARE SET TO isLocked: false (FREE TO ACCESS)
     let boycottPictureLibrary = [
       {
         title: "The Price of Participation: Reclaiming Our Economic Sovereignty",
@@ -1693,16 +1689,17 @@
         title: "June 15th — Declaration Day",
         tag: "Declaration Day",
         src: "media/boycott/june15-declaration-day.png",
-        isLocked: true
+        isLocked: false
       },
       {
         title: "June 13 — George Floyd Day",
         tag: "Juneteenth • We Do We",
         src: "media/boycott/george-floyd-day.png",
-        isLocked: true
+        isLocked: false
       }
     ];
 
+    // ALL CURRENT PICTURES ARE SET TO isLocked: false (FREE TO ACCESS)
     let stillPictureLibrary = [
       {
         title: "Chapter 0 — The ImanI Manifesto",
@@ -1714,13 +1711,13 @@
         title: "Chapter 1A — Community Blueprint",
         tag: "Strategic Framework",
         src: "media/images/imanipix/chapter-1a-blueprint.png",
-        isLocked: true
+        isLocked: false
       },
       {
         title: "Chapter 2A — The First School of Life",
         tag: "Home Education",
         src: "media/images/imanipix/chapter-2a-home-school.png",
-        isLocked: true
+        isLocked: false
       }
     ];
 
@@ -1797,6 +1794,7 @@
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
     }
 
+    // ANY NEW PICTURE UPLOADED AFTER THIS IS AUTOMATICALLY LOCKED FOR MEMBERS
     function handleUserAddPictures(event, galleryType) {
       const files = Array.from(event.target.files);
       if (!files.length) return;
