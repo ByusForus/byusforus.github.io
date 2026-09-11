@@ -433,8 +433,9 @@
       transition: all 0.2s ease; margin-top: 16px;
     }
 
+    /* Split-System Vault Grids (Left: Canvas Viewer, Right: Queue List) */
     .vault-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    @media (max-width: 800px) { .vault-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 860px) { .vault-grid { grid-template-columns: 1fr; } }
 
     .audio-player-card {
       background: var(--onyx-surface); border: 1px solid var(--onyx-border);
@@ -508,7 +509,7 @@
 
     .playlist-items-scroll {
       display: flex; flex-direction: column; gap: 8px;
-      max-height: 280px; overflow-y: auto;
+      max-height: 290px; overflow-y: auto; padding-right: 4px;
     }
 
     .playlist-item {
@@ -522,90 +523,103 @@
     .track-title { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
     .track-duration { font-size: 0.8rem; color: var(--gold-accent); }
 
-    /* Compact Audio-Vault-Style Picture Panel */
-    .compact-pic-vault {
+    /* Picture Vault Left Viewer Frame */
+    .picture-viewer-card {
       background: var(--onyx-surface);
       border: 1px solid var(--onyx-border);
       border-radius: var(--radius-md);
-      padding: 16px 18px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-    }
-
-    .compact-vault-header {
+      overflow: hidden;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding-bottom: 10px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid var(--onyx-border);
+      flex-direction: column;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.6);
     }
 
-    .compact-vault-title {
-      font-size: 0.88rem;
+    .picture-viewer-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: #000;
+      cursor: pointer;
+      display: block;
+      border-bottom: 1px solid var(--onyx-border);
+      transition: opacity 0.2s ease;
+    }
+
+    .picture-viewer-img:hover {
+      opacity: 0.95;
+    }
+
+    .picture-viewer-details {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .picture-viewer-title {
+      font-size: 1.05rem;
       font-weight: 800;
-      color: var(--gold-accent);
-      letter-spacing: 0.04em;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .picture-viewer-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--emerald-accent);
+      letter-spacing: 0.05em;
       text-transform: uppercase;
     }
 
-    .compact-thumb-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 12px;
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .compact-thumb-card {
-      background: var(--onyx-card);
-      border: 1px solid var(--onyx-border);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      cursor: pointer;
+    /* Picture Vault Right List Rows (Holds Hundreds of Images) */
+    .pic-queue-item {
       display: flex;
-      flex-direction: column;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--onyx-card);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .compact-thumb-card:hover {
-      transform: translateY(-3px) scale(1.02);
-      border-color: var(--emerald-accent);
-      box-shadow: 0 4px 14px var(--emerald-glow);
+    .pic-queue-item:hover, .pic-queue-item.active {
+      border-color: var(--gold-accent);
+      background: rgba(255, 209, 92, 0.1);
     }
 
-    .compact-thumb-img {
-      width: 100%;
-      height: 90px;
+    .pic-queue-thumb {
+      width: 58px;
+      height: 42px;
       object-fit: cover;
-      display: block;
+      border-radius: 4px;
       background: #000;
+      flex-shrink: 0;
+      border: 1px solid var(--onyx-border);
     }
 
-    .compact-thumb-info {
-      padding: 6px 8px;
+    .pic-queue-meta {
       display: flex;
       flex-direction: column;
       gap: 2px;
+      overflow: hidden;
+      flex: 1;
     }
 
-    .compact-thumb-name {
-      font-size: 0.74rem;
+    .pic-queue-title {
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--text-main);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      line-height: 1.2;
     }
 
-    .compact-thumb-tag {
-      font-size: 0.64rem;
-      font-weight: 600;
-      color: var(--emerald-accent);
+    .pic-queue-tag {
+      font-size: 0.7rem;
+      color: var(--gold-accent);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -957,18 +971,30 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery (Compact Audio-Vault Style) -->
+    <!-- 9. Boycott Celebration Gallery (Split Vault System: Left Frame + Right Scrollable List) -->
     <section>
       <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
-      <div class="compact-pic-vault">
-        <div class="compact-vault-header">
-          <span class="compact-vault-title">IAHBC Picture Archive (Click to Enlarge)</span>
-          <div>
-            <button class="btn-load-audio-files" onclick="triggerFileSelect('boycott-add-input')">📁 Add Pictures</button>
-            <input type="file" id="boycott-add-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
+      <div class="vault-grid">
+        <!-- Active Frame Viewer (Left) -->
+        <div class="picture-viewer-card">
+          <img id="boycott-active-img" src="media/boycott/economic-sovereignty.png" alt="Featured Boycott Art" class="picture-viewer-img" onclick="openMediaLightbox(this.src, 'image', document.getElementById('boycott-active-title').innerText)">
+          <div class="picture-viewer-details">
+            <div class="picture-viewer-title" id="boycott-active-title">The Price of Participation: Reclaiming Our Economic Sovereignty</div>
+            <div class="picture-viewer-tag" id="boycott-active-tag">Economic Sovereignty • Active Selection (Click Picture to Enlarge)</div>
           </div>
         </div>
-        <div class="compact-thumb-grid" id="boycott-gallery-grid"></div>
+
+        <!-- Scrollable Picture List Panel (Right) -->
+        <div class="playlist-card">
+          <div class="audio-tabs-bar">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-accent); padding: 4px 8px;">Boycott Pictures Archive</span>
+            <div>
+              <button class="btn-load-audio-files" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
+              <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
+            </div>
+          </div>
+          <div class="playlist-items-scroll" id="boycott-list-container"></div>
+        </div>
       </div>
     </section>
 
@@ -1021,18 +1047,30 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery (Compact Audio-Vault Style) -->
+    <!-- 11. Dedicated Still Picture Gallery (Split Vault System: Left Frame + Right Scrollable List) -->
     <section>
       <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
-      <div class="compact-pic-vault">
-        <div class="compact-vault-header">
-          <span class="compact-vault-title">Still Art & Lore Blueprint Archive (Click to Enlarge)</span>
-          <div>
-            <button class="btn-load-audio-files" onclick="triggerFileSelect('still-add-input')">📁 Add Pictures</button>
-            <input type="file" id="still-add-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'still')">
+      <div class="vault-grid">
+        <!-- Active Frame Viewer (Left) -->
+        <div class="picture-viewer-card">
+          <img id="still-active-img" src="media/images/imanipix/chapter-0-manifesto.png" alt="Featured Still Art" class="picture-viewer-img" onclick="openMediaLightbox(this.src, 'image', document.getElementById('still-active-title').innerText)">
+          <div class="picture-viewer-details">
+            <div class="picture-viewer-title" id="still-active-title">Chapter 0 — The ImanI Manifesto</div>
+            <div class="picture-viewer-tag" id="still-active-tag">Foundational Blueprint • Active Selection (Click Picture to Enlarge)</div>
           </div>
         </div>
-        <div class="compact-thumb-grid" id="still-gallery-grid"></div>
+
+        <!-- Scrollable Picture List Panel (Right) -->
+        <div class="playlist-card">
+          <div class="audio-tabs-bar">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-accent); padding: 4px 8px;">Still Art & Lore Archive</span>
+            <div>
+              <button class="btn-load-audio-files" onclick="triggerFileSelect('still-multi-input')">📁 Add Pictures</button>
+              <input type="file" id="still-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'still')">
+            </div>
+          </div>
+          <div class="playlist-items-scroll" id="still-list-container"></div>
+        </div>
       </div>
     </section>
 
@@ -1094,7 +1132,7 @@
   </div>
 
   <script>
-    // Full Boycott Picture Library
+    // Picture Vault Collections (Ready for hundreds of items)
     let boycottPictureLibrary = [
       {
         title: "The Price of Participation: Reclaiming Our Economic Sovereignty",
@@ -1113,7 +1151,6 @@
       }
     ];
 
-    // Full Still Art & Lore Picture Library
     let stillPictureLibrary = [
       {
         title: "Chapter 0 — The ImanI Manifesto",
@@ -1132,28 +1169,64 @@
       }
     ];
 
-    // Render Compact Picture Grid with smaller thumbnails
-    function renderCompactPictureGrid(containerId, list) {
+    let activeBoycottIndex = 0;
+    let activeStillIndex = 0;
+
+    // Render the scrollable list for 100+ pictures
+    function renderPictureList(containerId, list, activeIndex, onSelectCallback) {
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = '';
 
-      list.forEach(pic => {
-        const card = document.createElement('div');
-        card.className = 'compact-thumb-card';
-        card.onclick = () => openMediaLightbox(pic.src, 'image', pic.title);
-        card.innerHTML = `
-          <img src="${encodeURI(pic.src)}" alt="${pic.title}" class="compact-thumb-img" onerror="this.style.opacity='0.4';">
-          <div class="compact-thumb-info">
-            <span class="compact-thumb-name" title="${pic.title}">${pic.title}</span>
-            <span class="compact-thumb-tag">${pic.tag}</span>
+      list.forEach((item, index) => {
+        const row = document.createElement('div');
+        row.className = `pic-queue-item ${index === activeIndex ? 'active' : ''}`;
+        row.onclick = () => onSelectCallback(index);
+        row.innerHTML = `
+          <img src="${encodeURI(item.src)}" alt="${item.title}" class="pic-queue-thumb" onerror="this.style.opacity='0.4';">
+          <div class="pic-queue-meta">
+            <span class="pic-queue-title">${index + 1}. ${item.title}</span>
+            <span class="pic-queue-tag">${item.tag}</span>
           </div>
+          <span style="font-size: 0.76rem; color: var(--gold-accent); font-weight: 700;">${index === activeIndex ? '👁️ Viewing' : 'View'}</span>
         `;
-        container.appendChild(card);
+        container.appendChild(row);
       });
     }
 
-    // Dynamic Upload to Add More Pictures
+    function selectBoycottPicture(index) {
+      if (index < 0 || index >= boycottPictureLibrary.length) return;
+      activeBoycottIndex = index;
+      const pic = boycottPictureLibrary[index];
+      
+      const img = document.getElementById('boycott-active-img');
+      const title = document.getElementById('boycott-active-title');
+      const tag = document.getElementById('boycott-active-tag');
+      
+      if (img) img.src = encodeURI(pic.src);
+      if (title) title.innerText = pic.title;
+      if (tag) tag.innerText = `${pic.tag} • Selection #${index + 1} (Click Picture to Enlarge)`;
+
+      renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
+    }
+
+    function selectStillPicture(index) {
+      if (index < 0 || index >= stillPictureLibrary.length) return;
+      activeStillIndex = index;
+      const pic = stillPictureLibrary[index];
+      
+      const img = document.getElementById('still-active-img');
+      const title = document.getElementById('still-active-title');
+      const tag = document.getElementById('still-active-tag');
+      
+      if (img) img.src = encodeURI(pic.src);
+      if (title) title.innerText = pic.title;
+      if (tag) tag.innerText = `${pic.tag} • Selection #${index + 1} (Click Picture to Enlarge)`;
+
+      renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
+    }
+
+    // Dynamic Upload to easily add dozens/hundreds of pictures from disk
     function handleUserAddPictures(event, galleryType) {
       const files = Array.from(event.target.files);
       if (!files.length) return;
@@ -1165,22 +1238,22 @@
         if (galleryType === 'boycott') {
           boycottPictureLibrary.push({
             title: cleanName,
-            tag: "Uploaded Fast Image",
+            tag: "Uploaded Archive",
             src: objectUrl
           });
         } else if (galleryType === 'still') {
           stillPictureLibrary.push({
             title: cleanName,
-            tag: "Uploaded Blueprint",
+            tag: "Uploaded Lore",
             src: objectUrl
           });
         }
       });
 
       if (galleryType === 'boycott') {
-        renderCompactPictureGrid('boycott-gallery-grid', boycottPictureLibrary);
+        renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       } else {
-        renderCompactPictureGrid('still-gallery-grid', stillPictureLibrary);
+        renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
       }
     }
 
@@ -1910,9 +1983,9 @@
       renderPlaylistItems();
       renderStreamArchive();
       
-      // Render compact picture grids
-      renderCompactPictureGrid('boycott-gallery-grid', boycottPictureLibrary);
-      renderCompactPictureGrid('still-gallery-grid', stillPictureLibrary);
+      // Initialize Split-System Picture Vaults (Ready for 100+ images)
+      renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
+      renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
 
       // Render Video Vaults
       renderVideoVault('music-video-gallery-container', myMusicVideosList);
