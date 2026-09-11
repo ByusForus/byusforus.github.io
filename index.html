@@ -499,6 +499,17 @@
       justify-content: space-between; align-items: center;
     }
 
+    .audio-tab-btn {
+      background: var(--onyx-card); border: 1px solid var(--onyx-border);
+      color: var(--text-muted); font-size: 0.76rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 12px; cursor: pointer; transition: all 0.2s ease;
+    }
+
+    .audio-tab-btn.active, .audio-tab-btn:hover {
+      border-color: var(--emerald-accent); color: var(--emerald-accent);
+      background: rgba(0, 208, 108, 0.12);
+    }
+
     .btn-load-audio-files {
       background: var(--gold-accent); color: #000; border: none;
       font-size: 0.75rem; font-weight: 700; padding: 5px 12px;
@@ -573,7 +584,7 @@
       text-transform: uppercase;
     }
 
-    /* Picture Vault Right List Rows (Holds Hundreds of Images) */
+    /* Picture Vault Right List Rows */
     .pic-queue-item {
       display: flex;
       align-items: center;
@@ -1031,7 +1042,7 @@
       </div>
     </section>
 
-    <!-- 10. Dynamic Audio Vault (ImanI Story Tracks Only) -->
+    <!-- 10. Dynamic Audio Vault (Story Free + Mysteries & Agreements Locked) -->
     <section>
       <h2 class="section-title">ImanI Audio Vault</h2>
       <div class="vault-grid">
@@ -1068,7 +1079,10 @@
         <div class="playlist-card">
           <div class="audio-tabs-bar">
             <div style="display: flex; gap: 6px;" id="audio-tabs-container">
-              <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-accent); padding: 4px 8px;">ImanI Story Audio Vault</span>
+              <button class="audio-tab-btn active" onclick="setAudioCategory('ALL', this)">All Audio</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('ImanI story', this)">Story (Free)</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('The mysteries', this)">🔒 Mysteries</button>
+              <button class="audio-tab-btn" onclick="setAudioCategory('Audio Agreements', this)">🔒 Agreements</button>
             </div>
             <div>
               <button class="btn-load-audio-files" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
@@ -1172,7 +1186,7 @@
       <div style="font-size: 2.5rem; margin-bottom: 8px;">🏛️</div>
       <h3 style="color: var(--gold-accent); font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">ImanI Sovereign Pass</h3>
       <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
-        This archive item is exclusive to our Sovereign Membership community. Join or enter your member pass to unlock the entire 100+ picture vault.
+        This item is exclusive to our Sovereign Membership community. Join or enter your member pass to unlock the full Mysteries and Agreements audio vaults, plus all uncompressed picture archives.
       </p>
 
       <a href="https://your-membership-signup-link.com" target="_blank" class="btn-join-membership" style="display: inline-block; text-decoration: none; padding: 12px 28px; font-size: 0.92rem; margin-bottom: 18px;">
@@ -1217,12 +1231,209 @@
       if (input && input.toUpperCase() === SECRET_MEMBER_KEY) {
         localStorage.setItem("imani_member_active", "true");
         closeMembershipModal();
+        renderPlaylistItems();
         renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
         renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
-        alert("Sovereign Membership Activated. All locked pictures are now unlocked.");
+        alert("Sovereign Membership Activated. All locked audio and picture vaults are now unlocked.");
       } else {
         if (errorMsg) errorMsg.style.display = 'block';
       }
+    }
+
+    // Audio Library: Story (Free), Mysteries (Locked), Agreements (Locked)
+    let permanentAudioLibrary = [
+      // 1. STORY TRACKS (Free to all visitors)
+      { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", isLocked: false },
+      { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", isLocked: false },
+      { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/story/i-m-onyx-in-the-middle.mp3", isLocked: false },
+      { title: "I M Unlocking the Imani Mind", category: "ImanI story", src: "media/audio/story/i-m-unlocking-the-imani-mind.mp3", isLocked: false },
+      { title: "I M We R Imani", category: "ImanI story", src: "media/audio/story/i-m-we-r-imani.mp3", isLocked: false },
+      { title: "I M We R Imani 2", category: "ImanI story", src: "media/audio/story/i-m-we-r-imani2.mp3", isLocked: false },
+      { title: "I M Reparations Now", category: "ImanI story", src: "media/audio/story/i-m-reparations-now.mp3", isLocked: false },
+      { title: "I M Strategic Disengagement", category: "ImanI story", src: "media/audio/story/i-m-strategic-disengagement.mp3", isLocked: false },
+      { title: "ImanI Ignited", category: "ImanI story", src: "media/audio/story/imani-ignited.mp3", isLocked: false },
+      { title: "ImanI Code of Alignment", category: "ImanI story", src: "media/audio/story/imani-code-of-alignment.mp3", isLocked: false },
+      { title: "ImanI Code of Alliance", category: "ImanI story", src: "media/audio/story/imani-code-of-alliance.mp3", isLocked: false },
+      { title: "Written in the Law", category: "ImanI story", src: "media/audio/story/written-in-the-law.mp3", isLocked: false },
+      { title: "Declaration of the New Breed", category: "ImanI story", src: "media/audio/story/declaration-of-the-new-breed.mp3", isLocked: false },
+      { title: "Checkmate Mindset", category: "ImanI story", src: "media/audio/story/checkmate-mindset.mp3", isLocked: false },
+
+      // 2. THE MYSTERIES (Locked for members)
+      { title: "Mystery 1 Cycle of ImanI Female", category: "The mysteries", src: "media/audio/mysteries/mystery-01-female.mp3", isLocked: true },
+      { title: "Mystery 1 Cycle of ImanI male", category: "The mysteries", src: "media/audio/mysteries/mystery-01-male.mp3", isLocked: true },
+      { title: "Mystery 2 The Mirror That Doesn't Lie", category: "The mysteries", src: "media/audio/mysteries/mystery-02-mirror.wav", isLocked: true },
+      { title: "Mystery 3 Between the Pillars", category: "The mysteries", src: "media/audio/mysteries/mystery-03-pillars.mp3", isLocked: true },
+      { title: "Mystery 4 Solar and Lunar Power", category: "The mysteries", src: "media/audio/mysteries/mystery-04-solar-lunar.mp3", isLocked: true },
+      { title: "Mystery 5 I and I, Essence and Unity", category: "The mysteries", src: "media/audio/mysteries/mystery-05-essence-unity.mp3", isLocked: true },
+      { title: "Mystery 6 I M is I Am", category: "The mysteries", src: "media/audio/mysteries/mystery-06-i-m-is-i-am.mp3", isLocked: true },
+      { title: "Mystery 7 I M Ani I M Beautiful", category: "The mysteries", src: "media/audio/mysteries/mystery-07-very-beautiful.mp3", isLocked: true },
+      { title: "Mystery 8 The Initiation The Sacred Circle", category: "The mysteries", src: "media/audio/mysteries/mystery-08-sacred-circle.wav", isLocked: true },
+      { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/mysteries/mystery-09-systems.mp3", isLocked: true },
+      { title: "Mystery 10 Rhythm of Return", category: "The mysteries", src: "media/audio/mysteries/mystery-10-return.wav", isLocked: true },
+
+      // 3. AUDIO AGREEMENTS (Locked for members)
+      { title: "Agreement 1: Law of the Resonant Word", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-resonant-word.mp3", isLocked: true },
+      { title: "Agreement 1: Words of Power", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-words-of-power.mp3", isLocked: true },
+      { title: "Agreement 2: Immunity to Poison", category: "Audio Agreements", src: "media/audio/agreements/agreement-2-immunity-to-poison.wav", isLocked: true },
+      { title: "Agreement 3: Don't Make Assumptions", category: "Audio Agreements", src: "media/audio/agreements/agreement-3-no-assumptions.wav", isLocked: true },
+      { title: "Agreement 3: Rewrite Our Story", category: "Audio Agreements", src: "media/audio/agreements/agreement-3-rewrite-our-story.wav", isLocked: true },
+      { title: "Agreement 4: Always Do Your Best", category: "Audio Agreements", src: "media/audio/agreements/agreement-4-always-do-your-best.mp3", isLocked: true },
+      { title: "Agreement 5: Be Skeptical, But Learn to Listen", category: "Audio Agreements", src: "media/audio/agreements/agreement-5-listen.mp3", isLocked: true }
+    ];
+
+    let currentAudioCategory = "ALL";
+    let activeTrackIndex = 0;
+    let isContinuousPlay = true;
+    let isRandomPlay = false;
+
+    function setAudioCategory(category, btn) {
+      currentAudioCategory = category;
+      document.querySelectorAll('.audio-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderPlaylistItems();
+    }
+
+    function getFilteredTrackPool() {
+      return permanentAudioLibrary.filter(t => currentAudioCategory === "ALL" || t.category === currentAudioCategory);
+    }
+
+    function renderPlaylistItems() {
+      const container = document.getElementById('playlist-items-container');
+      if (!container) return;
+      container.innerHTML = '';
+      const filtered = getFilteredTrackPool();
+      const unlocked = isMemberUnlocked();
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; padding: 12px; text-align: center;">No tracks found.</p>`;
+        return;
+      }
+
+      filtered.forEach((track, index) => {
+        const isTrackLocked = track.isLocked && !unlocked;
+        const item = document.createElement('div');
+        item.className = `playlist-item ${index === activeTrackIndex ? 'active' : ''}`;
+        
+        let statusBadge = index === activeTrackIndex ? '▶ Playing' : '▶ Play';
+        if (isTrackLocked) statusBadge = '🔒 Members Only';
+
+        item.innerHTML = `
+          <div>
+            <div class="track-title">${track.title}</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted);">${isTrackLocked ? '🔒 ' + track.category : track.category}</div>
+          </div>
+          <span class="track-duration" style="${isTrackLocked ? 'color: var(--gold-accent); font-weight:800;' : ''}">${statusBadge}</span>
+        `;
+        item.onclick = () => playTrackByIndex(index);
+        container.appendChild(item);
+      });
+    }
+
+    function playTrackByIndex(index) {
+      const filtered = getFilteredTrackPool();
+      if (index < 0 || index >= filtered.length) return;
+      const track = filtered[index];
+
+      // Enforce membership paywall on locked audio files
+      if (track.isLocked && !isMemberUnlocked()) {
+        const audio = document.getElementById('main-audio');
+        if (audio) audio.pause();
+        openMembershipModal();
+        return;
+      }
+
+      activeTrackIndex = index;
+      const curTitle = document.getElementById('current-title');
+      const curCat = document.getElementById('current-category');
+      if (curTitle) curTitle.innerText = track.title;
+      if (curCat) curCat.innerText = track.category;
+      
+      const audio = document.getElementById('main-audio');
+      if (audio) {
+        audio.onerror = function() {
+          if (audio.src.endsWith('.mp3')) {
+            audio.src = audio.src.replace('.mp3', '.wav');
+            audio.play().catch(() => {});
+          }
+        };
+        audio.src = track.src;
+        audio.play().catch(() => {});
+      }
+      renderPlaylistItems();
+    }
+
+    function toggleContinuousPlay() {
+      isContinuousPlay = !isContinuousPlay;
+      const btn = document.getElementById('btn-continuous');
+      const lbl = document.getElementById('lbl-continuous');
+      if (btn && lbl) {
+        btn.classList.toggle('active', isContinuousPlay);
+        lbl.innerText = isContinuousPlay ? "Continuous: ON" : "Continuous: OFF";
+      }
+    }
+
+    function toggleRandomPlay() {
+      isRandomPlay = !isRandomPlay;
+      const btn = document.getElementById('btn-random');
+      const lbl = document.getElementById('lbl-random');
+      if (btn && lbl) {
+        btn.classList.toggle('active', isRandomPlay);
+        btn.classList.toggle('shuffle', isRandomPlay);
+        lbl.innerText = isRandomPlay ? "Random: ON" : "Random: OFF";
+      }
+    }
+
+    function playNextTrack() {
+      const filtered = getFilteredTrackPool();
+      if (filtered.length <= 1) return;
+      if (isRandomPlay) {
+        let randomIndex;
+        do { randomIndex = Math.floor(Math.random() * filtered.length); }
+        while (randomIndex === activeTrackIndex && filtered.length > 1);
+        playTrackByIndex(randomIndex);
+      } else {
+        let nextIndex = activeTrackIndex + 1;
+        if (nextIndex >= filtered.length) nextIndex = 0;
+        playTrackByIndex(nextIndex);
+      }
+    }
+
+    function playPreviousTrack() {
+      const filtered = getFilteredTrackPool();
+      if (filtered.length <= 1) return;
+      let prevIndex = activeTrackIndex - 1;
+      if (prevIndex < 0) prevIndex = filtered.length - 1;
+      playTrackByIndex(prevIndex);
+    }
+
+    function handleTrackEnded() {
+      if (isContinuousPlay || isRandomPlay) playNextTrack();
+    }
+
+    function handleUserAudioUpload(event) {
+      const files = Array.from(event.target.files);
+      if (!files.length) return;
+      files.forEach(file => {
+        let clean = file.name.replace(/\.[^/.]+$/, "");
+        let cat = "The mysteries";
+        let low = clean.toLowerCase();
+        let locked = true;
+
+        if (low.includes("agreement") || low.includes("word") || low.includes("poison") || low.includes("assumptions")) {
+          cat = "Audio Agreements";
+        } else if (low.includes("story") || low.includes("imani") || low.includes("law")) {
+          cat = "ImanI story";
+          locked = false;
+        }
+
+        permanentAudioLibrary.push({
+          title: clean,
+          category: cat,
+          src: URL.createObjectURL(file),
+          isLocked: locked
+        });
+      });
+      renderPlaylistItems();
     }
 
     // Picture Vault Collections (First is Free, rest are locked for members)
@@ -1271,7 +1482,7 @@
     let activeBoycottIndex = 0;
     let activeStillIndex = 0;
 
-    // Render scrollable list with active membership protection
+    // Render scrollable picture lists with active membership protection
     function renderPictureList(containerId, list, activeIndex, onSelectCallback) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -1304,7 +1515,6 @@
       if (index < 0 || index >= boycottPictureLibrary.length) return;
       const pic = boycottPictureLibrary[index];
       
-      // Membership check
       if (pic.isLocked && !isMemberUnlocked()) {
         openMembershipModal();
         return;
@@ -1326,7 +1536,6 @@
       if (index < 0 || index >= stillPictureLibrary.length) return;
       const pic = stillPictureLibrary[index];
 
-      // Membership check
       if (pic.isLocked && !isMemberUnlocked()) {
         openMembershipModal();
         return;
@@ -1344,7 +1553,6 @@
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
     }
 
-    // Dynamic Upload: All newly added pictures automatically get locked for members only
     function handleUserAddPictures(event, galleryType) {
       const files = Array.from(event.target.files);
       if (!files.length) return;
@@ -1375,137 +1583,6 @@
       } else {
         renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
       }
-    }
-
-    // Audio Library - Exclusively ImanI Story Files
-    let permanentAudioLibrary = [
-      { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", duration: "Song" },
-      { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", duration: "Song" },
-      { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/story/i-m-onyx-in-the-middle.mp3", duration: "Song" },
-      { title: "I M Unlocking the Imani Mind", category: "ImanI story", src: "media/audio/story/i-m-unlocking-the-imani-mind.mp3", duration: "Song" },
-      { title: "I M We R Imani", category: "ImanI story", src: "media/audio/story/i-m-we-r-imani.mp3", duration: "Song" },
-      { title: "I M We R Imani 2", category: "ImanI story", src: "media/audio/story/i-m-we-r-imani2.mp3", duration: "Song" },
-      { title: "I M Reparations Now", category: "ImanI story", src: "media/audio/story/i-m-reparations-now.mp3", duration: "Song" },
-      { title: "I M Strategic Disengagement", category: "ImanI story", src: "media/audio/story/i-m-strategic-disengagement.mp3", duration: "Song" },
-      { title: "ImanI Ignited", category: "ImanI story", src: "media/audio/story/imani-ignited.mp3", duration: "Song" },
-      { title: "ImanI Code of Alignment", category: "ImanI story", src: "media/audio/story/imani-code-of-alignment.mp3", duration: "Song" },
-      { title: "ImanI Code of Alliance", category: "ImanI story", src: "media/audio/story/imani-code-of-alliance.mp3", duration: "Song" },
-      { title: "Written in the Law", category: "ImanI story", src: "media/audio/story/written-in-the-law.mp3", duration: "Song" },
-      { title: "Declaration of the New Breed", category: "ImanI story", src: "media/audio/story/declaration-of-the-new-breed.mp3", duration: "Song" },
-      { title: "Checkmate Mindset", category: "ImanI story", src: "media/audio/story/checkmate-mindset.mp3", duration: "Song" }
-    ];
-
-    let activeTrackIndex = 0;
-    let isContinuousPlay = true;
-    let isRandomPlay = false;
-
-    function renderPlaylistItems() {
-      const container = document.getElementById('playlist-items-container');
-      if (!container) return;
-      container.innerHTML = '';
-
-      if (permanentAudioLibrary.length === 0) {
-        container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; padding: 12px; text-align: center;">No story tracks found.</p>`;
-        return;
-      }
-
-      permanentAudioLibrary.forEach((track, index) => {
-        const item = document.createElement('div');
-        item.className = `playlist-item ${index === activeTrackIndex ? 'active' : ''}`;
-        item.innerHTML = `
-          <div>
-            <div class="track-title">${track.title}</div>
-            <div style="font-size: 0.72rem; color: var(--text-muted);">${track.category}</div>
-          </div>
-          <span class="track-duration">${index === activeTrackIndex ? '▶ Playing' : '▶ Play'}</span>
-        `;
-        item.onclick = () => playTrackByIndex(index);
-        container.appendChild(item);
-      });
-    }
-
-    function playTrackByIndex(index) {
-      if (index < 0 || index >= permanentAudioLibrary.length) return;
-      activeTrackIndex = index;
-      const track = permanentAudioLibrary[index];
-      const curTitle = document.getElementById('current-title');
-      const curCat = document.getElementById('current-category');
-      if (curTitle) curTitle.innerText = track.title;
-      if (curCat) curCat.innerText = track.category;
-      
-      const audio = document.getElementById('main-audio');
-      if (audio) {
-        audio.onerror = function() {
-          if (audio.src.endsWith('.mp3')) {
-            audio.src = audio.src.replace('.mp3', '.wav');
-            audio.play().catch(() => {});
-          }
-        };
-        audio.src = track.src;
-        audio.play().catch(() => {});
-      }
-      renderPlaylistItems();
-    }
-
-    function toggleContinuousPlay() {
-      isContinuousPlay = !isContinuousPlay;
-      const btn = document.getElementById('btn-continuous');
-      const lbl = document.getElementById('lbl-continuous');
-      if (btn && lbl) {
-        btn.classList.toggle('active', isContinuousPlay);
-        lbl.innerText = isContinuousPlay ? "Continuous: ON" : "Continuous: OFF";
-      }
-    }
-
-    function toggleRandomPlay() {
-      isRandomPlay = !isRandomPlay;
-      const btn = document.getElementById('btn-random');
-      const lbl = document.getElementById('lbl-random');
-      if (btn && lbl) {
-        btn.classList.toggle('active', isRandomPlay);
-        btn.classList.toggle('shuffle', isRandomPlay);
-        lbl.innerText = isRandomPlay ? "Random: ON" : "Random: OFF";
-      }
-    }
-
-    function playNextTrack() {
-      if (permanentAudioLibrary.length <= 1) return;
-      if (isRandomPlay) {
-        let randomIndex;
-        do { randomIndex = Math.floor(Math.random() * permanentAudioLibrary.length); }
-        while (randomIndex === activeTrackIndex && permanentAudioLibrary.length > 1);
-        playTrackByIndex(randomIndex);
-      } else {
-        let nextIndex = activeTrackIndex + 1;
-        if (nextIndex >= permanentAudioLibrary.length) nextIndex = 0;
-        playTrackByIndex(nextIndex);
-      }
-    }
-
-    function playPreviousTrack() {
-      if (permanentAudioLibrary.length <= 1) return;
-      let prevIndex = activeTrackIndex - 1;
-      if (prevIndex < 0) prevIndex = permanentAudioLibrary.length - 1;
-      playTrackByIndex(prevIndex);
-    }
-
-    function handleTrackEnded() {
-      if (isContinuousPlay || isRandomPlay) playNextTrack();
-    }
-
-    function handleUserAudioUpload(event) {
-      const files = Array.from(event.target.files);
-      if (!files.length) return;
-      files.forEach(file => {
-        let clean = file.name.replace(/\.[^/.]+$/, "");
-        permanentAudioLibrary.push({
-          title: clean,
-          category: "ImanI story",
-          src: URL.createObjectURL(file),
-          duration: "Audio"
-        });
-      });
-      renderPlaylistItems();
     }
 
     let userArchiveVideos = [
