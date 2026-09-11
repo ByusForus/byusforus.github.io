@@ -613,7 +613,7 @@
       transition: all 0.2s ease; margin-top: 16px;
     }
 
-    /* Split-System Vault Grids */
+    /* Split-System Vault Grids (Left: Canvas Viewer, Right: Queue List) */
     .vault-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     @media (max-width: 860px) { .vault-grid { grid-template-columns: 1fr; } }
 
@@ -714,7 +714,7 @@
     .track-title { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
     .track-duration { font-size: 0.8rem; color: var(--gold-accent); }
 
-    /* Picture Vault Left Viewer Frame */
+    /* Media Vault Left Viewer Frame (Pictures & Videos) */
     .picture-viewer-card {
       background: var(--onyx-surface);
       border: 1px solid var(--onyx-border);
@@ -742,6 +742,14 @@
       opacity: 0.95;
     }
 
+    .video-viewer-element {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      display: block;
+      border-bottom: 1px solid var(--onyx-border);
+    }
+
     .picture-viewer-details {
       padding: 14px 16px;
       display: flex;
@@ -764,7 +772,7 @@
       text-transform: uppercase;
     }
 
-    /* Picture Vault Right List Rows */
+    /* Media Vault Right List Rows (Pictures & Videos) */
     .pic-queue-item {
       display: flex;
       align-items: center;
@@ -816,34 +824,6 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    .video-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-
-    .video-vault-card {
-      background: var(--onyx-surface); border: 1px solid var(--onyx-border);
-      border-radius: var(--radius-md); overflow: hidden; display: flex;
-      flex-direction: column; backdrop-filter: blur(12px);
-      transition: transform 0.25s ease, border-color 0.25s ease;
-      position: relative;
-    }
-
-    .video-vault-card:hover {
-      transform: translateY(-4px); border-color: var(--emerald-accent);
-      box-shadow: 0 10px 24px var(--emerald-glow);
-    }
-
-    .video-player-container video {
-      width: 100%; aspect-ratio: 16 / 9; background: #000; display: block;
-      border-bottom: 1px solid var(--onyx-border);
-    }
-
-    .gallery-card-info { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-    .gallery-card-title { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
-    .gallery-card-lore { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
-    .gallery-card-tag {
-      margin-top: 6px; font-size: 0.7rem; font-weight: 600;
-      color: var(--emerald-accent); letter-spacing: 0.05em;
     }
 
     .btn-join-membership {
@@ -1160,7 +1140,7 @@
       </div>
     </section>
 
-    <!-- 7. ENLARGED & LEGIBLE IAHBC & STEALTH DRILL DOCTRINE SECTION -->
+    <!-- 7. IAHBC DOCTRINE SECTION -->
     <section>
       <h2 class="section-title">ImanI American Holiday Boycott Celebration — 7-Day Economic Fast</h2>
       
@@ -1320,16 +1300,64 @@
       </div>
     </section>
 
-    <!-- 12. Music Video Vault -->
+    <!-- 12. Music Video Vault (Split Vault System: Left Video Canvas + Right Scrollable List) -->
     <section>
       <h2 class="section-title">ImanI Official Music Video Vault</h2>
-      <div class="video-gallery-grid" id="music-video-gallery-container"></div>
+      <div class="vault-grid">
+        <!-- Active Video Player Frame (Left) -->
+        <div class="picture-viewer-card">
+          <video id="music-video-active-player" class="video-viewer-element" controls playsinline preload="metadata" poster="media/images/header-emblem.png">
+            <source id="music-video-active-source" src="https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+          <div class="picture-viewer-details">
+            <div class="picture-viewer-title" id="music-video-active-title">Written in the Law Video</div>
+            <div class="picture-viewer-tag" id="music-video-active-tag">Official Music Video • HD Master</div>
+          </div>
+        </div>
+
+        <!-- Scrollable Video Queue Panel (Right) -->
+        <div class="playlist-card">
+          <div class="audio-tabs-bar">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-accent); padding: 4px 8px;">Music Video Queue</span>
+            <div>
+              <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('music-video-multi-input')">📁 Add Videos</button>
+              <input type="file" id="music-video-multi-input" accept="video/*" multiple style="display: none;" onchange="handleUserAddVideos(event, 'music')">
+            </div>
+          </div>
+          <div class="playlist-items-scroll" id="music-video-list-container"></div>
+        </div>
+      </div>
     </section>
 
-    <!-- 13. Cinema & Documentary Vault -->
+    <!-- 13. Cinema & Documentary Vault (Split Vault System: Left Video Canvas + Right Scrollable List) -->
     <section>
       <h2 class="section-title">ImanI Documentary & Cinema Vault</h2>
-      <div class="video-gallery-grid" id="cinema-gallery-container"></div>
+      <div class="vault-grid">
+        <!-- Active Cinema Player Frame (Left) -->
+        <div class="picture-viewer-card">
+          <video id="cinema-active-player" class="video-viewer-element" controls playsinline preload="metadata" poster="media/images/header-emblem.png">
+            <source id="cinema-active-source" src="https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+          <div class="picture-viewer-details">
+            <div class="picture-viewer-title" id="cinema-active-title">Written in the Law Letter</div>
+            <div class="picture-viewer-tag" id="cinema-active-tag">Documentary Cinema • Chapter 1</div>
+          </div>
+        </div>
+
+        <!-- Scrollable Cinema Queue Panel (Right) -->
+        <div class="playlist-card">
+          <div class="audio-tabs-bar">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-accent); padding: 4px 8px;">Cinema Vault Queue</span>
+            <div>
+              <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('cinema-multi-input')">📁 Add Cinema</button>
+              <input type="file" id="cinema-multi-input" accept="video/*" multiple style="display: none;" onchange="handleUserAddVideos(event, 'cinema')">
+            </div>
+          </div>
+          <div class="playlist-items-scroll" id="cinema-list-container"></div>
+        </div>
+      </div>
     </section>
 
     <!-- 14. Chatty's Wisdom 99-Card Engine -->
@@ -1472,6 +1500,8 @@
         renderPlaylistItems();
         renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
         renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
+        renderVideoList('music-video-list-container', myMusicVideosList, activeMusicVideoIndex, selectMusicVideo);
+        renderVideoList('cinema-list-container', myCinemaList, activeCinemaIndex, selectCinemaVideo);
         alert("Sovereign Membership Activated. All locked archives are now unlocked.");
       } else {
         if (errorMsg) errorMsg.style.display = 'block';
@@ -1677,7 +1707,7 @@
       renderPlaylistItems();
     }
 
-    // ALL CURRENT PICTURES ARE SET TO isLocked: false (FREE TO ACCESS)
+    // ALL CURRENT PICTURES ARE UNLOCKED (FREE TO ACCESS)
     let boycottPictureLibrary = [
       {
         title: "The Price of Participation: Reclaiming Our Economic Sovereignty",
@@ -1699,7 +1729,6 @@
       }
     ];
 
-    // ALL CURRENT PICTURES ARE SET TO isLocked: false (FREE TO ACCESS)
     let stillPictureLibrary = [
       {
         title: "Chapter 0 — The ImanI Manifesto",
@@ -1721,9 +1750,33 @@
       }
     ];
 
+    // ALL CURRENT VIDEOS ARE UNLOCKED (FREE TO ACCESS)
+    let myMusicVideosList = [
+      { 
+        title: "Written in the Law Video", 
+        tag: "Official Music Video • HD Master", 
+        poster: "media/images/header-emblem.png", 
+        src: "https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4",
+        isLocked: false 
+      }
+    ];
+
+    let myCinemaList = [
+      { 
+        title: "Written in the Law Letter", 
+        tag: "Documentary Cinema • Chapter 1", 
+        poster: "media/images/header-emblem.png", 
+        src: "https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4",
+        isLocked: false 
+      }
+    ];
+
     let activeBoycottIndex = 0;
     let activeStillIndex = 0;
+    let activeMusicVideoIndex = 0;
+    let activeCinemaIndex = 0;
 
+    // Render Picture Lists
     function renderPictureList(containerId, list, activeIndex, onSelectCallback) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -1794,7 +1847,92 @@
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
     }
 
-    // ANY NEW PICTURE UPLOADED AFTER THIS IS AUTOMATICALLY LOCKED FOR MEMBERS
+    // Render Video Lists (Identical Split-System to Photo Gallery)
+    function renderVideoList(containerId, list, activeIndex, onSelectCallback) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      const unlocked = isMemberUnlocked();
+
+      list.forEach((item, index) => {
+        const row = document.createElement('div');
+        const isCurrentlyLocked = item.isLocked && !unlocked;
+        row.className = `pic-queue-item ${index === activeIndex ? 'active' : ''}`;
+        row.onclick = () => onSelectCallback(index);
+
+        const lockBadge = isCurrentlyLocked 
+          ? `<span style="font-size: 0.76rem; color: var(--gold-accent); font-weight: 800;">🔒 Locked</span>` 
+          : `<span style="font-size: 0.76rem; color: var(--emerald-accent); font-weight: 700;">${index === activeIndex ? '▶ Loaded' : 'Play'}</span>`;
+
+        row.innerHTML = `
+          <img src="${encodeURI(item.poster || 'media/images/header-emblem.png')}" alt="${item.title}" class="pic-queue-thumb" style="${isCurrentlyLocked ? 'filter: blur(3px) brightness(0.5);' : ''}" onerror="this.style.opacity='0.4';">
+          <div class="pic-queue-meta">
+            <span class="pic-queue-title">${index + 1}. ${item.title}</span>
+            <span class="pic-queue-tag">${isCurrentlyLocked ? '🔒 Members Only' : item.tag}</span>
+          </div>
+          ${lockBadge}
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function selectMusicVideo(index) {
+      if (index < 0 || index >= myMusicVideosList.length) return;
+      const vidData = myMusicVideosList[index];
+
+      if (vidData.isLocked && !isMemberUnlocked()) {
+        const player = document.getElementById('music-video-active-player');
+        if (player) player.pause();
+        openMembershipModal();
+        return;
+      }
+
+      activeMusicVideoIndex = index;
+      const player = document.getElementById('music-video-active-player');
+      const title = document.getElementById('music-video-active-title');
+      const tag = document.getElementById('music-video-active-tag');
+
+      if (player) {
+        player.pause();
+        player.src = vidData.src;
+        if (vidData.poster) player.poster = vidData.poster;
+        player.load();
+      }
+      if (title) title.innerText = vidData.title;
+      if (tag) tag.innerText = `${vidData.tag} • Track #${index + 1}`;
+
+      renderVideoList('music-video-list-container', myMusicVideosList, activeMusicVideoIndex, selectMusicVideo);
+    }
+
+    function selectCinemaVideo(index) {
+      if (index < 0 || index >= myCinemaList.length) return;
+      const vidData = myCinemaList[index];
+
+      if (vidData.isLocked && !isMemberUnlocked()) {
+        const player = document.getElementById('cinema-active-player');
+        if (player) player.pause();
+        openMembershipModal();
+        return;
+      }
+
+      activeCinemaIndex = index;
+      const player = document.getElementById('cinema-active-player');
+      const title = document.getElementById('cinema-active-title');
+      const tag = document.getElementById('cinema-active-tag');
+
+      if (player) {
+        player.pause();
+        player.src = vidData.src;
+        if (vidData.poster) player.poster = vidData.poster;
+        player.load();
+      }
+      if (title) title.innerText = vidData.title;
+      if (tag) tag.innerText = `${vidData.tag} • Chapter #${index + 1}`;
+
+      renderVideoList('cinema-list-container', myCinemaList, activeCinemaIndex, selectCinemaVideo);
+    }
+
+    // Dynamic Upload Handlers (New files auto-locked)
     function handleUserAddPictures(event, galleryType) {
       const files = Array.from(event.target.files);
       if (!files.length) return;
@@ -1824,6 +1962,40 @@
         renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       } else {
         renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
+      }
+    }
+
+    function handleUserAddVideos(event, videoType) {
+      const files = Array.from(event.target.files);
+      if (!files.length) return;
+
+      files.forEach(file => {
+        const cleanName = file.name.replace(/\.[^/.]+$/, "");
+        const objectUrl = URL.createObjectURL(file);
+
+        if (videoType === 'music') {
+          myMusicVideosList.push({
+            title: cleanName,
+            tag: "🔒 Members Only Music Video",
+            poster: "media/images/header-emblem.png",
+            src: objectUrl,
+            isLocked: true
+          });
+        } else if (videoType === 'cinema') {
+          myCinemaList.push({
+            title: cleanName,
+            tag: "🔒 Members Only Cinema",
+            poster: "media/images/header-emblem.png",
+            src: objectUrl,
+            isLocked: true
+          });
+        }
+      });
+
+      if (videoType === 'music') {
+        renderVideoList('music-video-list-container', myMusicVideosList, activeMusicVideoIndex, selectMusicVideo);
+      } else {
+        renderVideoList('cinema-list-container', myCinemaList, activeCinemaIndex, selectCinemaVideo);
       }
     }
 
@@ -1872,62 +2044,6 @@
         card.onclick = () => playArchivedStream(item.src, item.title);
         container.appendChild(card);
       });
-    }
-
-    const myMusicVideosList = [
-      { 
-        title: "Written in the Law Video", 
-        lore: "Official music video — Walking in rhythm and harmony with the ImanI Code by Dj Karma.", 
-        tag: "🎵 Music Video • HD Master", 
-        poster: "media/images/header-emblem.png", 
-        src: "https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4" 
-      }
-    ];
-
-    const myCinemaList = [
-      { 
-        title: "Written in the Law Letter", 
-        lore: "Exploring the legal lineage, sovereign ontology, and historical foundation of the 14th Amendment Americans.", 
-        tag: "🎬 Documentary Cinema • Chapter 1", 
-        poster: "media/images/header-emblem.png", 
-        src: "https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4" 
-      }
-    ];
-
-    function renderVideoVault(containerId, list) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = '';
-      list.forEach((v, index) => {
-        const inputId = `${containerId}-file-${index}`;
-        const videoId = `${containerId}-video-${index}`;
-        const card = document.createElement('div');
-        card.className = 'video-vault-card';
-        card.innerHTML = `
-          <div class="video-player-container" style="position: relative;">
-            <video id="${videoId}" src="${v.src}" controls playsinline poster="${v.poster}" preload="metadata"></video>
-            <div class="admin-only" style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-              <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
-              <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
-            </div>
-          </div>
-          <div class="gallery-card-info">
-            <h3 class="gallery-card-title">${v.title}</h3>
-            <p class="gallery-card-lore">${v.lore}</p>
-            <span class="gallery-card-tag">${v.tag}</span>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function loadCardVideo(event, videoElementId) {
-      const file = event.target.files[0];
-      if (file) {
-        const vid = document.getElementById(videoElementId);
-        if (vid) { vid.src = URL.createObjectURL(file); vid.play().catch(() => {}); }
-      }
     }
 
     const federalHolidays = [
@@ -2442,11 +2558,13 @@
       renderPlaylistItems();
       renderStreamArchive();
       
+      // 1. Picture Vaults
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
 
-      renderVideoVault('music-video-gallery-container', myMusicVideosList);
-      renderVideoVault('cinema-gallery-container', myCinemaList);
+      // 2. Video Vaults (Now unified into split-screen vaults identical to the photo gallery)
+      renderVideoList('music-video-list-container', myMusicVideosList, activeMusicVideoIndex, selectMusicVideo);
+      renderVideoList('cinema-list-container', myCinemaList, activeCinemaIndex, selectCinemaVideo);
 
       renderHolidayCalendar();
       initDailyWisdomCard();
