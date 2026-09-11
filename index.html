@@ -500,7 +500,7 @@
 
     .btn-load-audio-files {
       background: var(--gold-accent); color: #000; border: none;
-      font-size: 0.75rem; font-weight: 700; padding: 4px 10px;
+      font-size: 0.75rem; font-weight: 700; padding: 5px 12px;
       border-radius: 12px; cursor: pointer; transition: transform 0.2s ease;
     }
 
@@ -522,127 +522,69 @@
     .track-title { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
     .track-duration { font-size: 0.8rem; color: var(--gold-accent); }
 
-    /* Single Featured Frame Styling */
-    .single-frame-container {
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
+    /* Interactive All-Pictures Gallery Grid */
+    .unified-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
     }
 
-    .picture-card {
-      background: var(--onyx-surface); border: 1px solid var(--onyx-border);
-      border-radius: var(--radius-md); overflow: hidden; display: flex;
-      flex-direction: column; backdrop-filter: blur(12px);
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-      position: relative;
-    }
-
-    .picture-card:hover {
-      transform: translateY(-3px); border-color: var(--gold-accent);
-      box-shadow: 0 10px 24px var(--gold-glow);
-    }
-
-    .picture-frame-img {
-      width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block;
-      background: #000; border-bottom: 1px solid var(--onyx-border); cursor: pointer;
-    }
-
-    .gallery-card-info { padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
-    .gallery-card-title { font-size: 1.12rem; font-weight: 800; color: var(--text-main); }
-    .gallery-card-lore { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
-    .gallery-card-tag {
-      margin-top: 6px; font-size: 0.72rem; font-weight: 700;
-      color: var(--emerald-accent); letter-spacing: 0.06em; text-transform: uppercase;
-    }
-
-    /* Dedicated Member Archive Drawer */
-    .member-vault-drawer {
-      margin-top: 20px;
+    .interactive-pic-card {
       background: var(--onyx-surface);
-      border: 1px solid var(--gold-accent);
+      border: 1px solid var(--onyx-border);
       border-radius: var(--radius-md);
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--gold-glow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
     }
 
-    .member-drawer-header {
+    .interactive-pic-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: var(--gold-accent);
+      box-shadow: 0 10px 25px var(--gold-glow);
+    }
+
+    .interactive-pic-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      background: #000;
+      border-bottom: 1px solid var(--onyx-border);
+    }
+
+    .interactive-pic-meta {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .interactive-pic-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .interactive-pic-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--emerald-accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .gallery-header-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 14px;
-      border-bottom: 1px solid var(--onyx-border);
-      padding-bottom: 10px;
-    }
-
-    .member-drawer-title {
-      color: var(--gold-accent);
-      font-size: 1.05rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .member-thumb-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 12px;
-    }
-
-    .member-thumb-item {
-      background: var(--onyx-card);
-      border: 1px solid var(--onyx-border);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .member-thumb-item:hover {
-      transform: scale(1.03);
-      border-color: var(--emerald-accent);
-    }
-
-    .member-thumb-item img {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      display: block;
-    }
-
-    .member-thumb-caption {
-      padding: 8px 10px;
-      font-size: 0.78rem;
-      color: var(--text-main);
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .drawer-locked-gate {
-      text-align: center;
-      padding: 30px 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .drawer-locked-gate h4 {
-      color: var(--gold-accent);
-      font-size: 1.15rem;
-      font-weight: 800;
-    }
-
-    .drawer-locked-gate p {
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      max-width: 440px;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
 
     .video-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
@@ -665,36 +607,13 @@
       border-bottom: 1px solid var(--onyx-border);
     }
 
-    .btn-join-membership {
-      background: linear-gradient(135deg, var(--gold-accent), #d19a22);
-      color: #000000;
-      font-size: 0.85rem;
-      font-weight: 800;
-      padding: 8px 22px;
-      border-radius: 20px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 0 14px var(--gold-glow);
-      transition: transform 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .gallery-card-info { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+    .gallery-card-title { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
+    .gallery-card-lore { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+    .gallery-card-tag {
+      margin-top: 6px; font-size: 0.7rem; font-weight: 600;
+      color: var(--emerald-accent); letter-spacing: 0.05em;
     }
-
-    .btn-join-membership:hover { transform: scale(1.04); }
-
-    .btn-enter-pass {
-      background: transparent;
-      color: var(--emerald-accent);
-      border: 1px solid var(--emerald-accent);
-      font-size: 0.76rem;
-      font-weight: 700;
-      padding: 5px 14px;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-enter-pass:hover { background: rgba(0, 208, 108, 0.15); }
 
     .wisdom-filter-bar {
       display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
@@ -768,7 +687,7 @@
       width: 100%; height: auto; max-height: 75vh; object-fit: contain; display: block;
     }
 
-    .lightbox-caption { text-align: center; color: var(--text-main); font-size: 1rem; font-weight: 600; }
+    .lightbox-caption { text-align: center; color: var(--text-main); font-size: 1.05rem; font-weight: 700; line-height: 1.4; }
 
     .lightbox-close-btn {
       position: absolute; top: -40px; right: 0; background: none;
@@ -1014,23 +933,16 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery (Single Screen + Member Vault Drawer) -->
+    <!-- 9. Boycott Celebration Gallery (All Pictures Visible + Click to Expand + Add More) -->
     <section>
-      <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
-      
-      <!-- Single Featured Screen -->
-      <div class="single-frame-container">
-        <div id="boycott-single-frame"></div>
-
-        <!-- Members Only Multi-Picture Drawer -->
-        <div class="member-vault-drawer" id="boycott-member-drawer">
-          <div class="member-drawer-header">
-            <span class="member-drawer-title">🏛️ IAHBC Members-Only Vault Archive</span>
-            <div id="boycott-drawer-controls"></div>
-          </div>
-          <div id="boycott-drawer-body"></div>
+      <div class="gallery-header-bar">
+        <h2 class="section-title" style="margin-bottom: 0;">Holiday Boycott Celebration Picture Gallery</h2>
+        <div>
+          <button class="btn-load-audio-files" onclick="triggerFileSelect('boycott-add-input')">➕ Add Pictures to Gallery</button>
+          <input type="file" id="boycott-add-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
         </div>
       </div>
+      <div class="unified-gallery-grid" id="boycott-gallery-grid"></div>
     </section>
 
     <!-- 10. Dynamic Audio Vault (ImanI Story Tracks Only) -->
@@ -1082,23 +994,16 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery (Single Screen + Member Vault Drawer) -->
+    <!-- 11. Dedicated Still Picture Gallery (All Pictures Visible + Click to Expand + Add More) -->
     <section>
-      <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
-      
-      <!-- Single Featured Screen -->
-      <div class="single-frame-container">
-        <div id="still-single-frame"></div>
-
-        <!-- Members Only Multi-Picture Drawer -->
-        <div class="member-vault-drawer" id="still-member-drawer">
-          <div class="member-drawer-header">
-            <span class="member-drawer-title">🏛️ Lore & Blueprints Members-Only Vault</span>
-            <div id="still-drawer-controls"></div>
-          </div>
-          <div id="still-drawer-body"></div>
+      <div class="gallery-header-bar">
+        <h2 class="section-title" style="margin-bottom: 0;">ImanI Still Art & Lore Gallery</h2>
+        <div>
+          <button class="btn-load-audio-files" onclick="triggerFileSelect('still-add-input')">➕ Add Pictures to Gallery</button>
+          <input type="file" id="still-add-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'still')">
         </div>
       </div>
+      <div class="unified-gallery-grid" id="still-gallery-grid"></div>
     </section>
 
     <!-- 12. Music Video Vault -->
@@ -1149,7 +1054,7 @@
 
   </main>
 
-  <!-- Media Lightbox -->
+  <!-- Fullscreen Lightbox Display -->
   <div id="lightbox-modal" class="lightbox-backdrop" onclick="closeMediaLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeMediaLightbox()">&times;</button>
@@ -1158,63 +1063,94 @@
     </div>
   </div>
 
-  <!-- Membership Gate Modal -->
-  <div id="membership-modal" class="lightbox-backdrop" onclick="closeMembershipModal()">
-    <div class="lightbox-content" onclick="event.stopPropagation()" style="max-width: 440px; background: var(--onyx-surface); border: 1px solid var(--gold-accent); border-radius: var(--radius-md); padding: 28px; text-align: center; box-shadow: 0 0 35px var(--gold-glow);">
-      <button class="lightbox-close-btn" onclick="closeMembershipModal()">&times;</button>
-      
-      <div style="font-size: 2.5rem; margin-bottom: 8px;">🏛️</div>
-      <h3 style="color: var(--gold-accent); font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">ImanI Sovereign Membership</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
-        Join our membership community to unlock the full collection of creative work, exclusive documentary films, extended video archives, and complete high-resolution art galleries.
-      </p>
-
-      <a href="https://your-membership-signup-link.com" target="_blank" class="btn-join-membership" style="display: inline-block; text-decoration: none; padding: 12px 28px; font-size: 0.92rem; margin-bottom: 18px;">
-        ⚡ Join Membership Today
-      </a>
-
-      <div style="border-top: 1px solid var(--onyx-border); padding-top: 16px; margin-top: 6px;">
-        <p style="color: var(--text-main); font-size: 0.82rem; margin-bottom: 8px;">Already a Member? Enter your Access Pass:</p>
-        <div style="display: flex; gap: 8px; justify-content: center;">
-          <input type="password" id="member-pass-input" class="chat-input" placeholder="Passphrase..." style="max-width: 220px;" onkeydown="if(event.key==='Enter') submitMemberPass()">
-          <button class="chat-send-btn" onclick="submitMemberPass()">Unlock</button>
-        </div>
-        <p id="member-pass-error" style="color: #ff5555; font-size: 0.75rem; margin-top: 8px; display: none;">Invalid Passphrase. Please try again.</p>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Sovereign Member Verification
-    const SECRET_MEMBER_KEY = "IMANI2026";
+    // Full Boycott Picture Library
+    let boycottPictureLibrary = [
+      {
+        title: "The Price of Participation: Reclaiming Our Economic Sovereignty",
+        tag: "Economic Sovereignty",
+        src: "media/boycott/economic-sovereignty.png"
+      },
+      {
+        title: "June 15th — Declaration Day",
+        tag: "Declaration Day",
+        src: "media/boycott/june15-declaration-day.png"
+      },
+      {
+        title: "June 13 — George Floyd Day",
+        tag: "Juneteenth • We Do We",
+        src: "media/boycott/george-floyd-day.png"
+      }
+    ];
 
-    function isMemberUnlocked() {
-      return localStorage.getItem("imani_member_active") === "true";
+    // Full Still Art & Lore Picture Library
+    let stillPictureLibrary = [
+      {
+        title: "Chapter 0 — The ImanI Manifesto",
+        tag: "Foundational Blueprint",
+        src: "media/images/imanipix/chapter-0-manifesto.png"
+      },
+      {
+        title: "Chapter 1A — Community Blueprint",
+        tag: "Strategic Framework",
+        src: "media/images/imanipix/chapter-1a-blueprint.png"
+      },
+      {
+        title: "Chapter 2A — The First School of Life",
+        tag: "Home Education",
+        src: "media/images/imanipix/chapter-2a-home-school.png"
+      }
+    ];
+
+    // Render Picture Grids where EVERY picture is visible and clicks open fullscreen
+    function renderPictureGrid(containerId, list) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+
+      list.forEach(pic => {
+        const card = document.createElement('div');
+        card.className = 'interactive-pic-card';
+        card.onclick = () => openMediaLightbox(pic.src, 'image', pic.title);
+        card.innerHTML = `
+          <img src="${encodeURI(pic.src)}" alt="${pic.title}" class="interactive-pic-thumb" onerror="this.style.opacity='0.4';">
+          <div class="interactive-pic-meta">
+            <span class="interactive-pic-title">${pic.title}</span>
+            <span class="interactive-pic-tag">${pic.tag}</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
     }
 
-    function openMembershipModal() {
-      const modal = document.getElementById('membership-modal');
-      if (modal) modal.style.display = 'flex';
-    }
+    // Dynamic Upload to Add More Pictures to either gallery
+    function handleUserAddPictures(event, galleryType) {
+      const files = Array.from(event.target.files);
+      if (!files.length) return;
 
-    function closeMembershipModal() {
-      const modal = document.getElementById('membership-modal');
-      if (modal) modal.style.display = 'none';
-      const err = document.getElementById('member-pass-error');
-      if (err) err.style.display = 'none';
-    }
+      files.forEach(file => {
+        const cleanName = file.name.replace(/\.[^/.]+$/, "");
+        const objectUrl = URL.createObjectURL(file);
 
-    function submitMemberPass() {
-      const input = document.getElementById('member-pass-input')?.value.trim();
-      const errorMsg = document.getElementById('member-pass-error');
-      
-      if (input && input.toUpperCase() === SECRET_MEMBER_KEY) {
-        localStorage.setItem("imani_member_active", "true");
-        closeMembershipModal();
-        renderAllGalleries();
-        alert("Sovereign Membership Activated. All member vaults are now fully accessible.");
+        if (galleryType === 'boycott') {
+          boycottPictureLibrary.push({
+            title: cleanName,
+            tag: "Added Archive",
+            src: objectUrl
+          });
+        } else if (galleryType === 'still') {
+          stillPictureLibrary.push({
+            title: cleanName,
+            tag: "Added Lore Art",
+            src: objectUrl
+          });
+        }
+      });
+
+      if (galleryType === 'boycott') {
+        renderPictureGrid('boycott-gallery-grid', boycottPictureLibrary);
       } else {
-        if (errorMsg) errorMsg.style.display = 'block';
+        renderPictureGrid('still-gallery-grid', stillPictureLibrary);
       }
     }
 
@@ -1416,156 +1352,6 @@
       }
     ];
 
-    // Single Featured Boycott Picture
-    const singleBoycottFeatured = {
-      id: "boycott_featured",
-      title: "The Price of Participation: Reclaiming Our Economic Sovereignty",
-      lore: "Breaking the relentless cycle of commercialized American holidays through the 7-Day Economic Fast.",
-      tag: "Economic Sovereignty • Featured Public Frame",
-      src: "media/boycott/economic-sovereignty.png"
-    };
-
-    // Stored Member-Only Boycott Pictures
-    let boycottMemberPictures = [
-      { id: "b_mem_1", title: "June 15th — Declaration Day", src: "media/boycott/june15-declaration-day.png" },
-      { id: "b_mem_2", title: "June 13 — George Floyd Day", src: "media/boycott/george-floyd-day.png" }
-    ];
-
-    // Single Featured Still Art Picture
-    const singleStillFeatured = {
-      id: "still_featured",
-      title: "Chapter 0 — The ImanI Manifesto: Blueprint for Collective Flourishing",
-      lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass.",
-      tag: "Manifesto • Featured Public Frame",
-      src: "media/images/imanipix/chapter-0-manifesto.png"
-    };
-
-    // Stored Member-Only Still Art Pictures
-    let stillMemberPictures = [
-      { id: "s_mem_1", title: "Chapter 1A — Community Blueprint", src: "media/images/imanipix/chapter-1a-blueprint.png" },
-      { id: "s_mem_2", title: "Chapter 2A — The First School of Life", src: "media/images/imanipix/chapter-2a-home-school.png" }
-    ];
-
-    // Render Single Featured Image Frame
-    function renderSinglePublicFrame(frameId, data, overrideStorageKey) {
-      const container = document.getElementById(frameId);
-      if (!container) return;
-      const inputId = `${frameId}-file-input`;
-      const imgId = `${frameId}-img-view`;
-      const savedSrc = localStorage.getItem(overrideStorageKey);
-
-      container.innerHTML = `
-        <div class="picture-card">
-          <div style="position: relative; background: #000; min-height: 240px;">
-            <img 
-              id="${imgId}"
-              src="${savedSrc || encodeURI(data.src)}" 
-              alt="${data.title}" 
-              class="picture-frame-img" 
-              onerror="this.onerror=null; this.style.opacity='0.35';" 
-              onclick="openMediaLightbox(this.src, 'image', '${data.title}')" 
-              title="Click to expand"
-            >
-            <div style="padding: 8px 14px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-              <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Display Override</span>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
-              <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadCardImageOverride(event, '${imgId}', '${overrideStorageKey}')">
-            </div>
-          </div>
-          <div class="gallery-card-info">
-            <h3 class="gallery-card-title">${data.title}</h3>
-            <p class="gallery-card-lore">${data.lore}</p>
-            <span class="gallery-card-tag">${data.tag}</span>
-          </div>
-        </div>
-      `;
-    }
-
-    function loadCardImageOverride(event, imgId, storageKey) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const img = document.getElementById(imgId);
-      const objectUrl = URL.createObjectURL(file);
-      if (img) {
-        img.src = objectUrl;
-        img.style.opacity = '1';
-        img.style.display = 'block';
-      }
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try { localStorage.setItem(storageKey, e.target.result); } catch (err) {}
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // Render Members-Only Multi-Picture Drawer
-    function renderMemberVaultDrawer(controlsId, bodyId, picList, uploadHandlerName, inputId) {
-      const controls = document.getElementById(controlsId);
-      const body = document.getElementById(bodyId);
-      if (!controls || !body) return;
-
-      const unlocked = isMemberUnlocked();
-
-      if (unlocked) {
-        controls.innerHTML = `
-          <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">➕ Upload Multiple Pictures</button>
-          <input type="file" id="${inputId}" accept="image/*" multiple style="display: none;" onchange="${uploadHandlerName}(event)">
-        `;
-
-        if (picList.length === 0) {
-          body.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; padding: 14px; text-align: center;">No member images loaded yet. Click 'Upload Multiple Pictures' to add images.</p>`;
-        } else {
-          let html = `<div class="member-thumb-grid">`;
-          picList.forEach(item => {
-            html += `
-              <div class="member-thumb-item" onclick="openMediaLightbox('${encodeURI(item.src)}', 'image', '${item.title}')">
-                <img src="${encodeURI(item.src)}" alt="${item.title}" onerror="this.style.opacity='0.4';">
-                <div class="member-thumb-caption">${item.title}</div>
-              </div>
-            `;
-          });
-          html += `</div>`;
-          body.innerHTML = html;
-        }
-      } else {
-        controls.innerHTML = `<button class="btn-enter-pass" onclick="openMembershipModal()">Member Login</button>`;
-        body.innerHTML = `
-          <div class="drawer-locked-gate">
-            <div style="font-size: 2.2rem; color: var(--gold-accent); margin-bottom: 4px;">🔒</div>
-            <h4>Members-Only Image Archive</h4>
-            <p>This vault contains additional community images, high-resolution blueprints, and historical event archives. Join to access.</p>
-            <button class="btn-join-membership" onclick="openMembershipModal()">Join to Unlock Archive</button>
-          </div>
-        `;
-      }
-    }
-
-    function handleBoycottMemberUpload(event) {
-      const files = Array.from(event.target.files);
-      files.forEach(file => {
-        boycottMemberPictures.push({
-          id: `boycott_user_${Date.now()}_${Math.random()}`,
-          title: file.name.replace(/\.[^/.]+$/, ""),
-          src: URL.createObjectURL(file)
-        });
-      });
-      renderMemberVaultDrawer('boycott-drawer-controls', 'boycott-drawer-body', boycottMemberPictures, 'handleBoycottMemberUpload', 'boycott-multi-input');
-    }
-
-    function handleStillMemberUpload(event) {
-      const files = Array.from(event.target.files);
-      files.forEach(file => {
-        stillMemberPictures.push({
-          id: `still_user_${Date.now()}_${Math.random()}`,
-          title: file.name.replace(/\.[^/.]+$/, ""),
-          src: URL.createObjectURL(file)
-        });
-      });
-      renderMemberVaultDrawer('still-drawer-controls', 'still-drawer-body', stillMemberPictures, 'handleStillMemberUpload', 'still-multi-input');
-    }
-
     function renderVideoVault(containerId, list) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -1600,20 +1386,6 @@
         const vid = document.getElementById(videoElementId);
         if (vid) { vid.src = URL.createObjectURL(file); vid.play().catch(() => {}); }
       }
-    }
-
-    function renderAllGalleries() {
-      // 1. Single Featured Screens
-      renderSinglePublicFrame('boycott-single-frame', singleBoycottFeatured, 'cached_boycott_single');
-      renderSinglePublicFrame('still-single-frame', singleStillFeatured, 'cached_still_single');
-
-      // 2. Member-Only Multi-Picture Drawers
-      renderMemberVaultDrawer('boycott-drawer-controls', 'boycott-drawer-body', boycottMemberPictures, 'handleBoycottMemberUpload', 'boycott-multi-input');
-      renderMemberVaultDrawer('still-drawer-controls', 'still-drawer-body', stillMemberPictures, 'handleStillMemberUpload', 'still-multi-input');
-
-      // 3. Video Vaults
-      renderVideoVault('music-video-gallery-container', myMusicVideosList);
-      renderVideoVault('cinema-gallery-container', myCinemaList);
     }
 
     const federalHolidays = [
@@ -2107,9 +1879,16 @@
     window.addEventListener('DOMContentLoaded', () => {
       renderPlaylistItems();
       renderStreamArchive();
-      renderAllGalleries();
-      renderHolidayCalendar();
+      
+      // Render clean picture galleries
+      renderPictureGrid('boycott-gallery-grid', boycottPictureLibrary);
+      renderPictureGrid('still-gallery-grid', stillPictureLibrary);
 
+      // Render Video Vaults
+      renderVideoVault('music-video-gallery-container', myMusicVideosList);
+      renderVideoVault('cinema-gallery-container', myCinemaList);
+
+      renderHolidayCalendar();
       initDailyWisdomCard();
 
       renderMatrixButtons('origins-buttons', originsData, 'origin-tag', 'origin-title', 'origin-desc', 'origin-display');
