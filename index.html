@@ -1289,12 +1289,16 @@
     function setAudioCategory(category, btn) {
       currentAudioCategory = category;
       document.querySelectorAll('.audio-tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      if (btn) btn.classList.add('active');
+      activeTrackIndex = 0;
       renderPlaylistItems();
     }
 
     function getFilteredTrackPool() {
-      return permanentAudioLibrary.filter(t => currentAudioCategory === "ALL" || t.category === currentAudioCategory);
+      if (!currentAudioCategory || currentAudioCategory === "ALL") {
+        return permanentAudioLibrary;
+      }
+      return permanentAudioLibrary.filter(t => t.category === currentAudioCategory);
     }
 
     function renderPlaylistItems() {
