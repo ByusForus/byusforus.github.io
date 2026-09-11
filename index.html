@@ -498,17 +498,6 @@
       justify-content: space-between; align-items: center;
     }
 
-    .audio-tab-btn {
-      background: var(--onyx-card); border: 1px solid var(--onyx-border);
-      color: var(--text-muted); font-size: 0.76rem; font-weight: 700;
-      padding: 4px 10px; border-radius: 12px; cursor: pointer; transition: all 0.2s ease;
-    }
-
-    .audio-tab-btn.active, .audio-tab-btn:hover {
-      border-color: var(--emerald-accent); color: var(--emerald-accent);
-      background: rgba(0, 208, 108, 0.12);
-    }
-
     .btn-load-audio-files {
       background: var(--gold-accent); color: #000; border: none;
       font-size: 0.75rem; font-weight: 700; padding: 4px 10px;
@@ -1835,32 +1824,78 @@
         const matchesSearch = (!search || card.title.toLowerCase().includes(search) || card.quote.toLowerCase().includes(search));
         return matchesTag && matchesSearch;
       });
-      drawWisdomCard();
+      
+      if (search || currentDeckTag !== "ALL") {
+        drawWisdomCard();
+      } else {
+        initDailyWisdomCard();
+      }
     }
 
-    function drawWisdomCard() {
+    function getDailyCardIndex(pool) {
+      if (!pool || pool.length === 0) return 0;
+      const now = new Date();
+      const startOfYear = new Date(now.getFullYear(), 0, 0);
+      const diff = now - startOfYear;
+      const oneDay = 1000 * 60 * 60 * 24;
+      const dayOfYear = Math.floor(diff / oneDay);
+      return dayOfYear % pool.length;
+    }
+
+    function displayCard(card, animate = true) {
       const deckTitle = document.getElementById('deck-title');
       const deckQuote = document.getElementById('deck-quote');
       const deckNumber = document.getElementById('deck-number');
-      if (activeWisdomPool.length === 0) {
+      const container = document.getElementById('wisdom-card-container');
+
+      if (!card) {
         if (deckTitle) deckTitle.innerText = "No Matching Wisdom Found";
         if (deckQuote) deckQuote.innerText = "Adjust your search filter.";
         if (deckNumber) deckNumber.innerText = "Card 0 of 0";
         return;
       }
-      const container = document.getElementById('wisdom-card-container');
-      if (container) container.style.opacity = '0.5';
-      setTimeout(() => {
-        let randomIndex;
-        do { randomIndex = Math.floor(Math.random() * activeWisdomPool.length); }
-        while (randomIndex === lastDrawnIndex && activeWisdomPool.length > 1);
-        lastDrawnIndex = randomIndex;
-        const card = activeWisdomPool[randomIndex];
+
+      if (animate && container) {
+        container.style.opacity = '0.5';
+        setTimeout(() => {
+          if (deckTitle) deckTitle.innerText = card.title;
+          if (deckQuote) deckQuote.innerText = `"${card.quote}"`;
+          if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} of 99 [${card.tag}] • Daily Message`;
+          container.style.opacity = '1';
+        }, 150);
+      } else {
         if (deckTitle) deckTitle.innerText = card.title;
         if (deckQuote) deckQuote.innerText = `"${card.quote}"`;
-        if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} of 99 [${card.tag}]`;
-        if (container) container.style.opacity = '1';
-      }, 150);
+        if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} of 99 [${card.tag}] • Daily Message`;
+      }
+    }
+
+    function initDailyWisdomCard() {
+      if (activeWisdomPool.length > 0) {
+        const dailyIndex = getDailyCardIndex(activeWisdomPool);
+        lastDrawnIndex = dailyIndex;
+        displayCard(activeWisdomPool[dailyIndex], false);
+      }
+    }
+
+    function drawWisdomCard() {
+      if (activeWisdomPool.length === 0) {
+        displayCard(null, false);
+        return;
+      }
+      let randomIndex;
+      do { 
+        randomIndex = Math.floor(Math.random() * activeWisdomPool.length); 
+      } while (randomIndex === lastDrawnIndex && activeWisdomPool.length > 1);
+      
+      lastDrawnIndex = randomIndex;
+      const card = activeWisdomPool[randomIndex];
+      
+      const deckNumber = document.getElementById('deck-number');
+      displayCard(card, true);
+      setTimeout(() => {
+        if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} of 99 [${card.tag}] • Drawn`;
+      }, 160);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -1871,6 +1906,8 @@
       renderStillGallery('still-gallery-container', myStillArtList);
       renderBoycottGallery();
       renderHolidayCalendar();
+
+      initDailyWisdomCard();
 
       renderMatrixButtons('origins-buttons', originsData, 'origin-tag', 'origin-title', 'origin-desc', 'origin-display');
       renderMatrixButtons('mysteries-buttons', mysteriesData, 'mystery-tag', 'mystery-title', 'mystery-desc', 'mystery-display');
