@@ -522,7 +522,12 @@
     .track-title { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
     .track-duration { font-size: 0.8rem; color: var(--gold-accent); }
 
-    .picture-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    /* Single Featured Frame Styling */
+    .single-frame-container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
 
     .picture-card {
       background: var(--onyx-surface); border: 1px solid var(--onyx-border);
@@ -533,7 +538,7 @@
     }
 
     .picture-card:hover {
-      transform: translateY(-4px); border-color: var(--gold-accent);
+      transform: translateY(-3px); border-color: var(--gold-accent);
       box-shadow: 0 10px 24px var(--gold-glow);
     }
 
@@ -542,12 +547,102 @@
       background: #000; border-bottom: 1px solid var(--onyx-border); cursor: pointer;
     }
 
-    .gallery-card-info { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-    .gallery-card-title { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
-    .gallery-card-lore { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+    .gallery-card-info { padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
+    .gallery-card-title { font-size: 1.12rem; font-weight: 800; color: var(--text-main); }
+    .gallery-card-lore { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
     .gallery-card-tag {
-      margin-top: 6px; font-size: 0.7rem; font-weight: 600;
-      color: var(--emerald-accent); letter-spacing: 0.05em;
+      margin-top: 6px; font-size: 0.72rem; font-weight: 700;
+      color: var(--emerald-accent); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    /* Dedicated Member Archive Drawer */
+    .member-vault-drawer {
+      margin-top: 20px;
+      background: var(--onyx-surface);
+      border: 1px solid var(--gold-accent);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--gold-glow);
+    }
+
+    .member-drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--onyx-border);
+      padding-bottom: 10px;
+    }
+
+    .member-drawer-title {
+      color: var(--gold-accent);
+      font-size: 1.05rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .member-thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .member-thumb-item {
+      background: var(--onyx-card);
+      border: 1px solid var(--onyx-border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .member-thumb-item:hover {
+      transform: scale(1.03);
+      border-color: var(--emerald-accent);
+    }
+
+    .member-thumb-item img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+    }
+
+    .member-thumb-caption {
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      color: var(--text-main);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .drawer-locked-gate {
+      text-align: center;
+      padding: 30px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-locked-gate h4 {
+      color: var(--gold-accent);
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .drawer-locked-gate p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      max-width: 440px;
+      margin-bottom: 8px;
     }
 
     .video-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
@@ -570,61 +665,12 @@
       border-bottom: 1px solid var(--onyx-border);
     }
 
-    /* Sovereign Membership Locked Cards */
-    .card-locked-wrapper {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-locked-wrapper .locked-content-blur {
-      filter: blur(10px) brightness(0.45);
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .card-lock-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(8, 8, 8, 0.88);
-      backdrop-filter: blur(8px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 24px 18px;
-      z-index: 15;
-    }
-
-    .card-lock-badge {
-      font-size: 2rem;
-      margin-bottom: 6px;
-      color: var(--gold-accent);
-      filter: drop-shadow(0 0 8px var(--gold-glow));
-    }
-
-    .card-lock-title {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--gold-accent);
-      margin-bottom: 6px;
-      letter-spacing: 0.03em;
-    }
-
-    .card-lock-text {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      max-width: 260px;
-      margin-bottom: 14px;
-    }
-
     .btn-join-membership {
       background: linear-gradient(135deg, var(--gold-accent), #d19a22);
       color: #000000;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 800;
-      padding: 8px 20px;
+      padding: 8px 22px;
       border-radius: 20px;
       border: none;
       cursor: pointer;
@@ -634,26 +680,21 @@
       letter-spacing: 0.05em;
     }
 
-    .btn-join-membership:hover {
-      transform: scale(1.04);
-    }
+    .btn-join-membership:hover { transform: scale(1.04); }
 
     .btn-enter-pass {
       background: transparent;
       color: var(--emerald-accent);
       border: 1px solid var(--emerald-accent);
-      font-size: 0.74rem;
+      font-size: 0.76rem;
       font-weight: 700;
       padding: 5px 14px;
       border-radius: 14px;
-      margin-top: 8px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .btn-enter-pass:hover {
-      background: rgba(0, 208, 108, 0.15);
-    }
+    .btn-enter-pass:hover { background: rgba(0, 208, 108, 0.15); }
 
     .wisdom-filter-bar {
       display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
@@ -973,10 +1014,23 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery (Free Preview + Locked Members Content) -->
+    <!-- 9. Boycott Celebration Gallery (Single Screen + Member Vault Drawer) -->
     <section>
       <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
-      <div class="picture-gallery-grid" id="boycott-gallery-container"></div>
+      
+      <!-- Single Featured Screen -->
+      <div class="single-frame-container">
+        <div id="boycott-single-frame"></div>
+
+        <!-- Members Only Multi-Picture Drawer -->
+        <div class="member-vault-drawer" id="boycott-member-drawer">
+          <div class="member-drawer-header">
+            <span class="member-drawer-title">🏛️ IAHBC Members-Only Vault Archive</span>
+            <div id="boycott-drawer-controls"></div>
+          </div>
+          <div id="boycott-drawer-body"></div>
+        </div>
+      </div>
     </section>
 
     <!-- 10. Dynamic Audio Vault (ImanI Story Tracks Only) -->
@@ -1028,19 +1082,32 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery (Free Preview + Locked Members Content) -->
+    <!-- 11. Dedicated Still Picture Gallery (Single Screen + Member Vault Drawer) -->
     <section>
       <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
-      <div class="picture-gallery-grid" id="still-gallery-container"></div>
+      
+      <!-- Single Featured Screen -->
+      <div class="single-frame-container">
+        <div id="still-single-frame"></div>
+
+        <!-- Members Only Multi-Picture Drawer -->
+        <div class="member-vault-drawer" id="still-member-drawer">
+          <div class="member-drawer-header">
+            <span class="member-drawer-title">🏛️ Lore & Blueprints Members-Only Vault</span>
+            <div id="still-drawer-controls"></div>
+          </div>
+          <div id="still-drawer-body"></div>
+        </div>
+      </div>
     </section>
 
-    <!-- 12. Music Video Vault (Free Preview + Locked Members Content) -->
+    <!-- 12. Music Video Vault -->
     <section>
       <h2 class="section-title">ImanI Official Music Video Vault</h2>
       <div class="video-gallery-grid" id="music-video-gallery-container"></div>
     </section>
 
-    <!-- 13. Cinema & Documentary Vault (Free Preview + Locked Members Content) -->
+    <!-- 13. Cinema & Documentary Vault -->
     <section>
       <h2 class="section-title">ImanI Documentary & Cinema Vault</h2>
       <div class="video-gallery-grid" id="cinema-gallery-container"></div>
@@ -1082,7 +1149,7 @@
 
   </main>
 
-  <!-- Media Preview Lightbox -->
+  <!-- Media Lightbox -->
   <div id="lightbox-modal" class="lightbox-backdrop" onclick="closeMediaLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeMediaLightbox()">&times;</button>
@@ -1145,7 +1212,7 @@
         localStorage.setItem("imani_member_active", "true");
         closeMembershipModal();
         renderAllGalleries();
-        alert("Sovereign Membership Activated. All vaults and galleries are now fully unlocked.");
+        alert("Sovereign Membership Activated. All member vaults are now fully accessible.");
       } else {
         if (errorMsg) errorMsg.style.display = 'block';
       }
@@ -1329,165 +1396,92 @@
       });
     }
 
-    // Official Music Video Vault: First video is unlocked for everyone; additional videos require membership
     const myMusicVideosList = [
       { 
         title: "Written in the Law Video", 
         lore: "Official music video — Walking in rhythm and harmony with the ImanI Code by Dj Karma.", 
-        tag: "🎵 Music Video • Free Access", 
+        tag: "🎵 Music Video • HD Master", 
         poster: "media/images/header-emblem.png", 
-        src: "https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4",
-        isLocked: false
-      },
-      { 
-        title: "Declaration of the New Breed (Extended Cut)", 
-        lore: "Exclusive Sovereign member release. Extended visual arrangement and remastered lineage audio.", 
-        tag: "🔒 Members Only Vault", 
-        poster: "media/images/header-emblem.png", 
-        src: "https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4",
-        isLocked: true
+        src: "https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4" 
       }
     ];
 
-    // Documentary Cinema Vault: First video is unlocked for everyone; additional documentaries require membership
     const myCinemaList = [
       { 
         title: "Written in the Law Letter", 
         lore: "Exploring the legal lineage, sovereign ontology, and historical foundation of the 14th Amendment Americans.", 
-        tag: "🎬 Documentary Cinema • Free Access", 
+        tag: "🎬 Documentary Cinema • Chapter 1", 
         poster: "media/images/header-emblem.png", 
-        src: "https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4",
-        isLocked: false
-      },
-      { 
-        title: "14th Amendment Sovereign Ontology — Part II", 
-        lore: "In-depth documentary study on restitution, federal treaties, and lineage sovereignty.", 
-        tag: "🔒 Members Only Cinema", 
-        poster: "media/images/header-emblem.png", 
-        src: "https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4",
-        isLocked: true
+        src: "https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4" 
       }
     ];
 
-    // Still Art Gallery: First item unlocked; subsequent blueprints require membership
-    const myStillArtList = [
-      { 
-        id: "still_chapter_0",
-        title: "Chapter 0 — The ImanI Manifesto: Blueprint for Collective Flourishing", 
-        lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass.", 
-        tag: "Manifesto • Free Access", 
-        src: "media/images/imanipix/chapter-0-manifesto.png",
-        isLocked: false
-      },
-      { 
-        id: "still_chapter_1a",
-        title: "Chapter 1A — The ImanI Neighborhood Community Blueprint", 
-        lore: "A holistic framework uniting Justice & Correctness, economic and social stability.", 
-        tag: "🔒 Members Only Blueprint", 
-        src: "media/images/imanipix/chapter-1a-blueprint.png",
-        isLocked: true
-      },
-      { 
-        id: "still_chapter_2a",
-        title: "Chapter 2A — The ImanI Home: The First School of Life", 
-        lore: "Organizing the household around development over consumption and intergenerational wisdom.", 
-        tag: "🔒 Members Only Blueprint", 
-        src: "media/images/imanipix/chapter-2a-home-school.png",
-        isLocked: true
-      }
+    // Single Featured Boycott Picture
+    const singleBoycottFeatured = {
+      id: "boycott_featured",
+      title: "The Price of Participation: Reclaiming Our Economic Sovereignty",
+      lore: "Breaking the relentless cycle of commercialized American holidays through the 7-Day Economic Fast.",
+      tag: "Economic Sovereignty • Featured Public Frame",
+      src: "media/boycott/economic-sovereignty.png"
+    };
+
+    // Stored Member-Only Boycott Pictures
+    let boycottMemberPictures = [
+      { id: "b_mem_1", title: "June 15th — Declaration Day", src: "media/boycott/june15-declaration-day.png" },
+      { id: "b_mem_2", title: "June 13 — George Floyd Day", src: "media/boycott/george-floyd-day.png" }
     ];
 
-    // Holiday Boycott Celebration Gallery: First item unlocked; subsequent art requires membership
-    const myBoycottArtList = [
-      { 
-        id: "boycott_0",
-        title: "The Price of Participation: Reclaiming Our Economic Sovereignty", 
-        lore: "Breaking the relentless cycle of commercialized American holidays through the 7-Day Economic Fast.", 
-        tag: "Economic Sovereignty • Free Access", 
-        src: "media/boycott/economic-sovereignty.png",
-        isLocked: false
-      },
-      { 
-        id: "boycott_1",
-        title: "June 15th — Declaration Day", 
-        lore: "We declare, we remember, and we reclaim our sovereign power. Honoring our lineage with true independence.", 
-        tag: "🔒 Members Only Artwork", 
-        src: "media/boycott/june15-declaration-day.png",
-        isLocked: true
-      },
-      { 
-        id: "boycott_2",
-        title: "June 13 — George Floyd Day", 
-        lore: "We Do We. Correct the narrative, control the economy, and create our legacy.", 
-        tag: "🔒 Members Only Artwork", 
-        src: "media/boycott/george-floyd-day.png",
-        isLocked: true
-      }
+    // Single Featured Still Art Picture
+    const singleStillFeatured = {
+      id: "still_featured",
+      title: "Chapter 0 — The ImanI Manifesto: Blueprint for Collective Flourishing",
+      lore: "A vision for a future-forward civilization rooted in identity, collective strength, and moral compass.",
+      tag: "Manifesto • Featured Public Frame",
+      src: "media/images/imanipix/chapter-0-manifesto.png"
+    };
+
+    // Stored Member-Only Still Art Pictures
+    let stillMemberPictures = [
+      { id: "s_mem_1", title: "Chapter 1A — Community Blueprint", src: "media/images/imanipix/chapter-1a-blueprint.png" },
+      { id: "s_mem_2", title: "Chapter 2A — The First School of Life", src: "media/images/imanipix/chapter-2a-home-school.png" }
     ];
 
-    function renderStillGallery(containerId, list) {
-      const container = document.getElementById(containerId);
+    // Render Single Featured Image Frame
+    function renderSinglePublicFrame(frameId, data, overrideStorageKey) {
+      const container = document.getElementById(frameId);
       if (!container) return;
-      container.innerHTML = '';
-      const unlocked = isMemberUnlocked();
+      const inputId = `${frameId}-file-input`;
+      const imgId = `${frameId}-img-view`;
+      const savedSrc = localStorage.getItem(overrideStorageKey);
 
-      list.forEach((art, index) => {
-        const inputId = `still-input-${index}`;
-        const imgId = `still-view-${index}`;
-        const storageKey = `still_cached_${art.id}`;
-        const savedSrc = localStorage.getItem(storageKey);
-        const cardIsLocked = art.isLocked && !unlocked;
-
-        const card = document.createElement('div');
-        card.className = `picture-card ${cardIsLocked ? 'card-locked-wrapper' : ''}`;
-
-        if (cardIsLocked) {
-          card.innerHTML = `
-            <div class="locked-content-blur" style="min-height: 220px; background: #000;">
-              <img src="${savedSrc || encodeURI(art.src)}" class="picture-frame-img" style="filter: blur(8px);">
+      container.innerHTML = `
+        <div class="picture-card">
+          <div style="position: relative; background: #000; min-height: 240px;">
+            <img 
+              id="${imgId}"
+              src="${savedSrc || encodeURI(data.src)}" 
+              alt="${data.title}" 
+              class="picture-frame-img" 
+              onerror="this.onerror=null; this.style.opacity='0.35';" 
+              onclick="openMediaLightbox(this.src, 'image', '${data.title}')" 
+              title="Click to expand"
+            >
+            <div style="padding: 8px 14px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+              <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Display Override</span>
+              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
+              <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadCardImageOverride(event, '${imgId}', '${overrideStorageKey}')">
             </div>
-            <div class="card-lock-overlay">
-              <div class="card-lock-badge">🔒</div>
-              <h4 class="card-lock-title">Member Sovereign Pass</h4>
-              <p class="card-lock-text">To access extended gallery art and blueprints, become a member.</p>
-              <button class="btn-join-membership" onclick="openMembershipModal()">Join to Unlock</button>
-              <button class="btn-enter-pass" onclick="openMembershipModal()">Member Login</button>
-            </div>
-            <div class="gallery-card-info" style="opacity: 0.5;">
-              <h3 class="gallery-card-title">${art.title}</h3>
-              <span class="gallery-card-tag">${art.tag}</span>
-            </div>
-          `;
-        } else {
-          card.innerHTML = `
-            <div style="position: relative; background: #000; min-height: 200px;">
-              <img 
-                id="${imgId}"
-                src="${savedSrc || encodeURI(art.src)}" 
-                alt="${art.title}" 
-                class="picture-frame-img" 
-                onerror="this.onerror=null; this.style.opacity='0.35';" 
-                onclick="openMediaLightbox(this.src, 'image', '${art.title}')" 
-                title="Click to expand"
-              >
-              <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-                <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Override</span>
-                <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
-                <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadStillCardImage(event, '${imgId}', '${storageKey}')">
-              </div>
-            </div>
-            <div class="gallery-card-info">
-              <h3 class="gallery-card-title">${art.title}</h3>
-              <p class="gallery-card-lore">${art.lore}</p>
-              <span class="gallery-card-tag">${art.tag}</span>
-            </div>
-          `;
-        }
-        container.appendChild(card);
-      });
+          </div>
+          <div class="gallery-card-info">
+            <h3 class="gallery-card-title">${data.title}</h3>
+            <p class="gallery-card-lore">${data.lore}</p>
+            <span class="gallery-card-tag">${data.tag}</span>
+          </div>
+        </div>
+      `;
     }
 
-    function loadStillCardImage(event, imgId, storageKey) {
+    function loadCardImageOverride(event, imgId, storageKey) {
       const file = event.target.files[0];
       if (!file) return;
 
@@ -1501,148 +1495,101 @@
 
       const reader = new FileReader();
       reader.onload = function(e) {
-        try {
-          localStorage.setItem(storageKey, e.target.result);
-        } catch (err) {
-          console.warn("Storage quota exceeded; image active in current session.");
-        }
+        try { localStorage.setItem(storageKey, e.target.result); } catch (err) {}
       };
       reader.readAsDataURL(file);
     }
 
-    function renderBoycottGallery() {
-      const container = document.getElementById('boycott-gallery-container');
-      if (!container) return;
-      container.innerHTML = '';
+    // Render Members-Only Multi-Picture Drawer
+    function renderMemberVaultDrawer(controlsId, bodyId, picList, uploadHandlerName, inputId) {
+      const controls = document.getElementById(controlsId);
+      const body = document.getElementById(bodyId);
+      if (!controls || !body) return;
+
       const unlocked = isMemberUnlocked();
 
-      myBoycottArtList.forEach((item, index) => {
-        const inputId = `boycott-input-${index}`;
-        const imgId = `boycott-view-${index}`;
-        const storageKey = `boycott_cached_${item.id}`;
-        const savedSrc = localStorage.getItem(storageKey);
-        const cardIsLocked = item.isLocked && !unlocked;
+      if (unlocked) {
+        controls.innerHTML = `
+          <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">➕ Upload Multiple Pictures</button>
+          <input type="file" id="${inputId}" accept="image/*" multiple style="display: none;" onchange="${uploadHandlerName}(event)">
+        `;
 
-        const card = document.createElement('div');
-        card.className = `picture-card ${cardIsLocked ? 'card-locked-wrapper' : ''}`;
-
-        if (cardIsLocked) {
-          card.innerHTML = `
-            <div class="locked-content-blur" style="min-height: 220px; background: #000;">
-              <img src="${savedSrc || item.src}" class="picture-frame-img" style="filter: blur(8px);">
-            </div>
-            <div class="card-lock-overlay">
-              <div class="card-lock-badge">🔒</div>
-              <h4 class="card-lock-title">Member Sovereign Pass</h4>
-              <p class="card-lock-text">To access the full IAHBC celebration gallery, join our movement membership.</p>
-              <button class="btn-join-membership" onclick="openMembershipModal()">Join to Unlock</button>
-              <button class="btn-enter-pass" onclick="openMembershipModal()">Member Login</button>
-            </div>
-            <div class="gallery-card-info" style="opacity: 0.5;">
-              <h3 class="gallery-card-title">${item.title}</h3>
-              <span class="gallery-card-tag">${item.tag}</span>
-            </div>
-          `;
+        if (picList.length === 0) {
+          body.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; padding: 14px; text-align: center;">No member images loaded yet. Click 'Upload Multiple Pictures' to add images.</p>`;
         } else {
-          card.innerHTML = `
-            <div style="position: relative; background: #000; min-height: 200px;">
-              <img 
-                id="${imgId}" 
-                src="${savedSrc || item.src}" 
-                alt="${item.title}" 
-                class="picture-frame-img" 
-                onerror="this.style.opacity='0.35';" 
-                onclick="openMediaLightbox(this.src, 'image', '${item.title}')" 
-                title="Click to expand"
-              >
-              <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-                <span style="font-size: 0.72rem; color: var(--gold-accent);">Local Override</span>
-                <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select Image</button>
-                <input type="file" id="${inputId}" accept="image/*" style="display: none;" onchange="loadBoycottCardImage(event, '${imgId}', '${storageKey}')">
+          let html = `<div class="member-thumb-grid">`;
+          picList.forEach(item => {
+            html += `
+              <div class="member-thumb-item" onclick="openMediaLightbox('${encodeURI(item.src)}', 'image', '${item.title}')">
+                <img src="${encodeURI(item.src)}" alt="${item.title}" onerror="this.style.opacity='0.4';">
+                <div class="member-thumb-caption">${item.title}</div>
               </div>
-            </div>
-            <div class="gallery-card-info">
-              <h3 class="gallery-card-title">${item.title}</h3>
-              <p class="gallery-card-lore">${item.lore}</p>
-              <span class="gallery-card-tag">${item.tag}</span>
-            </div>
-          `;
+            `;
+          });
+          html += `</div>`;
+          body.innerHTML = html;
         }
-        container.appendChild(card);
-      });
+      } else {
+        controls.innerHTML = `<button class="btn-enter-pass" onclick="openMembershipModal()">Member Login</button>`;
+        body.innerHTML = `
+          <div class="drawer-locked-gate">
+            <div style="font-size: 2.2rem; color: var(--gold-accent); margin-bottom: 4px;">🔒</div>
+            <h4>Members-Only Image Archive</h4>
+            <p>This vault contains additional community images, high-resolution blueprints, and historical event archives. Join to access.</p>
+            <button class="btn-join-membership" onclick="openMembershipModal()">Join to Unlock Archive</button>
+          </div>
+        `;
+      }
     }
 
-    function loadBoycottCardImage(event, imgId, storageKey) {
-      const file = event.target.files[0];
-      if (!file) return;
+    function handleBoycottMemberUpload(event) {
+      const files = Array.from(event.target.files);
+      files.forEach(file => {
+        boycottMemberPictures.push({
+          id: `boycott_user_${Date.now()}_${Math.random()}`,
+          title: file.name.replace(/\.[^/.]+$/, ""),
+          src: URL.createObjectURL(file)
+        });
+      });
+      renderMemberVaultDrawer('boycott-drawer-controls', 'boycott-drawer-body', boycottMemberPictures, 'handleBoycottMemberUpload', 'boycott-multi-input');
+    }
 
-      const img = document.getElementById(imgId);
-      const objectUrl = URL.createObjectURL(file);
-      if (img) {
-        img.src = objectUrl;
-        img.style.opacity = '1';
-        img.style.display = 'block';
-      }
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          localStorage.setItem(storageKey, e.target.result);
-        } catch (err) {
-          console.warn("Storage quota exceeded; image active in current session.");
-        }
-      };
-      reader.readAsDataURL(file);
+    function handleStillMemberUpload(event) {
+      const files = Array.from(event.target.files);
+      files.forEach(file => {
+        stillMemberPictures.push({
+          id: `still_user_${Date.now()}_${Math.random()}`,
+          title: file.name.replace(/\.[^/.]+$/, ""),
+          src: URL.createObjectURL(file)
+        });
+      });
+      renderMemberVaultDrawer('still-drawer-controls', 'still-drawer-body', stillMemberPictures, 'handleStillMemberUpload', 'still-multi-input');
     }
 
     function renderVideoVault(containerId, list) {
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = '';
-      const unlocked = isMemberUnlocked();
-
       list.forEach((v, index) => {
         const inputId = `${containerId}-file-${index}`;
         const videoId = `${containerId}-video-${index}`;
-        const cardIsLocked = v.isLocked && !unlocked;
-
         const card = document.createElement('div');
-        card.className = `video-vault-card ${cardIsLocked ? 'card-locked-wrapper' : ''}`;
-
-        if (cardIsLocked) {
-          card.innerHTML = `
-            <div class="locked-content-blur" style="aspect-ratio: 16 / 9; background: #000; position: relative;">
-              <img src="${v.poster}" style="width: 100%; height: 100%; object-fit: cover; filter: blur(10px);">
+        card.className = 'video-vault-card';
+        card.innerHTML = `
+          <div class="video-player-container" style="position: relative;">
+            <video id="${videoId}" src="${v.src}" controls playsinline poster="${v.poster}" preload="metadata"></video>
+            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
+              <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
+              <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
             </div>
-            <div class="card-lock-overlay">
-              <div class="card-lock-badge">🔒</div>
-              <h4 class="card-lock-title">Member Sovereign Vault</h4>
-              <p class="card-lock-text">Unlock full video vault access, documentary editions, and master streams by joining the membership.</p>
-              <button class="btn-join-membership" onclick="openMembershipModal()">Join to Unlock</button>
-              <button class="btn-enter-pass" onclick="openMembershipModal()">Member Login</button>
-            </div>
-            <div class="gallery-card-info" style="opacity: 0.5;">
-              <h3 class="gallery-card-title">${v.title}</h3>
-              <span class="gallery-card-tag">${v.tag}</span>
-            </div>
-          `;
-        } else {
-          card.innerHTML = `
-            <div class="video-player-container" style="position: relative;">
-              <video id="${videoId}" src="${v.src}" controls playsinline poster="${v.poster}" preload="metadata"></video>
-              <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
-                <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
-                <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
-                <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
-              </div>
-            </div>
-            <div class="gallery-card-info">
-              <h3 class="gallery-card-title">${v.title}</h3>
-              <p class="gallery-card-lore">${v.lore}</p>
-              <span class="gallery-card-tag">${v.tag}</span>
-            </div>
-          `;
-        }
+          </div>
+          <div class="gallery-card-info">
+            <h3 class="gallery-card-title">${v.title}</h3>
+            <p class="gallery-card-lore">${v.lore}</p>
+            <span class="gallery-card-tag">${v.tag}</span>
+          </div>
+        `;
         container.appendChild(card);
       });
     }
@@ -1656,10 +1603,17 @@
     }
 
     function renderAllGalleries() {
+      // 1. Single Featured Screens
+      renderSinglePublicFrame('boycott-single-frame', singleBoycottFeatured, 'cached_boycott_single');
+      renderSinglePublicFrame('still-single-frame', singleStillFeatured, 'cached_still_single');
+
+      // 2. Member-Only Multi-Picture Drawers
+      renderMemberVaultDrawer('boycott-drawer-controls', 'boycott-drawer-body', boycottMemberPictures, 'handleBoycottMemberUpload', 'boycott-multi-input');
+      renderMemberVaultDrawer('still-drawer-controls', 'still-drawer-body', stillMemberPictures, 'handleStillMemberUpload', 'still-multi-input');
+
+      // 3. Video Vaults
       renderVideoVault('music-video-gallery-container', myMusicVideosList);
       renderVideoVault('cinema-gallery-container', myCinemaList);
-      renderStillGallery('still-gallery-container', myStillArtList);
-      renderBoycottGallery();
     }
 
     const federalHolidays = [
