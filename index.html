@@ -53,13 +53,45 @@
       background-size: cover;
     }
 
+    /* Client Mode: Hide editing controls */
+    .admin-only {
+      display: none !important;
+    }
+
+    /* Admin Edit Mode */
+    body.admin-mode .admin-only {
+      display: inline-flex !important;
+    }
+    body.admin-mode .admin-only-block {
+      display: block !important;
+    }
+
+    .admin-indicator-bar {
+      display: none;
+      background: #7a1515;
+      color: #fff;
+      text-align: center;
+      padding: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      position: sticky;
+      top: 0;
+      z-index: 102;
+    }
+
+    body.admin-mode .admin-indicator-bar {
+      display: block;
+    }
+
+    /* TOP BANNER */
     .pause-banner {
       background: #000000;
-      border-bottom: 1px solid var(--gold-accent);
-      padding: 12px 20px;
+      border-bottom: 2px solid var(--gold-accent);
+      padding: 16px 24px;
       position: relative;
       z-index: 101;
-      box-shadow: 0 2px 15px var(--gold-glow);
+      box-shadow: 0 4px 25px var(--gold-glow);
     }
 
     .pause-content {
@@ -69,15 +101,15 @@
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
     }
 
-    .pause-text-wrap { display: flex; align-items: center; gap: 12px; }
+    .pause-text-wrap { display: flex; align-items: center; gap: 14px; }
 
     .pause-indicator {
-      width: 10px; height: 10px; border-radius: 50%;
+      width: 14px; height: 14px; border-radius: 50%;
       background: var(--gold-accent);
-      box-shadow: 0 0 8px var(--gold-accent);
+      box-shadow: 0 0 12px var(--gold-accent);
       animation: pulse 2s infinite ease-in-out;
     }
 
@@ -87,56 +119,164 @@
     }
 
     .pause-title {
-      font-weight: 700; font-size: 0.95rem;
-      color: var(--gold-accent); letter-spacing: 0.03em;
+      font-weight: 800; 
+      font-size: 1.15rem;
+      color: var(--gold-accent); 
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
-    .pause-subtitle { font-size: 0.85rem; color: var(--text-muted); }
-    .countdown-display { display: flex; align-items: center; gap: 8px; }
+    .pause-subtitle { 
+      font-size: 0.95rem; 
+      color: var(--text-main); 
+      margin-top: 2px;
+    }
+
+    .countdown-display { display: flex; align-items: center; gap: 10px; }
 
     .countdown-unit {
       background: var(--onyx-surface);
-      border: 1px solid var(--onyx-border);
-      border-radius: 6px; padding: 4px 8px;
-      text-align: center; min-width: 48px;
+      border: 1.5px solid var(--emerald-accent);
+      border-radius: 8px; 
+      padding: 6px 12px;
+      text-align: center; 
+      min-width: 58px;
+      box-shadow: 0 0 10px var(--emerald-glow);
     }
 
     .countdown-val {
-      font-weight: 800; font-size: 1rem;
-      color: var(--emerald-accent); line-height: 1.1;
+      font-weight: 900; 
+      font-size: 1.35rem;
+      color: var(--emerald-accent); 
+      line-height: 1.1;
     }
 
     .countdown-lbl {
-      font-size: 0.65rem; text-transform: uppercase;
-      color: var(--text-muted); letter-spacing: 0.05em;
+      font-size: 0.72rem; 
+      text-transform: uppercase;
+      color: var(--text-muted); 
+      letter-spacing: 0.06em;
+      font-weight: 700;
     }
 
+    /* TOP BANNER FAST GUIDANCE STRIP */
     .fast-guidance-bar {
-      max-width: 1200px; margin: 12px auto 0 auto;
-      background: rgba(22, 22, 22, 0.95);
-      border: 1px solid var(--emerald-accent);
-      border-radius: var(--radius-sm); padding: 10px 16px;
-      display: flex; align-items: center; gap: 14px;
-      box-shadow: 0 0 14px var(--emerald-glow);
+      max-width: 1200px; 
+      margin: 16px auto 4px auto;
+      background: rgba(18, 18, 18, 0.98);
+      border: 2px solid var(--emerald-accent);
+      border-radius: var(--radius-md); 
+      padding: 16px 22px; 
+      display: flex; 
+      align-items: center; 
+      gap: 18px;
+      box-shadow: 0 0 20px var(--emerald-glow), 0 4px 15px rgba(0, 0, 0, 0.7);
     }
 
     .guidance-phase-badge {
-      background: var(--onyx-card);
-      border: 1px solid var(--gold-accent);
-      color: var(--gold-accent); font-size: 0.72rem;
-      font-weight: 800; letter-spacing: 0.08em;
-      padding: 4px 10px; border-radius: 4px;
-      text-transform: uppercase; white-space: nowrap;
+      background: #000000;
+      border: 1.5px solid var(--gold-accent);
+      color: var(--gold-accent); 
+      font-size: 0.92rem; 
+      font-weight: 900; 
+      letter-spacing: 0.1em;
+      padding: 8px 16px; 
+      border-radius: 6px;
+      text-transform: uppercase; 
+      white-space: nowrap;
+      box-shadow: 0 0 10px var(--gold-glow);
     }
 
-    .guidance-body { font-size: 0.88rem; color: var(--text-main); line-height: 1.4; }
-    .guidance-body strong { color: var(--emerald-accent); }
-
-    @media (max-width: 768px) {
-      .fast-guidance-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .guidance-body { 
+      font-size: 1.12rem; 
+      color: var(--text-main); 
+      line-height: 1.55; 
+      letter-spacing: 0.01em;
     }
 
-    /* Enlarged Header System */
+    .guidance-body strong { 
+      color: var(--emerald-accent); 
+      font-size: 1.18rem; 
+      font-weight: 800;
+      text-shadow: 0 0 10px var(--emerald-glow);
+    }
+
+    /* MAIN PAGE IAHBC SECTION ENLARGEMENTS */
+    .iahbc-manifesto-card {
+      background: var(--onyx-surface); 
+      border: 2px solid var(--gold-accent);
+      border-radius: var(--radius-md); 
+      padding: 34px 38px;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.8), 0 0 25px var(--gold-glow);
+      backdrop-filter: blur(14px);
+      margin-bottom: 24px;
+    }
+
+    .iahbc-manifesto-headline {
+      font-size: 1.45rem; 
+      color: var(--gold-accent); 
+      font-weight: 900; 
+      letter-spacing: 0.05em; 
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      line-height: 1.35;
+      text-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    .iahbc-manifesto-text {
+      font-size: 1.22rem; 
+      color: var(--text-main); 
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+    }
+
+    .iahbc-manifesto-text strong {
+      color: var(--emerald-accent);
+      font-weight: 800;
+    }
+
+    /* ENLARGED STEALTH DRILL / 7-DAY FORMULA BOX */
+    .iahbc-stealth-revelation-box {
+      background: linear-gradient(145deg, rgba(14, 14, 14, 0.98), rgba(20, 24, 22, 0.96));
+      border: 2.5px solid var(--emerald-accent);
+      border-radius: var(--radius-md); 
+      padding: 34px 38px;
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.85), 0 0 30px var(--emerald-glow);
+      backdrop-filter: blur(14px); 
+      transition: opacity 0.2s ease; 
+      position: relative;
+    }
+
+    .iahbc-stealth-tag {
+      font-size: 0.95rem; 
+      font-weight: 900; 
+      color: var(--emerald-accent);
+      letter-spacing: 0.16em; 
+      text-transform: uppercase; 
+      margin-bottom: 6px;
+    }
+
+    .iahbc-stealth-title {
+      font-size: 1.85rem; 
+      font-weight: 900; 
+      color: var(--gold-accent);
+      letter-spacing: 0.03em;
+      text-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    .iahbc-stealth-content {
+      font-size: 1.25rem; 
+      color: var(--text-main); 
+      line-height: 1.85;
+      margin-top: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    .iahbc-stealth-content strong {
+      color: var(--gold-accent);
+    }
+
+    /* HEADER */
     header {
       border-bottom: 1px solid var(--onyx-border);
       background: rgba(0, 0, 0, 0.98);
@@ -198,11 +338,10 @@
       display: block;
       filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 25px rgba(255, 209, 92, 0.45));
       transition: transform 0.3s ease; 
-      cursor: pointer;
     }
 
-    .header-emblem-large:hover { 
-      transform: scale(1.03); 
+    body.admin-mode .header-emblem-large {
+      cursor: pointer;
     }
 
     @media (max-width: 900px) {
@@ -217,15 +356,18 @@
       .header-emblem-large {
         max-height: 220px;
       }
-    }
-
-    .emblem-fallback-picker {
-      display: none; border: 2px dashed var(--gold-accent);
-      background: var(--onyx-card); padding: 16px 24px;
-      border-radius: var(--radius-sm); text-align: center;
-      cursor: pointer; color: var(--gold-accent);
-      font-size: 0.9rem; font-weight: 700;
-      box-shadow: 0 0 15px var(--gold-glow);
+      .iahbc-manifesto-card, .iahbc-stealth-revelation-box {
+        padding: 24px 20px;
+      }
+      .iahbc-manifesto-headline {
+        font-size: 1.25rem;
+      }
+      .iahbc-manifesto-text, .iahbc-stealth-content {
+        font-size: 1.1rem;
+      }
+      .iahbc-stealth-title {
+        font-size: 1.45rem;
+      }
     }
 
     main {
@@ -234,13 +376,14 @@
     }
 
     .section-title {
-      font-size: 1.35rem; font-weight: 700; color: var(--text-main);
-      margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+      font-size: 1.55rem; font-weight: 800; color: var(--text-main);
+      margin-bottom: 24px; display: flex; align-items: center; gap: 12px;
+      letter-spacing: 0.02em;
     }
 
     .section-title::before {
-      content: ""; display: inline-block; width: 4px; height: 20px;
-      background: var(--emerald-accent); border-radius: 2px;
+      content: ""; display: inline-block; width: 6px; height: 26px;
+      background: var(--emerald-accent); border-radius: 3px;
     }
 
     .doctrine-card {
@@ -249,20 +392,20 @@
       display: flex; flex-direction: column; gap: 14px; backdrop-filter: blur(12px);
     }
 
-    .button-matrix { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .button-matrix { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
 
     .doctrine-btn {
       background: var(--onyx-card); border: 1px solid var(--onyx-border);
-      color: var(--text-main); padding: 10px 16px; border-radius: var(--radius-sm);
-      font-size: 0.88rem; font-weight: 600; cursor: pointer;
-      display: flex; align-items: center; gap: 8px; transition: all 0.2s ease;
+      color: var(--text-main); padding: 12px 20px; border-radius: var(--radius-sm);
+      font-size: 0.96rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 10px; transition: all 0.2s ease;
     }
 
-    .doctrine-btn span.badge { color: var(--gold-accent); font-size: 0.75rem; font-weight: 800; }
-    .doctrine-btn:hover { border-color: var(--emerald-accent); background: rgba(0, 208, 108, 0.12); transform: translateY(-2px); }
+    .doctrine-btn span.badge { color: var(--gold-accent); font-size: 0.82rem; font-weight: 900; }
+    .doctrine-btn:hover { border-color: var(--emerald-accent); background: rgba(0, 208, 108, 0.14); transform: translateY(-2px); }
     .doctrine-btn.active {
-      border-color: var(--gold-accent); background: rgba(255, 209, 92, 0.15);
-      color: var(--gold-accent); box-shadow: 0 0 12px var(--gold-glow);
+      border-color: var(--gold-accent); background: rgba(255, 209, 92, 0.18);
+      color: var(--gold-accent); box-shadow: 0 0 14px var(--gold-glow);
     }
 
     .revelation-box {
@@ -282,14 +425,14 @@
     .rev-content { font-size: 1rem; color: var(--text-main); line-height: 1.7; }
 
     .btn-audio-narrate {
-      background: var(--onyx-card); border: 1px solid var(--gold-accent);
-      color: var(--gold-accent); padding: 6px 12px; border-radius: 20px;
-      font-size: 0.8rem; font-weight: 700; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--onyx-card); border: 1.5px solid var(--gold-accent);
+      color: var(--gold-accent); padding: 8px 18px; border-radius: 24px;
+      font-size: 0.88rem; font-weight: 800; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
       transition: all 0.2s ease; white-space: nowrap;
     }
 
-    .btn-audio-narrate:hover { background: var(--gold-accent); color: #000; }
+    .btn-audio-narrate:hover { background: var(--gold-accent); color: #000; box-shadow: 0 0 12px var(--gold-glow); }
 
     .restitution-stats-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -471,7 +614,7 @@
       transition: all 0.2s ease; margin-top: 16px;
     }
 
-    /* Split-System Vault Grids (Left: Canvas Viewer, Right: Queue List) */
+    /* Split-System Vault Grids */
     .vault-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     @media (max-width: 860px) { .vault-grid { grid-template-columns: 1fr; } }
 
@@ -767,7 +910,7 @@
 
     .chatty-transparent-emblem {
       width: 100%; max-width: 480px; height: auto; max-height: 190px;
-      object-fit: contain; display: block; margin: 0 auto 16px auto; cursor: pointer;
+      object-fit: contain; display: block; margin: 0 auto 16px auto;
     }
 
     .chatty-landscape-frame {
@@ -778,7 +921,7 @@
 
     .chatty-landscape-img {
       width: 100%; height: auto; max-height: 420px; aspect-ratio: 16 / 9;
-      object-fit: cover; display: block; cursor: pointer;
+      object-fit: cover; display: block;
     }
 
     .btn-draw-card {
@@ -813,16 +956,31 @@
       position: absolute; top: -40px; right: 0; background: none;
       border: none; color: #fff; font-size: 2rem; cursor: pointer;
     }
+
+    footer {
+      max-width: 1200px;
+      margin: 40px auto 0 auto;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid var(--onyx-border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Admin Indicator Strip (Only visible in Edit Mode) -->
+  <div class="admin-indicator-bar">
+    ⚙️ CREATOR EDIT MODE ACTIVE — Click any image or use select buttons to update files. (Press Ctrl+Shift+E to exit)
+  </div>
 
   <div class="pause-banner">
     <div class="pause-content">
       <div class="pause-text-wrap">
         <div class="pause-indicator"></div>
         <div>
-          <div class="pause-title">ImanI American Holiday Boycott Celebration a 7-Day Economic Fast</div>
+          <div class="pause-title">ImanI American Holiday Boycott Celebration — 7-Day Economic Fast</div>
           <div class="pause-subtitle" id="banner-holiday-name">7 days of quiet reflection, strategic alignment, and self-reliance</div>
         </div>
       </div>
@@ -834,6 +992,7 @@
       </div>
     </div>
 
+    <!-- Top Stealth Drill Guidance Banner -->
     <div class="fast-guidance-bar" id="fast-guidance-container">
       <div class="guidance-phase-badge" id="guidance-phase">STEALTH DRILL</div>
       <div class="guidance-body">
@@ -855,13 +1014,9 @@
           alt="ImanI Golden Sovereign Man Between Pillars" 
           class="header-emblem-large"
           onerror="handleImageError(this)"
-          onclick="triggerFileSelect('emblem-file-input')"
-          title="Click to select header emblem"
+          onclick="handleAdminImageClick('emblem-file-input')"
         >
-        <div id="emblem-picker-box" class="emblem-fallback-picker" onclick="triggerFileSelect('emblem-file-input')">
-          🏛️ Click to Select Header Emblem Image
-        </div>
-        <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'emblem-picker-box', 'imani_header_emblem')">
+        <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'imani_header_emblem')">
       </div>
       <div class="header-right">
         <div class="header-proclamation gold">Onyx is the new black</div>
@@ -896,7 +1051,7 @@
             style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; display: none; background: #000;"
           >Your browser does not support HTML5 video.</video>
 
-          <div class="stream-controls-bar">
+          <div class="stream-controls-bar admin-only">
             <input type="text" id="stream-source-url" class="stream-url-input" placeholder="HLS Stream URL (.m3u8) or video file path (.mp4)..." value="http://localhost:8888/live/stage/index.m3u8">
             <div class="stream-actions-group">
               <button class="btn-stream-action" onclick="connectLiveStream()">📡 Connect Stream</button>
@@ -928,7 +1083,7 @@
         <div class="stream-archive-card">
           <div class="archive-header-row">
             <h3>📼 On-Demand Live Stream Archive</h3>
-            <button class="btn-load-audio-files" onclick="triggerFileSelect('archive-video-input')">➕ Add Archive Video</button>
+            <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('archive-video-input')">➕ Add Archive Video</button>
             <input type="file" id="archive-video-input" accept="video/*" multiple style="display: none;" onchange="loadUserArchiveVideos(event)">
           </div>
           <div class="stream-archive-grid" id="stream-archive-container"></div>
@@ -1006,25 +1161,35 @@
       </div>
     </section>
 
-    <!-- 7. Holiday Boycott Celebration -->
+    <!-- 7. ENLARGED & LEGIBLE IAHBC & STEALTH DRILL DOCTRINE SECTION -->
     <section>
-      <h2 class="section-title">ImanI American Holiday Boycott Celebration a 7-Day Economic Fast</h2>
-      <div class="doctrine-card" style="margin-bottom: 20px; border-left: 4px solid var(--gold-accent);">
-        <p style="font-size: 1.12rem; color: var(--gold-accent); font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;">
+      <h2 class="section-title">ImanI American Holiday Boycott Celebration — 7-Day Economic Fast</h2>
+      
+      <!-- Primary Large Callout Card -->
+      <div class="iahbc-manifesto-card">
+        <div class="iahbc-manifesto-headline">
           ⚡ Break the chains of commercialized tradition — Reclaim your power!
-        </p>
-        <p style="font-size: 1.05rem; color: var(--text-main); line-height: 1.7;">
+        </div>
+        <p class="iahbc-manifesto-text">
           American Holidays were <strong>never designed with us in mind</strong>, and we never had a voice in their creation! Whenever we forged our own sacred moments, they outlawed our celebrations only to repackage and sell them back to us as empty consumerism. We dishonor our own divine dignity when we finance and celebrate the rituals of our oppression. <strong>The era of blind compliance is over!</strong> Rise up, stand tall in sovereign majesty, and boldly <strong>SAY NO to American holidays</strong> — ignite your spirit and celebrate true independence!
         </p>
       </div>
 
+      <!-- Navigation Matrix -->
       <div class="button-matrix" id="boycott-buttons"></div>
-      <div class="revelation-box" id="boycott-display">
+
+      <!-- High-Visibility Stealth Drill / 7-Day Formula Display Box -->
+      <div class="iahbc-stealth-revelation-box" id="boycott-display">
         <div class="rev-header-wrap">
-          <div><div class="rev-tag" id="boycott-tag">Economic Fast</div><h3 class="rev-title" id="boycott-title">3 + 1 + 3 = 7-Day Economic Fast</h3></div>
-          <button class="btn-audio-narrate" onclick="narrateText('boycott-title', 'boycott-desc')">🔊 Listen</button>
+          <div>
+            <div class="iahbc-stealth-tag" id="boycott-tag">Economic Fast &bull; 7-Day Stealth Discipline</div>
+            <h3 class="iahbc-stealth-title" id="boycott-title">3 + 1 + 3 = 7-Day Economic Fast</h3>
+          </div>
+          <button class="btn-audio-narrate" onclick="narrateText('boycott-title', 'boycott-desc')">🔊 Listen to Protocol</button>
         </div>
-        <p class="rev-content" id="boycott-desc">Observed every Federal Holiday: three days of strategic preparation and economic fast before the holiday, one sacred day of sovereign reflection on the holiday, and three days of continued economic discipline following it.</p>
+        <p class="iahbc-stealth-content" id="boycott-desc">
+          Observed every Federal Holiday: <strong>three days of strategic preparation</strong> and economic fast before the holiday, <strong>one sacred day of sovereign reflection</strong> on the holiday itself, and <strong>three days of continued economic discipline</strong> following it. Zero commercial participation, 100% community self-reliance.
+        </p>
       </div>
     </section>
 
@@ -1032,7 +1197,7 @@
     <section>
       <h2 class="section-title">2026–2027 Federal Holiday Economic Fast Calendar</h2>
       <div class="calendar-card">
-        <p style="font-size: 0.95rem; color: var(--text-muted);">
+        <p style="font-size: 1.05rem; color: var(--text-main); margin-bottom: 12px; line-height: 1.6;">
           Synchronize your economic fast across the year. The 3 + 1 + 3 formula frames 7 complete days of self-reliance for every federal observance.
         </p>
         <div class="holiday-table-wrap">
@@ -1071,7 +1236,7 @@
           <div class="audio-tabs-bar">
             <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-accent); padding: 4px 8px;">Boycott Pictures Archive</span>
             <div>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
+              <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
               <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
             </div>
           </div>
@@ -1123,7 +1288,7 @@
               <button class="audio-tab-btn" onclick="setAudioCategory('Audio Agreements', this)">🔒 Agreements</button>
             </div>
             <div>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
+              <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
               <input type="file" id="audio-folder-input" accept="audio/*" multiple style="display: none;" onchange="handleUserAudioUpload(event)">
             </div>
           </div>
@@ -1150,7 +1315,7 @@
           <div class="audio-tabs-bar">
             <span style="font-size: 0.85rem; font-weight: 700; color: var(--gold-accent); padding: 4px 8px;">Still Art & Lore Archive</span>
             <div>
-              <button class="btn-load-audio-files" onclick="triggerFileSelect('still-multi-input')">📁 Add Pictures</button>
+              <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('still-multi-input')">📁 Add Pictures</button>
               <input type="file" id="still-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'still')">
             </div>
           </div>
@@ -1183,14 +1348,12 @@
       </div>
 
       <div class="wisdom-card revealed" id="wisdom-card-container">
-        <img id="chatty-header-view" src="media/images/chatty-wisdom-header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="triggerFileSelect('chatty-file-input')" title="Click to select Chatty graphic">
-        <div id="chatty-fallback-text" class="chatty-fallback-text" onclick="triggerFileSelect('chatty-file-input')">💜 CHATTY'S WISDOM</div>
-        <input type="file" id="chatty-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-header-view', 'chatty-fallback-text', 'chatty_wisdom_header')">
+        <img id="chatty-header-view" src="media/images/chatty-wisdom-header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="handleAdminImageClick('chatty-file-input')">
+        <input type="file" id="chatty-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-header-view', 'chatty_wisdom_header')">
 
         <div class="chatty-landscape-frame">
-          <img id="chatty-landscape-view" src="media/images/chatty-wisdom-landscape.png" alt="Chatty Wisdom Landscape Showcase" class="chatty-landscape-img" onerror="handleChattyLandscapeError(this)" onclick="triggerFileSelect('chatty-landscape-file-input')" title="Click to select Chatty landscape image">
-          <div id="chatty-landscape-picker" class="chatty-landscape-fallback" onclick="triggerFileSelect('chatty-landscape-file-input')">🖼️ Click to Select Chatty's Wisdom Landscape Picture</div>
-          <input type="file" id="chatty-landscape-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-landscape-view', 'chatty-landscape-picker', 'chatty_landscape_image')">
+          <img id="chatty-landscape-view" src="media/images/chatty-wisdom-landscape.png" alt="Chatty Wisdom Landscape Showcase" class="chatty-landscape-img" onerror="handleChattyLandscapeError(this)" onclick="handleAdminImageClick('chatty-landscape-file-input')">
+          <input type="file" id="chatty-landscape-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-landscape-view', 'chatty_landscape_image')">
         </div>
 
         <div class="card-body-frame">
@@ -1206,6 +1369,13 @@
     </section>
 
   </main>
+
+  <footer>
+    <p>ImanI Cultural Movement &copy; 2026. All Rights Reserved.</p>
+    <p style="margin-top: 6px;">
+      <a href="javascript:void(0)" onclick="toggleAdminEditMode()" style="color: var(--text-muted); text-decoration: none; font-size: 0.75rem;">🔐 Creator Portal</a>
+    </p>
+  </footer>
 
   <!-- Fullscreen Lightbox Display -->
   <div id="lightbox-modal" class="lightbox-backdrop" onclick="closeMediaLightbox()">
@@ -1250,6 +1420,40 @@
       return localStorage.getItem("imani_member_active") === "true";
     }
 
+    function isEditModeActive() {
+      return localStorage.getItem("imani_admin_edit_mode") === "true" || window.location.search.includes("edit=true");
+    }
+
+    function toggleAdminEditMode() {
+      if (isEditModeActive()) {
+        localStorage.setItem("imani_admin_edit_mode", "false");
+        document.body.classList.remove("admin-mode");
+        alert("Creator Edit Mode Deactivated. Now in Client Viewing Mode.");
+      } else {
+        const pass = prompt("Enter Sovereign Admin Passphrase to unlock editing controls:");
+        if (pass && pass.toUpperCase() === SECRET_MEMBER_KEY) {
+          localStorage.setItem("imani_admin_edit_mode", "true");
+          document.body.classList.add("admin-mode");
+          alert("Creator Edit Mode Activated. All select and upload buttons are now visible.");
+        } else if (pass !== null) {
+          alert("Incorrect passphrase.");
+        }
+      }
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.shiftKey && (e.key === "E" || e.key === "e")) {
+        e.preventDefault();
+        toggleAdminEditMode();
+      }
+    });
+
+    function handleAdminImageClick(inputId) {
+      if (isEditModeActive()) {
+        triggerFileSelect(inputId);
+      }
+    }
+
     function openMembershipModal() {
       const modal = document.getElementById('membership-modal');
       if (modal) modal.style.display = 'flex';
@@ -1280,7 +1484,7 @@
 
     // Audio Library: Story (Free), Mysteries (Locked), Agreements (Locked)
     let permanentAudioLibrary = [
-      // 1. STORY TRACKS (Free to all visitors)
+      // 1. STORY TRACKS (Free)
       { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", isLocked: false },
       { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", isLocked: false },
       { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/story/i-m-onyx-in-the-middle.mp3", isLocked: false },
@@ -1296,7 +1500,7 @@
       { title: "Declaration of the New Breed", category: "ImanI story", src: "media/audio/story/declaration-of-the-new-breed.mp3", isLocked: false },
       { title: "Checkmate Mindset", category: "ImanI story", src: "media/audio/story/checkmate-mindset.mp3", isLocked: false },
 
-      // 2. THE MYSTERIES (Locked for members)
+      // 2. THE MYSTERIES (Locked)
       { title: "Mystery 1 Cycle of ImanI Female", category: "The mysteries", src: "media/audio/mysteries/mystery-01-female.mp3", isLocked: true },
       { title: "Mystery 1 Cycle of ImanI male", category: "The mysteries", src: "media/audio/mysteries/mystery-01-male.mp3", isLocked: true },
       { title: "Mystery 2 The Mirror That Doesn't Lie", category: "The mysteries", src: "media/audio/mysteries/mystery-02-mirror.wav", isLocked: true },
@@ -1309,7 +1513,7 @@
       { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/mysteries/mystery-09-systems.mp3", isLocked: true },
       { title: "Mystery 10 Rhythm of Return", category: "The mysteries", src: "media/audio/mysteries/mystery-10-return.wav", isLocked: true },
 
-      // 3. AUDIO AGREEMENTS (Locked for members)
+      // 3. AUDIO AGREEMENTS (Locked)
       { title: "Agreement 1: Law of the Resonant Word", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-resonant-word.mp3", isLocked: true },
       { title: "Agreement 1: Words of Power", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-words-of-power.mp3", isLocked: true },
       { title: "Agreement 2: Immunity to Poison", category: "Audio Agreements", src: "media/audio/agreements/agreement-2-immunity-to-poison.wav", isLocked: true },
@@ -1376,7 +1580,6 @@
       if (index < 0 || index >= filtered.length) return;
       const track = filtered[index];
 
-      // Enforce membership paywall on locked audio files
       if (track.isLocked && !isMemberUnlocked()) {
         const audio = document.getElementById('main-audio');
         if (audio) audio.pause();
@@ -1524,7 +1727,6 @@
     let activeBoycottIndex = 0;
     let activeStillIndex = 0;
 
-    // Render scrollable picture lists with active membership protection
     function renderPictureList(containerId, list, activeIndex, onSelectCallback) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -1706,7 +1908,7 @@
         card.innerHTML = `
           <div class="video-player-container" style="position: relative;">
             <video id="${videoId}" src="${v.src}" controls playsinline poster="${v.poster}" preload="metadata"></video>
-            <div style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
+            <div class="admin-only" style="padding: 6px 12px; background: rgba(0,0,0,0.85); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--onyx-border);">
               <span style="font-size: 0.72rem; color: var(--text-muted);">Direct Media Link</span>
               <button class="btn-load-audio-files" onclick="triggerFileSelect('${inputId}')">📁 Select File</button>
               <input type="file" id="${inputId}" accept="video/*" style="display: none;" onchange="loadCardVideo(event, '${videoId}')">
@@ -1932,33 +2134,31 @@
     function handleImageError(img) {
       const saved = localStorage.getItem('imani_header_emblem');
       if (saved) { img.src = saved; img.style.display = 'block'; }
-      else { img.style.display = 'none'; document.getElementById('emblem-picker-box').style.display = 'inline-block'; }
+      else { img.style.display = 'none'; }
     }
 
     function handleChattyImageError(img) {
       const saved = localStorage.getItem('chatty_wisdom_header');
       if (saved) { img.src = saved; img.style.display = 'block'; }
-      else { img.style.display = 'none'; document.getElementById('chatty-fallback-text').style.display = 'block'; }
+      else { img.style.display = 'none'; }
     }
 
     function handleChattyLandscapeError(img) {
       const saved = localStorage.getItem('chatty_landscape_image');
       if (saved) { img.src = saved; img.style.display = 'block'; }
-      else { img.style.display = 'none'; document.getElementById('chatty-landscape-picker').style.display = 'block'; }
+      else { img.style.display = 'none'; }
     }
 
     function triggerFileSelect(inputId) {
       document.getElementById(inputId)?.click();
     }
 
-    function loadUserImage(event, imgId, fallbackId, storageKey) {
+    function loadUserImage(event, imgId, storageKey) {
       const file = event.target.files[0];
       if (file) {
         const img = document.getElementById(imgId);
         const objectUrl = URL.createObjectURL(file);
         if (img) { img.src = objectUrl; img.style.display = 'block'; }
-        const fallback = document.getElementById(fallbackId);
-        if (fallback) fallback.style.display = 'none';
 
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -2082,9 +2282,27 @@
     ];
 
     const boycottData = [
-      { id: "01", btnTitle: "3 + 1 + 3 Formula", tag: "The Formula", title: "3 + 1 + 3 = 7-Day Economic Fast", desc: "Three days preparation, one sacred day of reflection on the holiday, and three days follow-through." },
-      { id: "02", btnTitle: "Silent Solution", tag: "The Purpose", title: "Silent Solution Quiet Movement", desc: "A peaceful economic fast preserving community wealth and building self-reliance." },
-      { id: "03", btnTitle: "Unity in Motion", tag: "The Spirit", title: "Unity in Motion", desc: "Circulating economic resources within our own circles and stepping off commercial tracks." }
+      { 
+        id: "01", 
+        btnTitle: "3 + 1 + 3 Formula", 
+        tag: "Economic Fast • 7-Day Stealth Discipline", 
+        title: "3 + 1 + 3 = 7-Day Economic Fast", 
+        desc: "Observed every Federal Holiday: <strong>three days of strategic preparation</strong> and economic fast before the holiday, <strong>one sacred day of sovereign reflection</strong> on the holiday itself, and <strong>three days of continued economic discipline</strong> following it. Zero commercial participation, 100% community self-reliance." 
+      },
+      { 
+        id: "02", 
+        btnTitle: "Silent Solution", 
+        tag: "Economic Defense • Preservation", 
+        title: "Silent Solution Quiet Movement", 
+        desc: "A peaceful, calculated economic withdrawal that cuts off outside exploitation. By halting all non-essential consumer spending during corporate holidays, we protect family wealth and establish independent financial dignity." 
+      },
+      { 
+        id: "03", 
+        btnTitle: "Unity in Motion", 
+        tag: "Collective Strategy • Ujamaa", 
+        title: "Unity in Motion", 
+        desc: "Circulating financial and material resources entirely within our own households and verified alliances. Stepping off the commercial treadmill proves our collective sovereignty without needing permission." 
+      }
     ];
 
     function renderMatrixButtons(containerId, data, tagId, titleId, descId, boxId, extraHandler = null) {
@@ -2219,14 +2437,16 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      if (isEditModeActive()) {
+        document.body.classList.add("admin-mode");
+      }
+
       renderPlaylistItems();
       renderStreamArchive();
       
-      // Initialize Split-System Picture Vaults with Active Protection
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
 
-      // Render Video Vaults
       renderVideoVault('music-video-gallery-container', myMusicVideosList);
       renderVideoVault('cinema-gallery-container', myCinemaList);
 
@@ -2248,8 +2468,6 @@
       if (savedEmblem) {
         const img = document.getElementById('header-emblem-view');
         if (img) { img.src = savedEmblem; img.style.display = 'block'; }
-        const pBox = document.getElementById('emblem-picker-box');
-        if (pBox) pBox.style.display = 'none';
       }
 
       updateCountdownAndGuidance();
