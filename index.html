@@ -533,6 +533,7 @@
       flex-direction: column;
       backdrop-filter: blur(12px);
       box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+      position: relative;
     }
 
     .picture-viewer-img {
@@ -583,6 +584,7 @@
       border: 1px solid transparent;
       cursor: pointer;
       transition: all 0.2s ease;
+      position: relative;
     }
 
     .pic-queue-item:hover, .pic-queue-item.active {
@@ -652,6 +654,37 @@
       margin-top: 6px; font-size: 0.7rem; font-weight: 600;
       color: var(--emerald-accent); letter-spacing: 0.05em;
     }
+
+    .btn-join-membership {
+      background: linear-gradient(135deg, var(--gold-accent), #d19a22);
+      color: #000000;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 8px 22px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 14px var(--gold-glow);
+      transition: transform 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-join-membership:hover { transform: scale(1.04); }
+
+    .btn-enter-pass {
+      background: transparent;
+      color: var(--emerald-accent);
+      border: 1px solid var(--emerald-accent);
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-enter-pass:hover { background: rgba(0, 208, 108, 0.15); }
 
     .wisdom-filter-bar {
       display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
@@ -1131,23 +1164,86 @@
     </div>
   </div>
 
+  <!-- Membership Gate Modal -->
+  <div id="membership-modal" class="lightbox-backdrop" onclick="closeMembershipModal()">
+    <div class="lightbox-content" onclick="event.stopPropagation()" style="max-width: 440px; background: var(--onyx-surface); border: 1px solid var(--gold-accent); border-radius: var(--radius-md); padding: 28px; text-align: center; box-shadow: 0 0 35px var(--gold-glow);">
+      <button class="lightbox-close-btn" onclick="closeMembershipModal()">&times;</button>
+      
+      <div style="font-size: 2.5rem; margin-bottom: 8px;">🏛️</div>
+      <h3 style="color: var(--gold-accent); font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">ImanI Sovereign Pass</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
+        This archive item is exclusive to our Sovereign Membership community. Join or enter your member pass to unlock the entire 100+ picture vault.
+      </p>
+
+      <a href="https://your-membership-signup-link.com" target="_blank" class="btn-join-membership" style="display: inline-block; text-decoration: none; padding: 12px 28px; font-size: 0.92rem; margin-bottom: 18px;">
+        ⚡ Join Membership
+      </a>
+
+      <div style="border-top: 1px solid var(--onyx-border); padding-top: 16px; margin-top: 6px;">
+        <p style="color: var(--text-main); font-size: 0.82rem; margin-bottom: 8px;">Already a Member? Enter your Access Pass:</p>
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <input type="password" id="member-pass-input" class="chat-input" placeholder="Passphrase..." style="max-width: 220px;" onkeydown="if(event.key==='Enter') submitMemberPass()">
+          <button class="chat-send-btn" onclick="submitMemberPass()">Unlock</button>
+        </div>
+        <p id="member-pass-error" style="color: #ff5555; font-size: 0.75rem; margin-top: 8px; display: none;">Invalid Passphrase. Please try again.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Picture Vault Collections (Ready for hundreds of items)
+    // Sovereign Member Verification
+    const SECRET_MEMBER_KEY = "IMANI2026";
+
+    function isMemberUnlocked() {
+      return localStorage.getItem("imani_member_active") === "true";
+    }
+
+    function openMembershipModal() {
+      const modal = document.getElementById('membership-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeMembershipModal() {
+      const modal = document.getElementById('membership-modal');
+      if (modal) modal.style.display = 'none';
+      const err = document.getElementById('member-pass-error');
+      if (err) err.style.display = 'none';
+    }
+
+    function submitMemberPass() {
+      const input = document.getElementById('member-pass-input')?.value.trim();
+      const errorMsg = document.getElementById('member-pass-error');
+      
+      if (input && input.toUpperCase() === SECRET_MEMBER_KEY) {
+        localStorage.setItem("imani_member_active", "true");
+        closeMembershipModal();
+        renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
+        renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
+        alert("Sovereign Membership Activated. All locked pictures are now unlocked.");
+      } else {
+        if (errorMsg) errorMsg.style.display = 'block';
+      }
+    }
+
+    // Picture Vault Collections (First is Free, rest are locked for members)
     let boycottPictureLibrary = [
       {
         title: "The Price of Participation: Reclaiming Our Economic Sovereignty",
         tag: "Economic Sovereignty",
-        src: "media/boycott/economic-sovereignty.png"
+        src: "media/boycott/economic-sovereignty.png",
+        isLocked: false
       },
       {
         title: "June 15th — Declaration Day",
         tag: "Declaration Day",
-        src: "media/boycott/june15-declaration-day.png"
+        src: "media/boycott/june15-declaration-day.png",
+        isLocked: true
       },
       {
         title: "June 13 — George Floyd Day",
         tag: "Juneteenth • We Do We",
-        src: "media/boycott/george-floyd-day.png"
+        src: "media/boycott/george-floyd-day.png",
+        isLocked: true
       }
     ];
 
@@ -1155,40 +1251,50 @@
       {
         title: "Chapter 0 — The ImanI Manifesto",
         tag: "Foundational Blueprint",
-        src: "media/images/imanipix/chapter-0-manifesto.png"
+        src: "media/images/imanipix/chapter-0-manifesto.png",
+        isLocked: false
       },
       {
         title: "Chapter 1A — Community Blueprint",
         tag: "Strategic Framework",
-        src: "media/images/imanipix/chapter-1a-blueprint.png"
+        src: "media/images/imanipix/chapter-1a-blueprint.png",
+        isLocked: true
       },
       {
         title: "Chapter 2A — The First School of Life",
         tag: "Home Education",
-        src: "media/images/imanipix/chapter-2a-home-school.png"
+        src: "media/images/imanipix/chapter-2a-home-school.png",
+        isLocked: true
       }
     ];
 
     let activeBoycottIndex = 0;
     let activeStillIndex = 0;
 
-    // Render the scrollable list for 100+ pictures
+    // Render scrollable list with active membership protection
     function renderPictureList(containerId, list, activeIndex, onSelectCallback) {
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = '';
+      const unlocked = isMemberUnlocked();
 
       list.forEach((item, index) => {
         const row = document.createElement('div');
+        const isCurrentlyLocked = item.isLocked && !unlocked;
         row.className = `pic-queue-item ${index === activeIndex ? 'active' : ''}`;
         row.onclick = () => onSelectCallback(index);
+
+        const lockBadge = isCurrentlyLocked 
+          ? `<span style="font-size: 0.76rem; color: var(--gold-accent); font-weight: 800;">🔒 Locked</span>` 
+          : `<span style="font-size: 0.76rem; color: var(--emerald-accent); font-weight: 700;">${index === activeIndex ? '👁️ Viewing' : 'View'}</span>`;
+
         row.innerHTML = `
-          <img src="${encodeURI(item.src)}" alt="${item.title}" class="pic-queue-thumb" onerror="this.style.opacity='0.4';">
+          <img src="${encodeURI(item.src)}" alt="${item.title}" class="pic-queue-thumb" style="${isCurrentlyLocked ? 'filter: blur(3px) brightness(0.5);' : ''}" onerror="this.style.opacity='0.4';">
           <div class="pic-queue-meta">
             <span class="pic-queue-title">${index + 1}. ${item.title}</span>
-            <span class="pic-queue-tag">${item.tag}</span>
+            <span class="pic-queue-tag">${isCurrentlyLocked ? '🔒 Members Only' : item.tag}</span>
           </div>
-          <span style="font-size: 0.76rem; color: var(--gold-accent); font-weight: 700;">${index === activeIndex ? '👁️ Viewing' : 'View'}</span>
+          ${lockBadge}
         `;
         container.appendChild(row);
       });
@@ -1196,9 +1302,15 @@
 
     function selectBoycottPicture(index) {
       if (index < 0 || index >= boycottPictureLibrary.length) return;
-      activeBoycottIndex = index;
       const pic = boycottPictureLibrary[index];
       
+      // Membership check
+      if (pic.isLocked && !isMemberUnlocked()) {
+        openMembershipModal();
+        return;
+      }
+
+      activeBoycottIndex = index;
       const img = document.getElementById('boycott-active-img');
       const title = document.getElementById('boycott-active-title');
       const tag = document.getElementById('boycott-active-tag');
@@ -1212,9 +1324,15 @@
 
     function selectStillPicture(index) {
       if (index < 0 || index >= stillPictureLibrary.length) return;
-      activeStillIndex = index;
       const pic = stillPictureLibrary[index];
-      
+
+      // Membership check
+      if (pic.isLocked && !isMemberUnlocked()) {
+        openMembershipModal();
+        return;
+      }
+
+      activeStillIndex = index;
       const img = document.getElementById('still-active-img');
       const title = document.getElementById('still-active-title');
       const tag = document.getElementById('still-active-tag');
@@ -1226,7 +1344,7 @@
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
     }
 
-    // Dynamic Upload to easily add dozens/hundreds of pictures from disk
+    // Dynamic Upload: All newly added pictures automatically get locked for members only
     function handleUserAddPictures(event, galleryType) {
       const files = Array.from(event.target.files);
       if (!files.length) return;
@@ -1238,14 +1356,16 @@
         if (galleryType === 'boycott') {
           boycottPictureLibrary.push({
             title: cleanName,
-            tag: "Uploaded Archive",
-            src: objectUrl
+            tag: "🔒 Members Only Vault",
+            src: objectUrl,
+            isLocked: true
           });
         } else if (galleryType === 'still') {
           stillPictureLibrary.push({
             title: cleanName,
-            tag: "Uploaded Lore",
-            src: objectUrl
+            tag: "🔒 Members Only Vault",
+            src: objectUrl,
+            isLocked: true
           });
         }
       });
@@ -1983,7 +2103,7 @@
       renderPlaylistItems();
       renderStreamArchive();
       
-      // Initialize Split-System Picture Vaults (Ready for 100+ images)
+      // Initialize Split-System Picture Vaults with Active Protection
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
 
