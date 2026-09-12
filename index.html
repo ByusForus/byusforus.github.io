@@ -201,7 +201,7 @@
       text-shadow: 0 0 10px var(--emerald-glow);
     }
 
-    /* UNIFIED ENLARGED SECTION STYLING (Matched to IAHBC Style) */
+    /* UNIFIED ENLARGED SECTION STYLING */
     .doctrine-card {
       background: var(--onyx-surface); 
       border: 2px solid var(--gold-accent);
@@ -360,7 +360,7 @@
       color: var(--gold-accent); 
     }
 
-    /* HEADER */
+    /* HEADER (Made slightly thinner/more compact as requested) */
     header {
       border-bottom: 1px solid var(--onyx-border);
       background: rgba(0, 0, 0, 0.98);
@@ -376,8 +376,8 @@
       display: grid; 
       grid-template-columns: 1fr 1.2fr 1fr;
       align-items: center; 
-      padding: 24px 32px; 
-      gap: 20px;
+      padding: 12px 24px; /* Reduced vertical padding to make header thinner */
+      gap: 16px;
     }
 
     .header-left, .header-right { 
@@ -388,21 +388,21 @@
     }
 
     .header-proclamation {
-      font-size: 2.2rem; 
+      font-size: 1.8rem; /* Slightly streamlined text size */
       font-weight: 900; 
       letter-spacing: 0.07em;
       text-transform: uppercase; 
-      line-height: 1.25;
+      line-height: 1.2;
     }
 
     .header-proclamation.emerald {
       color: var(--emerald-accent);
-      text-shadow: 0 0 20px var(--emerald-glow), 0 0 35px rgba(0, 208, 108, 0.5);
+      text-shadow: 0 0 16px var(--emerald-glow), 0 0 25px rgba(0, 208, 108, 0.4);
     }
 
     .header-proclamation.gold {
       color: var(--gold-accent);
-      text-shadow: 0 0 20px var(--gold-glow), 0 0 35px rgba(255, 209, 92, 0.45);
+      text-shadow: 0 0 16px var(--gold-glow), 0 0 25px rgba(255, 209, 92, 0.35);
     }
 
     .header-center { 
@@ -410,17 +410,17 @@
       justify-content: center; 
       align-items: center; 
       width: 100%; 
-      min-height: 160px; 
+      min-height: 110px; /* Reduced minimum height */
     }
 
     .header-emblem-large {
       width: 100%; 
-      max-width: 680px; 
+      max-width: 520px; /* Streamlined max width */
       height: auto; 
-      max-height: 320px; 
+      max-height: 220px; /* Reduced max height to make header thinner */
       object-fit: contain; 
       display: block;
-      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 25px rgba(255, 209, 92, 0.45));
+      filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 20px rgba(255, 209, 92, 0.4));
       transition: transform 0.3s ease; 
     }
 
@@ -431,14 +431,14 @@
     @media (max-width: 900px) {
       .header-layout { 
         grid-template-columns: 1fr; 
-        gap: 16px; 
-        padding: 20px; 
+        gap: 12px; 
+        padding: 12px 16px; 
       }
       .header-proclamation { 
-        font-size: 1.6rem; 
+        font-size: 1.35rem; 
       }
       .header-emblem-large {
-        max-height: 220px;
+        max-height: 160px;
       }
       .revelation-box, .doctrine-card {
         padding: 24px 20px;
@@ -643,7 +643,7 @@
     .audio-player-card {
       background: var(--onyx-surface); border: 1px solid var(--onyx-border);
       border-radius: var(--radius-md); padding: 24px; display: flex;
-      flex-direction: column; justify-content: space-between; gap: 20px; backdrop-filter: blur(12px);
+      flex-direction: column; justify-content: space-between; gap: 16px; backdrop-filter: blur(12px);
     }
 
     .track-meta { display: flex; gap: 18px; align-items: center; }
@@ -1096,89 +1096,19 @@
     </section>
 
     <!-- 2. Origin & Revelation -->
-    <section>
-      <h2 class="section-title">The Origin & Revelation of ImanI</h2>
-      <div class="button-matrix" id="origins-buttons"></div>
-      <div class="revelation-box" id="origin-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="origin-tag">Ontology</div>
-            <h3 class="rev-title" id="origin-title">Sovereign Ontology</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
-        </div>
-        <p class="rev-content" id="origin-desc">Moving away from assigned, descriptive adjectives like "black" that describe a shadow or condition, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
-      </div>
-    </section>
+    <section id="origin-section-wrap"></section>
 
     <!-- 3. Ten Mysteries -->
-    <section>
-      <h2 class="section-title">The Ten Mysteries of the Name</h2>
-      <div class="button-matrix" id="mysteries-buttons"></div>
-      <div class="revelation-box" id="mystery-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="mystery-tag">Mystery 01</div>
-            <h3 class="rev-title" id="mystery-title">Alpha and Omega</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('mystery-title', 'mystery-desc')">🔊 Listen</button>
-        </div>
-        <p class="rev-content" id="mystery-desc">The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination.</p>
-      </div>
-    </section>
+    <section id="mysteries-section-wrap"></section>
 
     <!-- 4. Ten Activities of Life -->
-    <section>
-      <h2 class="section-title">Mastery Across the Ten Activities of Life</h2>
-      <div class="button-matrix" id="activities-buttons"></div>
-      <div class="revelation-box" id="activity-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="activity-tag">Activity 01 & 02</div>
-            <h3 class="rev-title" id="activity-title">Economics & Education</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('activity-title', 'activity-desc')">🔊 Listen</button>
-        </div>
-        <p class="rev-content" id="activity-desc"><strong>Economics:</strong> Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.<br><br><strong>Education:</strong> Defining ourselves, writing our own narratives, and teaching sovereign history and culture.</p>
-      </div>
-    </section>
+    <section id="activities-section-wrap"></section>
 
     <!-- 5. 9 Pillars of Restitution -->
-    <section>
-      <h2 class="section-title">The 9 Pillars of Total Restitution (Specie Standard)</h2>
-      <div class="button-matrix" id="restitution-buttons"></div>
-      <div class="revelation-box" id="restitution-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="restitution-tag">Priority Pillar 1</div>
-            <h3 class="rev-title" id="restitution-title">1. Specie Cash</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('restitution-title', 'restitution-desc')">🔊 Listen</button>
-        </div>
-        <p class="rev-content" id="restitution-desc">Direct Unconditional Capital</p>
-        <div class="restitution-stats-grid">
-          <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold" id="restitution-gold">140 oz Bullion</span></div>
-          <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value" id="restitution-silver">11,600 oz Coinage</span></div>
-          <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" id="restitution-rule" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
-        </div>
-      </div>
-    </section>
+    <section id="restitution-section-wrap"></section>
 
     <!-- 6. Operational Codes -->
-    <section>
-      <h2 class="section-title">Strategic Stealth & Operational Codes</h2>
-      <div class="button-matrix" id="codes-buttons"></div>
-      <div class="revelation-box" id="code-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="code-tag">Operational Code</div>
-            <h3 class="rev-title" id="code-title">Code of Silence</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('code-title', 'code-desc')">🔊 Listen</button>
-        </div>
-        <p class="rev-content" id="code-desc">Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities.</p>
-      </div>
-    </section>
+    <section id="codes-section-wrap"></section>
 
     <!-- 7. IAHBC DOCTRINE SECTION -->
     <section>
@@ -1251,7 +1181,7 @@
             <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Boycott Pictures Archive</span>
             <div>
               <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
-              <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="loadUserImages(event, 'boycott')">
+              <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
             </div>
           </div>
           <div class="playlist-items-scroll" id="boycott-list-container"></div>
@@ -1328,7 +1258,7 @@
             <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Still Art & Lore Archive</span>
             <div>
               <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('still-multi-input')">📁 Add Pictures</button>
-              <input type="file" id="still-multi-input" accept="image/*" multiple style="display: none;" onchange="loadUserImages(event, 'still')">
+              <input type="file" id="still-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'still')">
             </div>
           </div>
           <div class="playlist-items-scroll" id="still-list-container"></div>
@@ -2427,7 +2357,6 @@
       });
     }
 
-    // Helper to render enlarged doctrine sections matching IAHBC style
     function renderEnlargedSection(sectionId, titleText, data, tagPrefix, extraHandler = null) {
       const container = document.getElementById(sectionId);
       if (!container) return;
@@ -2451,111 +2380,6 @@
       renderMatrixButtons(`${sectionId}-btns`, data, `${sectionId}-tag`, `${sectionId}-title`, `${sectionId}-desc`, `${sectionId}-display`, extraHandler);
     }
 
-    const chattyDeck = [
-      { id: 1, tag: "Strategy", title: "The Checkmate Perspective", quote: "Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction." },
-      { id: 2, tag: "Stealth", title: "Shield of Stillness", quote: "Quiet observation holds more power than immediate combat. Protect your center at all costs." },
-      { id: 3, tag: "Strategy", title: "The Sovereign Board", quote: "Never play on a board where your opponent writes the rules. Establish your own grid and control the squares." },
-      { id: 4, tag: "Stealth", title: "Curious Consultant Tactic", quote: "Ask the question that makes them confront their own assumptions. Truth reveals itself when prompted calmly." },
-      { id: 5, tag: "Stealth", title: "Stealth Discipline", quote: "Internal strength doesn't need external applause. Move in silence and let the results speak." },
-      { id: 6, tag: "Economics", title: "The Specie Anchor", quote: "Paper promises blow away with the wind. Sound money and land grants anchor true freedom." },
-      { id: 7, tag: "Strategy", title: "Mastery of the Center", quote: "Whoever commands the center commands the board. Protect your core principles from external dilution." },
-      { id: 8, tag: "Stealth", title: "Strategic Non-Compliance", quote: "Polite refusal to participate in degradation is the highest form of discipline and leverage." },
-      { id: 9, tag: "Strategy", title: "Pillar Alignment", quote: "Stand consciously between Boaz and Jachin. Balance intuitive vision with structured execution." },
-      { id: 10, tag: "Strategy", title: "Silent Timing", quote: "The master does not strike when angry; the master moves when the board opens." }
-    ];
-
-    let currentDeckTag = "ALL";
-    let activeWisdomPool = [...chattyDeck];
-    let lastDrawnIndex = -1;
-
-    function setDeckTagFilter(tag, btn) {
-      currentDeckTag = tag;
-      document.querySelectorAll('.filter-tag-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filterWisdomDeck();
-    }
-
-    function filterWisdomDeck() {
-      const search = document.getElementById('wisdom-search')?.value.toLowerCase().trim() || '';
-      activeWisdomPool = chattyDeck.filter(card => {
-        const matchesTag = (currentDeckTag === "ALL" || card.tag === currentDeckTag);
-        const matchesSearch = (!search || card.title.toLowerCase().includes(search) || card.quote.toLowerCase().includes(search));
-        return matchesTag && matchesSearch;
-      });
-      
-      if (search || currentDeckTag !== "ALL") {
-        drawWisdomCard();
-      } else {
-        initDailyWisdomCard();
-      }
-    }
-
-    function getDailyCardIndex(pool) {
-      if (!pool || pool.length === 0) return 0;
-      const now = new Date();
-      const startOfYear = new Date(now.getFullYear(), 0, 0);
-      const diff = now - startOfYear;
-      const oneDay = 1000 * 60 * 60 * 24;
-      const dayOfYear = Math.floor(diff / oneDay);
-      return dayOfYear % pool.length;
-    }
-
-    function displayCard(card, animate = true) {
-      const deckTitle = document.getElementById('deck-title');
-      const deckQuote = document.getElementById('deck-quote');
-      const deckNumber = document.getElementById('deck-number');
-      const container = document.getElementById('wisdom-card-container');
-
-      if (!card) {
-        if (deckTitle) deckTitle.innerText = "No Matching Wisdom Found";
-        if (deckQuote) deckQuote.innerText = "Adjust your search filter.";
-        if (deckNumber) deckNumber.innerText = "Card 0 of 0";
-        return;
-      }
-
-      if (animate && container) {
-        container.style.opacity = '0.5';
-        setTimeout(() => {
-          if (deckTitle) deckTitle.innerText = card.title;
-          if (deckQuote) deckQuote.innerText = `"${card.quote}"`;
-          if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} • Daily Message`;
-          container.style.opacity = '1';
-        }, 150);
-      } else {
-        if (deckTitle) deckTitle.innerText = card.title;
-        if (deckQuote) deckQuote.innerText = `"${card.quote}"`;
-        if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} • Daily Message`;
-      }
-    }
-
-    function initDailyWisdomCard() {
-      if (activeWisdomPool.length > 0) {
-        const dailyIndex = getDailyCardIndex(activeWisdomPool);
-        lastDrawnIndex = dailyIndex;
-        displayCard(activeWisdomPool[dailyIndex], false);
-      }
-    }
-
-    function drawWisdomCard() {
-      if (activeWisdomPool.length === 0) {
-        displayCard(null, false);
-        return;
-      }
-      let randomIndex;
-      do { 
-        randomIndex = Math.floor(Math.random() * activeWisdomPool.length); 
-      } while (randomIndex === lastDrawnIndex && activeWisdomPool.length > 1);
-      
-      lastDrawnIndex = randomIndex;
-      const card = activeWisdomPool[randomIndex];
-      
-      const deckNumber = document.getElementById('deck-number');
-      displayCard(card, true);
-      setTimeout(() => {
-        if (deckNumber) deckNumber.innerText = `Card #${String(card.id).padStart(2, '0')} • Drawn`;
-      }, 160);
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
       if (isEditModeActive()) {
         document.body.classList.add("admin-mode");
@@ -2573,7 +2397,7 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // Enlarge and render all doctrine sections to match IAHBC scale
+      // Render all doctrine sections with the enlarged, high-readability style
       renderEnlargedSection('origin-section-wrap', 'The Origin & Revelation of ImanI', originsData, 'Ontology');
       renderEnlargedSection('mysteries-section-wrap', 'The Ten Mysteries of the Name', mysteriesData, 'Mystery 01');
       renderEnlargedSection('activities-section-wrap', 'Mastery Across the Ten Activities of Life', activitiesData, 'Activity 01 & 02');
