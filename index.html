@@ -2320,7 +2320,7 @@
       { id: "4", btnTitle: "4. Food", tag: "Priority Pillar 4", title: "4. Food", desc: "Permanent Sovereign Food Security", gold: "20 oz Bullion", silver: "1,650 oz Coinage", rule: "Independent Asset" },
       { id: "5", btnTitle: "5. Education", tag: "Priority Pillar 5", title: "5. Education", desc: "Tuition Coverage & Funding", gold: "40 oz Bullion", silver: "3,300 oz Coinage", rule: "Debt Elimination" },
       { id: "6", btnTitle: "6. Land & Wealth", tag: "Priority Pillar 6", title: "6. Land & Wealth", desc: "Capital & Land Grants", gold: "60 oz Bullion", silver: "5,000 oz Coinage", rule: "Asset Creation" },
-      { id: "7", btnTitle: "7. Justice", tag: "Priority Pillar 7", title: "7. Justice", syn: "Record Relief & Incarceration Damages", gold: "30 oz Bullion", silver: "2,500 oz Coinage", rule: "Enforceable Relief" },
+      { id: "7", btnTitle: "7. Justice", tag: "Priority Pillar 7", title: "7. Justice", desc: "Record Relief & Incarceration Damages", gold: "30 oz Bullion", silver: "2,500 oz Coinage", rule: "Enforceable Relief" },
       { id: "8", btnTitle: "8. Environment", tag: "Priority Pillar 8", title: "8. Environment", desc: "Remediation of Impacted Zones", gold: "20 oz Bullion", silver: "1,650 oz Coinage", rule: "Place-Based Repair" },
       { id: "9", btnTitle: "9. Narrative", tag: "Priority Pillar 9", title: "9. Narrative", desc: "Lineage Archives & Media", gold: "10 oz Bullion", silver: "825 oz Coinage", rule: "Lineage Controlled" }
     ];
@@ -2330,6 +2330,55 @@
       { id: "02", btnTitle: "Code of Non-Compliance", tag: "Operational Code", title: "Code of Non-Compliance", desc: "Refusing compliance with narratives that dilute sovereignty." },
       { id: "03", btnTitle: "Curious Consultant Method", tag: "Operational Code", title: "Curious Consultant Method", desc: "Asking disarming questions that lead others to truth rather than arguing." }
     ];
+
+    function renderMatrixButtons(containerId, data, tagId, titleId, descId, boxId, extraHandler = null) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      data.forEach((item, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `doctrine-btn ${idx === 0 ? 'active' : ''}`;
+        btn.innerHTML = `<span class="badge">${item.id}</span> ${item.btnTitle || item.title}`;
+        btn.onclick = () => {
+          document.querySelectorAll(`#${containerId} .doctrine-btn`).forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const box = document.getElementById(boxId);
+          if (box) {
+            box.style.opacity = '0.4';
+            setTimeout(() => {
+              document.getElementById(tagId).innerText = item.tag || `Mystery ${item.id}`;
+              document.getElementById(titleId).innerText = item.title;
+              document.getElementById(descId).innerHTML = item.desc;
+              if (extraHandler) extraHandler(item);
+              box.style.opacity = '1';
+            }, 120);
+          }
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function renderEnlargedSection(sectionId, titleText, data, tagPrefix, extraHandler = null) {
+      const container = document.getElementById(sectionId);
+      if (!container) return;
+      
+      container.innerHTML = `
+        <h2 class="section-title">${titleText}</h2>
+        <div class="button-matrix" id="${sectionId}-btns"></div>
+        <div class="revelation-box" id="${sectionId}-display">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="${sectionId}-tag">${data[0].tag || tagPrefix}</div>
+              <h3 class="rev-title" id="${sectionId}-title">${data[0].title || data[0].btnTitle}</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('${sectionId}-title', '${sectionId}-desc')">🔊 Listen to Passage</button>
+          </div>
+          <p class="rev-content" id="${sectionId}-desc">${data[0].desc || data[0].title}</p>
+          <div id="${sectionId}-extra"></div>
+        </div>
+      `;
+
+      renderMatrixButtons(`${sectionId}-btns`, data, `${sectionId}-tag`, `${sectionId}-title`, `${sectionId}-desc`, `${sectionId}-display`, extraHandler);
+    }
 
     window.addEventListener('DOMContentLoaded', () => {
       if (isEditModeActive()) {
@@ -2348,7 +2397,7 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // Enlarge and render all doctrine sections
+      // Render all doctrine sections with full container wrappers
       renderEnlargedSection('origin-section-wrap', 'The Origin & Revelation of ImanI', originsData, 'Ontology');
       renderEnlargedSection('mysteries-section-wrap', 'The Ten Mysteries of the Name', mysteriesData, 'Mystery 01');
       renderEnlargedSection('activities-section-wrap', 'Mastery Across the Ten Activities of Life', activitiesData, 'Activity 01 & 02');
