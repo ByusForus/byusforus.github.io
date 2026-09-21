@@ -1286,7 +1286,7 @@
             <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Music Video Queue</span>
             <div>
               <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('music-video-multi-input')">📁 Add Videos</button>
-              <input type="file" id="music-video-multi-input" accept="video/*" multiple style="display: none;" onchange="loadUserVideos(event, 'music')">
+              <input type="file" id="music-video-multi-input" accept="video/*" multiple style="display: none;" onchange="handleUserAddVideos(event, 'music')">
             </div>
           </div>
           <div class="playlist-items-scroll" id="music-video-list-container"></div>
@@ -1314,7 +1314,7 @@
             <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Cinema Vault Queue</span>
             <div>
               <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('cinema-multi-input')">📁 Add Cinema</button>
-              <input type="file" id="cinema-multi-input" accept="video/*" multiple style="display: none;" onchange="loadUserVideos(event, 'cinema')">
+              <input type="file" id="cinema-multi-input" accept="video/*" multiple style="display: none;" onchange="handleUserAddVideos(event, 'cinema')">
             </div>
           </div>
           <div class="playlist-items-scroll" id="cinema-list-container"></div>
@@ -1669,47 +1669,49 @@
       renderPlaylistItems();
     }
 
-    // Picture Vault Collections (Unlocked)
+    // BOYCOTT GALLERY FULLY RESTORED & POPULATED
     let boycottPictureLibrary = [
-      {
-        title: "The Price of Participation: Reclaiming Our Economic Sovereignty",
-        tag: "Economic Sovereignty",
-        src: "media/boycott/economic-sovereignty.png",
-        isLocked: false
-      },
-      {
-        title: "June 15th — Declaration Day",
-        tag: "Declaration Day",
-        src: "media/boycott/june15-declaration-day.png",
-        isLocked: false
-      },
-      {
-        title: "June 13 — George Floyd Day",
-        tag: "Juneteenth • We Do We",
-        src: "media/boycott/george-floyd-day.png",
-        isLocked: false
-      }
+      { title: "The Price of Participation: Reclaiming Our Economic Sovereignty", tag: "Economic Sovereignty", src: "media/boycott/economic-sovereignty.png", isLocked: false },
+      { title: "June 15th — Declaration Day", tag: "Declaration Day", src: "media/boycott/june15-declaration-day.png", isLocked: false },
+      { title: "June 13 — George Floyd Day", tag: "Juneteenth • We Do We", src: "media/boycott/george-floyd-day.png", isLocked: false },
+      { title: "IAHBC 7-Day American Holidays", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-american-holidays-s...png", isLocked: true },
+      { title: "IAHBC 7-Day Economic Fast Candle", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-economic-fast-candl...png", isLocked: true },
+      { title: "IAHBC Political Theater Strategy", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-at-wait-political-theater-strat...png", isLocked: true },
+      { title: "IAHBC 7-Day Fast Commitment", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-commit-memon-al-day-7-days-fa...png", isLocked: true },
+      { title: "IAHBC Emerald Sovereign Gold", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-emer-aid-onyx-ld-kama-lc...png", isLocked: true },
+      { title: "IAHBC Ancestors Not Corporations 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-honor-ancestors-not-corpora...png", isLocked: true },
+      { title: "IAHBC Ancestors Not Corporations 2", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-honor-ancestors-not-corpora...png", isLocked: true },
+      { title: "IAHBC Celebration Poster 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster.png", isLocked: true },
+      { title: "IAHBC Celebration Poster 2", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster1.png", isLocked: true },
+      { title: "IAHBC Celebration Poster 12", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster12.png", isLocked: true },
+      { title: "IAHBC Celebration Poster 7", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster7.png", isLocked: true },
+      { title: "IAHBC Celebration Poster 3", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-posterthree.png", isLocked: true },
+      { title: "IAHBC Boycott Manifesto Gold", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-master-manifesto-gold-twop.png", isLocked: true },
+      { title: "IAHBC No More Stories 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-no-more-stories-only.png", isLocked: true },
+      { title: "IAHBC No Stories Real Solutions", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-no-stories-only-real-solutions.png", isLocked: true },
+      { title: "IAHBC Stop Celebrating American Holidays", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-stop-celebrating-american-holidays-la...png", isLocked: true },
+      { title: "IAHBC Stop Celebrating Awakening", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-stop-celebrating-awakening-is-when-a...png", isLocked: true }
     ];
 
+    // STILL ART GALLERY FULLY RESTORED & POPULATED
     let stillPictureLibrary = [
-      {
-        title: "Chapter 0 — The ImanI Manifesto",
-        tag: "Foundational Blueprint",
-        src: "media/images/imanipix/chapter-0-manifesto.png",
-        isLocked: false
-      },
-      {
-        title: "Chapter 1A — Community Blueprint",
-        tag: "Strategic Framework",
-        src: "media/images/imanipix/chapter-1a-blueprint.png",
-        isLocked: false
-      },
-      {
-        title: "Chapter 2A — The First School of Life",
-        tag: "Home Education",
-        src: "media/images/imanipix/chapter-2a-home-school.png",
-        isLocked: false
-      }
+      { title: "Chapter 0 — The ImanI Manifesto", tag: "Foundational Blueprint", src: "media/images/imanipix/chapter-0-manifesto.png", isLocked: false },
+      { title: "Chapter 1A — Community Blueprint", tag: "Strategic Framework", src: "media/images/imanipix/chapter-1a-blueprint.png", isLocked: false },
+      { title: "Chapter 2A — The First School of Life", tag: "Home Education", src: "media/images/imanipix/chapter-2a-home-school.png", isLocked: false },
+      { title: "ImanI Action Changes Conditions", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-action-changes-conditions-poster-sq...png", isLocked: true },
+      { title: "ImanI Action Pride & Peace", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-action-pride-po-we-endura-nce-freed...png", isLocked: true },
+      { title: "ImanI American Can / Did Not", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-amenican-can-did-not-become-a-thing-unti...png", isLocked: true },
+      { title: "ImanI Bone & Shadow Lines", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-bone-w-tomoro-w-square...png", isLocked: true },
+      { title: "ImanI Beyond the Story Lines", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-beyond-the-story-lines...png", isLocked: true },
+      { title: "ImanI Birth Certificate Reflection", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-birth-certificate-i-es-reflection-two.png", isLocked: true },
+      { title: "ImanI Black History Two", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-black-history-two.png", isLocked: true },
+      { title: "ImanI Code of Silence Very Word", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-code-of-silence-very-word-i.png", isLocked: true },
+      { title: "ImanI Community Street Scene Urban", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-community-street-scene-urban-sc...png", isLocked: true },
+      { title: "ImanI Congressional Caucus Cactus", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/am-congiesman-black-caucasian-cactus-1.png", isLocked: true },
+      { title: "ImanI Fourth Amendment Amenity", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-fourth-eenth-amen-dment-ame-rica-m-month-gr...png", isLocked: true },
+      { title: "ImanI Grand Awakening Alarm", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-grand-awakening-data-is-the-alarm8.png", isLocked: true },
+      { title: "ImanI History Our Story", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-histor-ony-our-story-y-pun-twoj.png", isLocked: true },
+      { title: "ImanI Human Rights Gesture", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-human-rights-e-guit-twoj.png", isLocked: true }
     ];
 
     let activeBoycottIndex = 0;
@@ -2320,7 +2322,7 @@
       { id: "4", btnTitle: "4. Food", tag: "Priority Pillar 4", title: "4. Food", desc: "Permanent Sovereign Food Security", gold: "20 oz Bullion", silver: "1,650 oz Coinage", rule: "Independent Asset" },
       { id: "5", btnTitle: "5. Education", tag: "Priority Pillar 5", title: "5. Education", desc: "Tuition Coverage & Funding", gold: "40 oz Bullion", silver: "3,300 oz Coinage", rule: "Debt Elimination" },
       { id: "6", btnTitle: "6. Land & Wealth", tag: "Priority Pillar 6", title: "6. Land & Wealth", desc: "Capital & Land Grants", gold: "60 oz Bullion", silver: "5,000 oz Coinage", rule: "Asset Creation" },
-      { id: "7", btnTitle: "7. Justice", tag: "Priority Pillar 7", title: "7. Justice", syn: "Record Relief & Incarceration Damages", gold: "30 oz Bullion", silver: "2,500 oz Coinage", rule: "Enforceable Relief" },
+      { id: "7", btnTitle: "7. Justice", tag: "Priority Pillar 7", title: "7. Justice", desc: "Record Relief & Incarceration Damages", gold: "30 oz Bullion", silver: "2,500 oz Coinage", rule: "Enforceable Relief" },
       { id: "8", btnTitle: "8. Environment", tag: "Priority Pillar 8", title: "8. Environment", desc: "Remediation of Impacted Zones", gold: "20 oz Bullion", silver: "1,650 oz Coinage", rule: "Place-Based Repair" },
       { id: "9", btnTitle: "9. Narrative", tag: "Priority Pillar 9", title: "9. Narrative", desc: "Lineage Archives & Media", gold: "10 oz Bullion", silver: "825 oz Coinage", rule: "Lineage Controlled" }
     ];
@@ -2330,6 +2332,55 @@
       { id: "02", btnTitle: "Code of Non-Compliance", tag: "Operational Code", title: "Code of Non-Compliance", desc: "Refusing compliance with narratives that dilute sovereignty." },
       { id: "03", btnTitle: "Curious Consultant Method", tag: "Operational Code", title: "Curious Consultant Method", desc: "Asking disarming questions that lead others to truth rather than arguing." }
     ];
+
+    function renderMatrixButtons(containerId, data, tagId, titleId, descId, boxId, extraHandler = null) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      data.forEach((item, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `doctrine-btn ${idx === 0 ? 'active' : ''}`;
+        btn.innerHTML = `<span class="badge">${item.id}</span> ${item.btnTitle || item.title}`;
+        btn.onclick = () => {
+          document.querySelectorAll(`#${containerId} .doctrine-btn`).forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const box = document.getElementById(boxId);
+          if (box) {
+            box.style.opacity = '0.4';
+            setTimeout(() => {
+              document.getElementById(tagId).innerText = item.tag || `Mystery ${item.id}`;
+              document.getElementById(titleId).innerText = item.title;
+              document.getElementById(descId).innerHTML = item.desc;
+              if (extraHandler) extraHandler(item);
+              box.style.opacity = '1';
+            }, 120);
+          }
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function renderEnlargedSection(sectionId, titleText, data, tagPrefix, extraHandler = null) {
+      const container = document.getElementById(sectionId);
+      if (!container) return;
+      
+      container.innerHTML = `
+        <h2 class="section-title">${titleText}</h2>
+        <div class="button-matrix" id="${sectionId}-btns"></div>
+        <div class="revelation-box" id="${sectionId}-display">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="${sectionId}-tag">${data[0].tag || tagPrefix}</div>
+              <h3 class="rev-title" id="${sectionId}-title">${data[0].title || data[0].btnTitle}</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('${sectionId}-title', '${sectionId}-desc')">🔊 Listen to Passage</button>
+          </div>
+          <p class="rev-content" id="${sectionId}-desc">${data[0].desc || data[0].title}</p>
+          <div id="${sectionId}-extra"></div>
+        </div>
+      `;
+
+      renderMatrixButtons(`${sectionId}-btns`, data, `${sectionId}-tag`, `${sectionId}-title`, `${sectionId}-desc`, `${sectionId}-display`, extraHandler);
+    }
 
     window.addEventListener('DOMContentLoaded', () => {
       if (isEditModeActive()) {
@@ -2348,7 +2399,7 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // Enlarge and render all doctrine sections
+      // Render all doctrine sections with full container wrappers
       renderEnlargedSection('origin-section-wrap', 'The Origin & Revelation of ImanI', originsData, 'Ontology');
       renderEnlargedSection('mysteries-section-wrap', 'The Ten Mysteries of the Name', mysteriesData, 'Mystery 01');
       renderEnlargedSection('activities-section-wrap', 'Mastery Across the Ten Activities of Life', activitiesData, 'Activity 01 & 02');
