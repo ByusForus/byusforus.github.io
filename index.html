@@ -2333,6 +2333,30 @@
       { id: "03", btnTitle: "Curious Consultant Method", tag: "Operational Code", title: "Curious Consultant Method", desc: "Asking disarming questions that lead others to truth rather than arguing." }
     ];
 
+    const boycottData = [
+      { 
+        id: "01", 
+        btnTitle: "3 + 1 + 3 Formula", 
+        tag: "Economic Fast • 7-Day Stealth Discipline", 
+        title: "3 + 1 + 3 = 7-Day Economic Fast", 
+        desc: "Observed every Federal Holiday: <strong>three days of strategic preparation</strong> and economic fast before the holiday, <strong>one sacred day of sovereign reflection</strong> on the holiday itself, and <strong>three days of continued economic discipline</strong> following it. Zero commercial participation, 100% community self-reliance." 
+      },
+      { 
+        id: "02", 
+        btnTitle: "Silent Solution", 
+        tag: "Economic Defense • Preservation", 
+        title: "Silent Solution Quiet Movement", 
+        desc: "A peaceful, calculated economic withdrawal that cuts off outside exploitation. By halting all non-essential consumer spending during corporate holidays, we protect family wealth and establish independent financial dignity." 
+      },
+      { 
+        id: "03", 
+        btnTitle: "Unity in Motion", 
+        tag: "Collective Strategy • Ujamaa", 
+        title: "Unity in Motion", 
+        desc: "Circulating financial and material resources entirely within our own households and verified alliances. Stepping off the commercial treadmill proves our collective sovereignty without needing permission." 
+      }
+    ];
+
     function renderMatrixButtons(containerId, data, tagId, titleId, descId, boxId, extraHandler = null) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -2428,6 +2452,9 @@
       }
 
       renderEnlargedSection('codes-section-wrap', 'Strategic Stealth & Operational Codes', codesData, 'Operational Code');
+
+      // Render Boycott buttons matrix
+      renderMatrixButtons('boycott-buttons', boycottData, 'boycott-tag', 'boycott-title', 'boycott-desc', 'boycott-display');
 
       const savedEmblem = localStorage.getItem('imani_header_emblem');
       if (savedEmblem) {
