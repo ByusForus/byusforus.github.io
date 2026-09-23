@@ -519,7 +519,7 @@
       </div>
     </section>
 
-    <!-- 8. Holiday Fast Calendar (RESTORED INSIDE BLACK BOX WITH SORTED TABLE ROWS) -->
+    <!-- 8. Holiday Fast Calendar -->
     <section>
       <h2 class="section-title">2026–2027 Federal Holiday Economic Fast Calendar</h2>
       <div class="doctrine-card">
@@ -544,7 +544,7 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery (RESTORED INSIDE BLACK BOX) -->
+    <!-- 9. Boycott Celebration Gallery -->
     <section>
       <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
       <div class="doctrine-card">
@@ -1124,19 +1124,19 @@
       event.currentTarget.classList.add('active');
     }
 
-        // COMPLETE IMANI FEDERAL & MOVEMENT HOLIDAY FAST CALENDAR
+    // INTELLIGENT SORTED FEDERAL HOLIDAY CALENDAR RENDERING
     const federalHolidays = [
-      { name: "Labor Day Fast", date: new Date("2026-09-07T00:00:00") },
-      { name: "Columbus Day / Indigenous Peoples' Day Fast", date: new Date("2026-10-12T00:00:00") },
-      { name: "Veterans Day Fast", date: new Date("2026-11-11T00:00:00") },
-      { name: "Thanksgiving Day Fast", date: new Date("2026-11-26T00:00:00") },
-      { name: "Christmas Day Fast", date: new Date("2026-12-25T00:00:00") },
-      { name: "New Year's Day Fast", date: new Date("2027-01-01T00:00:00") },
-      { name: "Martin Luther King Jr. Day Fast", date: new Date("2027-01-18T00:00:00") },
-      { name: "Washington's Birthday (Presidents' Day) Fast", date: new Date("2027-02-15T00:00:00") },
-      { name: "Memorial Day Fast", date: new Date("2027-05-31T00:00:00") },
-      { name: "Juneteenth National Independence Day Fast", date: new Date("2027-06-19T00:00:00") },
-      { name: "Independence Day Fast", date: new Date("2027-07-04T00:00:00") }
+      { name: "Labor Day", date: new Date("2026-09-07T00:00:00") },
+      { name: "Columbus Day / Indigenous Peoples' Day", date: new Date("2026-10-12T00:00:00") },
+      { name: "Veterans Day", date: new Date("2026-11-11T00:00:00") },
+      { name: "Thanksgiving Day", date: new Date("2026-11-26T00:00:00") },
+      { name: "Christmas Day", date: new Date("2026-12-25T00:00:00") },
+      { name: "New Year's Day", date: new Date("2027-01-01T00:00:00") },
+      { name: "Martin Luther King Jr. Day", date: new Date("2027-01-18T00:00:00") },
+      { name: "Washington's Birthday (Presidents' Day)", date: new Date("2027-02-15T00:00:00") },
+      { name: "Memorial Day", date: new Date("2027-05-31T00:00:00") },
+      { name: "Juneteenth National Independence Day", date: new Date("2027-06-19T00:00:00") },
+      { name: "Independence Day", date: new Date("2027-07-04T00:00:00") }
     ];
 
     function renderHolidayCalendar() {
@@ -1207,8 +1207,6 @@
       renderStreamArchive();
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
-      
-      // CALENDAR FULLY WIRED TO RENDER ROWS ON LOAD
       renderHolidayCalendar();
 
       const savedEmblem = localStorage.getItem('imani_header_emblem');
