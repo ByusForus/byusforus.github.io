@@ -62,6 +62,7 @@
     }
     body.admin-mode .admin-indicator-bar { display: block; }
 
+    /* TOP BANNER */
     .pause-banner {
       background: #000000; border-bottom: 2px solid var(--gold-accent);
       padding: 16px 24px; position: relative; z-index: 101; box-shadow: 0 4px 25px var(--gold-glow);
@@ -97,6 +98,16 @@
     }
     .guidance-body { font-size: 1.12rem; color: var(--text-main); line-height: 1.55; }
     .guidance-body strong { color: var(--emerald-accent); font-weight: 800; }
+
+    /* SIGNATURE BLACK BOX DOCTRINE CARDS */
+    .doctrine-card {
+      background: var(--onyx-surface); 
+      border: 2px solid var(--gold-accent);
+      border-radius: var(--radius-md); 
+      padding: 34px 38px;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.8), 0 0 25px var(--gold-glow);
+      backdrop-filter: blur(14px);
+    }
 
     .button-matrix { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
     .doctrine-btn {
@@ -134,6 +145,16 @@
     .header-center { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 110px; }
     .header-emblem-large { width: 100%; max-width: 520px; height: auto; max-height: 220px; object-fit: contain; display: block; filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.95)); }
     body.admin-mode .header-emblem-large { cursor: pointer; }
+
+    @media (max-width: 900px) {
+      .header-layout { grid-template-columns: 1fr; gap: 12px; padding: 12px 16px; }
+      .header-proclamation { font-size: 1.35rem; }
+      .header-emblem-large { max-height: 160px; }
+      .revelation-box, .doctrine-card { padding: 24px 20px; }
+      .rev-title { font-size: 1.45rem; }
+      .rev-content { font-size: 1.1rem; }
+      body { padding-left: 8px; padding-right: 8px; }
+    }
 
     main { max-width: 1200px; margin: 36px auto; padding: 0 24px; display: flex; flex-direction: column; gap: 48px; }
     .section-title { font-size: 1.55rem; font-weight: 800; color: var(--text-main); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
@@ -352,117 +373,124 @@
       </div>
     </section>
 
-    <!-- 2. The Ten Mysteries of the Name -->
+    <!-- 2. The Ten Mysteries of the Name (RESTORED SIGNATURE BLACK BOX + BUTTON MATRIX) -->
     <section>
       <h2 class="section-title">The Ten Mysteries of the Name</h2>
-      <!-- BUTTON MATRIX CONTAINER EXPLICITLY HARDCODED HERE -->
-      <div class="button-matrix" id="mysteries-buttons">
-        <button class="doctrine-btn active" onclick="selectMystery('01')"><span class="badge">01</span> Alpha and Omega</button>
-        <button class="doctrine-btn" onclick="selectMystery('02')"><span class="badge">02</span> The Me in the Essence</button>
-        <button class="doctrine-btn" onclick="selectMystery('03')"><span class="badge">03</span> Pillars of Solomon</button>
-        <button class="doctrine-btn" onclick="selectMystery('04')"><span class="badge">04</span> Sun and Moon Power</button>
-        <button class="doctrine-btn" onclick="selectMystery('05')"><span class="badge">05</span> I and I</button>
-        <button class="doctrine-btn" onclick="selectMystery('06')"><span class="badge">06</span> I M is I am</button>
-        <button class="doctrine-btn" onclick="selectMystery('07')"><span class="badge">07</span> I M ani</button>
-        <button class="doctrine-btn" onclick="selectMystery('08')"><span class="badge">08</span> Initiation</button>
-        <button class="doctrine-btn" onclick="selectMystery('09')"><span class="badge">09</span> Strategy</button>
-        <button class="doctrine-btn" onclick="selectMystery('10')"><span class="badge">10</span> 1 0 1 ImanI 3 6 9</button>
-      </div>
-      <div class="revelation-box" id="mystery-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="mystery-tag">Mystery 01</div>
-            <h3 class="rev-title" id="mystery-title">Alpha and Omega</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('mystery-title', 'mystery-desc')">🔊 Listen</button>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="mysteries-buttons">
+          <button class="doctrine-btn active" onclick="selectMystery('01')"><span class="badge">01</span> Alpha and Omega</button>
+          <button class="doctrine-btn" onclick="selectMystery('02')"><span class="badge">02</span> The Me in the Essence</button>
+          <button class="doctrine-btn" onclick="selectMystery('03')"><span class="badge">03</span> Pillars of Solomon</button>
+          <button class="doctrine-btn" onclick="selectMystery('04')"><span class="badge">04</span> Sun and Moon Power</button>
+          <button class="doctrine-btn" onclick="selectMystery('05')"><span class="badge">05</span> I and I</button>
+          <button class="doctrine-btn" onclick="selectMystery('06')"><span class="badge">06</span> I M is I am</button>
+          <button class="doctrine-btn" onclick="selectMystery('07')"><span class="badge">07</span> I M ani</button>
+          <button class="doctrine-btn" onclick="selectMystery('08')"><span class="badge">08</span> Initiation</button>
+          <button class="doctrine-btn" onclick="selectMystery('09')"><span class="badge">09</span> Strategy</button>
+          <button class="doctrine-btn" onclick="selectMystery('10')"><span class="badge">10</span> 1 0 1 ImanI 3 6 9</button>
         </div>
-        <p class="rev-content" id="mystery-desc">The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination.</p>
+        <div class="revelation-box" id="mystery-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="mystery-tag">Mystery 01</div>
+              <h3 class="rev-title" id="mystery-title">Alpha and Omega</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('mystery-title', 'mystery-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="mystery-desc">The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination.</p>
+        </div>
       </div>
     </section>
 
-    <!-- 3. Mastery Across the Ten Activities of Life -->
+    <!-- 3. Mastery Across the Ten Activities of Life (RESTORED SIGNATURE BLACK BOX + BUTTON MATRIX) -->
     <section>
       <h2 class="section-title">Mastery Across the Ten Activities of Life</h2>
-      <!-- BUTTON MATRIX CONTAINER EXPLICITLY HARDCODED HERE -->
-      <div class="button-matrix" id="activities-buttons">
-        <button class="doctrine-btn active" onclick="selectActivity('01')"><span class="badge">01</span> Economics</button>
-        <button class="doctrine-btn" onclick="selectActivity('02')"><span class="badge">02</span> Education</button>
-        <button class="doctrine-btn" onclick="selectActivity('03')"><span class="badge">03</span> Entertainment</button>
-        <button class="doctrine-btn" onclick="selectActivity('04')"><span class="badge">04</span> Health</button>
-        <button class="doctrine-btn" onclick="selectActivity('05')"><span class="badge">05</span> Labor</button>
-        <button class="doctrine-btn" onclick="selectActivity('06')"><span class="badge">06</span> Law</button>
-        <button class="doctrine-btn" onclick="selectActivity('07')"><span class="badge">07</span> Politics</button>
-        <button class="doctrine-btn" onclick="selectActivity('08')"><span class="badge">08</span> Religion</button>
-        <button class="doctrine-btn" onclick="selectActivity('09')"><span class="badge">09</span> Sex</button>
-        <button class="doctrine-btn" onclick="selectActivity('10')"><span class="badge">10</span> War</button>
-      </div>
-      <div class="revelation-box" id="activity-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="activity-tag">Activity 01</div>
-            <h3 class="rev-title" id="activity-title">Economics</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('activity-title', 'activity-desc')">🔊 Listen</button>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="activities-buttons">
+          <button class="doctrine-btn active" onclick="selectActivity('01')"><span class="badge">01</span> Economics</button>
+          <button class="doctrine-btn" onclick="selectActivity('02')"><span class="badge">02</span> Education</button>
+          <button class="doctrine-btn" onclick="selectActivity('03')"><span class="badge">03</span> Entertainment</button>
+          <button class="doctrine-btn" onclick="selectActivity('04')"><span class="badge">04</span> Health</button>
+          <button class="doctrine-btn" onclick="selectActivity('05')"><span class="badge">05</span> Labor</button>
+          <button class="doctrine-btn" onclick="selectActivity('06')"><span class="badge">06</span> Law</button>
+          <button class="doctrine-btn" onclick="selectActivity('07')"><span class="badge">07</span> Politics</button>
+          <button class="doctrine-btn" onclick="selectActivity('08')"><span class="badge">08</span> Religion</button>
+          <button class="doctrine-btn" onclick="selectActivity('09')"><span class="badge">09</span> Sex</button>
+          <button class="doctrine-btn" onclick="selectActivity('10')"><span class="badge">10</span> War</button>
         </div>
-        <p class="rev-content" id="activity-desc">Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.</p>
+        <div class="revelation-box" id="activity-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="activity-tag">Activity 01</div>
+              <h3 class="rev-title" id="activity-title">Economics</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('activity-title', 'activity-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="activity-desc">Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.</p>
+        </div>
       </div>
     </section>
 
-    <!-- 4. Strategic Stealth & Operational Codes -->
+    <!-- 4. Strategic Stealth & Operational Codes (RESTORED SIGNATURE BLACK BOX + BUTTON MATRIX) -->
     <section>
       <h2 class="section-title">Strategic Stealth & Operational Codes</h2>
-      <!-- BUTTON MATRIX CONTAINER EXPLICITLY HARDCODED HERE -->
-      <div class="button-matrix" id="codes-buttons">
-        <button class="doctrine-btn active" onclick="selectCode('01')"><span class="badge">01</span> The Code of Silence</button>
-        <button class="doctrine-btn" onclick="selectCode('02')"><span class="badge">02</span> The Code of Ownership</button>
-        <button class="doctrine-btn" onclick="selectCode('03')"><span class="badge">03</span> Answer Questions with a Question</button>
-      </div>
-      <div class="revelation-box" id="code-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="code-tag">Operational Code</div>
-            <h3 class="rev-title" id="code-title">The Code of Silence</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('code-title', 'code-desc')">🔊 Listen</button>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="codes-buttons">
+          <button class="doctrine-btn active" onclick="selectCode('01')"><span class="badge">01</span> The Code of Silence</button>
+          <button class="doctrine-btn" onclick="selectCode('02')"><span class="badge">02</span> The Code of Ownership</button>
+          <button class="doctrine-btn" onclick="selectCode('03')"><span class="badge">03</span> Answer Questions with a Question</button>
         </div>
-        <p class="rev-content" id="code-desc">Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities.</p>
+        <div class="revelation-box" id="code-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="code-tag">Operational Code</div>
+              <h3 class="rev-title" id="code-title">The Code of Silence</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('code-title', 'code-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="code-desc">Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities.</p>
+        </div>
       </div>
     </section>
 
     <!-- 5. Origin & Revelation -->
     <section>
       <h2 class="section-title">The Origin & Revelation of ImanI</h2>
-      <div class="button-matrix" id="origins-buttons"></div>
-      <div class="revelation-box" id="origin-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="origin-tag">Ontology</div>
-            <h3 class="rev-title" id="origin-title">Sovereign Ontology</h3>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="origins-buttons"></div>
+        <div class="revelation-box" id="origin-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="origin-tag">Ontology</div>
+              <h3 class="rev-title" id="origin-title">Sovereign Ontology</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
           </div>
-          <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
+          <p class="rev-content" id="origin-desc">Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
         </div>
-        <p class="rev-content" id="origin-desc">Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
       </div>
     </section>
 
     <!-- 6. 9 Pillars of Total Restitution -->
     <section>
       <h2 class="section-title">The 9 Pillars of Total Restitution (Specie Standard)</h2>
-      <div class="button-matrix" id="restitution-buttons"></div>
-      <div class="revelation-box" id="restitution-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="restitution-tag">Priority Pillar 1</div>
-            <h3 class="rev-title" id="restitution-title">1. Specie Cash</h3>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="restitution-buttons"></div>
+        <div class="revelation-box" id="restitution-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="restitution-tag">Priority Pillar 1</div>
+              <h3 class="rev-title" id="restitution-title">1. Specie Cash</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('restitution-title', 'restitution-desc')">🔊 Listen</button>
           </div>
-          <button class="btn-audio-narrate" onclick="narrateText('restitution-title', 'restitution-desc')">🔊 Listen</button>
-        </div>
-        <p class="rev-content" id="restitution-desc">Direct Unconditional Capital</p>
-        <div id="restitution-section-wrap-extra">
-          <div class="restitution-stats-grid">
-            <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
-            <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
-            <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
+          <p class="rev-content" id="restitution-desc">Direct Unconditional Capital</p>
+          <div id="restitution-section-wrap-extra">
+            <div class="restitution-stats-grid">
+              <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
+              <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
+              <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -472,36 +500,36 @@
     <section>
       <h2 class="section-title">ImanI American Holiday Boycott Celebration — 7-Day Economic Fast</h2>
       
-      <div class="iahbc-manifesto-card">
-        <div class="iahbc-manifesto-headline">
+      <div class="doctrine-card">
+        <div class="iahbc-manifesto-headline" style="color: var(--gold-accent); font-weight: 800; font-size: 1.1rem; margin-bottom: 12px;">
           ⚡ Break the chains of commercialized tradition — Reclaim your power!
         </div>
-        <p class="iahbc-manifesto-text">
+        <p class="iahbc-manifesto-text" style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 24px;">
           American Holidays were <strong>never designed with us in mind</strong>, and we never had a voice in their creation! Whenever we forged our own sacred moments, they outlawed our celebrations only to repackage and sell them back to us as empty consumerism. We dishonor our own divine dignity when we finance and celebrate the rituals of our oppression. <strong>The era of blind compliance is over!</strong> Rise up, stand tall in sovereign majesty, and boldly <strong>SAY NO to American holidays</strong> — ignite your spirit and celebrate true independence!
         </p>
-      </div>
 
-      <div class="button-matrix" id="boycott-buttons"></div>
+        <div class="button-matrix" id="boycott-buttons"></div>
 
-      <div class="iahbc-stealth-revelation-box" id="boycott-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="iahbc-stealth-tag" id="boycott-tag">Economic Fast &bull; 7-Day Stealth Discipline</div>
-            <h3 class="iahbc-stealth-title" id="boycott-title">3 + 1 + 3 = 7-Day Economic Fast</h3>
+        <div class="revelation-box" id="boycott-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="boycott-tag">Economic Fast • 7-Day Stealth Discipline</div>
+              <h3 class="rev-title" id="boycott-title">3 + 1 + 3 = 7-Day Economic Fast</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('boycott-title', 'boycott-desc')">🔊 Listen to Protocol</button>
           </div>
-          <button class="btn-audio-narrate" onclick="narrateText('boycott-title', 'boycott-desc')">🔊 Listen to Protocol</button>
+          <p class="rev-content" id="boycott-desc">
+            Observed every Federal Holiday: <strong>three days of strategic preparation</strong> and economic fast before the holiday, <strong>one sacred day of sovereign reflection</strong> on the holiday itself, and <strong>three days of continued economic discipline</strong> following it. Zero commercial participation, 100% community self-reliance.
+          </p>
         </div>
-        <p class="iahbc-stealth-content" id="boycott-desc">
-          Observed every Federal Holiday: <strong>three days of strategic preparation</strong> and economic fast before the holiday, <strong>one sacred day of sovereign reflection</strong> on the holiday itself, and <strong>three days of continued economic discipline</strong> following it. Zero commercial participation, 100% community self-reliance.
-        </p>
       </div>
     </section>
 
-    <!-- 8. Holiday Fast Calendar -->
+    <!-- 8. Holiday Fast Calendar (FIXED INSIDE BLACK BOX) -->
     <section>
       <h2 class="section-title">2026–2027 Federal Holiday Economic Fast Calendar</h2>
-      <div class="calendar-card" style="background: var(--onyx-surface); border: 2px solid var(--gold-accent); border-radius: var(--radius-md); padding: 34px 38px; box-shadow: 0 6px 30px rgba(0, 0, 0, 0.8), 0 0 25px var(--gold-glow); backdrop-filter: blur(14px);">
-        <p style="font-size: 1.2rem; color: var(--text-main); margin-bottom: 20px; line-height: 1.7;">
+      <div class="doctrine-card">
+        <p style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 20px; line-height: 1.7;">
           Synchronize your economic fast across the year. The 3 + 1 + 3 formula frames 7 complete days of self-reliance for every federal observance.
         </p>
         <div class="holiday-table-wrap">
@@ -518,7 +546,7 @@
             <tbody id="holiday-calendar-rows"></tbody>
           </table>
         </div>
-        <button class="btn-ics-export" onclick="exportFastCalendarICS()" style="font-size: 0.95rem; padding: 12px 22px;">📅 Download Full Fast Schedule (.ICS Calendar)</button>
+        <button class="btn-ics-export" onclick="exportFastCalendarICS()" style="margin-top: 20px;">📅 Download Full Fast Schedule (.ICS Calendar)</button>
       </div>
     </section>
 
@@ -757,7 +785,6 @@
   </div>
 
   <script>
-    // Sovereign Member Verification
     const SECRET_MEMBER_KEY = "IMANI2026";
 
     function isMemberUnlocked() {
@@ -772,13 +799,13 @@
       if (isEditModeActive()) {
         localStorage.setItem("imani_admin_edit_mode", "false");
         document.body.classList.remove("admin-mode");
-        alert("Creator Edit Mode Deactivated. Now in Client Viewing Mode.");
+        alert("Creator Edit Mode Deactivated.");
       } else {
-        const pass = prompt("Enter Sovereign Admin Passphrase to unlock editing controls:");
+        const pass = prompt("Enter Sovereign Admin Passphrase:");
         if (pass && pass.toUpperCase() === SECRET_MEMBER_KEY) {
           localStorage.setItem("imani_admin_edit_mode", "true");
           document.body.classList.add("admin-mode");
-          alert("Creator Edit Mode Activated. All select and upload buttons are now visible.");
+          alert("Creator Edit Mode Activated.");
         } else if (pass !== null) {
           alert("Incorrect passphrase.");
         }
@@ -793,9 +820,7 @@
     });
 
     function handleAdminImageClick(inputId) {
-      if (isEditModeActive()) {
-        triggerFileSelect(inputId);
-      }
+      if (isEditModeActive()) triggerFileSelect(inputId);
     }
 
     function openMembershipModal() {
@@ -806,23 +831,18 @@
     function closeMembershipModal() {
       const modal = document.getElementById('membership-modal');
       if (modal) modal.style.display = 'none';
-      const err = document.getElementById('member-pass-error');
-      if (err) err.style.display = 'none';
     }
 
     function submitMemberPass() {
       const input = document.getElementById('member-pass-input')?.value.trim();
       const errorMsg = document.getElementById('member-pass-error');
-      
       if (input && input.toUpperCase() === SECRET_MEMBER_KEY) {
         localStorage.setItem("imani_member_active", "true");
         closeMembershipModal();
         renderPlaylistItems();
         renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
         renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
-        renderVideoList('music-video-list-container', myMusicVideosList, activeMusicVideoIndex, selectMusicVideo);
-        renderVideoList('cinema-list-container', myCinemaList, activeCinemaIndex, selectCinemaVideo);
-        alert("Sovereign Membership Activated. All locked archives are now unlocked.");
+        alert("Sovereign Membership Activated.");
       } else {
         if (errorMsg) errorMsg.style.display = 'block';
       }
@@ -889,11 +909,6 @@
       const filtered = getFilteredTrackPool();
       const unlocked = isMemberUnlocked();
 
-      if (filtered.length === 0) {
-        container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; padding: 12px; text-align: center;">No tracks found.</p>`;
-        return;
-      }
-
       filtered.forEach((track, index) => {
         const isTrackLocked = track.isLocked && !unlocked;
         const item = document.createElement('div');
@@ -917,25 +932,14 @@
       const filtered = getFilteredTrackPool();
       if (index < 0 || index >= filtered.length) return;
       const track = filtered[index];
-
-      if (track.isLocked && !isMemberUnlocked()) {
-        const audio = document.getElementById('main-audio');
-        if (audio) audio.pause();
-        openMembershipModal();
-        return;
-      }
+      if (track.isLocked && !isMemberUnlocked()) { openMembershipModal(); return; }
 
       activeTrackIndex = index;
-      const curTitle = document.getElementById('current-title');
-      const curCat = document.getElementById('current-category');
-      if (curTitle) curTitle.innerText = track.title;
-      if (curCat) curCat.innerText = track.category;
-      
+      document.getElementById('current-title').innerText = track.title;
+      document.getElementById('current-category').innerText = track.category;
       const audio = document.getElementById('main-audio');
-      if (audio) {
-        audio.src = track.src;
-        audio.play().catch(() => {});
-      }
+      audio.src = track.src;
+      audio.play().catch(() => {});
       renderPlaylistItems();
     }
 
@@ -943,21 +947,16 @@
       isContinuousPlay = !isContinuousPlay;
       const btn = document.getElementById('btn-continuous');
       const lbl = document.getElementById('lbl-continuous');
-      if (btn && lbl) {
-        btn.classList.toggle('active', isContinuousPlay);
-        lbl.innerText = isContinuousPlay ? "Continuous: ON" : "Continuous: OFF";
-      }
+      btn.classList.toggle('active', isContinuousPlay);
+      lbl.innerText = isContinuousPlay ? "Continuous: ON" : "Continuous: OFF";
     }
 
     function toggleRandomPlay() {
       isRandomPlay = !isRandomPlay;
       const btn = document.getElementById('btn-random');
       const lbl = document.getElementById('lbl-random');
-      if (btn && lbl) {
-        btn.classList.toggle('active', isRandomPlay);
-        btn.classList.toggle('shuffle', isRandomPlay);
-        lbl.innerText = isRandomPlay ? "Random: ON" : "Random: OFF";
-      }
+      btn.classList.toggle('active', isRandomPlay);
+      lbl.innerText = isRandomPlay ? "Random: ON" : "Random: OFF";
     }
 
     function playNextTrack() {
@@ -965,8 +964,7 @@
       if (filtered.length <= 1) return;
       if (isRandomPlay) {
         let randomIndex;
-        do { randomIndex = Math.floor(Math.random() * filtered.length); }
-        while (randomIndex === activeTrackIndex && filtered.length > 1);
+        do { randomIndex = Math.floor(Math.random() * filtered.length); } while (randomIndex === activeTrackIndex);
         playTrackByIndex(randomIndex);
       } else {
         let nextIndex = activeTrackIndex + 1;
@@ -975,198 +973,92 @@
       }
     }
 
-    function playPreviousTrack() {
-      const filtered = getFilteredTrackPool();
-      if (filtered.length <= 1) return;
-      let prevIndex = activeTrackIndex - 1;
-      if (prevIndex < 0) prevIndex = filtered.length - 1;
-      playTrackByIndex(prevIndex);
-    }
+    function handleTrackEnded() { if (isContinuousPlay || isRandomPlay) playNextTrack(); }
 
-    function handleTrackEnded() {
-      if (isContinuousPlay || isRandomPlay) playNextTrack();
-    }
+    // DOCTRINE SELECTOR FUNCTIONS & DATA
+    const originsData = [
+      { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character." },
+      { id: "02", btnTitle: "The People of Faith", tag: "Lineage & Faith", title: "The People of Faith", desc: "After slavery, Reconstruction, Jim Crow, and the Civil Rights movement, descendants of 1863 emaciated slaves stand as the original 14th Amendment Americans." },
+      { id: "03", btnTitle: "Faith in Action", tag: "Origin", title: "Faith in Action", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law." },
+      { id: "04", btnTitle: "Proper Noun Identity", tag: "Grammar of Spirit", title: "Proper Noun Identity", desc: "Replacing external modifiers with a sovereign name declaring self-existence and heritage." },
+      { id: "05", btnTitle: "I M Very Beautiful", tag: "The Affirmation", title: "I M Very Beautiful", desc: "Combining 'I M' (existence) with 'ani' (very beautiful). Spoken as a sacred blessing." }
+    ];
 
-    // DIRECT INTERACTIVE SELECTOR FUNCTIONS FOR BUTTONS
     const mysteriesData = [
-      { id: "01", title: "Alpha and Omega", tag: "Mystery 01", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
-      { id: "02", title: "The Me in the Essence", tag: "Mystery 02", desc: "The 'man' in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
-      { id: "03", title: "Pillars of Solomon", tag: "Mystery 03", desc: "Boaz and Jachin stand as the gateway of transformation where sovereign life begins anew." },
-      { id: "04", title: "Sun and Moon Power", tag: "Mystery 04", desc: "Harmonious balance atop the pillars: Sun (man) and Moon (woman) working in unison." },
-      { id: "05", title: "I and I", tag: "Mystery 05", desc: "Universal unity with the divine and community." },
-      { id: "06", title: "I M is I am", tag: "Mystery 06", desc: "Echoing the declaration 'I am that I am,' affirming unborrowed authority." },
-      { id: "07", title: "I M ani", tag: "Mystery 07", desc: "Discarding external standards to declare internal, divine perfection." },
-      { id: "08", title: "Initiation", tag: "Mystery 08", desc: "Standing consciously between the pillars (I M I / 1 0 1) to awaken into the new breed." },
-      { id: "09", title: "Strategy", tag: "Mystery 09", desc: "The deliberate application of spiritual wisdom to ensure self-reliance." },
-      { id: "10", title: "1 0 1 ImanI 3 6 9", tag: "Mystery 10", desc: "The complete mastery of ImanI law, walking in faith and operating in divine love." }
+      { id: "01", btnTitle: "Alpha and Omega", title: "Alpha and Omega", tag: "Mystery 01", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
+      { id: "02", btnTitle: "The Me in the Essence", title: "The Me in the Essence", tag: "Mystery 02", desc: "The 'man' in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
+      { id: "03", btnTitle: "Pillars of Solomon", title: "Pillars of Solomon", tag: "Mystery 03", desc: "Boaz and Jachin stand as the gateway of transformation where sovereign life begins anew." },
+      { id: "04", btnTitle: "Sun and Moon Power", title: "Sun and Moon Power", tag: "Mystery 04", desc: "Harmonious balance atop the pillars: Sun (man) and Moon (woman) working in unison." },
+      { id: "05", btnTitle: "I and I", title: "I and I", tag: "Mystery 05", desc: "Universal unity with the divine and community." },
+      { id: "06", btnTitle: "I M is I am", title: "I M is I am", tag: "Mystery 06", desc: "Echoing the declaration 'I am that I am,' affirming unborrowed authority." },
+      { id: "07", btnTitle: "I M ani", title: "I M ani", tag: "Mystery 07", desc: "Discarding external standards to declare internal, divine perfection." },
+      { id: "08", btnTitle: "Initiation", title: "Initiation", tag: "Mystery 08", desc: "Standing consciously between the pillars (I M I / 1 0 1) to awaken into the new breed." },
+      { id: "09", btnTitle: "Strategy", title: "Strategy", tag: "Mystery 09", desc: "The deliberate application of spiritual wisdom to ensure self-reliance." },
+      { id: "10", btnTitle: "1 0 1 ImanI 3 6 9", title: "1 0 1 ImanI 3 6 9", tag: "Mystery 10", desc: "The complete mastery of ImanI law, walking in faith and operating in divine love." }
     ];
 
     const activitiesData = [
-      { id: "01", title: "Economics", tag: "Activity 01", desc: "Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises." },
-      { id: "02", title: "Education", tag: "Activity 02", desc: "Defining ourselves, writing our own narratives, and teaching sovereign history and culture." },
-      { id: "03", title: "Entertainment", tag: "Activity 03", desc: "Music, cinema, and art reflecting dignity, sovereignty, and self-definition." },
-      { id: "04", title: "Health", tag: "Activity 04", desc: "Holistic vitality, physical discipline, joint stability, and mental clarity." },
-      { id: "05", title: "Labor", tag: "Activity 05", desc: "Practicing <em>Ujima</em> (Collective Work and Responsibility) and building independent industry." },
-      { id: "06", title: "Law", tag: "Activity 06", desc: "Establishing justice, understanding our legal standing, and upholding sovereign truth." },
-      { id: "07", title: "Politics", tag: "Activity 07", desc: "Exercising leverage as 14th Amendment creditors and self-governing people." },
-      { id: "08", title: "Religion", tag: "Activity 08", desc: "Moving beyond dogma into living faith, spiritual awakening, and inner power." },
-      { id: "09", title: "Sex", tag: "Activity 09", desc: "Sacred union of Sun and Moon forces, balance, and the preservation of lineage." },
-      { id: "10", title: "War", tag: "Activity 10", desc: "Spiritual, intellectual, and economic warfare defending justice and protecting our future." }
+      { id: "01", btnTitle: "Economics", title: "Economics", tag: "Activity 01", desc: "Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises." },
+      { id: "02", btnTitle: "Education", title: "Education", tag: "Activity 02", desc: "Defining ourselves, writing our own narratives, and teaching sovereign history and culture." },
+      { id: "03", btnTitle: "Entertainment", title: "Entertainment", tag: "Activity 03", desc: "Music, cinema, and art reflecting dignity, sovereignty, and self-definition." },
+      { id: "04", btnTitle: "Health", title: "Health", tag: "Activity 04", desc: "Holistic vitality, physical discipline, joint stability, and mental clarity." },
+      { id: "05", btnTitle: "Labor", title: "Labor", tag: "Activity 05", desc: "Practicing <em>Ujima</em> (Collective Work and Responsibility) and building independent industry." },
+      { id: "06", btnTitle: "Law", title: "Law", tag: "Activity 06", desc: "Establishing justice, understanding our legal standing, and upholding sovereign truth." },
+      { id: "07", btnTitle: "Politics", title: "Politics", tag: "Activity 07", desc: "Exercising leverage as 14th Amendment creditors and self-governing people." },
+      { id: "08", btnTitle: "Religion", title: "Religion", tag: "Activity 08", desc: "Moving beyond dogma into living faith, spiritual awakening, and inner power." },
+      { id: "09", btnTitle: "Sex", title: "Sex", tag: "Activity 09", desc: "Sacred union of Sun and Moon forces, balance, and the preservation of lineage." },
+      { id: "10", btnTitle: "War", title: "War", tag: "Activity 10", desc: "Spiritual, intellectual, and economic warfare defending justice and protecting our future." }
     ];
 
     const codesData = [
-      { id: "01", title: "The Code of Silence", tag: "Operational Code", desc: "Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities." },
-      { id: "02", title: "The Code of Ownership", tag: "Operational Code", desc: "Absolute stewardship over our intellectual property, cultural creations, media vaults, and economic outputs." },
-      { id: "03", title: "Answer Questions with a Question", tag: "Operational Code", desc: "The curious consultant method: disarming outside interrogation by leading others to discover truth through their own inquiry." }
+      { id: "01", btnTitle: "The Code of Silence", title: "The Code of Silence", tag: "Operational Code", desc: "Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities." },
+      { id: "02", btnTitle: "The Code of Ownership", title: "The Code of Ownership", tag: "Operational Code", desc: "Absolute stewardship over our intellectual property, cultural creations, media vaults, and economic outputs." },
+      { id: "03", btnTitle: "Answer Questions with a Question", title: "Answer Questions with a Question", tag: "Operational Code", desc: "The curious consultant method: disarming outside interrogation by leading others to discover truth through their own inquiry." }
     ];
 
-    function selectMystery(num) {
-      const item = mysteriesData.find(m => m.id === num);
-      if (!item) return;
-      document.getElementById('mystery-tag').innerText = item.tag;
-      document.getElementById('mystery-title').innerText = item.title;
-      document.getElementById('mystery-desc').innerText = item.desc;
-      
-      const buttons = document.querySelectorAll('#mysteries-buttons .doctrine-btn');
-      buttons.forEach(b => b.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-    }
-
-    function selectActivity(num) {
-      const item = activitiesData.find(a => a.id === num);
-      if (!item) return;
-      document.getElementById('activity-tag').innerText = item.tag;
-      document.getElementById('activity-title').innerText = item.title;
-      document.getElementById('activity-desc').innerText = item.desc;
-
-      const buttons = document.querySelectorAll('#activities-buttons .doctrine-btn');
-      buttons.forEach(b => b.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-    }
-
-    function selectCode(num) {
-      const item = codesData.find(c => c.id === num);
-      if (!item) return;
-      document.getElementById('code-tag').innerText = item.tag;
-      document.getElementById('code-title').innerText = item.title;
-      document.getElementById('code-desc').innerText = item.desc;
-
-      const buttons = document.querySelectorAll('#codes-buttons .doctrine-btn');
-      buttons.forEach(b => b.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-    }
-
-    // BOYCOTT & STILL GALLERIES
-    let boycottPictureLibrary = [
-      { title: "The Price of Participation: Reclaiming Our Economic Sovereignty", tag: "Economic Sovereignty", src: "media/boycott/economic-sovereignty.png", isLocked: false },
-      { title: "June 15th — Declaration Day", tag: "Declaration Day", src: "media/boycott/june15-declaration-day.png", isLocked: false },
-      { title: "June 13 — George Floyd Day", tag: "Juneteenth • We Do We", src: "media/boycott/george-floyd-day.png", isLocked: false },
-      { title: "IAHBC 7-Day American Holidays", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-american-holidays-s...png", isLocked: true },
-      { title: "IAHBC 7-Day Economic Fast Candle", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-economic-fast-candl...png", isLocked: true },
-      { title: "IAHBC Political Theater Strategy", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-at-wait-political-theater-strat...png", isLocked: true },
-      { title: "IAHBC 7-Day Fast Commitment", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-commit-memon-al-day-7-days-fa...png", isLocked: true },
-      { title: "IAHBC Emerald Sovereign Gold", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-emer-aid-onyx-ld-kama-lc...png", isLocked: true },
-      { title: "IAHBC Ancestors Not Corporations 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-honor-ancestors-not-corpora...png", isLocked: true },
-      { title: "IAHBC Ancestors Not Corporations 2", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-honor-ancestors-not-corpora...png", isLocked: true },
-      { title: "IAHBC Celebration Poster 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster.png", isLocked: true },
-      { title: "IAHBC Celebration Poster 2", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster1.png", isLocked: true },
-      { title: "IAHBC Celebration Poster 12", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster12.png", isLocked: true },
-      { title: "IAHBC Celebration Poster 7", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster7.png", isLocked: true },
-      { title: "IAHBC Celebration Poster 3", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-posterthree.png", isLocked: true },
-      { title: "IAHBC Boycott Manifesto Gold", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-master-manifesto-gold-twop.png", isLocked: true },
-      { title: "IAHBC No More Stories 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-no-more-stories-only.png", isLocked: true },
-      { title: "IAHBC No Stories Real Solutions", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-no-stories-only-real-solutions.png", isLocked: true },
-      { title: "IAHBC Stop Celebrating American Holidays", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-stop-celebrating-american-holidays-la...png", isLocked: true },
-      { title: "IAHBC Stop Celebrating Awakening", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-stop-celebrating-awakening-is-when-a...png", isLocked: true }
+    const restitutionData = [
+      { id: "1", btnTitle: "1. Specie Cash", tag: "Priority Pillar 1", title: "1. Specie Cash", desc: "Direct Unconditional Capital", gold: "140 oz Bullion", silver: "11,600 oz Coinage", rule: "Non-Substitutable" },
+      { id: "2", btnTitle: "2. Medical", tag: "Priority Pillar 2", title: "2. Medical", desc: "Lifetime Health Care", gold: "100 oz Bullion", silver: "8,300 oz Coinage", rule: "Separately Funded" },
+      { id: "3", btnTitle: "3. Housing", tag: "Priority Pillar 3", title: "3. Housing", desc: "Restitution for Redlining/Land Theft", gold: "80 oz Bullion", silver: "6,600 oz Coinage", rule: "Equity Standalone" },
+      { id: "4", btnTitle: "4. Food", tag: "Priority Pillar 4", title: "4. Food", desc: "Permanent Sovereign Food Security", gold: "20 oz Bullion", silver: "1,650 oz Coinage", rule: "Independent Asset" },
+      { id: "5", btnTitle: "5. Education", tag: "Priority Pillar 5", title: "5. Education", desc: "Tuition Coverage & Funding", gold: "40 oz Bullion", silver: "3,300 oz Coinage", rule: "Debt Elimination" },
+      { id: "6", btnTitle: "6. Land & Wealth", tag: "Priority Pillar 6", title: "6. Land & Wealth", desc: "Capital & Land Grants", gold: "60 oz Bullion", silver: "5,000 oz Coinage", rule: "Asset Creation" },
+      { id: "7", btnTitle: "7. Justice", tag: "Priority Pillar 7", title: "7. Justice", desc: "Record Relief & Incarceration Damages", gold: "30 oz Bullion", silver: "2,500 oz Coinage", rule: "Enforceable Relief" },
+      { id: "8", btnTitle: "8. Environment", tag: "Priority Pillar 8", title: "8. Environment", desc: "Remediation of Impacted Zones", gold: "20 oz Bullion", silver: "1,650 oz Coinage", rule: "Place-Based Repair" },
+      { id: "9", btnTitle: "9. Narrative", tag: "Priority Pillar 9", title: "9. Narrative", desc: "Lineage Archives & Media", gold: "10 oz Bullion", silver: "825 oz Coinage", rule: "Lineage Controlled" }
     ];
 
-    let stillPictureLibrary = [
-      { title: "Chapter 0 — The ImanI Manifesto", tag: "Foundational Blueprint", src: "media/images/imanipix/chapter-0-manifesto.png", isLocked: false },
-      { title: "Chapter 1A — Community Blueprint", tag: "Strategic Framework", src: "media/images/imanipix/chapter-1a-blueprint.png", isLocked: false },
-      { title: "Chapter 2A — The First School of Life", tag: "Home Education", src: "media/images/imanipix/chapter-2a-home-school.png", isLocked: false },
-      { title: "ImanI Action Changes Conditions", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-action-changes-conditions-poster-sq...png", isLocked: true },
-      { title: "ImanI Action Pride & Peace", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-action-pride-po-we-endura-nce-freed...png", isLocked: true },
-      { title: "ImanI American Can / Did Not", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-amenican-can-did-not-become-a-thing-unti...png", isLocked: true },
-      { title: "ImanI Bone & Shadow Lines", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-bone-w-tomoro-w-square...png", isLocked: true },
-      { title: "ImanI Beyond the Story Lines", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-beyond-the-story-lines...png", isLocked: true },
-      { title: "ImanI Birth Certificate Reflection", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-birth-certificate-i-es-reflection-two.png", isLocked: true },
-      { title: "ImanI Black History Two", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-black-history-two.png", isLocked: true },
-      { title: "ImanI Code of Silence Very Word", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-code-of-silence-very-word-i.png", isLocked: true },
-      { title: "ImanI Community Street Scene Urban", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-community-street-scene-urban-sc...png", isLocked: true },
-      { title: "ImanI Congressional Caucus Cactus", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/am-congiesman-black-caucasian-cactus-1.png", isLocked: true },
-      { title: "ImanI Fourth Amendment Amenity", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-fourth-eenth-amen-dment-ame-rica-m-month-gr...png", isLocked: true },
-      { title: "ImanI Grand Awakening Alarm", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-grand-awakening-data-is-the-alarm8.png", isLocked: true },
-      { title: "ImanI History Our Story", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-histor-ony-our-story-y-pun-twoj.png", isLocked: true },
-      { title: "ImanI Human Rights Gesture", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-human-rights-e-guit-twoj.png", isLocked: true }
+    const boycottData = [
+      { id: "01", btnTitle: "3 + 1 + 3 Formula", tag: "Economic Fast • 7-Day Stealth Discipline", title: "3 + 1 + 3 = 7-Day Economic Fast", desc: "Observed every Federal Holiday: <strong>three days of strategic preparation</strong> and economic fast before the holiday, <strong>one sacred day of sovereign reflection</strong> on the holiday itself, and <strong>three days of continued economic discipline</strong> following it. Zero commercial participation, 100% community self-reliance." },
+      { id: "02", btnTitle: "Silent Solution", tag: "Economic Defense • Preservation", title: "Silent Solution Quiet Movement", desc: "A peaceful, calculated economic withdrawal that cuts off outside exploitation. By halting all non-essential consumer spending during corporate holidays, we protect family wealth and establish independent financial dignity." },
+      { id: "03", btnTitle: "Unity in Motion", tag: "Collective Strategy • Ujamaa", title: "Unity in Motion", desc: "Circulating financial and material resources entirely within our own households and verified alliances. Stepping off the commercial treadmill proves our collective sovereignty without needing permission." }
     ];
 
-    let activeBoycottIndex = 0;
-    let activeStillIndex = 0;
-
-    function renderPictureList(containerId, list, activeIndex, onSelectCallback) {
+    function renderMatrixButtons(containerId, data, tagId, titleId, descId, boxId, extraHandler = null) {
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = '';
-      const unlocked = isMemberUnlocked();
-
-      list.forEach((item, index) => {
-        const row = document.createElement('div');
-        const isCurrentlyLocked = item.isLocked && !unlocked;
-        row.className = `pic-queue-item ${index === activeIndex ? 'active' : ''}`;
-        row.onclick = () => onSelectCallback(index);
-
-        const lockBadge = isCurrentlyLocked 
-          ? `<span style="font-size: 0.76rem; color: var(--gold-accent); font-weight: 800;">🔒 Locked</span>` 
-          : `<span style="font-size: 0.76rem; color: var(--emerald-accent); font-weight: 700;">${index === activeIndex ? '👁️ Viewing' : 'View'}</span>`;
-
-        row.innerHTML = `
-          <img src="${encodeURI(item.src)}" alt="${item.title}" class="pic-queue-thumb" style="${isCurrentlyLocked ? 'filter: blur(3px) brightness(0.5);' : ''}" onerror="this.style.opacity='0.4';">
-          <div class="pic-queue-meta">
-            <span class="pic-queue-title" style="font-size: 0.95rem;">${index + 1}. ${item.title}</span>
-            <span class="pic-queue-tag" style="font-size: 0.76rem;">${isCurrentlyLocked ? '🔒 Members Only' : item.tag}</span>
-          </div>
-          ${lockBadge}
-        `;
-        container.appendChild(row);
+      data.forEach((item, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `doctrine-btn ${idx === 0 ? 'active' : ''}`;
+        btn.innerHTML = `<span class="badge">${item.id}</span> ${item.btnTitle || item.title}`;
+        btn.onclick = () => {
+          document.querySelectorAll(`#${containerId} .doctrine-btn`).forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const box = document.getElementById(boxId);
+          if (box) {
+            box.style.opacity = '0.4';
+            setTimeout(() => {
+              document.getElementById(tagId).innerText = item.tag || `Mystery ${item.id}`;
+              document.getElementById(titleId).innerText = item.title;
+              document.getElementById(descId).innerHTML = item.desc;
+              if (extraHandler) extraHandler(item);
+              box.style.opacity = '1';
+            }, 120);
+          }
+        };
+        container.appendChild(btn);
       });
-    }
-
-    function selectBoycottPicture(index) {
-      if (index < 0 || index >= boycottPictureLibrary.length) return;
-      const pic = boycottPictureLibrary[index];
-      if (pic.isLocked && !isMemberUnlocked()) { openMembershipModal(); return; }
-      activeBoycottIndex = index;
-      document.getElementById('boycott-active-img').src = encodeURI(pic.src);
-      document.getElementById('boycott-active-title').innerText = pic.title;
-      document.getElementById('boycott-active-tag').innerText = `${pic.tag} • Selection #${index + 1} (Click Picture to Enlarge)`;
-      renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
-    }
-
-    function selectStillPicture(index) {
-      if (index < 0 || index >= stillPictureLibrary.length) return;
-      const pic = stillPictureLibrary[index];
-      if (pic.isLocked && !isMemberUnlocked()) { openMembershipModal(); return; }
-      activeStillIndex = index;
-      document.getElementById('still-active-img').src = encodeURI(pic.src);
-      document.getElementById('still-active-title').innerText = pic.title;
-      document.getElementById('still-active-tag').innerText = `${pic.tag} • Selection #${index + 1} (Click Picture to Enlarge)`;
-      renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
-    }
-
-    function handleUserAddPictures(event, galleryType) {
-      const files = Array.from(event.target.files);
-      if (!files.length) return;
-      files.forEach(file => {
-        const cleanName = file.name.replace(/\.[^/.]+$/, "");
-        const objectUrl = URL.createObjectURL(file);
-        if (galleryType === 'boycott') {
-          boycottPictureLibrary.push({ title: cleanName, tag: "🔒 Members Only Vault", src: objectUrl, isLocked: true });
-        } else {
-          stillPictureLibrary.push({ title: cleanName, tag: "🔒 Members Only Vault", src: objectUrl, isLocked: true });
-        }
-      });
-      if (galleryType === 'boycott') renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
-      else renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -1177,6 +1069,36 @@
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
       renderHolidayCalendar();
+
+      // RENDER ALL DOCTRINE BUTTON MATRICES
+      renderMatrixButtons('origins-buttons', originsData, 'origin-tag', 'origin-title', 'origin-desc', 'origin-display');
+      renderMatrixButtons('mysteries-buttons', mysteriesData, 'mystery-tag', 'mystery-title', 'mystery-desc', 'mystery-display');
+      renderMatrixButtons('activities-buttons', activitiesData, 'activity-tag', 'activity-title', 'activity-desc', 'activity-display');
+      renderMatrixButtons('codes-buttons', codesData, 'code-tag', 'code-title', 'code-desc', 'code-display');
+      renderMatrixButtons('boycott-buttons', boycottData, 'boycott-tag', 'boycott-title', 'boycott-desc', 'boycott-display');
+
+      const restExtra = document.getElementById('restitution-section-wrap-extra');
+      if (restExtra) {
+        restExtra.innerHTML = `
+          <div class="restitution-stats-grid">
+            <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
+            <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
+            <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
+          </div>
+        `;
+      }
+      renderMatrixButtons('restitution-buttons', restitutionData, 'restitution-tag', 'restitution-title', 'restitution-desc', 'restitution-display', (item) => {
+        const extra = document.getElementById('restitution-section-wrap-extra');
+        if (extra) {
+          extra.innerHTML = `
+            <div class="restitution-stats-grid">
+              <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">${item.gold}</span></div>
+              <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">${item.silver}</span></div>
+              <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">${item.rule}</span></div>
+            </div>
+          `;
+        }
+      });
 
       const savedEmblem = localStorage.getItem('imani_header_emblem');
       if (savedEmblem) {
