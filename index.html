@@ -519,7 +519,7 @@
       </div>
     </section>
 
-    <!-- 8. Holiday Fast Calendar (RESTORED INTELLIGENT SORTING & BLACK BOX) -->
+    <!-- 8. Holiday Fast Calendar (RESTORED INSIDE BLACK BOX WITH SORTED TABLE ROWS) -->
     <section>
       <h2 class="section-title">2026–2027 Federal Holiday Economic Fast Calendar</h2>
       <div class="doctrine-card">
@@ -983,12 +983,12 @@
 
     // DOCTRINE SELECTOR FUNCTIONS & DATA
     const originsData = [
-      { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character." },
-      { id: "02", btnTitle: "The People of Faith", tag: "Lineage & Faith", title: "The People of Faith", desc: "After slavery, Reconstruction, Jim Crow, and the Civil Rights movement, descendants of 1863 emaciated slaves stand as the original 14th Amendment Americans." },
-      { id: "03", btnTitle: "Faith in Action", tag: "Origin", title: "Faith in Action", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law." },
-      { id: "04", btnTitle: "Proper Noun Identity", tag: "Grammar of Spirit", title: "Proper Noun Identity", desc: "Replacing external modifiers with a sovereign name declaring self-existence and heritage." },
-      { id: "05", btnTitle: "I M Very Beautiful", tag: "The Affirmation", title: "I M Very Beautiful", desc: "Combining 'I M' (existence) with 'ani' (very beautiful). Spoken as a sacred blessing." },
-      { id: "06", btnTitle: "Emerald, Onyx & Gold", tag: "Symbolic Colors", title: "Emerald, Onyx & Gold", desc: "The three sacred colors of the movement: <strong>Emerald</strong> for growth and awakening, <strong>Onyx</strong> for strength and identity, and <strong>Gold</strong> for supreme value and destiny." }
+      { id: "01", title: "Sovereign Ontology", tag: "Ontology", desc: "Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character." },
+      { id: "02", title: "The People of Faith", tag: "Lineage & Faith", desc: "After slavery, Reconstruction, Jim Crow, and the Civil Rights movement, descendants of 1863 emaciated slaves stand as the original 14th Amendment Americans." },
+      { id: "03", title: "Faith in Action", tag: "Origin", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law." },
+      { id: "04", title: "Proper Noun Identity", tag: "Grammar of Spirit", desc: "Replacing external modifiers with a sovereign name declaring self-existence and heritage." },
+      { id: "05", title: "I M Very Beautiful", tag: "The Affirmation", desc: "Combining 'I M' (existence) with 'ani' (very beautiful). Spoken as a sacred blessing." },
+      { id: "06", title: "Emerald, Onyx & Gold", tag: "Symbolic Colors", desc: "The three sacred colors of the movement: <strong>Emerald</strong> for growth and awakening, <strong>Onyx</strong> for strength and identity, and <strong>Gold</strong> for supreme value and destiny." }
     ];
 
     const mysteriesData = [
@@ -1145,7 +1145,6 @@
       tbody.innerHTML = '';
       
       const nowMs = new Date().getTime();
-      // Sort so the upcoming/next active holiday appears on top
       const sortedHolidays = [...federalHolidays].sort((a, b) => {
         const diffA = a.date.getTime() - nowMs;
         const diffB = b.date.getTime() - nowMs;
@@ -1208,6 +1207,8 @@
       renderStreamArchive();
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
+      
+      // CALENDAR FULLY WIRED TO RENDER ROWS ON LOAD
       renderHolidayCalendar();
 
       const savedEmblem = localStorage.getItem('imani_header_emblem');
