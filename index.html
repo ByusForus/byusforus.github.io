@@ -1095,10 +1095,21 @@
       </div>
     </section>
 
-    <!-- 2. The Ten Mysteries of the Name (EXPLICIT BUTTON MATRIX CONTAINER) -->
+    <!-- 2. The Ten Mysteries of the Name (FULL BUTTON MATRIX WITH ALL 10 BUTTONS) -->
     <section>
       <h2 class="section-title">The Ten Mysteries of the Name</h2>
-      <div class="button-matrix" id="mysteries-buttons"></div>
+      <div class="button-matrix" id="mysteries-buttons">
+        <button class="doctrine-btn active" onclick="selectMystery('01')"><span class="badge">01</span> Alpha and Omega</button>
+        <button class="doctrine-btn" onclick="selectMystery('02')"><span class="badge">02</span> The Me in the Essence</button>
+        <button class="doctrine-btn" onclick="selectMystery('03')"><span class="badge">03</span> Pillars of Solomon</button>
+        <button class="doctrine-btn" onclick="selectMystery('04')"><span class="badge">04</span> Sun and Moon Power</button>
+        <button class="doctrine-btn" onclick="selectMystery('05')"><span class="badge">05</span> I and I</button>
+        <button class="doctrine-btn" onclick="selectMystery('06')"><span class="badge">06</span> I M is I am</button>
+        <button class="doctrine-btn" onclick="selectMystery('07')"><span class="badge">07</span> I M ani</button>
+        <button class="doctrine-btn" onclick="selectMystery('08')"><span class="badge">08</span> Initiation</button>
+        <button class="doctrine-btn" onclick="selectMystery('09')"><span class="badge">09</span> Strategy</button>
+        <button class="doctrine-btn" onclick="selectMystery('10')"><span class="badge">10</span> 1 0 1 ImanI 3 6 9</button>
+      </div>
       <div class="revelation-box" id="mystery-display">
         <div class="rev-header-wrap">
           <div>
@@ -1111,10 +1122,21 @@
       </div>
     </section>
 
-    <!-- 3. Mastery Across the Ten Activities of Life (EXPLICIT BUTTON MATRIX CONTAINER) -->
+    <!-- 3. Mastery Across the Ten Activities of Life (FULL BUTTON MATRIX WITH ALL 10 BUTTONS) -->
     <section>
       <h2 class="section-title">Mastery Across the Ten Activities of Life</h2>
-      <div class="button-matrix" id="activities-buttons"></div>
+      <div class="button-matrix" id="activities-buttons">
+        <button class="doctrine-btn active" onclick="selectActivity('01')"><span class="badge">01</span> Economics</button>
+        <button class="doctrine-btn" onclick="selectActivity('02')"><span class="badge">02</span> Education</button>
+        <button class="doctrine-btn" onclick="selectActivity('03')"><span class="badge">03</span> Entertainment</button>
+        <button class="doctrine-btn" onclick="selectActivity('04')"><span class="badge">04</span> Health</button>
+        <button class="doctrine-btn" onclick="selectActivity('05')"><span class="badge">05</span> Labor</button>
+        <button class="doctrine-btn" onclick="selectActivity('06')"><span class="badge">06</span> Law</button>
+        <button class="doctrine-btn" onclick="selectActivity('07')"><span class="badge">07</span> Politics</button>
+        <button class="doctrine-btn" onclick="selectActivity('08')"><span class="badge">08</span> Religion</button>
+        <button class="doctrine-btn" onclick="selectActivity('09')"><span class="badge">09</span> Sex</button>
+        <button class="doctrine-btn" onclick="selectActivity('10')"><span class="badge">10</span> War</button>
+      </div>
       <div class="revelation-box" id="activity-display">
         <div class="rev-header-wrap">
           <div>
@@ -1127,15 +1149,19 @@
       </div>
     </section>
 
-    <!-- 4. Strategic Stealth & Operational Codes (EXPLICIT BUTTON MATRIX CONTAINER) -->
+    <!-- 4. Strategic Stealth & Operational Codes (FULL BUTTON MATRIX WITH ALL CODES) -->
     <section>
       <h2 class="section-title">Strategic Stealth & Operational Codes</h2>
-      <div class="button-matrix" id="codes-buttons"></div>
+      <div class="button-matrix" id="codes-buttons">
+        <button class="doctrine-btn active" onclick="selectCode('01')"><span class="badge">01</span> The Code of Silence</button>
+        <button class="doctrine-btn" onclick="selectCode('02')"><span class="badge">02</span> The Code of Ownership</button>
+        <button class="doctrine-btn" onclick="selectCode('03')"><span class="badge">03</span> Answer Questions with a Question</button>
+      </div>
       <div class="revelation-box" id="code-display">
         <div class="rev-header-wrap">
           <div>
             <div class="rev-tag" id="code-tag">Operational Code</div>
-            <h3 class="rev-title" id="code-title">Code of Silence</h3>
+            <h3 class="rev-title" id="code-title">The Code of Silence</h3>
           </div>
           <button class="btn-audio-narrate" onclick="narrateText('code-title', 'code-desc')">🔊 Listen</button>
         </div>
@@ -2359,7 +2385,15 @@
       }
     }
 
-    // COMPLETE EXACT ARRAYS WITH YOUR 10 MYSTERIES, 10 ACTIVITIES, AND CODES
+    // COMPLETE EXACT DATA ARRAYS WITH YOUR 10 MYSTERIES, 10 ACTIVITIES, AND CODES
+    const originsData = [
+      { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character." },
+      { id: "02", btnTitle: "The People of Faith", tag: "Lineage & Faith", title: "The People of Faith", desc: "After slavery, Reconstruction, Jim Crow, and the Civil Rights movement, descendants of 1863 emaciated slaves stand as the original 14th Amendment Americans." },
+      { id: "03", btnTitle: "Faith in Action", tag: "Origin", title: "Faith in Action", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law." },
+      { id: "04", btnTitle: "Proper Noun Identity", tag: "Grammar of Spirit", title: "Proper Noun Identity", desc: "Replacing external modifiers with a sovereign name declaring self-existence and heritage." },
+      { id: "05", btnTitle: "I M Very Beautiful", tag: "The Affirmation", title: "I M Very Beautiful", desc: "Combining 'I M' (existence) with 'ani' (very beautiful). Spoken as a sacred blessing." }
+    ];
+
     const mysteriesData = [
       { id: "01", btnTitle: "Alpha and Omega", title: "Alpha and Omega", tag: "Mystery 01", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
       { id: "02", btnTitle: "The Me in the Essence", title: "The Me in the Essence", tag: "Mystery 02", desc: "The 'man' in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
@@ -2472,7 +2506,7 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // BUILD ALL BUTTON MATRICES WITH YOUR EXACT LISTS
+      // FULLY RESTORED INTERACTIVE BUTTON MATRICES WITH INDIVIDUAL BUTTONS FOR EACH ITEM
       renderMatrixButtons('mysteries-buttons', mysteriesData, 'mystery-tag', 'mystery-title', 'mystery-desc', 'mystery-display');
       renderMatrixButtons('activities-buttons', activitiesData, 'activity-tag', 'activity-title', 'activity-desc', 'activity-display');
       renderMatrixButtons('codes-buttons', codesData, 'code-tag', 'code-title', 'code-desc', 'code-display');
