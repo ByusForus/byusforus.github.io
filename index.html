@@ -1095,7 +1095,7 @@
       </div>
     </section>
 
-    <!-- 2. The Ten Mysteries of the Name (Directly Under Stage) -->
+    <!-- 2. The Ten Mysteries of the Name (INTERACTIVE BUTTON MATRIX RESTORED) -->
     <section>
       <h2 class="section-title">The Ten Mysteries of the Name</h2>
       <div class="button-matrix" id="mysteries-buttons"></div>
@@ -1111,7 +1111,7 @@
       </div>
     </section>
 
-    <!-- 3. Mastery Across the Ten Activities of Life -->
+    <!-- 3. Mastery Across the Ten Activities of Life (INTERACTIVE BUTTON MATRIX RESTORED) -->
     <section>
       <h2 class="section-title">Mastery Across the Ten Activities of Life</h2>
       <div class="button-matrix" id="activities-buttons"></div>
@@ -1127,7 +1127,7 @@
       </div>
     </section>
 
-    <!-- 4. Strategic Stealth & Operational Codes -->
+    <!-- 4. Strategic Stealth & Operational Codes (INTERACTIVE BUTTON MATRIX RESTORED) -->
     <section>
       <h2 class="section-title">Strategic Stealth & Operational Codes</h2>
       <div class="button-matrix" id="codes-buttons"></div>
@@ -1144,10 +1144,43 @@
     </section>
 
     <!-- 5. Origin & Revelation -->
-    <section id="origin-section-wrap"></section>
+    <section>
+      <h2 class="section-title">The Origin & Revelation of ImanI</h2>
+      <div class="button-matrix" id="origins-buttons"></div>
+      <div class="revelation-box" id="origin-display">
+        <div class="rev-header-wrap">
+          <div>
+            <div class="rev-tag" id="origin-tag">Ontology</div>
+            <h3 class="rev-title" id="origin-title">Sovereign Ontology</h3>
+          </div>
+          <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
+        </div>
+        <p class="rev-content" id="origin-desc">Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
+      </div>
+    </section>
 
     <!-- 6. 9 Pillars of Total Restitution -->
-    <section id="restitution-section-wrap"></section>
+    <section>
+      <h2 class="section-title">The 9 Pillars of Total Restitution (Specie Standard)</h2>
+      <div class="button-matrix" id="restitution-buttons"></div>
+      <div class="revelation-box" id="restitution-display">
+        <div class="rev-header-wrap">
+          <div>
+            <div class="rev-tag" id="restitution-tag">Priority Pillar 1</div>
+            <h3 class="rev-title" id="restitution-title">1. Specie Cash</h3>
+          </div>
+          <button class="btn-audio-narrate" onclick="narrateText('restitution-title', 'restitution-desc')">🔊 Listen</button>
+        </div>
+        <p class="rev-content" id="restitution-desc">Direct Unconditional Capital</p>
+        <div id="restitution-section-wrap-extra">
+          <div class="restitution-stats-grid">
+            <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
+            <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
+            <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- 7. IAHBC DOCTRINE & BOYCOTT CELEBRATION SECTION -->
     <section>
@@ -2441,8 +2474,8 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // EXPLICITLY RENDER ALL BUTTON MATRICES INTO THEIR HTML ELEMENTS
-      renderMatrixButton('origins-buttons', originsData, 'origin-tag', 'origin-title', 'origin-desc', 'origin-display');
+      // INTERACTIVE BUTTON MATRICES ACTIVATED FOR EVERY SECTION
+      renderMatrixButtons('origins-buttons', originsData, 'origin-tag', 'origin-title', 'origin-desc', 'origin-display');
       renderMatrixButtons('mysteries-buttons', mysteriesData, 'mystery-tag', 'mystery-title', 'mystery-desc', 'mystery-display');
       renderMatrixButtons('activities-buttons', activitiesData, 'activity-tag', 'activity-title', 'activity-desc', 'activity-display');
       renderMatrixButtons('codes-buttons', codesData, 'code-tag', 'code-title', 'code-desc', 'code-display');
