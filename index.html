@@ -256,22 +256,32 @@
     </div>
   </div>
 
-  <!-- FIXED HEADER WITH BULLETPROOF FALLBACK -->
+  <!-- BULLETPROOF EMBEDDED SVG SOVEREIGN HEADER -->
   <header>
     <div class="header-layout">
       <div class="header-left">
         <div class="header-proclamation emerald">ImanI is the new breed</div>
       </div>
       <div class="header-center" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-        <img 
-          id="header-emblem-view"
-          src="media/images/header-emblem.png" 
-          alt="ImanI Golden Sovereign Man Between Pillars" 
-          class="header-emblem-large"
-          style="max-height: 120px; object-fit: contain; cursor: pointer;"
-          onerror="this.onerror=null; this.src='media/images/chatty-wisdom-header.png';"
-          onclick="handleAdminImageClick('emblem-file-input')"
-        >
+        <svg id="header-emblem-view" class="header-emblem-large" viewBox="0 0 500 180" style="max-height: 180px; width: 100%; cursor: pointer;" onclick="handleAdminImageClick('emblem-file-input')">
+          <defs>
+            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFD15C" />
+              <stop offset="100%" stop-color="#91690F" />
+            </linearGradient>
+            <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00D06C" />
+              <stop offset="100%" stop-color="#004B28" />
+            </linearGradient>
+          </defs>
+          <rect width="500" height="180" fill="transparent" />
+          <circle cx="250" cy="90" r="75" fill="none" stroke="url(#emeraldGrad)" stroke-width="4" />
+          <circle cx="250" cy="90" r="67" fill="none" stroke="url(#goldGrad)" stroke-width="3" />
+          <path d="M250 45 C240 70 230 80 250 115 C270 80 260 70 250 45 Z" fill="#FFD15C" stroke="#000" stroke-width="1.5" />
+          <path d="M225 60 C215 80 215 90 235 120 C255 90 245 80 225 60 Z" fill="#FFD15C" opacity="0.9" />
+          <path d="M275 60 C285 80 285 90 265 120 C245 90 255 80 275 60 Z" fill="#FFD15C" opacity="0.9" />
+          <text x="250" y="165" fill="#FFD15C" font-size="13" font-weight="900" text-anchor="middle" letter-spacing="3">Y IMANI? • 3 + 1 + 3</text>
+        </svg>
         <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'imani_header_emblem')">
       </div>
       <div class="header-right">
@@ -837,10 +847,21 @@
       const reader = new FileReader();
       reader.onload = function(e) {
         const dataUrl = e.target.result;
-        const img = document.getElementById(viewId);
-        if (img) {
-          img.src = dataUrl;
-          img.style.display = 'block';
+        const el = document.getElementById(viewId);
+        if (el) {
+          if (el.tagName === 'IMG') {
+            el.src = dataUrl;
+            el.style.display = 'block';
+          } else if (el.tagName === 'SVG') {
+            // Replace SVG with image if uploaded
+            const newImg = document.createElement('img');
+            newImg.id = viewId;
+            newImg.src = dataUrl;
+            newImg.className = el.className;
+            newImg.style.cssText = "max-height: 180px; width: 100%; object-fit: contain; cursor: pointer;";
+            newImg.onclick = el.onclick;
+            el.parentNode.replaceChild(newImg, el);
+          }
         }
         localStorage.setItem(storageKey, dataUrl);
       };
@@ -1323,11 +1344,12 @@
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
       renderHolidayCalendar();
+      if (typeof filterWisdomDeck === 'function') filterWisdomDeck();
 
       const savedEmblem = localStorage.getItem('imani_header_emblem');
       if (savedEmblem) {
-        const img = document.getElementById('header-emblem-view');
-        if (img) { img.src = savedEmblem; img.style.display = 'block'; }
+        const emblemEl = document.getElementById('header-emblem-view');
+        if (emblemEl && emblemEl.tagName === 'IMG') emblemEl.src = savedEmblem;
       }
 
       const standbyVideo = document.getElementById('standby-motion-player');
