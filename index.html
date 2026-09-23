@@ -2441,8 +2441,8 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // HARDCODED BUTTON RENDERING FOR ALL DOCTRINE SECTIONS
-      renderMatrixButtons('origins-buttons', originsData, 'origin-tag', 'origin-title', 'origin-desc', 'origin-display');
+      // EXPLICITLY RENDER ALL BUTTON MATRICES INTO THEIR HTML ELEMENTS
+      renderMatrixButton('origins-buttons', originsData, 'origin-tag', 'origin-title', 'origin-desc', 'origin-display');
       renderMatrixButtons('mysteries-buttons', mysteriesData, 'mystery-tag', 'mystery-title', 'mystery-desc', 'mystery-display');
       renderMatrixButtons('activities-buttons', activitiesData, 'activity-tag', 'activity-title', 'activity-desc', 'activity-display');
       renderMatrixButtons('codes-buttons', codesData, 'code-tag', 'code-title', 'code-desc', 'code-display');
