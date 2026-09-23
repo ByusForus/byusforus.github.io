@@ -202,15 +202,6 @@
     }
 
     /* UNIFIED ENLARGED SECTION STYLING */
-    .doctrine-card {
-      background: var(--onyx-surface); 
-      border: 2px solid var(--gold-accent);
-      border-radius: var(--radius-md); 
-      padding: 34px 38px;
-      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.8), 0 0 25px var(--gold-glow);
-      backdrop-filter: blur(14px);
-    }
-
     .button-matrix { 
       display: flex; 
       flex-wrap: wrap; 
@@ -323,43 +314,6 @@
       box-shadow: 0 0 16px var(--gold-glow); 
     }
 
-    .restitution-stats-grid {
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px; 
-      margin-top: 22px; 
-      padding-top: 22px; 
-      border-top: 1.5px solid var(--onyx-border);
-    }
-
-    .stat-pill {
-      background: var(--onyx-card); 
-      border: 1.5px solid var(--onyx-border);
-      border-radius: var(--radius-sm); 
-      padding: 16px 18px;
-      display: flex; 
-      flex-direction: column; 
-      gap: 6px;
-    }
-
-    .stat-label { 
-      font-size: 0.78rem; 
-      text-transform: uppercase; 
-      color: var(--text-muted); 
-      letter-spacing: 0.06em;
-      font-weight: 700;
-    }
-
-    .stat-value { 
-      font-size: 1.25rem; 
-      font-weight: 900; 
-      color: var(--emerald-accent); 
-    }
-
-    .stat-value.gold { 
-      color: var(--gold-accent); 
-    }
-
     /* HEADER */
     header {
       border-bottom: 1px solid var(--onyx-border);
@@ -440,7 +394,7 @@
       .header-emblem-large {
         max-height: 160px;
       }
-      .revelation-box, .doctrine-card {
+      .revelation-box {
         padding: 24px 20px;
       }
       .rev-title {
@@ -928,7 +882,7 @@
     }
 
     .btn-draw-card {
-      background: var(--gold-accent); color: var(--onyx-deep); border: none;
+      background: var(--gold-accent); color: --onyx-deep; border: none;
       padding: 12px 28px; border-radius: var(--radius-sm); font-weight: 800;
       font-size: 1rem; cursor: pointer; box-shadow: 0 0 12px var(--gold-glow);
     }
@@ -1181,7 +1135,7 @@
             <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Boycott Pictures Archive</span>
             <div>
               <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
-              <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
+              <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="loadUserAddPictures(event, 'boycott')">
             </div>
           </div>
           <div class="playlist-items-scroll" id="boycott-list-container"></div>
@@ -2423,7 +2377,7 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // Render all doctrine sections with full container wrappers
+      // Render all doctrine sections with full container wrappers in exact requested order
       renderEnlargedSection('origin-section-wrap', 'The Origin & Revelation of ImanI', originsData, 'Ontology');
       renderEnlargedSection('mysteries-section-wrap', 'The Ten Mysteries of the Name', mysteriesData, 'Mystery 01');
       renderEnlargedSection('activities-section-wrap', 'Mastery Across the Ten Activities of Life', activitiesData, 'Activity 01 & 02');
