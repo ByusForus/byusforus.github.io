@@ -1029,7 +1029,7 @@
 
   <main>
 
-    <!-- 1. Live Broadcast Stage & Chat -->
+    <!-- 1. Live Broadcast Stage & Sanctuary -->
     <section>
       <h2 class="section-title">Live Broadcast Stage & Sanctuary</h2>
       <div class="stage-column-layout">
@@ -1095,7 +1095,7 @@
       </div>
     </section>
 
-    <!-- 2. The Ten Mysteries (Directly Under Stage as Requested) -->
+    <!-- 2. The Ten Mysteries of the Name (Directly Under Stage) -->
     <section>
       <h2 class="section-title">The Ten Mysteries of the Name</h2>
       <div class="button-matrix" id="mysteries-buttons"></div>
@@ -1111,17 +1111,43 @@
       </div>
     </section>
 
-    <!-- 3. Origin & Revelation -->
+    <!-- 3. Mastery Across the Ten Activities of Life -->
+    <section>
+      <h2 class="section-title">Mastery Across the Ten Activities of Life</h2>
+      <div class="button-matrix" id="activities-buttons"></div>
+      <div class="revelation-box" id="activity-display">
+        <div class="rev-header-wrap">
+          <div>
+            <div class="rev-tag" id="activity-tag">Activity 01 & 02</div>
+            <h3 class="rev-title" id="activity-title">Economics & Education</h3>
+          </div>
+          <button class="btn-audio-narrate" onclick="narrateText('activity-title', 'activity-desc')">🔊 Listen</button>
+        </div>
+        <p class="rev-content" id="activity-desc"><strong>Economics:</strong> Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.<br><br><strong>Education:</strong> Defining ourselves, writing our own narratives, and teaching sovereign history and culture.</p>
+      </div>
+    </section>
+
+    <!-- 4. Strategic Stealth & Operational Codes -->
+    <section>
+      <h2 class="section-title">Strategic Stealth & Operational Codes</h2>
+      <div class="button-matrix" id="codes-buttons"></div>
+      <div class="revelation-box" id="code-display">
+        <div class="rev-header-wrap">
+          <div>
+            <div class="rev-tag" id="code-tag">Operational Code</div>
+            <h3 class="rev-title" id="code-title">Code of Silence</h3>
+          </div>
+          <button class="btn-audio-narrate" onclick="narrateText('code-title', 'code-desc')">🔊 Listen</button>
+        </div>
+        <p class="rev-content" id="code-desc">Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities.</p>
+      </div>
+    </section>
+
+    <!-- 5. Origin & Revelation -->
     <section id="origin-section-wrap"></section>
 
-    <!-- 4. Ten Activities of Life -->
-    <section id="activities-section-wrap"></section>
-
-    <!-- 5. 9 Pillars of Restitution -->
+    <!-- 6. 9 Pillars of Total Restitution -->
     <section id="restitution-section-wrap"></section>
-
-    <!-- 6. Operational Codes -->
-    <section id="codes-section-wrap"></section>
 
     <!-- 7. IAHBC DOCTRINE & BOYCOTT CELEBRATION SECTION -->
     <section>
@@ -2309,24 +2335,24 @@
     ];
 
     const mysteriesData = [
-      { id: "01", title: "Alpha and Omega", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
-      { id: "02", title: "God in Me / Divine Soul", desc: "The 'man' in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
-      { id: "03", title: "Pillars of Solomon", desc: "Boaz and Jachin stand as the gateway of transformation where sovereign life begins anew." },
-      { id: "04", title: "Solar & Lunar Power", desc: "Harmonious balance atop the pillars: Sun (man) and Moon (woman) working in unison." },
-      { id: "05", title: "I and I", desc: "Universal unity with the divine and community." },
-      { id: "06", title: "I M (Existence)", desc: "Echoing the declaration 'I am that I am,' affirming unborrowed authority." },
-      { id: "07", title: "I M ani (Inherent Beauty)", desc: "Discarding external standards to declare internal, divine perfection." },
-      { id: "08", title: "The Initiation (1 0 1)", desc: "Standing consciously between the pillars (I M I / 1 0 1) to awaken into the new breed." },
-      { id: "09", title: "Strategy", desc: "The deliberate application of spiritual wisdom to ensure self-reliance." },
-      { id: "10", title: "1 0 1 Knowledge", desc: "The complete mastery of ImanI law, walking in faith and operating in divine love." }
+      { id: "01", btnTitle: "1. Alpha & Omega", title: "Alpha and Omega", tag: "Mystery 01", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
+      { id: "02", btnTitle: "2. Divine Soul", title: "God in Me / Divine Soul", tag: "Mystery 02", desc: "The 'man' in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
+      { id: "03", btnTitle: "3. Pillars of Solomon", title: "Pillars of Solomon", tag: "Mystery 03", desc: "Boaz and Jachin stand as the gateway of transformation where sovereign life begins anew." },
+      { id: "04", btnTitle: "4. Solar & Lunar", title: "Solar & Lunar Power", tag: "Mystery 04", desc: "Harmonious balance atop the pillars: Sun (man) and Moon (woman) working in unison." },
+      { id: "05", btnTitle: "5. I and I", title: "I and I", tag: "Mystery 05", desc: "Universal unity with the divine and community." },
+      { id: "06", btnTitle: "6. I M Existence", title: "I M (Existence)", tag: "Mystery 06", desc: "Echoing the declaration 'I am that I am,' affirming unborrowed authority." },
+      { id: "07", btnTitle: "7. Inherent Beauty", title: "I M ani (Inherent Beauty)", tag: "Mystery 07", desc: "Discarding external standards to declare internal, divine perfection." },
+      { id: "08", btnTitle: "8. The Initiation", title: "The Initiation (1 0 1)", tag: "Mystery 08", desc: "Standing consciously between the pillars (I M I / 1 0 1) to awaken into the new breed." },
+      { id: "09", btnTitle: "9. Strategy", title: "Strategy", tag: "Mystery 09", desc: "The deliberate application of spiritual wisdom to ensure self-reliance." },
+      { id: "10", btnTitle: "10. 101 Knowledge", title: "1 0 1 Knowledge", tag: "Mystery 10", desc: "The complete mastery of ImanI law, walking in faith and operating in divine love." }
     ];
 
     const activitiesData = [
-      { id: "01 & 02", title: "Economics & Education", desc: "<strong>Economics:</strong> Practicing <em>Ujamaa</em> (Cooperative Economics).<br><br><strong>Education:</strong> Defining ourselves and teaching sovereign history." },
-      { id: "03 & 04", title: "Entertainment & Labor", desc: "<strong>Entertainment:</strong> Music, cinema, and art reflecting dignity.<br><br><strong>Labor:</strong> Practicing <em>Ujima</em> (Collective Work and Responsibility)." },
-      { id: "05 & 06", title: "Law & Politics", desc: "<strong>Law:</strong> Establishing justice and truth.<br><br><strong>Politics:</strong> Exercising leverage as 14th Amendment creditors." },
-      { id: "07 & 08", title: "Health & Religion", desc: "<strong>Health:</strong> Holistic vitality.<br><br><strong>Religion:</strong> Moving beyond dogma into living faith." },
-      { id: "09 & 10", title: "Sex & War", desc: "<strong>Sex:</strong> Sacred union of Sun and Moon forces.<br><br><strong>War:</strong> Spiritual, intellectual, and economic warfare defending justice." }
+      { id: "01", btnTitle: "1 & 2. Economics & Education", title: "Economics & Education", tag: "Activity 01 & 02", desc: "<strong>Economics:</strong> Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.<br><br><strong>Education:</strong> Defining ourselves, writing our own narratives, and teaching sovereign history and culture." },
+      { id: "02", btnTitle: "3 & 4. Entertainment & Labor", title: "Entertainment & Labor", tag: "Activity 03 & 04", desc: "<strong>Entertainment:</strong> Music, cinema, and art reflecting dignity.<br><br><strong>Labor:</strong> Practicing <em>Ujima</em> (Collective Work and Responsibility)." },
+      { id: "03", btnTitle: "5 & 6. Law & Politics", title: "Law & Politics", tag: "Activity 05 & 06", desc: "<strong>Law:</strong> Establishing justice and truth.<br><br><strong>Politics:</strong> Exercising leverage as 14th Amendment creditors." },
+      { id: "04", btnTitle: "7 & 8. Health & Religion", title: "Health & Religion", tag: "Activity 07 & 08", desc: "<strong>Health:</strong> Holistic vitality.<br><br><strong>Religion:</strong> Moving beyond dogma into living faith." },
+      { id: "05", btnTitle: "9 & 10. Sex & War", title: "Sex & War", tag: "Activity 09 & 10", desc: "<strong>Sex:</strong> Sacred union of Sun and Moon forces.<br><br><strong>War:</strong> Spiritual, intellectual, and economic warfare defending justice." }
     ];
 
     const restitutionData = [
@@ -2398,29 +2424,6 @@
       });
     }
 
-    function renderEnlargedSection(sectionId, titleText, data, tagPrefix, extraHandler = null) {
-      const container = document.getElementById(sectionId);
-      if (!container) return;
-      
-      container.innerHTML = `
-        <h2 class="section-title">${titleText}</h2>
-        <div class="button-matrix" id="${sectionId}-btns"></div>
-        <div class="revelation-box" id="${sectionId}-display">
-          <div class="rev-header-wrap">
-            <div>
-              <div class="rev-tag" id="${sectionId}-tag">${data[0].tag || tagPrefix}</div>
-              <h3 class="rev-title" id="${sectionId}-title">${data[0].title || data[0].btnTitle}</h3>
-            </div>
-            <button class="btn-audio-narrate" onclick="narrateText('${sectionId}-title', '${sectionId}-desc')">🔊 Listen to Passage</button>
-          </div>
-          <p class="rev-content" id="${sectionId}-desc">${data[0].desc || data[0].title}</p>
-          <div id="${sectionId}-extra"></div>
-        </div>
-      `;
-
-      renderMatrixButtons(`${sectionId}-btns`, data, `${sectionId}-tag`, `${sectionId}-title`, `${sectionId}-desc`, `${sectionId}-display`, extraHandler);
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
       if (isEditModeActive()) {
         document.body.classList.add("admin-mode");
@@ -2438,12 +2441,25 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // Render all doctrine sections with full container wrappers directly in HTML
-      renderEnlargedSection('origin-section-wrap', 'The Origin & Revelation of ImanI', originsData, 'Ontology');
-      renderEnlargedSection('mysteries-section-wrap', 'The Ten Mysteries of the Name', mysteriesData, 'Mystery 01');
-      renderEnlargedSection('activities-section-wrap', 'Mastery Across the Ten Activities of Life', activitiesData, 'Activity 01 & 02');
-      
-      renderEnlargedSection('restitution-section-wrap', 'The 9 Pillars of Total Restitution (Specie Standard)', restitutionData, 'Priority Pillar 1', (item) => {
+      // HARDCODED BUTTON RENDERING FOR ALL DOCTRINE SECTIONS
+      renderMatrixButtons('origins-buttons', originsData, 'origin-tag', 'origin-title', 'origin-desc', 'origin-display');
+      renderMatrixButtons('mysteries-buttons', mysteriesData, 'mystery-tag', 'mystery-title', 'mystery-desc', 'mystery-display');
+      renderMatrixButtons('activities-buttons', activitiesData, 'activity-tag', 'activity-title', 'activity-desc', 'activity-display');
+      renderMatrixButtons('codes-buttons', codesData, 'code-tag', 'code-title', 'code-desc', 'code-display');
+      renderMatrixButtons('boycott-buttons', boycottData, 'boycott-tag', 'boycott-title', 'boycott-desc', 'boycott-display');
+
+      // Restitution Section Setup
+      const restExtra = document.getElementById('restitution-section-wrap-extra');
+      if (restExtra) {
+        restExtra.innerHTML = `
+          <div class="restitution-stats-grid">
+            <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
+            <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
+            <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
+          </div>
+        `;
+      }
+      renderMatrixButtons('restitution-buttons', restitutionData, 'restitution-tag', 'restitution-title', 'restitution-desc', 'restitution-display', (item) => {
         const extra = document.getElementById('restitution-section-wrap-extra');
         if (extra) {
           extra.innerHTML = `
@@ -2455,21 +2471,6 @@
           `;
         }
       });
-      const restExtra = document.getElementById('restitution-section-wrap-extra');
-      if (restExtra) {
-        restExtra.innerHTML = `
-          <div class="restitution-stats-grid">
-            <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
-            <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
-            <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
-          </div>
-        `;
-      }
-
-      renderEnlargedSection('codes-section-wrap', 'Strategic Stealth & Operational Codes', codesData, 'Operational Code');
-
-      // Render Boycott celebration interactive buttons
-      renderMatrixButtons('boycott-buttons', boycottData, 'boycott-tag', 'boycott-title', 'boycott-desc', 'boycott-display');
 
       const savedEmblem = localStorage.getItem('imani_header_emblem');
       if (savedEmblem) {
