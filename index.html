@@ -256,7 +256,7 @@
     </div>
   </div>
 
-  <!-- FIXED HEADER WITH ROBUST FALLBACK -->
+  <!-- FIXED HEADER WITH BULLETPROOF FALLBACK -->
   <header>
     <div class="header-layout">
       <div class="header-left">
@@ -268,7 +268,7 @@
           src="media/images/header-emblem.png" 
           alt="ImanI Golden Sovereign Man Between Pillars" 
           class="header-emblem-large"
-          onerror="this.onerror=null; this.src='media/images/we-r-imani-poster.png';"
+          onerror="this.onerror=null; this.src='media/images/chatty-wisdom-header.png';"
           onclick="handleAdminImageClick('emblem-file-input')"
         >
         <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'imani_header_emblem')">
@@ -563,7 +563,7 @@
               <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Boycott Pictures Archive</span>
               <div>
                 <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
-                <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="loadUserAddPictures(event, 'boycott')">
+                <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
               </div>
             </div>
             <div class="playlist-items-scroll" id="boycott-list-container" style="display: flex; flex-direction: column; gap: 10px; max-height: 340px; overflow-y: auto;"></div>
@@ -617,7 +617,7 @@
               </div>
               <div>
                 <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
-                <input type="file" id="audio-folder-input" accept="audio/*" multiple style="display: none;" onchange="loadUserAudioUpload(event)">
+                <input type="file" id="audio-folder-input" accept="audio/*" multiple style="display: none;" onchange="handleUserAudioUpload(event)">
               </div>
             </div>
             <div class="playlist-items-scroll" id="playlist-items-container"></div>
@@ -644,7 +644,7 @@
               <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Still Art & Lore Archive</span>
               <div>
                 <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('still-multi-input')">📁 Add Pictures</button>
-                <input type="file" id="still-multi-input" accept="image/*" multiple style="display: none;" onchange="loadUserAddPictures(event, 'still')">
+                <input type="file" id="still-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'still')">
               </div>
             </div>
             <div class="playlist-items-scroll" id="still-list-container" style="display: flex; flex-direction: column; gap: 10px; max-height: 340px; overflow-y: auto;"></div>
