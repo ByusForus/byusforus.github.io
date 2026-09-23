@@ -1095,7 +1095,7 @@
       </div>
     </section>
 
-    <!-- 2. The Ten Mysteries of the Name (FULL INTERACTIVE BUTTON MATRIX) -->
+    <!-- 2. The Ten Mysteries of the Name (EXPLICIT BUTTON MATRIX CONTAINER) -->
     <section>
       <h2 class="section-title">The Ten Mysteries of the Name</h2>
       <div class="button-matrix" id="mysteries-buttons"></div>
@@ -1111,7 +1111,7 @@
       </div>
     </section>
 
-    <!-- 3. Mastery Across the Ten Activities of Life (FULL INTERACTIVE BUTTON MATRIX) -->
+    <!-- 3. Mastery Across the Ten Activities of Life (EXPLICIT BUTTON MATRIX CONTAINER) -->
     <section>
       <h2 class="section-title">Mastery Across the Ten Activities of Life</h2>
       <div class="button-matrix" id="activities-buttons"></div>
@@ -1127,7 +1127,7 @@
       </div>
     </section>
 
-    <!-- 4. Strategic Stealth & Operational Codes (FULL INTERACTIVE BUTTON MATRIX) -->
+    <!-- 4. Strategic Stealth & Operational Codes (EXPLICIT BUTTON MATRIX CONTAINER) -->
     <section>
       <h2 class="section-title">Strategic Stealth & Operational Codes</h2>
       <div class="button-matrix" id="codes-buttons"></div>
@@ -1144,10 +1144,43 @@
     </section>
 
     <!-- 5. Origin & Revelation -->
-    <section id="origin-section-wrap"></section>
+    <section>
+      <h2 class="section-title">The Origin & Revelation of ImanI</h2>
+      <div class="button-matrix" id="origins-buttons"></div>
+      <div class="revelation-box" id="origin-display">
+        <div class="rev-header-wrap">
+          <div>
+            <div class="rev-tag" id="origin-tag">Ontology</div>
+            <h3 class="rev-title" id="origin-title">Sovereign Ontology</h3>
+          </div>
+          <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
+        </div>
+        <p class="rev-content" id="origin-desc">Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
+      </div>
+    </section>
 
     <!-- 6. 9 Pillars of Total Restitution -->
-    <section id="restitution-section-wrap"></section>
+    <section>
+      <h2 class="section-title">The 9 Pillars of Total Restitution (Specie Standard)</h2>
+      <div class="button-matrix" id="restitution-buttons"></div>
+      <div class="revelation-box" id="restitution-display">
+        <div class="rev-header-wrap">
+          <div>
+            <div class="rev-tag" id="restitution-tag">Priority Pillar 1</div>
+            <h3 class="rev-title" id="restitution-title">1. Specie Cash</h3>
+          </div>
+          <button class="btn-audio-narrate" onclick="narrateText('restitution-title', 'restitution-desc')">🔊 Listen</button>
+        </div>
+        <p class="rev-content" id="restitution-desc">Direct Unconditional Capital</p>
+        <div id="restitution-section-wrap-extra">
+          <div class="restitution-stats-grid">
+            <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
+            <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
+            <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- 7. IAHBC DOCTRINE & BOYCOTT CELEBRATION SECTION -->
     <section>
@@ -2326,15 +2359,7 @@
       }
     }
 
-    // COMPLETE DATA ARRAYS WITH ALL EXACT NAMES YOU PROVIDED
-    const originsData = [
-      { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character." },
-      { id: "02", btnTitle: "The People of Faith", tag: "Lineage & Faith", title: "The People of Faith", desc: "After slavery, Reconstruction, Jim Crow, and the Civil Rights movement, descendants of 1863 emaciated slaves stand as the original 14th Amendment Americans." },
-      { id: "03", btnTitle: "Faith in Action", tag: "Origin", title: "Faith in Action", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law." },
-      { id: "04", btnTitle: "Proper Noun Identity", tag: "Grammar of Spirit", title: "Proper Noun Identity", desc: "Replacing external modifiers with a sovereign name declaring self-existence and heritage." },
-      { id: "05", btnTitle: "I M Very Beautiful", tag: "The Affirmation", title: "I M Very Beautiful", desc: "Combining 'I M' (existence) with 'ani' (very beautiful). Spoken as a sacred blessing." }
-    ];
-
+    // COMPLETE EXACT ARRAYS WITH YOUR 10 MYSTERIES, 10 ACTIVITIES, AND CODES
     const mysteriesData = [
       { id: "01", btnTitle: "Alpha and Omega", title: "Alpha and Omega", tag: "Mystery 01", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
       { id: "02", btnTitle: "The Me in the Essence", title: "The Me in the Essence", tag: "Mystery 02", desc: "The 'man' in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
@@ -2362,9 +2387,9 @@
     ];
 
     const codesData = [
-      { id: "01", btnTitle: "Code of Silence", tag: "Operational Code", title: "Code of Silence", desc: "Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities." },
-      { id: "02", btnTitle: "Code of Ownership", tag: "Operational Code", title: "Code of Ownership", desc: "Absolute stewardship over our intellectual property, cultural creations, media vaults, and economic outputs." },
-      { id: "03", btnTitle: "Answer Questions with a Question", tag: "Operational Code", title: "Answer Questions with a Question", desc: "The curious consultant method: disarming outside interrogation by leading others to discover truth through their own inquiry." }
+      { id: "01", btnTitle: "The Code of Silence", title: "The Code of Silence", tag: "Operational Code", desc: "Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities." },
+      { id: "02", btnTitle: "The Code of Ownership", title: "The Code of Ownership", tag: "Operational Code", desc: "Absolute stewardship over our intellectual property, cultural creations, media vaults, and economic outputs." },
+      { id: "03", btnTitle: "Answer Questions with a Question", title: "Answer Questions with a Question", tag: "Operational Code", desc: "The curious consultant method: disarming outside interrogation by leading others to discover truth through their own inquiry." }
     ];
 
     const restitutionData = [
@@ -2447,7 +2472,7 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // FULLY RESTORED INTERACTIVE BUTTON MATRICES
+      // BUILD ALL BUTTON MATRICES WITH YOUR EXACT LISTS
       renderMatrixButtons('mysteries-buttons', mysteriesData, 'mystery-tag', 'mystery-title', 'mystery-desc', 'mystery-display');
       renderMatrixButtons('activities-buttons', activitiesData, 'activity-tag', 'activity-title', 'activity-desc', 'activity-display');
       renderMatrixButtons('codes-buttons', codesData, 'code-tag', 'code-title', 'code-desc', 'code-display');
