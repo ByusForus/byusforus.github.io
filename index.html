@@ -1095,11 +1095,24 @@
       </div>
     </section>
 
-    <!-- 2. Origin & Revelation -->
-    <section id="origin-section-wrap"></section>
+    <!-- 2. The Ten Mysteries (Directly Under Stage as Requested) -->
+    <section>
+      <h2 class="section-title">The Ten Mysteries of the Name</h2>
+      <div class="button-matrix" id="mysteries-buttons"></div>
+      <div class="revelation-box" id="mystery-display">
+        <div class="rev-header-wrap">
+          <div>
+            <div class="rev-tag" id="mystery-tag">Mystery 01</div>
+            <h3 class="rev-title" id="mystery-title">Alpha and Omega</h3>
+          </div>
+          <button class="btn-audio-narrate" onclick="narrateText('mystery-title', 'mystery-desc')">🔊 Listen</button>
+        </div>
+        <p class="rev-content" id="mystery-desc">The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination.</p>
+      </div>
+    </section>
 
-    <!-- 3. The Ten Mysteries (Placed right under live/origin section as requested) -->
-    <section id="mysteries-section-wrap"></section>
+    <!-- 3. Origin & Revelation -->
+    <section id="origin-section-wrap"></section>
 
     <!-- 4. Ten Activities of Life -->
     <section id="activities-section-wrap"></section>
@@ -2425,7 +2438,7 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // Render all doctrine sections with full container wrappers
+      // Render all doctrine sections with full container wrappers directly in HTML
       renderEnlargedSection('origin-section-wrap', 'The Origin & Revelation of ImanI', originsData, 'Ontology');
       renderEnlargedSection('mysteries-section-wrap', 'The Ten Mysteries of the Name', mysteriesData, 'Mystery 01');
       renderEnlargedSection('activities-section-wrap', 'Mastery Across the Ten Activities of Life', activitiesData, 'Activity 01 & 02');
