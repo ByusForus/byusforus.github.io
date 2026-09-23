@@ -429,7 +429,14 @@
     <section>
       <h2 class="section-title">The Origin & Revelation of ImanI</h2>
       <div class="doctrine-card">
-        <div class="button-matrix" id="origins-buttons"></div>
+        <div class="button-matrix" id="origins-buttons">
+          <button class="doctrine-btn active" onclick="selectOrigin('01')"><span class="badge">01</span> Sovereign Ontology</button>
+          <button class="doctrine-btn" onclick="selectOrigin('02')"><span class="badge">02</span> The People of Faith</button>
+          <button class="doctrine-btn" onclick="selectOrigin('03')"><span class="badge">03</span> Faith in Action</button>
+          <button class="doctrine-btn" onclick="selectOrigin('04')"><span class="badge">04</span> Proper Noun Identity</button>
+          <button class="doctrine-btn" onclick="selectOrigin('05')"><span class="badge">05</span> I M Very Beautiful</button>
+          <button class="doctrine-btn" onclick="selectOrigin('06')"><span class="badge">06</span> Emerald, Onyx & Gold</button>
+        </div>
         <div class="revelation-box" id="origin-display" style="margin-top: 18px;">
           <div class="rev-header-wrap">
             <div>
@@ -511,7 +518,7 @@
       </div>
     </section>
 
-    <!-- 8. Holiday Fast Calendar (RESTORED WITH TABLE ROWS) -->
+    <!-- 8. Holiday Fast Calendar -->
     <section>
       <h2 class="section-title">2026–2027 Federal Holiday Economic Fast Calendar</h2>
       <div class="doctrine-card">
@@ -536,7 +543,7 @@
       </div>
     </section>
 
-    <!-- 9. Boycott Celebration Gallery (RESTORED WITH QUEUE LIST) -->
+    <!-- 9. Boycott Celebration Gallery -->
     <section>
       <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
       <div class="vault-grid">
@@ -962,6 +969,15 @@
     function handleTrackEnded() { if (isContinuousPlay || isRandomPlay) playNextTrack(); }
 
     // DOCTRINE SELECTOR FUNCTIONS & DATA
+    const originsData = [
+      { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character." },
+      { id: "02", btnTitle: "The People of Faith", tag: "Lineage & Faith", title: "The People of Faith", desc: "After slavery, Reconstruction, Jim Crow, and the Civil Rights movement, descendants of 1863 emaciated slaves stand as the original 14th Amendment Americans." },
+      { id: "03", btnTitle: "Faith in Action", tag: "Origin", title: "Faith in Action", desc: "Rooted in the Swahili concept of <em>Imani</em> (Faith), transforming passive belief into active alignment with divine law." },
+      { id: "04", btnTitle: "Proper Noun Identity", tag: "Grammar of Spirit", title: "Proper Noun Identity", desc: "Replacing external modifiers with a sovereign name declaring self-existence and heritage." },
+      { id: "05", btnTitle: "I M Very Beautiful", tag: "The Affirmation", title: "I M Very Beautiful", desc: "Combining 'I M' (existence) with 'ani' (very beautiful). Spoken as a sacred blessing." },
+      { id: "06", btnTitle: "Emerald, Onyx & Gold", tag: "Symbolic Colors", title: "Emerald, Onyx & Gold", desc: "The three sacred colors of the movement: <strong>Emerald</strong> for growth and awakening, <strong>Onyx</strong> for strength and identity, and <strong>Gold</strong> for supreme value and destiny." }
+    ];
+
     const mysteriesData = [
       { id: "01", title: "Alpha and Omega", tag: "Mystery 01", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
       { id: "02", title: "The Me in the Essence", tag: "Mystery 02", desc: "The 'man' in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
@@ -1044,6 +1060,18 @@
       document.getElementById('code-desc').innerText = item.desc;
 
       const buttons = document.querySelectorAll('#codes-buttons .doctrine-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
+    function selectOrigin(num) {
+      const item = originsData.find(o => o.id === num);
+      if (!item) return;
+      document.getElementById('origin-tag').innerText = item.tag;
+      document.getElementById('origin-title').innerText = item.title;
+      document.getElementById('origin-desc').innerHTML = item.desc;
+
+      const buttons = document.querySelectorAll('#origins-buttons .doctrine-btn');
       buttons.forEach(b => b.classList.remove('active'));
       event.currentTarget.classList.add('active');
     }
