@@ -1124,19 +1124,48 @@
       event.currentTarget.classList.add('active');
     }
 
-    // PICTURE GALLERIES DATA & QUEUE RENDERER
+    // FULL PICTURE LIBRARIES RESTORATION
     let boycottPictureLibrary = [
       { title: "The Price of Participation: Reclaiming Our Economic Sovereignty", tag: "Economic Sovereignty", src: "media/boycott/economic-sovereignty.png", isLocked: false },
       { title: "June 15th — Declaration Day", tag: "Declaration Day", src: "media/boycott/june15-declaration-day.png", isLocked: false },
       { title: "June 13 — George Floyd Day", tag: "Juneteenth • We Do We", src: "media/boycott/george-floyd-day.png", isLocked: false },
       { title: "IAHBC 7-Day American Holidays", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-american-holidays-s...png", isLocked: true },
-      { title: "IAHBC 7-Day Economic Fast Candle", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-economic-fast-candl...png", isLocked: true }
+      { title: "IAHBC 7-Day Economic Fast Candle", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-economic-fast-candl...png", isLocked: true },
+      { title: "IAHBC Political Theater Strategy", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-at-wait-political-theater-strat...png", isLocked: true },
+      { title: "IAHBC 7-Day Fast Commitment", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-commit-memon-al-day-7-days-fa...png", isLocked: true },
+      { title: "IAHBC Emerald Sovereign Gold", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-emer-aid-onyx-ld-kama-lc...png", isLocked: true },
+      { title: "IAHBC Ancestors Not Corporations 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-honor-ancestors-not-corpora...png", isLocked: true },
+      { title: "IAHBC Ancestors Not Corporations 2", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-honor-ancestors-not-corpora...png", isLocked: true },
+      { title: "IAHBC Celebration Poster 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster.png", isLocked: true },
+      { title: "IAHBC Celebration Poster 2", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster1.png", isLocked: true },
+      { title: "IAHBC Celebration Poster 12", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster12.png", isLocked: true },
+      { title: "IAHBC Celebration Poster 7", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster7.png", isLocked: true },
+      { title: "IAHBC Celebration Poster 3", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-posterthree.png", isLocked: true },
+      { title: "IAHBC Boycott Manifesto Gold", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-master-manifesto-gold-twop.png", isLocked: true },
+      { title: "IAHBC No More Stories 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-no-more-stories-only.png", isLocked: true },
+      { title: "IAHBC No Stories Real Solutions", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-no-stories-only-real-solutions.png", isLocked: true },
+      { title: "IAHBC Stop Celebrating American Holidays", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-stop-celebrating-american-holidays-la...png", isLocked: true },
+      { title: "IAHBC Stop Celebrating Awakening", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-stop-celebrating-awakening-is-when-a...png", isLocked: true }
     ];
 
     let stillPictureLibrary = [
       { title: "Chapter 0 — The ImanI Manifesto", tag: "Foundational Blueprint", src: "media/images/imanipix/chapter-0-manifesto.png", isLocked: false },
       { title: "Chapter 1A — Community Blueprint", tag: "Strategic Framework", src: "media/images/imanipix/chapter-1a-blueprint.png", isLocked: false },
-      { title: "Chapter 2A — The First School of Life", tag: "Home Education", src: "media/images/imanipix/chapter-2a-home-school.png", isLocked: false }
+      { title: "Chapter 2A — The First School of Life", tag: "Home Education", src: "media/images/imanipix/chapter-2a-home-school.png", isLocked: false },
+      { title: "ImanI Action Changes Conditions", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-action-changes-conditions-poster-sq...png", isLocked: true },
+      { title: "ImanI Action Pride & Peace", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-action-pride-po-we-endura-nce-freed...png", isLocked: true },
+      { title: "ImanI American Can / Did Not", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-amenican-can-did-not-become-a-thing-unti...png", isLocked: true },
+      { title: "ImanI Bone & Shadow Lines", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-bone-w-tomoro-w-square...png", isLocked: true },
+      { title: "ImanI Beyond the Story Lines", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-beyond-the-story-lines...png", isLocked: true },
+      { title: "ImanI Birth Certificate Reflection", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-birth-certificate-i-es-reflection-two.png", isLocked: true },
+      { title: "ImanI Black History Two", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-black-history-two.png", isLocked: true },
+      { title: "ImanI Code of Silence Very Word", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-code-of-silence-very-word-i.png", isLocked: true },
+      { title: "ImanI Community Street Scene Urban", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-community-street-scene-urban-sc...png", isLocked: true },
+      { title: "ImanI Congressional Caucus Cactus", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/am-congiesman-black-caucasian-cactus-1.png", isLocked: true },
+      { title: "ImanI Fourth Amendment Amenity", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-fourth-eenth-amen-dment-ame-rica-m-month-gr...png", isLocked: true },
+      { title: "ImanI Grand Awakening Alarm", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-grand-awakening-data-is-the-alarm8.png", isLocked: true },
+      { title: "ImanI History Our Story", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-histor-ony-our-story-y-pun-twoj.png", isLocked: true },
+      { title: "ImanI Human Rights Gesture", tag: "🔒 Members Only Vault", src: "media/images/imanipix/member-only/a-imani-human-rights-e-guit-twoj.png", isLocked: true }
     ];
 
     let activeBoycottIndex = 0;
