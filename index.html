@@ -1,4 +1,796 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>ImanI — Live Stage, Cultural Vault & Doctrine</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ImanI">
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  
+  <style>
+    :root {
+      --onyx-deep: #000000;
+      --onyx-surface: rgba(14, 14, 14, 0.94);
+      --onyx-card: rgba(22, 22, 22, 0.92);
+      --onyx-border: #222624;
+      --emerald-accent: #00D06C;
+      --emerald-glow: rgba(0, 208, 108, 0.25);
+      --gold-accent: #FFD15C;
+      --gold-glow: rgba(255, 209, 92, 0.2);
+      --purple-accent: #A855F7;
+      --purple-glow: rgba(168, 85, 247, 0.3);
+      --text-main: #F4F6F5;
+      --text-muted: #9BA8A1;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 75, 40, 0.95) 0%,
+        rgba(0, 110, 58, 0.8) 30%,
+        #000000 33.33%,
+        #000000 66.66%,
+        rgba(145, 105, 15, 0.8) 70%,
+        rgba(100, 72, 10, 0.95) 100%
+      );
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    .admin-only { display: none !important; }
+    body.admin-mode .admin-only { display: inline-flex !important; }
+
+    .admin-indicator-bar {
+      display: none; background: #7a1515; color: #fff; text-align: center;
+      padding: 8px; font-size: 0.85rem; font-weight: 700; position: sticky; top: 0; z-index: 102;
+    }
+    body.admin-mode .admin-indicator-bar { display: block; }
+
+    /* TOP BANNER */
+    .pause-banner {
+      background: #000000; border-bottom: 2px solid var(--gold-accent);
+      padding: 16px 24px; position: relative; z-index: 101; box-shadow: 0 4px 25px var(--gold-glow);
+    }
+    .pause-content {
+      max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: center; gap: 18px;
+    }
+    .pause-text-wrap { display: flex; align-items: center; gap: 14px; }
+    .pause-indicator {
+      width: 14px; height: 14px; border-radius: 50%; background: var(--gold-accent);
+      box-shadow: 0 0 12px var(--gold-accent); animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+    .pause-title { font-weight: 800; font-size: 1.15rem; color: var(--gold-accent); text-transform: uppercase; }
+    .pause-subtitle { font-size: 0.95rem; color: var(--text-main); margin-top: 2px; }
+    .countdown-display { display: flex; align-items: center; gap: 10px; }
+    .countdown-unit {
+      background: var(--onyx-surface); border: 1.5px solid var(--emerald-accent);
+      border-radius: 8px; padding: 6px 12px; text-align: center; min-width: 58px;
+    }
+    .countdown-val { font-weight: 900; font-size: 1.35rem; color: var(--emerald-accent); line-height: 1.1; }
+    .countdown-lbl { font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+
+    .fast-guidance-bar {
+      max-width: 1200px; margin: 16px auto 4px auto; background: rgba(18, 18, 18, 0.98);
+      border: 2px solid var(--emerald-accent); border-radius: var(--radius-md); padding: 16px 22px; 
+      display: flex; align-items: center; gap: 18px; box-shadow: 0 0 20px var(--emerald-glow);
+    }
+    .guidance-phase-badge {
+      background: #000000; border: 1.5px solid var(--gold-accent); color: var(--gold-accent);
+      font-size: 0.92rem; font-weight: 900; padding: 8px 16px; border-radius: 6px; text-transform: uppercase; white-space: nowrap;
+    }
+    .guidance-body { font-size: 1.12rem; color: var(--text-main); line-height: 1.55; }
+    .guidance-body strong { color: var(--emerald-accent); font-weight: 800; }
+
+    /* SIGNATURE BLACK BOX DOCTRINE CARDS */
+    .doctrine-card {
+      background: var(--onyx-surface); 
+      border: 2px solid var(--gold-accent);
+      border-radius: var(--radius-md); 
+      padding: 34px 38px;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.8), 0 0 25px var(--gold-glow);
+      backdrop-filter: blur(14px);
+    }
+
+    .button-matrix { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
+    .doctrine-btn {
+      background: var(--onyx-card); border: 1.5px solid var(--onyx-border); color: var(--text-main);
+      padding: 12px 20px; border-radius: var(--radius-sm); font-size: 0.96rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 10px; transition: all 0.2s ease;
+    }
+    .doctrine-btn span.badge { color: var(--gold-accent); font-size: 0.82rem; font-weight: 900; }
+    .doctrine-btn:hover { border-color: var(--emerald-accent); background: rgba(0, 208, 108, 0.14); transform: translateY(-2px); }
+    .doctrine-btn.active { border-color: var(--gold-accent); background: rgba(255, 209, 92, 0.18); color: var(--gold-accent); box-shadow: 0 0 14px var(--gold-glow); }
+
+    .revelation-box {
+      background: linear-gradient(145deg, rgba(14, 14, 14, 0.98), rgba(20, 24, 22, 0.96));
+      border: 2.5px solid var(--emerald-accent); border-radius: var(--radius-md); padding: 34px 38px;
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.85), 0 0 30px var(--emerald-glow); transition: opacity 0.2s ease;
+    }
+    .rev-header-wrap { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; gap: 16px; }
+    .rev-tag { font-size: 0.95rem; font-weight: 900; color: var(--emerald-accent); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 6px; }
+    .rev-title { font-size: 1.85rem; font-weight: 900; color: var(--gold-accent); text-shadow: 0 0 15px var(--gold-glow); line-height: 1.25; }
+    .rev-content { font-size: 1.25rem; color: var(--text-main); line-height: 1.85; }
+
+    .btn-audio-narrate {
+      background: var(--onyx-card); border: 1.5px solid var(--gold-accent); color: var(--gold-accent);
+      padding: 10px 20px; border-radius: 24px; font-size: 0.9rem; font-weight: 800; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .btn-audio-narrate:hover { background: var(--gold-accent); color: #000; }
+
+    .restitution-stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px; margin-top: 22px; padding-top: 22px; border-top: 1.5px solid var(--onyx-border);
+    }
+    .stat-pill {
+      background: var(--onyx-card); border: 1.5px solid var(--onyx-border);
+      border-radius: var(--radius-sm); padding: 16px 18px; display: flex; flex-direction: column; gap: 6px;
+    }
+    .stat-label { font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.06em; font-weight: 700; }
+    .stat-value { font-size: 1.25rem; font-weight: 900; color: var(--emerald-accent); }
+    .stat-value.gold { color: var(--gold-accent); }
+
+    /* CALENDAR TABLE STYLING */
+    .holiday-table-wrap { overflow-x: auto; margin-top: 14px; }
+    .holiday-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+    .holiday-table th { padding: 12px 14px; color: var(--gold-accent); border-bottom: 2px solid var(--gold-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; background: rgba(255, 209, 92, 0.08); }
+    .holiday-table td { padding: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-main); }
+    .holiday-table tr.active-fast-row { background: rgba(0, 208, 108, 0.15); border-left: 4px solid var(--emerald-accent); }
+
+    /* PICTURE GALLERY STYLING */
+    .vault-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 860px) { .vault-grid { grid-template-columns: 1fr; } }
+
+    .picture-viewer-card { background: var(--onyx-surface); border: 1.5px solid var(--onyx-border); border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column; position: relative; }
+    .picture-viewer-img { width: 100%; aspect-ratio: 16/9; object-fit: contain; background: #000; cursor: pointer; display: block; border-bottom: 1.5px solid var(--onyx-border); }
+    .picture-viewer-details { padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; }
+    .picture-viewer-title { font-size: 1.15rem; font-weight: 800; color: var(--text-main); }
+    .picture-viewer-tag { font-size: 0.78rem; font-weight: 700; color: var(--emerald-accent); text-transform: uppercase; }
+
+    .playlist-card { background: var(--onyx-surface); border: 1.5px solid var(--onyx-border); border-radius: var(--radius-md); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .audio-tabs-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; border-bottom: 1.5px solid var(--onyx-border); padding-bottom: 12px; justify-content: space-between; align-items: center; }
+    .playlist-items-scroll { display: flex; flex-direction: column; gap: 10px; max-height: 340px; overflow-y: auto; padding-right: 4px; }
+    
+    .pic-queue-item { display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--onyx-card); border: 1.5px solid transparent; cursor: pointer; transition: all 0.2s ease; }
+    .pic-queue-item:hover, .pic-queue-item.active { border-color: var(--gold-accent); background: rgba(255,209,92,0.1); }
+    .pic-queue-thumb { width: 68px; height: 48px; object-fit: cover; border-radius: 6px; background: #000; flex-shrink: 0; border: 1.5px solid var(--onyx-border); }
+    .pic-queue-meta { display: flex; flex-direction: column; gap: 3px; overflow: hidden; flex: 1; }
+    .pic-queue-title { font-size: 0.95rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pic-queue-tag { font-size: 0.74rem; color: var(--gold-accent); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    header { border-bottom: 1px solid var(--onyx-border); background: rgba(0, 0, 0, 0.98); position: sticky; top: 0; z-index: 100; width: 100%; }
+    .header-layout { width: 100%; display: grid; grid-template-columns: 1fr 1.2fr 1fr; align-items: center; padding: 12px 24px; gap: 16px; }
+    .header-left, .header-right { display: flex; justify-content: center; align-items: center; text-align: center; }
+    .header-proclamation { font-size: 1.8rem; font-weight: 900; letter-spacing: 0.07em; text-transform: uppercase; line-height: 1.2; }
+    .header-proclamation.emerald { color: var(--emerald-accent); text-shadow: 0 0 16px var(--emerald-glow); }
+    .header-proclamation.gold { color: var(--gold-accent); text-shadow: 0 0 16px var(--gold-glow); }
+    .header-center { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 110px; }
+    .header-emblem-large { width: 100%; max-width: 520px; height: auto; max-height: 220px; object-fit: contain; display: block; filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.95)); }
+    body.admin-mode .header-emblem-large { cursor: pointer; }
+
+    main { max-width: 1200px; margin: 36px auto; padding: 0 24px; display: flex; flex-direction: column; gap: 48px; }
+    .section-title { font-size: 1.55rem; font-weight: 800; color: var(--text-main); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .section-title::before { content: ""; display: inline-block; width: 6px; height: 26px; background: var(--emerald-accent); border-radius: 3px; }
+
+    .stage-column-layout { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .stream-viewport { background: #000; border: 1px solid var(--onyx-border); border-radius: var(--radius-md); aspect-ratio: 16/9; display: flex; position: relative; overflow: hidden; width: 100%; }
+    .stream-video-element { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+    .stream-badge { position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.75); border: 1px solid var(--emerald-accent); color: var(--emerald-accent); font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 4px; text-transform: uppercase; z-index: 10; }
+    .stream-audio-overlay-btn { position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.75); border: 1px solid var(--gold-accent); color: var(--gold-accent); font-size: 0.8rem; font-weight: 700; padding: 6px 12px; border-radius: 20px; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 6px; }
+
+    .stage-chat-card { background: var(--onyx-surface); border: 1px solid var(--onyx-border); border-radius: var(--radius-md); display: flex; flex-direction: column; width: 100%; overflow: hidden; }
+    .chat-header { padding: 12px 16px; border-bottom: 1px solid var(--onyx-border); display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.6); }
+    .chat-header h4 { font-size: 0.95rem; font-weight: 700; color: var(--gold-accent); }
+    .chat-messages-scroll { padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; max-height: 220px; min-height: 120px; }
+    .chat-bubble { background: var(--onyx-card); border: 1px solid var(--onyx-border); border-radius: var(--radius-sm); padding: 8px 14px; display: flex; flex-direction: column; gap: 2px; }
+    .chat-bubble.council { border-color: var(--emerald-accent); background: rgba(0,208,108,0.08); }
+    .chat-author { font-weight: 800; color: var(--emerald-accent); font-size: 0.78rem; }
+    .chat-author.gold { color: var(--gold-accent); }
+    .chat-text { color: var(--text-main); line-height: 1.4; }
+    .chat-input-row { padding: 10px 14px; border-top: 1px solid var(--onyx-border); display: flex; gap: 10px; background: rgba(0,0,0,0.4); }
+    .chat-input { flex: 1; background: var(--onyx-card); border: 1px solid var(--onyx-border); color: var(--text-main); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.85rem; outline: none; }
+    .chat-send-btn { background: var(--gold-accent); color: #000; border: none; font-weight: 700; font-size: 0.85rem; padding: 8px 18px; border-radius: var(--radius-sm); cursor: pointer; }
+
+    .stream-archive-card { background: var(--onyx-surface); border: 1px solid var(--emerald-accent); border-radius: var(--radius-md); padding: 18px 22px; box-shadow: 0 0 15px var(--emerald-glow); }
+    .archive-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .archive-header-row h3 { font-size: 1.05rem; font-weight: 800; color: var(--emerald-accent); display: flex; align-items: center; gap: 8px; }
+    .stream-archive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+    .archive-item-card { background: var(--onyx-card); border: 1px solid var(--onyx-border); border-radius: var(--radius-sm); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s ease; }
+    .archive-item-card:hover { border-color: var(--gold-accent); background: rgba(255,209,92,0.08); }
+    .archive-item-title { font-size: 0.92rem; font-weight: 700; color: var(--text-main); }
+    .archive-item-meta { font-size: 0.76rem; color: var(--gold-accent); display: flex; justify-content: space-between; }
+
+    .btn-ics-export { background: var(--emerald-accent); color: #000; border: none; font-weight: 700; font-size: 0.85rem; padding: 10px 18px; border-radius: var(--radius-sm); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+
+    footer { max-width: 1200px; margin: 40px auto 0 auto; padding: 20px; text-align: center; border-top: 1.5px solid var(--onyx-border); color: var(--text-muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Admin Indicator Strip -->
+  <div class="admin-indicator-bar">
+    ⚙️ CREATOR EDIT MODE ACTIVE — Click any image or use select buttons to update files. (Press Ctrl+Shift+E to exit)
+  </div>
+
+  <div class="pause-banner">
+    <div class="pause-content">
+      <div class="pause-text-wrap">
+        <div class="pause-indicator"></div>
+        <div>
+          <div class="pause-title">ImanI American Holiday Boycott Celebration — 7-Day Economic Fast</div>
+          <div class="pause-subtitle" id="banner-holiday-name">7 days of quiet reflection, strategic alignment, and self-reliance</div>
+        </div>
+      </div>
+      <div class="countdown-display">
+        <div class="countdown-unit"><div class="countdown-val" id="cd-days">07</div><div class="countdown-lbl">Days</div></div>
+        <div class="countdown-unit"><div class="countdown-val" id="cd-hours">00</div><div class="countdown-lbl">Hours</div></div>
+        <div class="countdown-unit"><div class="countdown-val" id="cd-mins">00</div><div class="countdown-lbl">Mins</div></div>
+        <div class="countdown-unit"><div class="countdown-val" id="cd-secs">00</div><div class="countdown-lbl">Secs</div></div>
+      </div>
+    </div>
+
+    <div class="fast-guidance-bar" id="fast-guidance-container">
+      <div class="guidance-phase-badge" id="guidance-phase">STEALTH DRILL</div>
+      <div class="guidance-body">
+        <strong id="guidance-title">Strategic Preparation</strong>: 
+        <span id="guidance-text">Audit all commercial spending. Prepare your household reserves so you do not spend a single cent during the upcoming 7-day observance.</span>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="header-layout">
+      <div class="header-left">
+        <div class="header-proclamation emerald">ImanI is the new breed</div>
+      </div>
+      <div class="header-center">
+        <img 
+          id="header-emblem-view"
+          src="media/images/header-emblem.png" 
+          alt="ImanI Golden Sovereign Man Between Pillars" 
+          class="header-emblem-large"
+          onerror="handleImageError(this)"
+          onclick="handleAdminImageClick('emblem-file-input')"
+        >
+        <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'imani_header_emblem')">
+      </div>
+      <div class="header-right">
+        <div class="header-proclamation gold">Onyx is the new black</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 1. Live Broadcast Stage & Sanctuary -->
+    <section>
+      <h2 class="section-title">Live Broadcast Stage & Sanctuary</h2>
+      <div class="stage-column-layout">
+        <div class="stream-viewport" id="stream-viewport-container">
+          <span class="stream-badge" id="live-indicator">STANDBY • WE R IMANI</span>
+          <button class="stream-audio-overlay-btn" id="standby-mute-btn" onclick="toggleStandbyAudio()">
+            🔊 <span id="standby-mute-text">Unmute Music</span>
+          </button>
+
+          <video 
+            id="standby-motion-player" 
+            class="stream-video-element" 
+            src="media/videos/unity-in-motion.mp4"
+            poster="media/images/we-r-imani-poster.png"
+            autoplay loop muted playsinline
+            style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+          ></video>
+
+          <video 
+            id="live-video-player" 
+            class="stream-video-element" 
+            controls playsinline 
+            style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; display: none; background: #000;"
+          >Your browser does not support HTML5 video.</video>
+
+          <div class="stream-controls-bar admin-only">
+            <input type="text" id="stream-source-url" class="stream-url-input" placeholder="HLS Stream URL (.m3u8) or video file path (.mp4)..." value="http://localhost:8888/live/stage/index.m3u8">
+            <div class="stream-actions-group">
+              <button class="btn-stream-action" onclick="connectLiveStream()">📡 Connect Stream</button>
+              <button class="btn-stream-action" style="background: var(--gold-accent);" onclick="triggerFileSelect('local-video-input')">📁 Load Live</button>
+              <button class="standby-file-btn" onclick="triggerFileSelect('standby-file-input')">🎬 Set Standby</button>
+              <input type="file" id="local-video-input" accept="video/*" style="display: none;" onchange="loadLocalVideoFile(event)">
+              <input type="file" id="standby-file-input" accept="video/*" style="display: none;" onchange="loadStandbyVideoFile(event)">
+            </div>
+          </div>
+        </div>
+
+        <div class="stage-chat-card">
+          <div class="chat-header">
+            <h4>💬 Stage Chat & Live Feed</h4>
+            <span style="font-size: 0.72rem; color: var(--emerald-accent); font-weight: 700;">🟢 LIVE SYNC</span>
+          </div>
+          <div class="chat-messages-scroll" id="chat-messages-container">
+            <div class="chat-bubble council">
+              <span class="chat-author gold">Chatty Wisdom</span>
+              <span class="chat-text">Welcome to the Stage sanctuary. Move with precision and maintain the frequency.</span>
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input-field" class="chat-input" placeholder="Transmit thought to the Stage..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+            <button class="chat-send-btn" onclick="sendChatMessage()">Send</button>
+          </div>
+        </div>
+
+        <div class="stream-archive-card">
+          <div class="archive-header-row">
+            <h3>📼 On-Demand Live Stream Archive</h3>
+            <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('archive-video-input')">➕ Add Archive Video</button>
+            <input type="file" id="archive-video-input" accept="video/*" multiple style="display: none;" onchange="loadUserArchiveVideos(event)">
+          </div>
+          <div class="stream-archive-grid" id="stream-archive-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. The Ten Mysteries of the Name -->
+    <section>
+      <h2 class="section-title">The Ten Mysteries of the Name</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="mysteries-buttons">
+          <button class="doctrine-btn active" onclick="selectMystery('01')"><span class="badge">01</span> Alpha and Omega</button>
+          <button class="doctrine-btn" onclick="selectMystery('02')"><span class="badge">02</span> The Me in the Essence</button>
+          <button class="doctrine-btn" onclick="selectMystery('03')"><span class="badge">03</span> Pillars of Solomon</button>
+          <button class="doctrine-btn" onclick="selectMystery('04')"><span class="badge">04</span> Sun and Moon Power</button>
+          <button class="doctrine-btn" onclick="selectMystery('05')"><span class="badge">05</span> I and I</button>
+          <button class="doctrine-btn" onclick="selectMystery('06')"><span class="badge">06</span> I M is I am</button>
+          <button class="doctrine-btn" onclick="selectMystery('07')"><span class="badge">07</span> I M ani</button>
+          <button class="doctrine-btn" onclick="selectMystery('08')"><span class="badge">08</span> Initiation</button>
+          <button class="doctrine-btn" onclick="selectMystery('09')"><span class="badge">09</span> Strategy</button>
+          <button class="doctrine-btn" onclick="selectMystery('10')"><span class="badge">10</span> 1 0 1 ImanI 3 6 9</button>
+        </div>
+        <div class="revelation-box" id="mystery-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="mystery-tag">Mystery 01</div>
+              <h3 class="rev-title" id="mystery-title">Alpha and Omega</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('mystery-title', 'mystery-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="mystery-desc">The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Mastery Across the Ten Activities of Life -->
+    <section>
+      <h2 class="section-title">Mastery Across the Ten Activities of Life</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="activities-buttons">
+          <button class="doctrine-btn active" onclick="selectActivity('01')"><span class="badge">01</span> Economics</button>
+          <button class="doctrine-btn" onclick="selectActivity('02')"><span class="badge">02</span> Education</button>
+          <button class="doctrine-btn" onclick="selectActivity('03')"><span class="badge">03</span> Entertainment</button>
+          <button class="doctrine-btn" onclick="selectActivity('04')"><span class="badge">04</span> Health</button>
+          <button class="doctrine-btn" onclick="selectActivity('05')"><span class="badge">05</span> Labor</button>
+          <button class="doctrine-btn" onclick="selectActivity('06')"><span class="badge">06</span> Law</button>
+          <button class="doctrine-btn" onclick="selectActivity('07')"><span class="badge">07</span> Politics</button>
+          <button class="doctrine-btn" onclick="selectActivity('08')"><span class="badge">08</span> Religion</button>
+          <button class="doctrine-btn" onclick="selectActivity('09')"><span class="badge">09</span> Sex</button>
+          <button class="doctrine-btn" onclick="selectActivity('10')"><span class="badge">10</span> War</button>
+        </div>
+        <div class="revelation-box" id="activity-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="activity-tag">Activity 01</div>
+              <h3 class="rev-title" id="activity-title">Economics</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('activity-title', 'activity-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="activity-desc">Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Strategic Stealth & Operational Codes -->
+    <section>
+      <h2 class="section-title">Strategic Stealth & Operational Codes</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="codes-buttons">
+          <button class="doctrine-btn active" onclick="selectCode('01')"><span class="badge">01</span> The Code of Silence</button>
+          <button class="doctrine-btn" onclick="selectCode('02')"><span class="badge">02</span> The Code of Ownership</button>
+          <button class="doctrine-btn" onclick="selectCode('03')"><span class="badge">03</span> Answer Questions with a Question</button>
+        </div>
+        <div class="revelation-box" id="code-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="code-tag">Operational Code</div>
+              <h3 class="rev-title" id="code-title">The Code of Silence</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('code-title', 'code-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="code-desc">Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Origin & Revelation -->
+    <section>
+      <h2 class="section-title">The Origin & Revelation of ImanI</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="origins-buttons">
+          <button class="doctrine-btn active" onclick="selectOrigin('01')"><span class="badge">01</span> Sovereign Ontology</button>
+          <button class="doctrine-btn" onclick="selectOrigin('02')"><span class="badge">02</span> The People of Faith</button>
+          <button class="doctrine-btn" onclick="selectOrigin('03')"><span class="badge">03</span> Faith in Action</button>
+          <button class="doctrine-btn" onclick="selectOrigin('04')"><span class="badge">04</span> Proper Noun Identity</button>
+          <button class="doctrine-btn" onclick="selectOrigin('05')"><span class="badge">05</span> I M Very Beautiful</button>
+          <button class="doctrine-btn" onclick="selectOrigin('06')"><span class="badge">06</span> Emerald, Onyx & Gold</button>
+        </div>
+        <div class="revelation-box" id="origin-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="origin-tag">Ontology</div>
+              <h3 class="rev-title" id="origin-title">Sovereign Ontology</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="origin-desc">Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 9 Pillars of Total Restitution -->
+    <section>
+      <h2 class="section-title">The 9 Pillars of Total Restitution (Specie Standard)</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="restitution-buttons">
+          <button class="doctrine-btn active" onclick="selectRestitution('1')"><span class="badge">01</span> Specie Cash</button>
+          <button class="doctrine-btn" onclick="selectRestitution('2')"><span class="badge">02</span> Medical</button>
+          <button class="doctrine-btn" onclick="selectRestitution('3')"><span class="badge">03</span> Housing</button>
+          <button class="doctrine-btn" onclick="selectRestitution('4')"><span class="badge">04</span> Food</button>
+          <button class="doctrine-btn" onclick="selectRestitution('5')"><span class="badge">05</span> Education</button>
+          <button class="doctrine-btn" onclick="selectRestitution('6')"><span class="badge">06</span> Land & Wealth</button>
+          <button class="doctrine-btn" onclick="selectRestitution('7')"><span class="badge">07</span> Justice</button>
+          <button class="doctrine-btn" onclick="selectRestitution('8')"><span class="badge">08</span> Environment</button>
+          <button class="doctrine-btn" onclick="selectRestitution('9')"><span class="badge">09</span> Narrative</button>
+        </div>
+        <div class="revelation-box" id="restitution-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="restitution-tag">Priority Pillar 1</div>
+              <h3 class="rev-title" id="restitution-title">1. Specie Cash</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('restitution-title', 'restitution-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="restitution-desc">Direct Unconditional Capital</p>
+          <div id="restitution-section-wrap-extra">
+            <div class="restitution-stats-grid">
+              <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
+              <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
+              <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. IAHBC DOCTRINE & BOYCOTT CELEBRATION SECTION -->
+    <section>
+      <h2 class="section-title">ImanI American Holiday Boycott Celebration — 7-Day Economic Fast</h2>
+      
+      <div class="doctrine-card">
+        <div class="iahbc-manifesto-headline" style="color: var(--gold-accent); font-weight: 800; font-size: 1.1rem; margin-bottom: 12px;">
+          ⚡ Break the chains of commercialized tradition — Reclaim your power!
+        </div>
+        <p class="iahbc-manifesto-text" style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 24px;">
+          American Holidays were <strong>never designed with us in mind</strong>, and we never had a voice in their creation! Whenever we forged our own sacred moments, they outlawed our celebrations only to repackage and sell them back to us as empty consumerism. We dishonor our own divine dignity when we finance and celebrate the rituals of our oppression. <strong>The era of blind compliance is over!</strong> Rise up, stand tall in sovereign majesty, and boldly <strong>SAY NO to American holidays</strong> — ignite your spirit and celebrate true independence!
+        </p>
+
+        <div class="button-matrix" id="boycott-buttons">
+          <button class="doctrine-btn active" onclick="selectBoycott('01')"><span class="badge">01</span> 3 + 1 + 3 Formula</button>
+          <button class="doctrine-btn" onclick="selectBoycott('02')"><span class="badge">02</span> Silent Solution</button>
+          <button class="doctrine-btn" onclick="selectBoycott('03')"><span class="badge">03</span> Unity in Motion</button>
+        </div>
+
+        <div class="revelation-box" id="boycott-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="boycott-tag">Economic Fast • 7-Day Stealth Discipline</div>
+              <h3 class="rev-title" id="boycott-title">3 + 1 + 3 = 7-Day Economic Fast</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('boycott-title', 'boycott-desc')">🔊 Listen to Protocol</button>
+          </div>
+          <p class="rev-content" id="boycott-desc">
+            Observed every Federal Holiday: <strong>three days of strategic preparation</strong> and economic fast before the holiday, <strong>one sacred day of sovereign reflection</strong> on the holiday itself, and <strong>three days of continued economic discipline</strong> following it. Zero commercial participation, 100% community self-reliance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Holiday Fast Calendar -->
+    <section>
+      <h2 class="section-title">2026–2027 Federal Holiday Economic Fast Calendar</h2>
+      <div class="doctrine-card">
+        <p style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 20px; line-height: 1.7;">
+          Synchronize your economic fast across the year. The 3 + 1 + 3 formula frames 7 complete days of self-reliance for every federal observance. The upcoming observance is automatically pinned to the top.
+        </p>
+        <div class="holiday-table-wrap">
+          <table class="holiday-table">
+            <thead>
+              <tr>
+                <th>Federal Holiday</th>
+                <th>Holiday Date</th>
+                <th>3-Day Fast Preparation</th>
+                <th>3-Day Fast Follow-Through</th>
+                <th>Total 7-Day Fast Window</th>
+              </tr>
+            </thead>
+            <tbody id="holiday-calendar-rows"></tbody>
+          </table>
+        </div>
+        <button class="btn-ics-export" onclick="exportFastCalendarICS()" style="margin-top: 20px;">📅 Download Full Fast Schedule (.ICS Calendar)</button>
+      </div>
+    </section>
+
+    <!-- 9. Boycott Celebration Gallery -->
+    <section>
+      <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
+      <div class="doctrine-card">
+        <div class="vault-grid">
+          <div class="picture-viewer-card">
+            <img id="boycott-active-img" src="media/boycott/economic-sovereignty.png" alt="Featured Boycott Art" class="picture-viewer-img" onclick="openMediaLightbox(this.src, 'image', document.getElementById('boycott-active-title').innerText)">
+            <div class="picture-viewer-details">
+              <div class="picture-viewer-title" id="boycott-active-title">The Price of Participation: Reclaiming Our Economic Sovereignty</div>
+              <div class="picture-viewer-tag" id="boycott-active-tag">Economic Sovereignty • Active Selection (Click Picture to Enlarge)</div>
+            </div>
+          </div>
+
+          <div class="playlist-card">
+            <div class="audio-tabs-bar">
+              <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Boycott Pictures Archive</span>
+              <div>
+                <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
+                <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
+              </div>
+            </div>
+            <div class="playlist-items-scroll" id="boycott-list-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Dynamic Audio Vault -->
+    <section>
+      <h2 class="section-title">ImanI Audio Vault</h2>
+      <div class="doctrine-card">
+        <div class="vault-grid">
+          <div class="audio-player-card">
+            <div class="track-meta">
+              <div class="track-art" style="width: 80px; height: 80px; font-size: 1.4rem;">IM</div>
+              <div class="track-details">
+                <h4 id="current-title" style="font-size: 1.25rem;">I M Imani</h4>
+                <p id="current-category" style="font-size: 0.95rem;">ImanI story</p>
+              </div>
+            </div>
+
+            <audio id="main-audio" controls onended="handleTrackEnded()">
+              <source id="main-audio-source" src="media/audio/story/i-m-imani.mp3" type="audio/mpeg">
+              Your browser does not support audio elements.
+            </audio>
+
+            <div class="audio-playback-controls">
+              <div style="display: flex; gap: 10px;">
+                <button class="playback-toggle-btn active" id="btn-continuous" onclick="toggleContinuousPlay()" style="font-size: 0.85rem; padding: 8px 14px;">
+                  🔁 <span id="lbl-continuous">Continuous: ON</span>
+                </button>
+                <button class="playback-toggle-btn" id="btn-random" onclick="toggleRandomPlay()" style="font-size: 0.85rem; padding: 8px 14px;">
+                  🔀 <span id="lbl-random">Random: OFF</span>
+                </button>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn-audio-skip" onclick="playPreviousTrack()" title="Previous Track" style="font-size: 0.9rem; padding: 8px 14px;">⏮ Prev</button>
+                <button class="btn-audio-skip" onclick="playNextTrack()" title="Next Track" style="font-size: 0.9rem; padding: 8px 14px;">Next ⏭</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="playlist-card">
+            <div class="audio-tabs-bar">
+              <div style="display: flex; gap: 6px;" id="audio-tabs-container">
+                <button class="audio-tab-btn active" onclick="setAudioCategory('ALL', this)" style="font-size: 0.82rem; padding: 6px 12px;">All Audio</button>
+                <button class="audio-tab-btn" onclick="setAudioCategory('ImanI story', this)" style="font-size: 0.82rem; padding: 6px 12px;">Story (Free)</button>
+                <button class="audio-tab-btn" onclick="setAudioCategory('The mysteries', this)" style="font-size: 0.82rem; padding: 6px 12px;">🔒 Mysteries</button>
+                <button class="audio-tab-btn" onclick="setAudioCategory('Audio Agreements', this)" style="font-size: 0.82rem; padding: 6px 12px;">🔒 Agreements</button>
+              </div>
+              <div>
+                <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
+                <input type="file" id="audio-folder-input" accept="audio/*" multiple style="display: none;" onchange="handleUserAudioUpload(event)">
+              </div>
+            </div>
+            <div class="playlist-items-scroll" id="playlist-items-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Dedicated Still Picture Gallery -->
+    <section>
+      <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
+      <div class="doctrine-card">
+        <div class="vault-grid">
+          <div class="picture-viewer-card">
+            <img id="still-active-img" src="media/images/imanipix/chapter-0-manifesto.png" alt="Featured Still Art" class="picture-viewer-img" onclick="openMediaLightbox(this.src, 'image', document.getElementById('still-active-title').innerText)">
+            <div class="picture-viewer-details">
+              <div class="picture-viewer-title" id="still-active-title">Chapter 0 — The ImanI Manifesto</div>
+              <div class="picture-viewer-tag" id="still-active-tag">Foundational Blueprint • Active Selection (Click Picture to Enlarge)</div>
+            </div>
+          </div>
+
+          <div class="playlist-card">
+            <div class="audio-tabs-bar">
+              <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Still Art & Lore Archive</span>
+              <div>
+                <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('still-multi-input')">📁 Add Pictures</button>
+                <input type="file" id="still-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'still')">
+              </div>
+            </div>
+            <div class="playlist-items-scroll" id="still-list-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Music Video Vault -->
+    <section>
+      <h2 class="section-title">ImanI Official Music Video Vault</h2>
+      <div class="doctrine-card">
+        <div class="vault-grid">
+          <div class="picture-viewer-card">
+            <video id="music-video-active-player" class="video-viewer-element" controls playsinline preload="metadata" poster="media/images/header-emblem.png">
+              <source id="music-video-active-source" src="https://archive.org/download/written-in-the-law-video/written-in-the-law-video.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+            <div class="picture-viewer-details">
+              <div class="picture-viewer-title" id="music-video-active-title">Written in the Law Video</div>
+              <div class="picture-viewer-tag" id="music-video-active-tag">Official Music Video • HD Master</div>
+            </div>
+          </div>
+
+          <div class="playlist-card">
+            <div class="audio-tabs-bar">
+              <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Music Video Queue</span>
+              <div>
+                <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('music-video-multi-input')">📁 Add Videos</button>
+                <input type="file" id="music-video-multi-input" accept="video/*" multiple style="display: none;" onchange="loadUserVideos(event, 'music')">
+              </div>
+            </div>
+            <div class="playlist-items-scroll" id="music-video-list-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Cinema & Documentary Vault -->
+    <section>
+      <h2 class="section-title">ImanI Documentary & Cinema Vault</h2>
+      <div class="doctrine-card">
+        <div class="vault-grid">
+          <div class="picture-viewer-card">
+            <video id="cinema-active-player" class="video-viewer-element" controls playsinline preload="metadata" poster="media/images/header-emblem.png">
+              <source id="cinema-active-source" src="https://archive.org/download/written-in-the-law-letter_202609/written-in-the-law-letter.ia.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+            <div class="picture-viewer-details">
+              <div class="picture-viewer-title" id="cinema-active-title">Written in the Law Letter</div>
+              <div class="picture-viewer-tag" id="cinema-active-tag">Documentary Cinema • Chapter 1</div>
+            </div>
+          </div>
+
+          <div class="playlist-card">
+            <div class="audio-tabs-bar">
+              <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Cinema Vault Queue</span>
+              <div>
+                <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('cinema-multi-input')">📁 Add Cinema</button>
+                <input type="file" id="cinema-multi-input" accept="video/*" multiple style="display: none;" onchange="loadUserVideos(event, 'cinema')">
+              </div>
+            </div>
+            <div class="playlist-items-scroll" id="cinema-list-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. Chatty's Wisdom 99-Card Engine -->
+    <section>
+      <div class="wisdom-filter-bar">
+        <input type="text" id="wisdom-search" class="wisdom-search-input" placeholder="🔍 Search 99 Wisdom cards..." oninput="filterWisdomDeck()">
+        <button class="filter-tag-btn active" onclick="setDeckTagFilter('ALL', this)">All</button>
+        <button class="filter-tag-btn" onclick="setDeckTagFilter('Strategy', this)">Strategy</button>
+        <button class="filter-tag-btn" onclick="setDeckTagFilter('Economics', this)">Economics</button>
+        <button class="filter-tag-btn" onclick="setDeckTagFilter('Stealth', this)">Stealth</button>
+        <button class="filter-tag-btn" onclick="setDeckTagFilter('Lineage', this)">Lineage</button>
+      </div>
+
+      <div class="doctrine-card">
+        <div class="wisdom-card revealed" id="wisdom-card-container" style="border: none; background: transparent; box-shadow: none; padding: 0;">
+          <img id="chatty-header-view" src="media/images/chatty-wisdom-header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="handleAdminImageClick('chatty-file-input')">
+          <input type="file" id="chatty-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-header-view', 'chatty_wisdom_header')">
+
+          <div class="chatty-landscape-frame">
+            <img id="chatty-landscape-view" src="media/images/chatty-wisdom-landscape.png" alt="Chatty Wisdom Landscape Showcase" class="chatty-landscape-img" onerror="handleChattyLandscapeError(this)" onclick="handleAdminImageClick('chatty-landscape-file-input')">
+            <input type="file" id="chatty-landscape-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-landscape-view', 'chatty_landscape_image')">
+          </div>
+
+          <div class="card-body-frame" style="margin-bottom: 24px;">
+            <h3 class="card-title-text" id="deck-title" style="font-size: 1.75rem; font-weight: 900; color: var(--gold-accent); margin-bottom: 12px; text-shadow: 0 0 12px var(--gold-glow);">The Checkmate Perspective</h3>
+            <p class="card-message-text" id="deck-quote" style="font-size: 1.2rem; line-height: 1.8; color: var(--text-main);">"Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction."</p>
+            <span class="card-number-label" id="deck-number" style="display: block; margin-top: 10px; font-size: 0.88rem; color: var(--purple-accent); font-weight: 800; letter-spacing: 0.05em;">Card 01 • Daily Message</span>
+          </div>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn-draw-card" onclick="drawWisdomCard()">Draw Next Card</button>
+            <button class="btn-audio-narrate" style="border-color: var(--purple-accent); color: var(--gold-accent); font-size: 0.95rem; padding: 10px 24px;" onclick="narrateText('deck-title', 'deck-quote')">🔊 Listen to Wisdom</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>ImanI Cultural Movement &copy; 2026. All Rights Reserved.</p>
+    <p style="margin-top: 6px;">
+      <a href="javascript:void(0)" onclick="toggleAdminEditMode()" style="color: var(--text-muted); text-decoration: none; font-size: 0.75rem;">🔐 Creator Portal</a>
+    </p>
+  </footer>
+
+  <!-- Fullscreen Lightbox Display -->
+  <div id="lightbox-modal" class="lightbox-backdrop" onclick="closeMediaLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <button class="lightbox-close-btn" onclick="closeMediaLightbox()">&times;</button>
+      <div id="lightbox-media-container" class="lightbox-media-holder"></div>
+      <div id="lightbox-caption-text" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Membership Gate Modal -->
+  <div id="membership-modal" class="lightbox-backdrop" onclick="closeMembershipModal()">
+    <div class="lightbox-content" onclick="event.stopPropagation()" style="max-width: 440px; background: var(--onyx-surface); border: 1px solid var(--gold-accent); border-radius: var(--radius-md); padding: 28px; text-align: center; box-shadow: 0 0 35px var(--gold-glow);">
+      <button class="lightbox-close-btn" onclick="closeMembershipModal()">&times;</button>
+      
+      <div style="font-size: 2.5rem; margin-bottom: 8px;">🏛️</div>
+      <h3 style="color: var(--gold-accent); font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">ImanI Sovereign Pass</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
+        This item is exclusive to our Sovereign Membership community. Join or enter your member pass to unlock all additional member vaults and archives.
+      </p>
+
+      <a href="https://your-membership-signup-link.com" target="_blank" class="btn-join-membership" style="display: inline-block; text-decoration: none; padding: 12px 28px; font-size: 0.92rem; margin-bottom: 18px;">
+        ⚡ Join Membership
+      </a>
+
+      <div style="border-top: 1px solid var(--onyx-border); padding-top: 16px; margin-top: 6px;">
+        <p style="color: var(--text-main); font-size: 0.82rem; margin-bottom: 8px;">Already a Member? Enter your Access Pass:</p>
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <input type="password" id="member-pass-input" class="chat-input" placeholder="Passphrase..." style="max-width: 220px;" onkeydown="if(event.key==='Enter') submitMemberPass()">
+          <button class="chat-send-btn" onclick="submitMemberPass()">Unlock</button>
+        </div>
+        <p id="member-pass-error" style="color: #ff5555; font-size: 0.75rem; margin-top: 8px; display: none;">Invalid Passphrase. Please try again.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
     const SECRET_MEMBER_KEY = "IMANI2026";
 
     function isMemberUnlocked() {
@@ -481,8 +1273,6 @@
 
       renderPlaylistItems();
       renderStreamArchive();
-      
-      // BOTH GALLERY QUEUE RENDERERS AND CALENDAR RENDERER FULLY WIRED
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
       renderHolidayCalendar();
