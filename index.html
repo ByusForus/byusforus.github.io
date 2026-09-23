@@ -268,7 +268,6 @@
           src="media/images/websitepix/header-emblem.png" 
           alt="ImanI Golden Sovereign Man Between Pillars" 
           class="header-emblem-large"
-          onerror="this.onerror=null; this.src='media/images/websitepix/chatty-wisdom-header.png';"
           onclick="handleAdminImageClick('emblem-file-input')"
         >
         <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'imani_header_emblem')">
@@ -728,11 +727,6 @@
         <div class="wisdom-card revealed" id="wisdom-card-container" style="border: none; background: transparent; box-shadow: none; padding: 0;">
           <img id="chatty-header-view" src="media/images/websitepix/chatty-wisdom-header.png" alt="Chatty's Wisdom" class="chatty-transparent-emblem" onerror="handleChattyImageError(this)" onclick="handleAdminImageClick('chatty-file-input')">
           <input type="file" id="chatty-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-header-view', 'chatty_wisdom_header')">
-
-          <div class="chatty-landscape-frame">
-            <img id="chatty-landscape-view" src="media/images/websitepix/chatty-wisdom-landscape.png" alt="Chatty Wisdom Landscape Showcase" class="chatty-landscape-img" onerror="handleChattyLandscapeError(this)" onclick="handleAdminImageClick('chatty-landscape-file-input')">
-            <input type="file" id="chatty-landscape-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'chatty-landscape-view', 'chatty_landscape_image')">
-          </div>
 
           <div class="card-body-frame" style="margin-bottom: 24px;">
             <h3 class="card-title-text" id="deck-title" style="font-size: 1.75rem; font-weight: 900; color: var(--gold-accent); margin-bottom: 12px; text-shadow: 0 0 12px var(--gold-glow);">The Checkmate Perspective</h3>
