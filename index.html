@@ -1095,7 +1095,7 @@
       </div>
     </section>
 
-    <!-- 2. The Ten Mysteries of the Name (INTERACTIVE BUTTON MATRIX RESTORED) -->
+    <!-- 2. The Ten Mysteries of the Name (FULL INTERACTIVE BUTTON MATRIX) -->
     <section>
       <h2 class="section-title">The Ten Mysteries of the Name</h2>
       <div class="button-matrix" id="mysteries-buttons"></div>
@@ -1111,23 +1111,23 @@
       </div>
     </section>
 
-    <!-- 3. Mastery Across the Ten Activities of Life (INTERACTIVE BUTTON MATRIX RESTORED) -->
+    <!-- 3. Mastery Across the Ten Activities of Life (FULL INTERACTIVE BUTTON MATRIX) -->
     <section>
       <h2 class="section-title">Mastery Across the Ten Activities of Life</h2>
       <div class="button-matrix" id="activities-buttons"></div>
       <div class="revelation-box" id="activity-display">
         <div class="rev-header-wrap">
           <div>
-            <div class="rev-tag" id="activity-tag">Activity 01 & 02</div>
-            <h3 class="rev-title" id="activity-title">Economics & Education</h3>
+            <div class="rev-tag" id="activity-tag">Activity 01</div>
+            <h3 class="rev-title" id="activity-title">Economics</h3>
           </div>
           <button class="btn-audio-narrate" onclick="narrateText('activity-title', 'activity-desc')">🔊 Listen</button>
         </div>
-        <p class="rev-content" id="activity-desc"><strong>Economics:</strong> Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.<br><br><strong>Education:</strong> Defining ourselves, writing our own narratives, and teaching sovereign history and culture.</p>
+        <p class="rev-content" id="activity-desc">Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.</p>
       </div>
     </section>
 
-    <!-- 4. Strategic Stealth & Operational Codes (INTERACTIVE BUTTON MATRIX RESTORED) -->
+    <!-- 4. Strategic Stealth & Operational Codes (FULL INTERACTIVE BUTTON MATRIX) -->
     <section>
       <h2 class="section-title">Strategic Stealth & Operational Codes</h2>
       <div class="button-matrix" id="codes-buttons"></div>
@@ -1144,43 +1144,10 @@
     </section>
 
     <!-- 5. Origin & Revelation -->
-    <section>
-      <h2 class="section-title">The Origin & Revelation of ImanI</h2>
-      <div class="button-matrix" id="origins-buttons"></div>
-      <div class="revelation-box" id="origin-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="origin-tag">Ontology</div>
-            <h3 class="rev-title" id="origin-title">Sovereign Ontology</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
-        </div>
-        <p class="rev-content" id="origin-desc">Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
-      </div>
-    </section>
+    <section id="origin-section-wrap"></section>
 
     <!-- 6. 9 Pillars of Total Restitution -->
-    <section>
-      <h2 class="section-title">The 9 Pillars of Total Restitution (Specie Standard)</h2>
-      <div class="button-matrix" id="restitution-buttons"></div>
-      <div class="revelation-box" id="restitution-display">
-        <div class="rev-header-wrap">
-          <div>
-            <div class="rev-tag" id="restitution-tag">Priority Pillar 1</div>
-            <h3 class="rev-title" id="restitution-title">1. Specie Cash</h3>
-          </div>
-          <button class="btn-audio-narrate" onclick="narrateText('restitution-title', 'restitution-desc')">🔊 Listen</button>
-        </div>
-        <p class="rev-content" id="restitution-desc">Direct Unconditional Capital</p>
-        <div id="restitution-section-wrap-extra">
-          <div class="restitution-stats-grid">
-            <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
-            <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
-            <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section id="restitution-section-wrap"></section>
 
     <!-- 7. IAHBC DOCTRINE & BOYCOTT CELEBRATION SECTION -->
     <section>
@@ -2359,6 +2326,7 @@
       }
     }
 
+    // COMPLETE DATA ARRAYS WITH ALL EXACT NAMES YOU PROVIDED
     const originsData = [
       { id: "01", btnTitle: "Sovereign Ontology", tag: "Ontology", title: "Sovereign Ontology", desc: "Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character." },
       { id: "02", btnTitle: "The People of Faith", tag: "Lineage & Faith", title: "The People of Faith", desc: "After slavery, Reconstruction, Jim Crow, and the Civil Rights movement, descendants of 1863 emaciated slaves stand as the original 14th Amendment Americans." },
@@ -2368,24 +2336,35 @@
     ];
 
     const mysteriesData = [
-      { id: "01", btnTitle: "1. Alpha & Omega", title: "Alpha and Omega", tag: "Mystery 01", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
-      { id: "02", btnTitle: "2. Divine Soul", title: "God in Me / Divine Soul", tag: "Mystery 02", desc: "The 'man' in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
-      { id: "03", btnTitle: "3. Pillars of Solomon", title: "Pillars of Solomon", tag: "Mystery 03", desc: "Boaz and Jachin stand as the gateway of transformation where sovereign life begins anew." },
-      { id: "04", btnTitle: "4. Solar & Lunar", title: "Solar & Lunar Power", tag: "Mystery 04", desc: "Harmonious balance atop the pillars: Sun (man) and Moon (woman) working in unison." },
-      { id: "05", btnTitle: "5. I and I", title: "I and I", tag: "Mystery 05", desc: "Universal unity with the divine and community." },
-      { id: "06", btnTitle: "6. I M Existence", title: "I M (Existence)", tag: "Mystery 06", desc: "Echoing the declaration 'I am that I am,' affirming unborrowed authority." },
-      { id: "07", btnTitle: "7. Inherent Beauty", title: "I M ani (Inherent Beauty)", tag: "Mystery 07", desc: "Discarding external standards to declare internal, divine perfection." },
-      { id: "08", btnTitle: "8. The Initiation", title: "The Initiation (1 0 1)", tag: "Mystery 08", desc: "Standing consciously between the pillars (I M I / 1 0 1) to awaken into the new breed." },
-      { id: "09", btnTitle: "9. Strategy", title: "Strategy", tag: "Mystery 09", desc: "The deliberate application of spiritual wisdom to ensure self-reliance." },
-      { id: "10", btnTitle: "10. 101 Knowledge", title: "1 0 1 Knowledge", tag: "Mystery 10", desc: "The complete mastery of ImanI law, walking in faith and operating in divine love." }
+      { id: "01", btnTitle: "Alpha and Omega", title: "Alpha and Omega", tag: "Mystery 01", desc: "The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination." },
+      { id: "02", btnTitle: "The Me in the Essence", title: "The Me in the Essence", tag: "Mystery 02", desc: "The 'man' in the center represents the sacred truth that the Divine Soul resides in man and man in the Divine Soul." },
+      { id: "03", btnTitle: "Pillars of Solomon", title: "Pillars of Solomon", tag: "Mystery 03", desc: "Boaz and Jachin stand as the gateway of transformation where sovereign life begins anew." },
+      { id: "04", btnTitle: "Sun and Moon Power", title: "Sun and Moon Power", tag: "Mystery 04", desc: "Harmonious balance atop the pillars: Sun (man) and Moon (woman) working in unison." },
+      { id: "05", btnTitle: "I and I", title: "I and I", tag: "Mystery 05", desc: "Universal unity with the divine and community." },
+      { id: "06", btnTitle: "I M is I am", title: "I M is I am", tag: "Mystery 06", desc: "Echoing the declaration 'I am that I am,' affirming unborrowed authority." },
+      { id: "07", btnTitle: "I M ani", title: "I M ani", tag: "Mystery 07", desc: "Discarding external standards to declare internal, divine perfection." },
+      { id: "08", btnTitle: "Initiation", title: "Initiation", tag: "Mystery 08", desc: "Standing consciously between the pillars (I M I / 1 0 1) to awaken into the new breed." },
+      { id: "09", btnTitle: "Strategy", title: "Strategy", tag: "Mystery 09", desc: "The deliberate application of spiritual wisdom to ensure self-reliance." },
+      { id: "10", btnTitle: "1 0 1 ImanI 3 6 9", title: "1 0 1 ImanI 3 6 9", tag: "Mystery 10", desc: "The complete mastery of ImanI law, walking in faith and operating in divine love." }
     ];
 
     const activitiesData = [
-      { id: "01", btnTitle: "1 & 2. Economics & Education", title: "Economics & Education", tag: "Activity 01 & 02", desc: "<strong>Economics:</strong> Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.<br><br><strong>Education:</strong> Defining ourselves, writing our own narratives, and teaching sovereign history and culture." },
-      { id: "02", btnTitle: "3 & 4. Entertainment & Labor", title: "Entertainment & Labor", tag: "Activity 03 & 04", desc: "<strong>Entertainment:</strong> Music, cinema, and art reflecting dignity.<br><br><strong>Labor:</strong> Practicing <em>Ujima</em> (Collective Work and Responsibility)." },
-      { id: "03", btnTitle: "5 & 6. Law & Politics", title: "Law & Politics", tag: "Activity 05 & 06", desc: "<strong>Law:</strong> Establishing justice and truth.<br><br><strong>Politics:</strong> Exercising leverage as 14th Amendment creditors." },
-      { id: "04", btnTitle: "7 & 8. Health & Religion", title: "Health & Religion", tag: "Activity 07 & 08", desc: "<strong>Health:</strong> Holistic vitality.<br><br><strong>Religion:</strong> Moving beyond dogma into living faith." },
-      { id: "05", btnTitle: "9 & 10. Sex & War", title: "Sex & War", tag: "Activity 09 & 10", desc: "<strong>Sex:</strong> Sacred union of Sun and Moon forces.<br><br><strong>War:</strong> Spiritual, intellectual, and economic warfare defending justice." }
+      { id: "01", btnTitle: "Economics", title: "Economics", tag: "Activity 01", desc: "Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises." },
+      { id: "02", btnTitle: "Education", title: "Education", tag: "Activity 02", desc: "Defining ourselves, writing our own narratives, and teaching sovereign history and culture." },
+      { id: "03", btnTitle: "Entertainment", title: "Entertainment", tag: "Activity 03", desc: "Music, cinema, and art reflecting dignity, sovereignty, and self-definition." },
+      { id: "04", btnTitle: "Health", title: "Health", tag: "Activity 04", desc: "Holistic vitality, physical discipline, joint stability, and mental clarity." },
+      { id: "05", btnTitle: "Labor", title: "Labor", tag: "Activity 05", desc: "Practicing <em>Ujima</em> (Collective Work and Responsibility) and building independent industry." },
+      { id: "06", btnTitle: "Law", title: "Law", tag: "Activity 06", desc: "Establishing justice, understanding our legal standing, and upholding sovereign truth." },
+      { id: "07", btnTitle: "Politics", title: "Politics", tag: "Activity 07", desc: "Exercising leverage as 14th Amendment creditors and self-governing people." },
+      { id: "08", btnTitle: "Religion", title: "Religion", tag: "Activity 08", desc: "Moving beyond dogma into living faith, spiritual awakening, and inner power." },
+      { id: "09", btnTitle: "Sex", title: "Sex", tag: "Activity 09", desc: "Sacred union of Sun and Moon forces, balance, and the preservation of lineage." },
+      { id: "10", btnTitle: "War", title: "War", tag: "Activity 10", desc: "Spiritual, intellectual, and economic warfare defending justice and protecting our future." }
+    ];
+
+    const codesData = [
+      { id: "01", btnTitle: "Code of Silence", tag: "Operational Code", title: "Code of Silence", desc: "Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities." },
+      { id: "02", btnTitle: "Code of Ownership", tag: "Operational Code", title: "Code of Ownership", desc: "Absolute stewardship over our intellectual property, cultural creations, media vaults, and economic outputs." },
+      { id: "03", btnTitle: "Answer Questions with a Question", tag: "Operational Code", title: "Answer Questions with a Question", desc: "The curious consultant method: disarming outside interrogation by leading others to discover truth through their own inquiry." }
     ];
 
     const restitutionData = [
@@ -2398,12 +2377,6 @@
       { id: "7", btnTitle: "7. Justice", tag: "Priority Pillar 7", title: "7. Justice", desc: "Record Relief & Incarceration Damages", gold: "30 oz Bullion", silver: "2,500 oz Coinage", rule: "Enforceable Relief" },
       { id: "8", btnTitle: "8. Environment", tag: "Priority Pillar 8", title: "8. Environment", desc: "Remediation of Impacted Zones", gold: "20 oz Bullion", silver: "1,650 oz Coinage", rule: "Place-Based Repair" },
       { id: "9", btnTitle: "9. Narrative", tag: "Priority Pillar 9", title: "9. Narrative", desc: "Lineage Archives & Media", gold: "10 oz Bullion", silver: "825 oz Coinage", rule: "Lineage Controlled" }
-    ];
-
-    const codesData = [
-      { id: "01", btnTitle: "Code of Silence", tag: "Operational Code", title: "Code of Silence", desc: "Moving in stealth mode without broadcasting internal maneuvers to outside entities." },
-      { id: "02", btnTitle: "Code of Non-Compliance", tag: "Operational Code", title: "Code of Non-Compliance", desc: "Refusing compliance with narratives that dilute sovereignty." },
-      { id: "03", btnTitle: "Curious Consultant Method", tag: "Operational Code", title: "Curious Consultant Method", desc: "Asking disarming questions that lead others to truth rather than arguing." }
     ];
 
     const boycottData = [
@@ -2474,8 +2447,7 @@
       renderHolidayCalendar();
       initDailyWisdomCard();
 
-      // INTERACTIVE BUTTON MATRICES ACTIVATED FOR EVERY SECTION
-      renderMatrixButtons('origins-buttons', originsData, 'origin-tag', 'origin-title', 'origin-desc', 'origin-display');
+      // FULLY RESTORED INTERACTIVE BUTTON MATRICES
       renderMatrixButtons('mysteries-buttons', mysteriesData, 'mystery-tag', 'mystery-title', 'mystery-desc', 'mystery-display');
       renderMatrixButtons('activities-buttons', activitiesData, 'activity-tag', 'activity-title', 'activity-desc', 'activity-display');
       renderMatrixButtons('codes-buttons', codesData, 'code-tag', 'code-title', 'code-desc', 'code-display');
