@@ -282,7 +282,7 @@
       <div class="header-center" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <img 
           id="header-emblem-view"
-          src="media/images/websitepix/header-emblem" 
+          src="media/images/websitepix/header-emblem.png" 
           alt="ImanI Golden Sovereign Man Between Pillars" 
           class="header-emblem-large"
           style="max-height: 260px; width: auto; object-fit: contain; display: block;"
@@ -865,6 +865,13 @@
       } else {
         if (errorMsg) errorMsg.style.display = 'block';
       }
+    }
+
+    function renderStreamArchive() {
+      const container = document.getElementById('stream-archive-container');
+      if (!container) return;
+      container.innerHTML = '';
+      // Default archive items placeholder
     }
 
     // Audio Library
