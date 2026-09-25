@@ -169,6 +169,13 @@
     .pic-queue-title { font-size: 0.95rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .pic-queue-tag { font-size: 0.74rem; color: var(--gold-accent); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+    /* LIGHTBOX STYLING */
+    .lightbox-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+    .lightbox-content { position: relative; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center; }
+    .lightbox-media-holder img { max-width: 85vw; max-height: 75vh; object-fit: contain; border-radius: var(--radius-sm); border: 2px solid var(--gold-accent); }
+    .lightbox-close-btn { position: absolute; top: -40px; right: 0; background: transparent; border: none; color: var(--text-main); font-size: 2.2rem; cursor: pointer; font-weight: 900; }
+    .lightbox-caption { color: var(--gold-accent); font-size: 1.05rem; font-weight: 700; margin-top: 12px; text-align: center; }
+
     /* RESPONSIVE HEADER STYLING */
     header { border-bottom: 1px solid var(--onyx-border); background: rgba(0, 0, 0, 0.98); position: sticky; top: 0; z-index: 100; width: 100%; }
     .header-layout { width: 100%; display: grid; grid-template-columns: 1fr 1.2fr 1fr; align-items: center; padding: 12px 24px; gap: 16px; }
@@ -850,6 +857,25 @@
     function closeMembershipModal() {
       const modal = document.getElementById('membership-modal');
       if (modal) modal.style.display = 'none';
+    }
+
+    // LIGHTBOX FUNCTIONS
+    function openMediaLightbox(src, type, caption) {
+      const modal = document.getElementById('lightbox-modal');
+      const container = document.getElementById('lightbox-media-container');
+      const captionEl = document.getElementById('lightbox-caption-text');
+      if (!modal || !container) return;
+
+      container.innerHTML = `<img src="${encodeURI(src)}" alt="Enlarged Art">`;
+      if (captionEl) captionEl.innerText = caption || "";
+      modal.style.display = 'flex';
+    }
+
+    function closeMediaLightbox() {
+      const modal = document.getElementById('lightbox-modal');
+      const container = document.getElementById('lightbox-media-container');
+      if (modal) modal.style.display = 'none';
+      if (container) container.innerHTML = '';
     }
 
     function submitMemberPass() {
