@@ -181,18 +181,19 @@
     .header-layout { width: 100%; display: grid; grid-template-columns: 1fr 1.2fr 1fr; align-items: center; padding: 12px 24px; gap: 16px; }
     .header-left, .header-right { display: flex; justify-content: center; align-items: center; text-align: center; }
     
+    /* 2.5REM PROCLAMATIONS */
     .header-proclamation { 
-      font-size: 2.8rem !important; 
+      font-size: 2.5rem !important; 
       font-weight: 900 !important; 
       letter-spacing: 0.08em; 
       text-transform: uppercase; 
       line-height: 1.1; 
     }
-    .header-proclamation.emerald { color: var(--emerald-accent) !important; text-shadow: 0 0 16px var(--emerald-glow); font-size: 2.8rem !important; }
-    .header-proclamation.gold { color: var(--gold-accent) !important; text-shadow: 0 0 16px var(--gold-glow); font-size: 2.8rem !important; }
+    .header-proclamation.emerald { color: var(--emerald-accent) !important; text-shadow: 0 0 16px var(--emerald-glow); font-size: 2.5rem !important; }
+    .header-proclamation.gold { color: var(--gold-accent) !important; text-shadow: 0 0 16px var(--gold-glow); font-size: 2.5rem !important; }
 
     .header-center { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 110px; }
-    .header-emblem-large { width: 100%; max-width: 480px; height: auto; max-height: 240px; object-fit: contain; display: block; filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.95)); }
+    .header-emblem-large { width: 100%; max-width: 480px; height: auto; max-height: 260px; object-fit: contain; display: block; filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.95)); }
 
     /* MOBILE QUERY ADAPTATION */
     @media (max-width: 900px) {
@@ -202,10 +203,10 @@
         gap: 16px;
       }
       .header-proclamation {
-        font-size: 2.2rem !important;
+        font-size: 1.9rem !important;
       }
       .header-proclamation.emerald, .header-proclamation.gold {
-        font-size: 2.2rem !important;
+        font-size: 1.9rem !important;
       }
       .header-emblem-large {
         max-height: 200px;
@@ -282,7 +283,7 @@
     </div>
   </div>
 
-  <!-- RESPONSIVE MOBILE-FRIENDLY HEADER -->
+  <!-- FIXED HEADER WITH 2.5REM PROCLAMATIONS -->
   <header>
     <div class="header-layout">
       <div class="header-left">
@@ -294,7 +295,7 @@
           src="media/images/websitepix/header-emblem" 
           alt="ImanI Golden Sovereign Man Between Pillars" 
           class="header-emblem-large"
-          style="width: auto; object-fit: contain; display: block;"
+          style="max-height: 260px; width: auto; object-fit: contain; display: block;"
           onerror="this.onerror=null; this.src='media/images/websitepix/header-emblem.png';"
         >
         <button onclick="triggerFileSelect('emblem-file-input')" style="margin-top: 6px; background: var(--onyx-card); border: 1px solid var(--gold-accent); color: var(--gold-accent); padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">📁 Select Header Image</button>
