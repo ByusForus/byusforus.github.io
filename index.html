@@ -273,7 +273,7 @@
     </div>
   </div>
 
-  <!-- FIXED HEADER WITH UPDATED PROCLAMATION -->
+  <!-- FIXED HEADER -->
   <header>
     <div class="header-layout">
       <div class="header-left">
@@ -1137,28 +1137,19 @@
       event.currentTarget.classList.add('active');
     }
 
-    // FULL PICTURE LIBRARIES RESTORATION
+    // FULL UPDATED BOYCOTT PICTURE LIBRARY WITH ALL FOLDER ASSETS
     let boycottPictureLibrary = [
       { title: "The Price of Participation: Reclaiming Our Economic Sovereignty", tag: "Economic Sovereignty", src: "media/boycott/economic-sovereignty.png", isLocked: false },
       { title: "June 15th — Declaration Day", tag: "Declaration Day", src: "media/boycott/june15-declaration-day.png", isLocked: false },
-      { title: "June 13 — George Floyd Day", tag: "Juneteenth • We Do We", src: "media/boycott/george-floyd-day.png", isLocked: false },
-      { title: "IAHBC 7-Day American Holidays", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-american-holidays-s...png", isLocked: true },
-      { title: "IAHBC 7-Day Economic Fast Candle", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-economic-fast-candl...png", isLocked: true },
-      { title: "IAHBC Political Theater Strategy", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-at-wait-political-theater-strat...png", isLocked: true },
-      { title: "IAHBC 7-Day Fast Commitment", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-commit-memon-al-day-7-days-fa...png", isLocked: true },
-      { title: "IAHBC Emerald Sovereign Gold", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-emer-aid-onyx-ld-kama-lc...png", isLocked: true },
-      { title: "IAHBC Ancestors Not Corporations 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-honor-ancestors-not-corpora...png", isLocked: true },
-      { title: "IAHBC Ancestors Not Corporations 2", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-honor-ancestors-not-corpora...png", isLocked: true },
-      { title: "IAHBC Celebration Poster 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster.png", isLocked: true },
-      { title: "IAHBC Celebration Poster 2", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster1.png", isLocked: true },
-      { title: "IAHBC Celebration Poster 12", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster12.png", isLocked: true },
-      { title: "IAHBC Celebration Poster 7", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-poster7.png", isLocked: true },
-      { title: "IAHBC Celebration Poster 3", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-join-celebration-posterthree.png", isLocked: true },
-      { title: "IAHBC Boycott Manifesto Gold", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-master-manifesto-gold-twop.png", isLocked: true },
-      { title: "IAHBC No More Stories 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-no-more-stories-only.png", isLocked: true },
-      { title: "IAHBC No Stories Real Solutions", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-no-stories-only-real-solutions.png", isLocked: true },
-      { title: "IAHBC Stop Celebrating American Holidays", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-stop-celebrating-american-holidays-la...png", isLocked: true },
-      { title: "IAHBC Stop Celebrating Awakening", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-stop-celebrating-awakening-is-when-a...png", isLocked: true }
+      { title: "George Floyd Day", tag: "Juneteenth • We Do We", src: "media/boycott/george-floyd-day.png", isLocked: false },
+      { title: "IAHBC 7-Day Overview", tag: "Boycott Strategy", src: "media/boycott/iahbc-7-days-overview.png", isLocked: false },
+      { title: "Honor Ancestors Not Corporations", tag: "Heritage & Principle", src: "media/boycott/iahbc-honor-ancestors-not-corporations-two.png", isLocked: false },
+      { title: "IAHBC Theater Strategy", tag: "Political Theater", src: "media/boycott/iahbc-theater-strategy.png", isLocked: false },
+      { title: "IAHBC This Holiday We Do We", tag: "Community Action", src: "media/boycott/iahbc-this-holiday-we-do-we.png", isLocked: false },
+      { title: "IAHBC Juneteenth Teach", tag: "Community Education", src: "media/boycott/iahbc-juneteenth-teach.png", isLocked: false },
+      { title: "IAHBC Should Boycott Sale", tag: "Economic Fast", src: "media/boycott/iahbc-should-boycott-sale.png", isLocked: false },
+      { title: "Members Only Archive Item 1", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-american-holidays-s...png", isLocked: true },
+      { title: "Members Only Archive Item 2", tag: "🔒 Members Only Vault", src: "media/boycott/members-only/a-iahbc-7-days-economic-fast-candl...png", isLocked: true }
     ];
 
     let stillPictureLibrary = [
