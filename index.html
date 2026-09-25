@@ -148,13 +148,6 @@
     .stat-value { font-size: 1.25rem; font-weight: 900; color: var(--emerald-accent); }
     .stat-value.gold { color: var(--gold-accent); }
 
-    /* CALENDAR TABLE STYLING */
-    .holiday-table-wrap { overflow-x: auto; margin-top: 14px; }
-    .holiday-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
-    .holiday-table th { padding: 12px 14px; color: var(--gold-accent); border-bottom: 2px solid var(--gold-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; background: rgba(255, 209, 92, 0.08); }
-    .holiday-table td { padding: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-main); }
-    .holiday-table tr.active-fast-row { background: rgba(0, 208, 108, 0.15); border-left: 4px solid var(--emerald-accent); }
-
     /* PICTURE GALLERY STYLING */
     .vault-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     @media (max-width: 860px) { .vault-grid { grid-template-columns: 1fr; } }
@@ -181,7 +174,6 @@
     .header-layout { width: 100%; display: grid; grid-template-columns: 1fr 1.2fr 1fr; align-items: center; padding: 12px 24px; gap: 16px; }
     .header-left, .header-right { display: flex; justify-content: center; align-items: center; text-align: center; }
     
-    /* 2.2REM PROCLAMATIONS */
     .header-proclamation { 
       font-size: 2.2rem !important; 
       font-weight: 900 !important; 
@@ -245,8 +237,6 @@
     .archive-item-title { font-size: 0.92rem; font-weight: 700; color: var(--text-main); }
     .archive-item-meta { font-size: 0.76rem; color: var(--gold-accent); display: flex; justify-content: space-between; }
 
-    .btn-ics-export { background: var(--emerald-accent); color: #000; border: none; font-weight: 700; font-size: 0.85rem; padding: 10px 18px; border-radius: var(--radius-sm); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-
     footer { max-width: 1200px; margin: 40px auto 0 auto; padding: 20px; text-align: center; border-top: 1.5px solid var(--onyx-border); color: var(--text-muted); font-size: 0.85rem; }
   </style>
 </head>
@@ -283,7 +273,7 @@
     </div>
   </div>
 
-  <!-- FIXED HEADER WITH 2.2REM PROCLAMATIONS -->
+  <!-- FIXED HEADER -->
   <header>
     <div class="header-layout">
       <div class="header-left">
@@ -548,32 +538,7 @@
       </div>
     </section>
 
-    <!-- 8. Holiday Fast Calendar -->
-    <section>
-      <h2 class="section-title">2026–2027 Federal Holiday Economic Fast Calendar</h2>
-      <div class="doctrine-card">
-        <p style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 20px; line-height: 1.7;">
-          Synchronize your economic fast across the year. The 3 + 1 + 3 formula frames 7 complete days of self-reliance for every federal observance. The upcoming observance is automatically pinned to the top.
-        </p>
-        <div class="holiday-table-wrap">
-          <table class="holiday-table" style="width: 100%; border-collapse: collapse; text-align: left;">
-            <thead>
-              <tr style="border-bottom: 2px solid var(--gold-accent);">
-                <th style="padding: 12px; color: var(--gold-accent);">Federal Holiday</th>
-                <th style="padding: 12px; color: var(--gold-accent);">Holiday Date</th>
-                <th style="padding: 12px; color: var(--gold-accent);">3-Day Fast Preparation</th>
-                <th style="padding: 12px; color: var(--gold-accent);">3-Day Fast Follow-Through</th>
-                <th style="padding: 12px; color: var(--gold-accent);">Total 7-Day Fast Window</th>
-              </tr>
-            </thead>
-            <tbody id="holiday-calendar-rows"></tbody>
-          </table>
-        </div>
-        <button class="btn-ics-export" onclick="exportFastCalendarICS()" style="margin-top: 20px;">📅 Download Full Fast Schedule (.ICS Calendar)</button>
-      </div>
-    </section>
-
-    <!-- 9. Boycott Celebration Gallery -->
+    <!-- 8. Boycott Celebration Gallery -->
     <section>
       <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
       <div class="doctrine-card">
@@ -600,7 +565,7 @@
       </div>
     </section>
 
-    <!-- 10. Dynamic Audio Vault -->
+    <!-- 9. Dynamic Audio Vault -->
     <section>
       <h2 class="section-title">ImanI Audio Vault</h2>
       <div class="doctrine-card">
@@ -654,7 +619,7 @@
       </div>
     </section>
 
-    <!-- 11. Dedicated Still Picture Gallery -->
+    <!-- 10. Dedicated Still Picture Gallery -->
     <section>
       <h2 class="section-title">ImanI Still Art & Lore Gallery</h2>
       <div class="doctrine-card">
@@ -681,7 +646,7 @@
       </div>
     </section>
 
-    <!-- 12. Music Video Vault -->
+    <!-- 11. Music Video Vault -->
     <section>
       <h2 class="section-title">ImanI Official Music Video Vault</h2>
       <div class="doctrine-card">
@@ -711,7 +676,7 @@
       </div>
     </section>
 
-    <!-- 13. Cinema & Documentary Vault -->
+    <!-- 12. Cinema & Documentary Vault -->
     <section>
       <h2 class="section-title">ImanI Documentary & Cinema Vault</h2>
       <div class="doctrine-card">
@@ -741,7 +706,7 @@
       </div>
     </section>
 
-    <!-- 14. Chatty's Wisdom 99-Card Engine -->
+    <!-- 13. Chatty's Wisdom 99-Card Engine -->
     <section>
       <div class="wisdom-filter-bar">
         <input type="text" id="wisdom-search" class="wisdom-search-input" placeholder="🔍 Search 99 Wisdom cards..." oninput="filterWisdomDeck()">
@@ -1269,82 +1234,6 @@
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
     }
 
-    // FEDERAL HOLIDAY CALENDAR RENDERING
-    const federalHolidays = [
-      { name: "Labor Day", date: new Date("2026-09-07T00:00:00") },
-      { name: "Columbus Day / Indigenous Peoples' Day", date: new Date("2026-10-12T00:00:00") },
-      { name: "Veterans Day", date: new Date("2026-11-11T00:00:00") },
-      { name: "Thanksgiving Day", date: new Date("2026-11-26T00:00:00") },
-      { name: "Christmas Day", date: new Date("2026-12-25T00:00:00") },
-      { name: "New Year's Day", date: new Date("2027-01-01T00:00:00") },
-      { name: "Martin Luther King Jr. Day", date: new Date("2027-01-18T00:00:00") },
-      { name: "Washington's Birthday (Presidents' Day)", date: new Date("2027-02-15T00:00:00") },
-      { name: "Memorial Day", date: new Date("2027-05-31T00:00:00") },
-      { name: "Juneteenth National Independence Day", date: new Date("2027-06-19T00:00:00") },
-      { name: "Independence Day", date: new Date("2027-07-04T00:00:00") }
-    ];
-
-    function renderHolidayCalendar() {
-      const tbody = document.getElementById('holiday-calendar-rows');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      
-      const nowMs = new Date().getTime();
-      const sortedHolidays = [...federalHolidays].sort((a, b) => {
-        const diffA = a.date.getTime() - nowMs;
-        const diffB = b.date.getTime() - nowMs;
-        if (diffA >= 0 && diffB >= 0) return diffA - diffB;
-        if (diffA < 0 && diffB >= 0) return 1;
-        if (diffA >= 0 && diffB < 0) return -1;
-        return diffB - diffA;
-      });
-
-      sortedHolidays.forEach((h, index) => {
-        const d = new Date(h.date);
-        const prepStart = new Date(d); prepStart.setDate(d.getDate() - 3);
-        const prepEnd = new Date(d); prepEnd.setDate(d.getDate() - 1);
-        const followStart = new Date(d); followStart.setDate(d.getDate() + 1);
-        const followEnd = new Date(d); followEnd.setDate(d.getDate() + 3);
-
-        const isNextUpcoming = index === 0;
-        const row = document.createElement('tr');
-        if (isNextUpcoming) row.className = 'active-fast-row';
-
-        row.innerHTML = `
-          <td><strong>${h.name}</strong> ${isNextUpcoming ? '<span style="font-size:0.75rem; background:var(--emerald-accent); color:#000; padding:2px 6px; border-radius:4px; margin-left:6px; font-weight:800;">NEXT UP</span>' : ''}</td>
-          <td style="color: var(--gold-accent); font-weight: 700;">${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
-          <td style="color: var(--text-muted);">${prepStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${prepEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
-          <td style="color: var(--text-muted);">${followStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${followEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
-          <td style="color: var(--emerald-accent); font-weight: 700;">${prepStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${followEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
-
-    function exportFastCalendarICS() {
-      let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//ImanI Movement//Holiday Economic Fast//EN\n";
-      federalHolidays.forEach(h => {
-        const start = new Date(h.date); start.setDate(start.getDate() - 3);
-        const end = new Date(h.date); end.setDate(end.getDate() + 4);
-        const formatDate = (date) => date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-        icsContent += "BEGIN:VEVENT\n";
-        icsContent += `SUMMARY:ImanI 7-Day Economic Fast — ${h.name}\n`;
-        icsContent += `DESCRIPTION:3+1+3 Silent Solution Economic Fast for ${h.name}.\n`;
-        icsContent += `DTSTART:${formatDate(start)}\n`;
-        icsContent += `DTEND:${formatDate(end)}\n`;
-        icsContent += "END:VEVENT\n";
-      });
-      icsContent += "END:VCALENDAR";
-
-      const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.setAttribute("download", "ImanI_Economic_Fast_Schedule.ics");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
       if (isEditModeActive()) document.body.classList.add("admin-mode");
 
@@ -1352,7 +1241,6 @@
       renderStreamArchive();
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
-      renderHolidayCalendar();
       if (typeof filterWisdomDeck === 'function') filterWisdomDeck();
 
       // Clear any legacy bad cache for the header emblem so it strictly uses the repository file
