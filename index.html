@@ -255,7 +255,7 @@
     </div>
   </div>
 
-  <!-- FIXED HEADER WITH FALLBACK -->
+  <!-- FIXED HEADER WITH ROOT-RELATIVE PATH -->
   <header>
     <div class="header-layout">
       <div class="header-left">
@@ -264,11 +264,10 @@
       <div class="header-center" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <img 
           id="header-emblem-view"
-          src="media/images/websitepix/header-emblem.png" 
+          src="/media/images/websitepix/header-emblem.png" 
           alt="ImanI Golden Sovereign Man Between Pillars" 
           class="header-emblem-large"
           style="max-height: 180px; width: auto; object-fit: contain; display: block;"
-          onerror="this.onerror=null; this.src='media/images/websitepix/Header-Emblem.png';"
         >
         <button onclick="triggerFileSelect('emblem-file-input')" style="margin-top: 6px; background: var(--onyx-card); border: 1px solid var(--gold-accent); color: var(--gold-accent); padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">📁 Select Header Image</button>
         <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'imani_header_emblem')">
@@ -1327,12 +1326,14 @@
       renderHolidayCalendar();
       if (typeof filterWisdomDeck === 'function') filterWisdomDeck();
 
+      // Permanently lock in local storage overrides for the header emblem across hard resets
       const savedEmblem = localStorage.getItem('imani_header_emblem');
       if (savedEmblem) {
         const img = document.getElementById('header-emblem-view');
         if (img) { img.src = savedEmblem; img.style.display = 'block'; }
       }
 
+      // Permanently lock in local storage overrides for Chatty's header across hard resets
       const savedChatty = localStorage.getItem('chatty_wisdom_header');
       if (savedChatty) {
         const chattyImg = document.getElementById('chatty-header-view');
