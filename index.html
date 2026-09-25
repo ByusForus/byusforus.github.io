@@ -255,7 +255,7 @@
     </div>
   </div>
 
-  <!-- FIXED HEADER WITH CLEAN PATH -->
+  <!-- FIXED HEADER LOCKED TO REPOSITORY FILE -->
   <header>
     <div class="header-layout">
       <div class="header-left">
@@ -1327,12 +1327,10 @@
       renderHolidayCalendar();
       if (typeof filterWisdomDeck === 'function') filterWisdomDeck();
 
-      const savedEmblem = localStorage.getItem('imani_header_emblem');
-      if (savedEmblem) {
-        const img = document.getElementById('header-emblem-view');
-        if (img) { img.src = savedEmblem; img.style.display = 'block'; }
-      }
+      // Clear any legacy bad cache for the header emblem so it strictly uses the repository file
+      localStorage.removeItem('imani_header_emblem');
 
+      // Permanently lock in local storage overrides for Chatty's header across hard resets
       const savedChatty = localStorage.getItem('chatty_wisdom_header');
       if (savedChatty) {
         const chattyImg = document.getElementById('chatty-header-view');
