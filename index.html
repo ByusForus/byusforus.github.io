@@ -160,7 +160,7 @@
 
     .playlist-card { background: var(--onyx-surface); border: 1.5px solid var(--onyx-border); border-radius: var(--radius-md); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
     .audio-tabs-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; border-bottom: 1.5px solid var(--onyx-border); padding-bottom: 12px; justify-content: space-between; align-items: center; }
-    .playlist-items-scroll { display: flex; flex-direction: column; gap: 10px; max-height: 340px; overflow-y: auto; padding-right: 4px; }
+    .playlist-items-scroll { display: flex; flex-direction: column; gap: 10px; max-height: 480px; overflow-y: auto; padding-right: 4px; }
     
     .pic-queue-item { display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--onyx-card); border: 1.5px solid transparent; cursor: pointer; transition: all 0.2s ease; }
     .pic-queue-item:hover, .pic-queue-item.active { border-color: var(--gold-accent); background: rgba(255,209,92,0.1); }
@@ -566,7 +566,7 @@
                 <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
               </div>
             </div>
-            <div class="playlist-items-scroll" id="boycott-list-container" style="display: flex; flex-direction: column; gap: 10px; max-height: 340px; overflow-y: auto;"></div>
+            <div class="playlist-items-scroll" id="boycott-list-container" style="display: flex; flex-direction: column; gap: 10px; max-height: 480px; overflow-y: auto;"></div>
           </div>
         </div>
       </div>
@@ -758,7 +758,7 @@
     </p>
   </footer>
 
-  <!-- Fullscreen Lightbox Display -->
+  <!-- Fullscreen Lightbox Display (Restored) -->
   <div id="lightbox-modal" class="lightbox-backdrop" onclick="closeMediaLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close-btn" onclick="closeMediaLightbox()">&times;</button>
@@ -859,7 +859,7 @@
       if (modal) modal.style.display = 'none';
     }
 
-    // LIGHTBOX FUNCTIONS
+    // LIGHTBOX FUNCTIONS RESTORED
     function openMediaLightbox(src, type, caption) {
       const modal = document.getElementById('lightbox-modal');
       const container = document.getElementById('lightbox-media-container');
@@ -1169,7 +1169,7 @@
       event.currentTarget.classList.add('active');
     }
 
-    // FULLY OPEN PUBLIC BOYCOTT PICTURE LIBRARY (ALL ITEMS EXPOSED)
+    // FULLY OPEN PUBLIC BOYCOTT PICTURE LIBRARY (ALL ITEMS EXPOSED WITH CLEAN PATHS)
     let boycottPictureLibrary = [
       { title: "The Price of Participation: Reclaiming Our Economic Sovereignty", tag: "Economic Sovereignty", src: "media/boycott/economic-sovereignty.png", isLocked: false },
       { title: "June 15th — Declaration Day", tag: "Declaration Day", src: "media/boycott/june15-declaration-day.png", isLocked: false },
