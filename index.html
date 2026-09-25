@@ -179,9 +179,18 @@
     header { border-bottom: 1px solid var(--onyx-border); background: rgba(0, 0, 0, 0.98); position: sticky; top: 0; z-index: 100; width: 100%; }
     .header-layout { width: 100%; display: grid; grid-template-columns: 1fr 1.2fr 1fr; align-items: center; padding: 12px 24px; gap: 16px; }
     .header-left, .header-right { display: flex; justify-content: center; align-items: center; text-align: center; }
-    .header-proclamation { font-size: 5rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.1; }
-    .header-proclamation.emerald { color: var(--emerald-accent); text-shadow: 0 0 20px var(--emerald-glow); }
-    .header-proclamation.gold { color: var(--gold-accent); text-shadow: 0 0 20px var(--gold-glow); }
+    
+    /* FORCED 5REM PROCLAMATIONS */
+    .header-proclamation { 
+      font-size: 5rem !important; 
+      font-weight: 900 !important; 
+      letter-spacing: 0.08em; 
+      text-transform: uppercase; 
+      line-height: 1.05; 
+    }
+    .header-proclamation.emerald { color: var(--emerald-accent) !important; text-shadow: 0 0 20px var(--emerald-glow); font-size: 5rem !important; }
+    .header-proclamation.gold { color: var(--gold-accent) !important; text-shadow: 0 0 20px var(--gold-glow); font-size: 5rem !important; }
+
     .header-center { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 110px; }
     .header-emblem-large { width: 100%; max-width: 520px; height: auto; max-height: 260px; object-fit: contain; display: block; filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.95)); }
 
@@ -255,7 +264,7 @@
     </div>
   </div>
 
-  <!-- FIXED HEADER WITH 5REM PROCLAMATIONS & 260PX EMBLEM -->
+  <!-- FIXED HEADER WITH 5REM PROCLAMATIONS -->
   <header>
     <div class="header-layout">
       <div class="header-left">
