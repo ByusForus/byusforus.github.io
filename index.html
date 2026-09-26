@@ -169,6 +169,35 @@
     .pic-queue-title { font-size: 0.95rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .pic-queue-tag { font-size: 0.74rem; color: var(--gold-accent); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+    /* GOLD BAR & NUGGET AUDIO VAULT BUTTONS */
+    .audio-tab-btn {
+      background: linear-gradient(135deg, #3d2f00 0%, #b8860b 25%, #ffd700 50%, #daa520 75%, #2a2000 100%);
+      border: 2px solid #ffea85;
+      color: #000000;
+      font-size: 0.82rem;
+      font-weight: 900;
+      padding: 8px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.6), inset 0 -2px 3px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s ease;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
+    }
+    .audio-tab-btn:hover {
+      background: linear-gradient(135deg, #574300 0%, #d4af37 25%, #ffe97d 50%, #f0e68c 75%, #3d2f00 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.8), inset 0 -2px 3px rgba(0, 0, 0, 0.5);
+    }
+    .audio-tab-btn.active {
+      background: linear-gradient(135deg, #ffffff 0%, #ffd700 30%, #ffa500 70%, #b8860b 100%);
+      border-color: #ffffff;
+      color: #000000;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.7), inset 0 2px 5px rgba(255, 255, 255, 0.9), inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
     /* LIGHTBOX STYLING */
     .lightbox-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
     .lightbox-content { position: relative; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center; }
@@ -610,10 +639,10 @@
           <div class="playlist-card">
             <div class="audio-tabs-bar">
               <div style="display: flex; gap: 6px;" id="audio-tabs-container">
-                <button class="audio-tab-btn active" onclick="setAudioCategory('ALL', this)" style="font-size: 0.82rem; padding: 6px 12px;">All Audio</button>
-                <button class="audio-tab-btn" onclick="setAudioCategory('ImanI story', this)" style="font-size: 0.82rem; padding: 6px 12px;">Story (Free)</button>
-                <button class="audio-tab-btn" onclick="setAudioCategory('The mysteries', this)" style="font-size: 0.82rem; padding: 6px 12px;">🔒 Mysteries</button>
-                <button class="audio-tab-btn" onclick="setAudioCategory('Audio Agreements', this)" style="font-size: 0.82rem; padding: 6px 12px;">🔒 Agreements</button>
+                <button class="audio-tab-btn active" onclick="setAudioCategory('ALL', this)">All Audio</button>
+                <button class="audio-tab-btn" onclick="setAudioCategory('ImanI story', this)">Story (Free)</button>
+                <button class="audio-tab-btn" onclick="setAudioCategory('The mysteries', this)">🔒 Mysteries</button>
+                <button class="audio-tab-btn" onclick="setAudioCategory('Audio Agreements', this)">🔒 Agreements</button>
               </div>
               <div>
                 <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('audio-folder-input')">📁 Load More Files</button>
