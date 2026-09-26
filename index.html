@@ -42,8 +42,10 @@
       min-height: 100vh;
       background: linear-gradient(
         90deg,
-        rgba(0, 75, 40, 0.95) 0%,
-        rgba(0, 110, 58, 0.8) 30%,
+        #002111 0%,
+        #004d2a 15%,
+        #008744 30%,
+        #00d06c 32.5%,
         #000000 33.33%,
         #000000 66.66%,
         rgba(145, 105, 15, 0.8) 70%,
@@ -624,7 +626,7 @@
               <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Boycott Pictures Archive</span>
               <div>
                 <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
-                <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="loadUserAddPictures(event, 'boycott')">
+                <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
               </div>
             </div>
             <div class="playlist-items-scroll" id="boycott-list-container" style="display: flex; flex-direction: column; gap: 10px; max-height: 480px; overflow-y: auto;"></div>
