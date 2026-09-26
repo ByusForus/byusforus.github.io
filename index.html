@@ -624,7 +624,7 @@
               <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Boycott Pictures Archive</span>
               <div>
                 <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
-                <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
+                <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="loadUserAddPictures(event, 'boycott')">
               </div>
             </div>
             <div class="playlist-items-scroll" id="boycott-list-container" style="display: flex; flex-direction: column; gap: 10px; max-height: 480px; overflow-y: auto;"></div>
