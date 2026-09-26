@@ -899,7 +899,7 @@
       container.innerHTML = '';
     }
 
-    // Audio Library
+    // Audio Library with Strict Member-Only Locks on Mysteries and Agreements
     let permanentAudioLibrary = [
       { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", isLocked: false },
       { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", isLocked: false },
@@ -961,7 +961,7 @@
       const unlocked = isMemberUnlocked();
 
       filtered.forEach((track, index) => {
-        const isTrackLocked = track.isLocked && !unlocked;
+        const isTrackLocked = (track.isLocked || track.category === "The mysteries" || track.category === "Audio Agreements") && !unlocked;
         const item = document.createElement('div');
         item.className = `playlist-item ${index === activeTrackIndex ? 'active' : ''}`;
         let statusBadge = index === activeTrackIndex ? '▶ Playing' : '▶ Play';
@@ -974,7 +974,13 @@
           </div>
           <span class="track-duration" style="${isTrackLocked ? 'color: var(--gold-accent); font-weight:800;' : ''} font-size: 0.88rem;">${statusBadge}</span>
         `;
-        item.onclick = () => playTrackByIndex(index);
+        item.onclick = () => {
+          if (isTrackLocked) {
+            openMembershipModal();
+          } else {
+            playTrackByIndex(index);
+          }
+        };
         container.appendChild(item);
       });
     }
@@ -983,7 +989,8 @@
       const filtered = getFilteredTrackPool();
       if (index < 0 || index >= filtered.length) return;
       const track = filtered[index];
-      if (track.isLocked && !isMemberUnlocked()) { openMembershipModal(); return; }
+      const isTrackLocked = (track.isLocked || track.category === "The mysteries" || track.category === "Audio Agreements") && !isMemberUnlocked();
+      if (isTrackLocked) { openMembershipModal(); return; }
 
       activeTrackIndex = index;
       document.getElementById('current-title').innerText = track.title;
