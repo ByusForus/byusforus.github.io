@@ -173,60 +173,32 @@
     .pic-queue-title { font-size: 0.95rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .pic-queue-tag { font-size: 0.74rem; color: var(--gold-accent); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* UNIFIED GOLD BAR TAB BUTTONS */
-    .audio-tab-btn, .filter-tag-btn {
-      background: linear-gradient(135deg, #3d2f00 0%, #b8860b 25%, #ffd700 50%, #daa520 75%, #2a2000 100%);
-      border: 2px solid #ffea85;
-      color: #000000;
-      font-size: 0.82rem;
-      font-weight: 900;
-      padding: 8px 16px;
-      border-radius: 12px;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.6), inset 0 -2px 3px rgba(0, 0, 0, 0.6);
-      transition: all 0.2s ease;
-      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
-    }
-    .audio-tab-btn:hover, .filter-tag-btn:hover {
-      background: linear-gradient(135deg, #574300 0%, #d4af37 25%, #ffe97d 50%, #f0e68c 75%, #3d2f00 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.8), inset 0 -2px 3px rgba(0, 0, 0, 0.5);
-    }
-    .audio-tab-btn.active, .filter-tag-btn.active {
-      background: linear-gradient(135deg, #ffffff 0%, #ffd700 30%, #ffa500 70%, #b8860b 100%);
-      border-color: #ffffff;
-      color: #000000;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.7), inset 0 2px 5px rgba(255, 255, 255, 0.9), inset 0 -2px 4px rgba(0, 0, 0, 0.4);
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-      font-weight: 900;
-    }
-
-    /* EMERALD GEM AUDIO PLAYER CONTROL BUTTONS & DRAW CARD BUTTON */
-    .playback-toggle-btn, .btn-audio-skip, .btn-draw-card {
+    /* UNIFIED EMERALD GEM BUTTONS (Tabs, Filters, Controls & Actions) */
+    .audio-tab-btn, .filter-tag-btn, .playback-toggle-btn, .btn-audio-skip, .btn-draw-card {
       background: linear-gradient(135deg, #00381f 0%, #007a3d 25%, #00d06c 50%, #00a854 75%, #002212 100%);
       border: 2px solid #7effb5;
       color: #ffffff;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 800;
-      padding: 10px 22px;
+      padding: 9px 18px;
       border-radius: 12px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       box-shadow: 0 4px 15px rgba(0, 208, 108, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.4), inset 0 -2px 3px rgba(0, 0, 0, 0.6);
       transition: all 0.2s ease;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
       text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
-    .playback-toggle-btn:hover, .btn-audio-skip:hover, .btn-draw-card:hover {
+    .audio-tab-btn:hover, .filter-tag-btn:hover, .playback-toggle-btn:hover, .btn-audio-skip:hover, .btn-draw-card:hover {
       background: linear-gradient(135deg, #004d2a 0%, #00994d 25%, #2af598 50%, #00c862 75%, #003319 100%);
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 208, 108, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -2px 3px rgba(0, 0, 0, 0.4);
     }
-    .playback-toggle-btn.active {
+    .audio-tab-btn.active, .filter-tag-btn.active, .playback-toggle-btn.active {
       background: linear-gradient(135deg, #e6fff2 0%, #00d06c 35%, #008744 75%, #004d2a 100%);
       border-color: #ffffff;
       color: #000000;
@@ -1293,7 +1265,7 @@
 
         const lockBadge = isCurrentlyLocked 
           ? `<span style="font-size: 0.76rem; color: var(--gold-accent); font-weight: 800;">🔒 Locked</span>` 
-          : `<span style="font-size: 0.76rem; color: var(--emerald-accent); font-weight: 700;">${index === activeIndex ? '👁️️ Viewing' : 'View'}</span>`;
+          : `<span style="font-size: 0.76rem; color: var(--emerald-accent); font-weight: 700;">${index === activeIndex ? '👁️ Viewing' : 'View'}</span>`;
 
         row.innerHTML = `
           <img src="${encodeURI(item.src)}" alt="${item.title}" class="pic-queue-thumb" style="${isCurrentlyLocked ? 'filter: blur(3px) brightness(0.5);' : ''}" onerror="this.style.opacity='0.4';">
