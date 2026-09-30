@@ -173,8 +173,8 @@
     .pic-queue-title { font-size: 0.95rem; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .pic-queue-tag { font-size: 0.74rem; color: var(--gold-accent); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* GOLD BAR AUDIO VAULT TABS */
-    .audio-tab-btn {
+    /* UNIFIED GOLD BAR TAB BUTTONS */
+    .audio-tab-btn, .filter-tag-btn {
       background: linear-gradient(135deg, #3d2f00 0%, #b8860b 25%, #ffd700 50%, #daa520 75%, #2a2000 100%);
       border: 2px solid #ffea85;
       color: #000000;
@@ -189,12 +189,12 @@
       transition: all 0.2s ease;
       text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
     }
-    .audio-tab-btn:hover {
+    .audio-tab-btn:hover, .filter-tag-btn:hover {
       background: linear-gradient(135deg, #574300 0%, #d4af37 25%, #ffe97d 50%, #f0e68c 75%, #3d2f00 100%);
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.8), inset 0 -2px 3px rgba(0, 0, 0, 0.5);
     }
-    .audio-tab-btn.active {
+    .audio-tab-btn.active, .filter-tag-btn.active {
       background: linear-gradient(135deg, #ffffff 0%, #ffd700 30%, #ffa500 70%, #b8860b 100%);
       border-color: #ffffff;
       color: #000000;
@@ -203,15 +203,15 @@
       font-weight: 900;
     }
 
-    /* EMERALD GEM AUDIO PLAYER CONTROL BUTTONS */
-    .playback-toggle-btn, .btn-audio-skip {
+    /* EMERALD GEM AUDIO PLAYER CONTROL BUTTONS & DRAW CARD BUTTON */
+    .playback-toggle-btn, .btn-audio-skip, .btn-draw-card {
       background: linear-gradient(135deg, #00381f 0%, #007a3d 25%, #00d06c 50%, #00a854 75%, #002212 100%);
       border: 2px solid #7effb5;
       color: #ffffff;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 800;
-      padding: 8px 14px;
-      border-radius: 10px;
+      padding: 10px 22px;
+      border-radius: 12px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -219,8 +219,9 @@
       box-shadow: 0 4px 15px rgba(0, 208, 108, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.4), inset 0 -2px 3px rgba(0, 0, 0, 0.6);
       transition: all 0.2s ease;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+      text-transform: uppercase;
     }
-    .playback-toggle-btn:hover, .btn-audio-skip:hover {
+    .playback-toggle-btn:hover, .btn-audio-skip:hover, .btn-draw-card:hover {
       background: linear-gradient(135deg, #004d2a 0%, #00994d 25%, #2af598 50%, #00c862 75%, #003319 100%);
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 208, 108, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -2px 3px rgba(0, 0, 0, 0.4);
@@ -780,8 +781,8 @@
 
     <!-- 13. Chatty's Wisdom 99-Card Engine -->
     <section>
-      <div class="wisdom-filter-bar">
-        <input type="text" id="wisdom-search" class="wisdom-search-input" placeholder="🔍 Search 99 Wisdom cards..." oninput="filterWisdomDeck()">
+      <div class="wisdom-filter-bar" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;">
+        <input type="text" id="wisdom-search" class="wisdom-search-input" placeholder="🔍 Search 99 Wisdom cards..." oninput="filterWisdomDeck()" style="background: var(--onyx-card); border: 1.5px solid var(--onyx-border); color: var(--text-main); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.85rem; outline: none; flex: 1; min-width: 200px;">
         <button class="filter-tag-btn active" onclick="setDeckTagFilter('ALL', this)">All</button>
         <button class="filter-tag-btn" onclick="setDeckTagFilter('Strategy', this)">Strategy</button>
         <button class="filter-tag-btn" onclick="setDeckTagFilter('Economics', this)">Economics</button>
@@ -1292,7 +1293,7 @@
 
         const lockBadge = isCurrentlyLocked 
           ? `<span style="font-size: 0.76rem; color: var(--gold-accent); font-weight: 800;">🔒 Locked</span>` 
-          : `<span style="font-size: 0.76rem; color: var(--emerald-accent); font-weight: 700;">${index === activeIndex ? '👁️ Viewing' : 'View'}</span>`;
+          : `<span style="font-size: 0.76rem; color: var(--emerald-accent); font-weight: 700;">${index === activeIndex ? '👁️️ Viewing' : 'View'}</span>`;
 
         row.innerHTML = `
           <img src="${encodeURI(item.src)}" alt="${item.title}" class="pic-queue-thumb" style="${isCurrentlyLocked ? 'filter: blur(3px) brightness(0.5);' : ''}" onerror="this.style.opacity='0.4';">
@@ -1328,6 +1329,71 @@
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
     }
 
+    // Chatty's Wisdom 99-Card Engine with Daily Auto-Rotation
+    const chattyWisdomDeck = [
+      { id: 1, title: "The Checkmate Perspective", quote: "Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction.", tag: "Strategy" },
+      { id: 2, title: "The Sovereign Currency", quote: "True economic power is measured by what you retain within your own household, not what you spend outside of it.", tag: "Economics" },
+      { id: 3, title: "The Power of Silence", quote: "When moving in stealth, let your results speak long before your intentions ever leave your lips.", tag: "Stealth" },
+      { id: 4, title: "Roots and Foundation", quote: "A tree with deep roots laughs at the storm. Know your 14th Amendment lineage and stand unshakeable.", tag: "Lineage" },
+      { id: 5, title: "Unborrowed Authority", quote: "Never ask permission to reclaim what was inherently yours from the beginning of your creation.", tag: "Strategy" },
+      { id: 6, title: "Ujamaa in Practice", quote: "Circulate the dollar ten times inside the community before it ever crosses an outside border.", tag: "Economics" },
+      { id: 7, title: "The Quiet Fast", quote: "Fasting from corporate holidays is not a deprivation; it is the ultimate reclamation of peace and wealth.", tag: "Stealth" },
+      { id: "8", title: "Proper Noun Dignity", quote: "You are not an adjective attached to someone else's system. ImanI is a proper noun of absolute standing.", tag: "Lineage" }
+    ];
+
+    let currentWisdomIndex = 0;
+    let currentTagFilter = "ALL";
+
+    function getDailyWisdomIndex() {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), 0, 0);
+      const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+      const oneDay = 1000 * 60 * 60 * 24;
+      const dayOfYear = Math.floor(diff / oneDay);
+      return dayOfYear % chattyWisdomDeck.length;
+    }
+
+    function displayWisdomCard(index) {
+      const pool = currentTagFilter === "ALL" 
+        ? chattyWisdomDeck 
+        : chattyWisdomDeck.filter(c => c.tag === currentTagFilter);
+
+      if (pool.length === 0) return;
+      currentWisdomIndex = index % pool.length;
+      const card = pool[currentWisdomIndex];
+
+      document.getElementById('deck-title').innerText = card.title;
+      document.getElementById('deck-quote').innerText = `"${card.quote}"`;
+      document.getElementById('deck-number').innerText = `Card ${String(card.id).padStart(2, '0')} • Daily Message (${card.tag})`;
+    }
+
+    function drawWisdomCard() {
+      const pool = currentTagFilter === "ALL" 
+        ? chattyWisdomDeck 
+        : chattyWisdomDeck.filter(c => c.tag === currentTagFilter);
+      
+      currentWisdomIndex = (currentWisdomIndex + 1) % pool.length;
+      displayWisdomCard(currentWisdomIndex);
+    }
+
+    function setDeckTagFilter(tag, btn) {
+      currentTagFilter = tag;
+      document.querySelectorAll('.filter-tag-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      currentWisdomIndex = 0;
+      displayWisdomCard(0);
+    }
+
+    function filterWisdomDeck() {
+      const query = document.getElementById('wisdom-search').value.toLowerCase();
+      const found = chattyWisdomDeck.find(c => c.title.toLowerCase().includes(query) || c.quote.toLowerCase().includes(query));
+      if (found) {
+        document.getElementById('deck-title').innerText = found.title;
+        document.getElementById('deck-quote').innerText = `"${found.quote}"`;
+        document.getElementById('deck-number').innerText = `Card ${String(found.id).padStart(2, '0')} • Search Match`;
+      }
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       if (isEditModeActive()) document.body.classList.add("admin-mode");
 
@@ -1335,7 +1401,10 @@
       renderStreamArchive();
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
-      if (typeof filterWisdomDeck === 'function') filterWisdomDeck();
+      
+      // Initialize daily card based on calendar date
+      const dailyIndex = getDailyWisdomIndex();
+      displayWisdomCard(dailyIndex);
 
       // Clear any legacy bad cache for the header emblem so it strictly uses the repository file
       localStorage.removeItem('imani_header_emblem');
