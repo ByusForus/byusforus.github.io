@@ -822,6 +822,7 @@
   <footer>
     <p>ImanI Cultural Movement &copy; 2026. All Rights Reserved.</p>
     <p style="margin-top: 6px;">
+      <a href="javascript:void(0)" id="install-app-btn" style="display: none; color: var(--emerald-accent); text-decoration: none; font-size: 0.85rem; font-weight: 800; margin-right: 16px;">📲 Install ImanI App</a>
       <a href="javascript:void(0)" onclick="toggleAdminEditMode()" style="color: var(--text-muted); text-decoration: none; font-size: 0.75rem;">🔐 Creator Portal</a>
     </p>
   </footer>
@@ -966,6 +967,32 @@
       if (!container) return;
       container.innerHTML = '';
     }
+
+    // PWA INSTALLATION LOGIC
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const installBtn = document.getElementById('install-app-btn');
+      if (installBtn) {
+        installBtn.style.display = 'inline-block';
+        installBtn.onclick = async () => {
+          installBtn.style.display = 'none';
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          }
+          deferredPrompt = null;
+        };
+      }
+    });
+
+    window.addEventListener('appinstalled', (evt) => {
+      console.log('ImanI PWA was installed successfully');
+      const installBtn = document.getElementById('install-app-btn');
+      if (installBtn) installBtn.style.display = 'none';
+    });
 
     // Audio Library with Strict Member-Only Locks on Mysteries and Agreements
     let permanentAudioLibrary = [
