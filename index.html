@@ -389,7 +389,7 @@
             class="stream-video-element" 
             src="media/videos/unity-in-motion.mp4"
             poster="media/images/we-r-imani-poster.png"
-            autoplay loop muted playsinline
+            autoplay loop playsinline muted
             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
           ></video>
 
@@ -928,6 +928,26 @@
       if (modal) modal.style.display = 'none';
     }
 
+    // STANDBY MOTION PLAYER AUDIO UNMUTE FUNCTION
+    function toggleStandbyAudio() {
+      const video = document.getElementById('standby-motion-player');
+      const muteText = document.getElementById('standby-mute-text');
+      if (!video) return;
+      
+      if (video.muted || video.volume === 0) {
+        video.muted = false;
+        video.volume = 1.0;
+        video.play().then(() => {
+          if (muteText) muteText.innerText = "Mute Music";
+        }).catch(err => {
+          console.log("Audio play blocked by browser:", err);
+        });
+      } else {
+        video.muted = true;
+        if (muteText) muteText.innerText = "Unmute Music";
+      }
+    }
+
     // LIGHTBOX FUNCTIONS
     function openMediaLightbox(src, type, caption) {
       const modal = document.getElementById('lightbox-modal');
@@ -1439,10 +1459,6 @@
         const chattyImg = document.getElementById('chatty-header-view');
         if (chattyImg) { chattyImg.src = savedChatty; chattyImg.style.display = 'block'; }
       }
-
-      const standbyVideo = document.getElementById('standby-motion-player');
-      if (standbyVideo) standbyVideo.play().catch(() => {});
-      setTimeout(connectLiveStream, 1000);
     });
   </script>
 </body>
