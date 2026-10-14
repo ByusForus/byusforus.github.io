@@ -1,16 +1,18 @@
 {
-  "name": "ImanI Movement Stage & Cultural Vault",
+  "name": "ImanI Movement Portal",
   "short_name": "ImanI",
+  "description": "The sovereign digital sanctuary and cultural vault for the ImanI Movement.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
-  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "media/images/header-emblem.png",
-      "sizes": "192x192 512x512",
-      "type": "image/png"
+      "src": "media/images/websitepix/header-emblem.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
