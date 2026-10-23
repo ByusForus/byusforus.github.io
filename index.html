@@ -40,7 +40,21 @@
       line-height: 1.6;
       padding-bottom: 60px;
       min-height: 100vh;
-      background: #000000;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 50, 25, 0.98) 0%,
+        rgba(0, 95, 48, 0.9) 15%,
+        rgba(0, 140, 70, 0.8) 28%,
+        #000000 33.33%,
+        #000000 66.66%,
+        rgba(145, 105, 15, 0.8) 70%,
+        rgba(100, 72, 10, 0.95) 100%
+      ),
+      radial-gradient(circle at 10% 20%, rgba(0, 208, 108, 0.4) 0%, transparent 40%),
+      radial-gradient(circle at 15% 70%, rgba(0, 120, 60, 0.5) 0%, transparent 50%),
+      #000000;
+      background-attachment: fixed;
+      background-size: cover;
     }
 
     .admin-only { display: none !important; }
@@ -318,7 +332,7 @@
         </div>
       </div>
       <div class="countdown-display">
-        <div class="countdown-unit"><div class="countdown-val" id="cd-days">00</div><div class="countdown-lbl">Days</div></div>
+        <div class="countdown-unit"><div class="countdown-val" id="cd-days">07</div><div class="countdown-lbl">Days</div></div>
         <div class="countdown-unit"><div class="countdown-val" id="cd-hours">00</div><div class="countdown-lbl">Hours</div></div>
         <div class="countdown-unit"><div class="countdown-val" id="cd-mins">00</div><div class="countdown-lbl">Mins</div></div>
         <div class="countdown-unit"><div class="countdown-val" id="cd-secs">00</div><div class="countdown-lbl">Secs</div></div>
@@ -375,7 +389,7 @@
             class="stream-video-element" 
             src="media/videos/unity-in-motion.mp4"
             poster="media/images/we-r-imani-poster.png"
-            autoplay loop playsinline muted
+            autoplay loop muted playsinline
             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
           ></video>
 
@@ -914,70 +928,6 @@
       if (modal) modal.style.display = 'none';
     }
 
-    // STANDBY MOTION PLAYER AUDIO UNMUTE FUNCTION
-    function toggleStandbyAudio() {
-      const video = document.getElementById('standby-motion-player');
-      const muteText = document.getElementById('standby-mute-text');
-      if (!video) return;
-      
-      if (video.muted || video.volume === 0) {
-        video.muted = false;
-        video.volume = 1.0;
-        video.play().then(() => {
-          if (muteText) muteText.innerText = "Mute Music";
-        }).catch(err => {
-          console.log("Audio play blocked by browser:", err);
-        });
-      } else {
-        video.muted = true;
-        if (muteText) muteText.innerText = "Unmute Music";
-      }
-    }
-
-    // LIVE HOLIDAY COUNTDOWN TIMER
-    const federalHolidays2026 = [
-      { name: "Veterans Day", date: "2026-11-11T00:00:00" },
-      { name: "Thanksgiving Day", date: "2026-11-26T00:00:00" },
-      { name: "Christmas Day", date: "2026-12-25T00:00:00" },
-      { name: "New Year's Day", date: "2027-01-01T00:00:00" },
-      { name: "Martin Luther King Jr. Day", date: "2027-01-18T00:00:00" },
-      { name: "Presidents' Day", date: "2027-02-15T00:00:00" },
-      { name: "Memorial Day", date: "2027-05-31T00:00:00" },
-      { name: "Juneteenth", date: "2027-06-19T00:00:00" },
-      { name: "Independence Day", date: "2027-07-05T00:00:00" },
-      { name: "Labor Day", date: "2027-09-06T00:00:00" },
-      { name: "Columbus Day", date: "2027-10-11T00:00:00" }
-    ];
-
-    function updateHolidayCountdown() {
-      const now = new Date();
-      let nextHoliday = federalHolidays2026.find(h => new Date(h.date) > now);
-      if (!nextHoliday) nextHoliday = federalHolidays2026[0];
-
-      const targetTime = new Date(nextHoliday.date).getTime();
-      const currentTime = now.getTime();
-      const difference = targetTime - currentTime;
-
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const mins = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const secs = Math.floor((difference % (1000 * 60)) / 1000);
-
-        document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
-        document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
-        document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
-        document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
-        
-        const holidayNameEl = document.getElementById('banner-holiday-name');
-        if (holidayNameEl) {
-          holidayNameEl.innerText = `Countdown to ${nextHoliday.name} — 7 days of quiet reflection & fast`;
-        }
-      }
-    }
-
-    setInterval(updateHolidayCountdown, 1000);
-
     // LIGHTBOX FUNCTIONS
     function openMediaLightbox(src, type, caption) {
       const modal = document.getElementById('lightbox-modal');
@@ -1062,7 +1012,7 @@
       { title: "Mystery 4 Solar and Lunar Power", category: "The mysteries", src: "media/audio/mysteries/mystery-04-solar-lunar.mp3", isLocked: true },
       { title: "Mystery 5 I and I, Essence and Unity", category: "The mysteries", src: "media/audio/mysteries/mystery-05-essence-unity.mp3", isLocked: true },
       { title: "Mystery 6 I M is I Am", category: "The mysteries", src: "media/audio/mysteries/mystery-06-i-m-is-i-am.mp3", isLocked: true },
-      { title: "Mystery 7 I M ani I M Beautiful", category: "The mysteries", src: "media/audio/mysteries/mystery-07-very-beautiful.mp3", isLocked: true },
+      { title: "Mystery 7 I M Ani I M Beautiful", category: "The mysteries", src: "media/audio/mysteries/mystery-07-very-beautiful.mp3", isLocked: true },
       { title: "Mystery 8 The Initiation The Sacred Circle", category: "The mysteries", src: "media/audio/mysteries/mystery-08-sacred-circle.wav", isLocked: true },
       { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/mysteries/mystery-09-systems.mp3", isLocked: true },
       { title: "Mystery 10 Rhythm of Return", category: "The mysteries", src: "media/audio/mysteries/mystery-10-return.wav", isLocked: true },
@@ -1471,6 +1421,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       if (isEditModeActive()) document.body.classList.add("admin-mode");
 
+      // Clear legacy browser memory override so code file takes permanent effect
       localStorage.removeItem('imani_header_emblem');
 
       renderPlaylistItems();
@@ -1478,15 +1429,20 @@
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
       
+      // Initialize daily card based on calendar date
       const dailyIndex = getDailyWisdomIndex();
       displayWisdomCard(dailyIndex);
-      updateHolidayCountdown();
 
+      // Permanently lock in local storage overrides for Chatty's header across hard resets
       const savedChatty = localStorage.getItem('chatty_wisdom_header');
       if (savedChatty) {
         const chattyImg = document.getElementById('chatty-header-view');
         if (chattyImg) { chattyImg.src = savedChatty; chattyImg.style.display = 'block'; }
       }
+
+      const standbyVideo = document.getElementById('standby-motion-player');
+      if (standbyVideo) standbyVideo.play().catch(() => {});
+      setTimeout(connectLiveStream, 1000);
     });
   </script>
 </body>
