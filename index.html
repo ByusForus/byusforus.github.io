@@ -293,4 +293,384 @@
     .archive-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .archive-header-row h3 { font-size: 1.05rem; font-weight: 800; color: var(--emerald-accent); display: flex; align-items: center; gap: 8px; }
     .stream-archive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-    .archive-item-card { background: var(--onyx-card); border:
+    .archive-item-card { background: var(--onyx-card); border: 1px solid var(--onyx-border); border-radius: var(--radius-sm); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s ease; }
+    .archive-item-card:hover { border-color: var(--gold-accent); background: rgba(255,209,92,0.08); }
+    .archive-item-title { font-size: 0.92rem; font-weight: 700; color: var(--text-main); }
+    .archive-item-meta { font-size: 0.76rem; color: var(--gold-accent); display: flex; justify-content: space-between; }
+
+    footer { max-width: 1200px; margin: 40px auto 0 auto; padding: 20px; text-align: center; border-top: 1.5px solid var(--onyx-border); color: var(--text-muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Admin Indicator Strip -->
+  <div class="admin-indicator-bar">
+    ⚙️ CREATOR EDIT MODE ACTIVE — Click any image or use select buttons to update files. (Press Ctrl+Shift+E to exit)
+  </div>
+
+  <div class="pause-banner">
+    <div class="pause-content">
+      <div class="pause-text-wrap">
+        <div class="pause-indicator"></div>
+        <div>
+          <div class="pause-title">ImanI American Holiday Boycott Celebration — 7-Day Economic Fast</div>
+          <div class="pause-subtitle" id="banner-holiday-name">Countdown to Veterans Day — 7 days of quiet reflection & fast</div>
+        </div>
+      </div>
+      <div class="countdown-display">
+        <div class="countdown-unit"><div class="countdown-val" id="cd-days">00</div><div class="countdown-lbl">Days</div></div>
+        <div class="countdown-unit"><div class="countdown-val" id="cd-hours">00</div><div class="countdown-lbl">Hours</div></div>
+        <div class="countdown-unit"><div class="countdown-val" id="cd-mins">00</div><div class="countdown-lbl">Mins</div></div>
+        <div class="countdown-unit"><div class="countdown-val" id="cd-secs">00</div><div class="countdown-lbl">Secs</div></div>
+      </div>
+    </div>
+
+    <div class="fast-guidance-bar" id="fast-guidance-container">
+      <div class="guidance-phase-badge" id="guidance-phase">STEALTH DRILL</div>
+      <div class="guidance-body">
+        <strong id="guidance-title">Strategic Preparation</strong>: 
+        <span id="guidance-text">Audit all commercial spending. Prepare your household reserves so you do not spend a single cent during the upcoming 7-day observance.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIXED HEADER -->
+  <header>
+    <div class="header-layout">
+      <div class="header-left">
+        <div class="header-proclamation emerald">ImanI R a new people</div>
+      </div>
+      <div class="header-center" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <img 
+          id="header-emblem-view"
+          src="media/images/websitepix/header-emblem.png" 
+          alt="ImanI Golden Sovereign Man Between Pillars" 
+          class="header-emblem-large"
+          style="max-height: 260px; width: auto; object-fit: contain; display: block;"
+          onerror="this.onerror=null; this.src='media/images/websitepix/header-emblem.png';"
+        >
+        <button onclick="triggerFileSelect('emblem-file-input')" style="margin-top: 6px; background: var(--onyx-card); border: 1px solid var(--gold-accent); color: var(--gold-accent); padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">📁 Select Header Image</button>
+        <input type="file" id="emblem-file-input" accept="image/*" style="display: none;" onchange="loadUserImage(event, 'header-emblem-view', 'imani_header_emblem')">
+      </div>
+      <div class="header-right">
+        <div class="header-proclamation gold">Onyx is the new black</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 1. Live Broadcast Stage & Sanctuary -->
+    <section>
+      <h2 class="section-title">Live Broadcast Stage & Sanctuary</h2>
+      <div class="stage-column-layout">
+        <div class="stream-viewport" id="stream-viewport-container">
+          <span class="stream-badge" id="live-indicator">STANDBY • WE R IMANI</span>
+          <button class="stream-audio-overlay-btn" id="standby-mute-btn" onclick="toggleStandbyAudio()">
+            🔊 <span id="standby-mute-text">Unmute Music</span>
+          </button>
+
+          <video 
+            id="standby-motion-player" 
+            class="stream-video-element" 
+            src="media/videos/unity-in-motion.mp4"
+            poster="media/images/we-r-imani-poster.png"
+            autoplay loop playsinline muted
+            style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;"
+          ></video>
+
+          <video 
+            id="live-video-player" 
+            class="stream-video-element" 
+            controls playsinline 
+            style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; display: none; background: #000;"
+          >Your browser does not support HTML5 video.</video>
+
+          <div class="stream-controls-bar admin-only">
+            <input type="text" id="stream-source-url" class="stream-url-input" placeholder="HLS Stream URL (.m3u8) or video file path (.mp4)..." value="http://localhost:8888/live/stage/index.m3u8">
+            <div class="stream-actions-group">
+              <button class="btn-stream-action" onclick="connectLiveStream()">📡 Connect Stream</button>
+              <button class="btn-stream-action" style="background: var(--gold-accent);" onclick="triggerFileSelect('local-video-input')">📁 Load Live</button>
+              <button class="standby-file-btn" onclick="triggerFileSelect('standby-file-input')">🎬 Set Standby</button>
+              <input type="file" id="local-video-input" accept="video/*" style="display: none;" onchange="loadLocalVideoFile(event)">
+              <input type="file" id="standby-file-input" accept="video/*" style="display: none;" onchange="loadStandbyVideoFile(event)">
+            </div>
+          </div>
+        </div>
+
+        <div class="stage-chat-card">
+          <div class="chat-header">
+            <h4>💬 Stage Chat & Live Feed</h4>
+            <span style="font-size: 0.72rem; color: var(--emerald-accent); font-weight: 700;">🟢 LIVE SYNC</span>
+          </div>
+          <div class="chat-messages-scroll" id="chat-messages-container">
+            <div class="chat-bubble council">
+              <span class="chat-author gold">Chatty Wisdom</span>
+              <span class="chat-text">Welcome to the Stage sanctuary. Move with precision and maintain the frequency.</span>
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input-field" class="chat-input" placeholder="Transmit thought to the Stage..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+            <button class="chat-send-btn" onclick="sendChatMessage()">Send</button>
+          </div>
+        </div>
+
+        <div class="stream-archive-card">
+          <div class="archive-header-row">
+            <h3>📼 On-Demand Live Stream Archive</h3>
+            <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('archive-video-input')">➕ Add Archive Video</button>
+            <input type="file" id="archive-video-input" accept="video/*" multiple style="display: none;" onchange="loadUserArchiveVideos(event)">
+          </div>
+          <div class="stream-archive-grid" id="stream-archive-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. The Ten Mysteries of the Name -->
+    <section>
+      <h2 class="section-title">The Ten Mysteries of the Name</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="mysteries-buttons">
+          <button class="doctrine-btn active" onclick="selectMystery('01')"><span class="badge">01</span> Alpha and Omega</button>
+          <button class="doctrine-btn" onclick="selectMystery('02')"><span class="badge">02</span> The Me in the Essence</button>
+          <button class="doctrine-btn" onclick="selectMystery('03')"><span class="badge">03</span> Pillars of Solomon</button>
+          <button class="doctrine-btn" onclick="selectMystery('04')"><span class="badge">04</span> Sun and Moon Power</button>
+          <button class="doctrine-btn" onclick="selectMystery('05')"><span class="badge">05</span> I and I</button>
+          <button class="doctrine-btn" onclick="selectMystery('06')"><span class="badge">06</span> I M is I am</button>
+          <button class="doctrine-btn" onclick="selectMystery('07')"><span class="badge">07</span> I M ani</button>
+          <button class="doctrine-btn" onclick="selectMystery('08')"><span class="badge">08</span> Initiation</button>
+          <button class="doctrine-btn" onclick="selectMystery('09')"><span class="badge">09</span> Strategy</button>
+          <button class="doctrine-btn" onclick="selectMystery('10')"><span class="badge">10</span> 1 0 1 ImanI 3 6 9</button>
+        </div>
+        <div class="revelation-box" id="mystery-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="mystery-tag">Mystery 01</div>
+              <h3 class="rev-title" id="mystery-title">Alpha and Omega</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('mystery-title', 'mystery-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="mystery-desc">The two capitalized 'I' bookends symbolize the eternal cycle—the Creator at the beginning and defending the culmination.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Mastery Across the Ten Activities of Life -->
+    <section>
+      <h2 class="section-title">Mastery Across the Ten Activities of Life</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="activities-buttons">
+          <button class="doctrine-btn active" onclick="selectActivity('01')"><span class="badge">01</span> Economics</button>
+          <button class="doctrine-btn" onclick="selectActivity('02')"><span class="badge">02</span> Education</button>
+          <button class="doctrine-btn" onclick="selectActivity('03')"><span class="badge">03</span> Entertainment</button>
+          <button class="doctrine-btn" onclick="selectActivity('04')"><span class="badge">04</span> Health</button>
+          <button class="doctrine-btn" onclick="selectActivity('05')"><span class="badge">05</span> Labor</button>
+          <button class="doctrine-btn" onclick="selectActivity('06')"><span class="badge">06</span> Law</button>
+          <button class="doctrine-btn" onclick="selectActivity('07')"><span class="badge">07</span> Politics</button>
+          <button class="doctrine-btn" onclick="selectActivity('08')"><span class="badge">08</span> Religion</button>
+          <button class="doctrine-btn" onclick="selectActivity('09')"><span class="badge">09</span> Sex</button>
+          <button class="doctrine-btn" onclick="selectActivity('10')"><span class="badge">10</span> War</button>
+        </div>
+        <div class="revelation-box" id="activity-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="activity-tag">Activity 01</div>
+              <h3 class="rev-title" id="activity-title">Economics</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('activity-title', 'activity-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="activity-desc">Practicing <em>Ujamaa</em> (Cooperative Economics), managing our own resources, and building community-owned enterprises.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Strategic Stealth & Operational Codes -->
+    <section>
+      <h2 class="section-title">Strategic Stealth & Operational Codes</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="codes-buttons">
+          <button class="doctrine-btn active" onclick="selectCode('01')"><span class="badge">01</span> The Code of Silence</button>
+          <button class="doctrine-btn" onclick="selectCode('02')"><span class="badge">02</span> The Code of Ownership</button>
+          <button class="doctrine-btn" onclick="selectCode('03')"><span class="badge">03</span> Answer Questions with a Question</button>
+        </div>
+        <div class="revelation-box" id="code-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="code-tag">Operational Code</div>
+              <h3 class="rev-title" id="code-title">The Code of Silence</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('code-title', 'code-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="code-desc">Moving in stealth mode without broadcasting internal maneuvers, operations, or economic strategies to outside entities.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Origin & Revelation -->
+    <section>
+      <h2 class="section-title">The Origin & Revelation of ImanI</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="origins-buttons">
+          <button class="doctrine-btn active" onclick="selectOrigin('01')"><span class="badge">01</span> Sovereign Ontology</button>
+          <button class="doctrine-btn" onclick="selectOrigin('02')"><span class="badge">02</span> The People of Faith</button>
+          <button class="doctrine-btn" onclick="selectOrigin('03')"><span class="badge">03</span> Faith in Action</button>
+          <button class="doctrine-btn" onclick="selectOrigin('04')"><span class="badge">04</span> Proper Noun Identity</button>
+          <button class="doctrine-btn" onclick="selectOrigin('05')"><span class="badge">05</span> I M Very Beautiful</button>
+          <button class="doctrine-btn" onclick="selectOrigin('06')"><span class="badge">06</span> Emerald, Onyx & Gold</button>
+        </div>
+        <div class="revelation-box" id="origin-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="origin-tag">Ontology</div>
+              <h3 class="rev-title" id="origin-title">Sovereign Ontology</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('origin-title', 'origin-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="origin-desc">Moving away from assigned adjectives, <strong>ImanI</strong> is a proper noun representing a sovereign ontology, a spiritual nationality, and a return to original character.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 9 Pillars of Total Restitution -->
+    <section>
+      <h2 class="section-title">The 9 Pillars of Total Restitution (Specie Standard)</h2>
+      <div class="doctrine-card">
+        <div class="button-matrix" id="restitution-buttons">
+          <button class="doctrine-btn active" onclick="selectRestitution('1')"><span class="badge">01</span> Specie Cash</button>
+          <button class="doctrine-btn" onclick="selectRestitution('2')"><span class="badge">02</span> Medical</button>
+          <button class="doctrine-btn" onclick="selectRestitution('3')"><span class="badge">03</span> Housing</button>
+          <button class="doctrine-btn" onclick="selectRestitution('4')"><span class="badge">04</span> Food</button>
+          <button class="doctrine-btn" onclick="selectRestitution('5')"><span class="badge">05</span> Education</button>
+          <button class="doctrine-btn" onclick="selectRestitution('6')"><span class="badge">06</span> Land & Wealth</button>
+          <button class="doctrine-btn" onclick="selectRestitution('7')"><span class="badge">07</span> Justice</button>
+          <button class="doctrine-btn" onclick="selectRestitution('8')"><span class="badge">08</span> Environment</button>
+          <button class="doctrine-btn" onclick="selectRestitution('9')"><span class="badge">09</span> Narrative</button>
+        </div>
+        <div class="revelation-box" id="restitution-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="restitution-tag">Priority Pillar 1</div>
+              <h3 class="rev-title" id="restitution-title">1. Specie Cash</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('restitution-title', 'restitution-desc')">🔊 Listen</button>
+          </div>
+          <p class="rev-content" id="restitution-desc">Direct Unconditional Capital</p>
+          <div id="restitution-section-wrap-extra">
+            <div class="restitution-stats-grid">
+              <div class="stat-pill"><span class="stat-label">Gold Standard</span><span class="stat-value gold">140 oz Bullion</span></div>
+              <div class="stat-pill"><span class="stat-label">Silver Standard</span><span class="stat-value">11,600 oz Coinage</span></div>
+              <div class="stat-pill"><span class="stat-label">Governing Rule</span><span class="stat-value" style="color: var(--text-main); font-size: 1.1rem;">Non-Substitutable</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. IAHBC DOCTRINE & BOYCOTT CELEBRATION SECTION -->
+    <section>
+      <h2 class="section-title">ImanI American Holiday Boycott Celebration — 7-Day Economic Fast</h2>
+      
+      <div class="doctrine-card">
+        <div class="iahbc-manifesto-headline" style="color: var(--gold-accent); font-weight: 800; font-size: 1.1rem; margin-bottom: 12px;">
+          ⚡ Break the chains of commercialized tradition — Reclaim your power!
+        </div>
+        <p class="iahbc-manifesto-text" style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 24px;">
+          American Holidays were <strong>never designed with us in mind</strong>, and we never had a voice in their creation! Whenever we forged our own sacred moments, they outlawed our celebrations only to repackage and sell them back to us as empty consumerism. We dishonor our own divine dignity when we finance and celebrate the rituals of our oppression. <strong>The era of blind compliance is over!</strong> Rise up, stand tall in sovereign majesty, and boldly <strong>SAY NO to American holidays</strong> — ignite your spirit and celebrate true independence!
+        </p>
+
+        <div class="button-matrix" id="boycott-buttons">
+          <button class="doctrine-btn active" onclick="selectBoycott('01')"><span class="badge">01</span> 3 + 1 + 3 Formula</button>
+          <button class="doctrine-btn" onclick="selectBoycott('02')"><span class="badge">02</span> Silent Solution</button>
+          <button class="doctrine-btn" onclick="selectBoycott('03')"><span class="badge">03</span> Unity in Motion</button>
+        </div>
+
+        <div class="revelation-box" id="boycott-display" style="margin-top: 18px;">
+          <div class="rev-header-wrap">
+            <div>
+              <div class="rev-tag" id="boycott-tag">Economic Fast • 7-Day Stealth Discipline</div>
+              <h3 class="rev-title" id="boycott-title">3 + 1 + 3 = 7-Day Economic Fast</h3>
+            </div>
+            <button class="btn-audio-narrate" onclick="narrateText('boycott-title', 'boycott-desc')">🔊 Listen to Protocol</button>
+          </div>
+          <p class="rev-content" id="boycott-desc">
+            Observed every Federal Holiday: <strong>three days of strategic preparation</strong> and economic fast before the holiday, <strong>one sacred day of sovereign reflection</strong> on the holiday itself, and <strong>three days of continued economic discipline</strong> following it. Zero commercial participation, 100% community self-reliance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Holiday Fast Calendar Schedule -->
+    <section>
+      <h2 class="section-title">ImanI 2026–2027 Economic Fast Calendar</h2>
+      <div class="doctrine-card">
+        <p style="font-size: 1.05rem; color: var(--text-muted); margin-bottom: 20px;">
+          The official 7-day economic fast schedule for upcoming Federal Holidays. Observe 3 days of preparation, 1 day of reflection, and 3 days of discipline:
+        </p>
+        <div class="playlist-items-scroll" style="max-height: 320px; display: flex; flex-direction: column; gap: 10px;">
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">Veterans Day</span><span class="pic-queue-tag">November 11, 2026</span></div><span style="color: var(--emerald-accent); font-weight: 700; font-size: 0.85rem;">Active Target</span></div>
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">Thanksgiving Day</span><span class="pic-queue-tag">November 26, 2026</span></div><span style="color: var(--gold-accent); font-weight: 700; font-size: 0.85rem;">Upcoming</span></div>
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">Christmas Day</span><span class="pic-queue-tag">December 25, 2026</span></div><span style="color: var(--gold-accent); font-weight: 700; font-size: 0.85rem;">Upcoming</span></div>
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">New Year's Day</span><span class="pic-queue-tag">January 1, 2027</span></div><span style="color: var(--gold-accent); font-weight: 700; font-size: 0.85rem;">Upcoming</span></div>
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">Martin Luther King Jr. Day</span><span class="pic-queue-tag">January 18, 2027</span></div><span style="color: var(--gold-accent); font-weight: 700; font-size: 0.85rem;">Upcoming</span></div>
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">Presidents' Day</span><span class="pic-queue-tag">February 15, 2027</span></div><span style="color: var(--gold-accent); font-weight: 700; font-size: 0.85rem;">Upcoming</span></div>
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">Memorial Day</span><span class="pic-queue-tag">May 31, 2027</span></div><span style="color: var(--gold-accent); font-weight: 700; font-size: 0.85rem;">Upcoming</span></div>
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">Juneteenth National Independence Day</span><span class="pic-queue-tag">June 19, 2027</span></div><span style="color: var(--gold-accent); font-weight: 700; font-size: 0.85rem;">Upcoming</span></div>
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">Independence Day</span><span class="pic-queue-tag">July 5, 2027</span></div><span style="color: var(--gold-accent); font-weight: 700; font-size: 0.85rem;">Upcoming</span></div>
+          <div class="pic-queue-item"><div class="pic-queue-meta"><span class="pic-queue-title">Labor Day</span><span class="pic-queue-tag">September 6, 2027</span></div><span style="color: var(--gold-accent); font-weight: 700; font-size: 0.85rem;">Upcoming</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Boycott Celebration Gallery -->
+    <section>
+      <h2 class="section-title">Holiday Boycott Celebration Picture Gallery</h2>
+      <div class="doctrine-card">
+        <div class="vault-grid">
+          <div class="picture-viewer-card">
+            <img id="boycott-active-img" src="media/boycott/economic-sovereignty.png" alt="Featured Boycott Art" class="picture-viewer-img" onclick="openMediaLightbox(this.src, 'image', document.getElementById('boycott-active-title').innerText)">
+            <div class="picture-viewer-details">
+              <div class="picture-viewer-title" id="boycott-active-title">The Price of Participation: Reclaiming Our Economic Sovereignty</div>
+              <div class="picture-viewer-tag" id="boycott-active-tag">Economic Sovereignty • Active Selection (Click Picture to Enlarge)</div>
+            </div>
+          </div>
+
+          <div class="playlist-card">
+            <div class="audio-tabs-bar">
+              <span style="font-size: 0.95rem; font-weight: 800; color: var(--gold-accent); padding: 4px 8px;">Boycott Pictures Archive</span>
+              <div>
+                <button class="btn-load-audio-files admin-only" onclick="triggerFileSelect('boycott-multi-input')">📁 Add Pictures</button>
+                <input type="file" id="boycott-multi-input" accept="image/*" multiple style="display: none;" onchange="handleUserAddPictures(event, 'boycott')">
+              </div>
+            </div>
+            <div class="playlist-items-scroll" id="boycott-list-container" style="display: flex; flex-direction: column; gap: 10px; max-height: 480px; overflow-y: auto;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Dynamic Audio Vault -->
+    <section>
+      <h2 class="section-title">ImanI Audio Vault</h2>
+      <div class="doctrine-card">
+        <div class="vault-grid">
+          <div class="audio-player-card">
+            <div class="track-meta">
+              <div class="track-art" style="width: 80px; height: 80px; font-size: 1.4rem;">IM</div>
+              <div class="track-details">
+                <h4 id="current-title" style="font-size: 1.25rem;">I M Imani</h4>
+                <p id="current-category" style="font-size: 0.95rem;">ImanI story</p>
+              </div>
+            </div>
+
+            <audio id="main-audio" controls onended="handleTrackEnded()">
+              <source id="main-audio-source" src="media/audio/story/i-m-imani.mp3" type="audio/mpeg">
+              Your browser does not support audio elements.
+            </audio>
+
+            <div class="audio-playback-controls">
+              <div style="display: flex; gap: 10px;">
+                <button class="playback-toggle-btn active" id="btn-continuous" onclick="toggleContinuousPlay()">
+                  🔁 <span id="lbl-continuous">Continuous: ON</span>
+                </button>
+                <button class="playback-toggle-btn" id="btn-random" onclick="toggleRandomPlay()">
+                  🔀 <span id="lbl
