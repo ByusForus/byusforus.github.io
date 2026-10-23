@@ -154,6 +154,7 @@
     
     .pic-queue-item { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-sm); background: var(--onyx-card); border: 1.5px solid transparent; cursor: pointer; transition: all 0.2s ease; }
     .pic-queue-item:hover, .pic-queue-item.active { border-color: var(--gold-accent); background: rgba(255,209,92,0.1); }
+    .pic-queue-thumb { width: 68px; height: 48px; object-fit: cover; border-radius: 6px; background: #000; flex-shrink: 0; border: 1.5px solid var(--onyx-border); }
     .pic-queue-meta { display: flex; flex-direction: column; gap: 3px; overflow: hidden; flex: 1; }
     .pic-queue-title { font-size: 1.05rem; font-weight: 800; color: var(--gold-accent); }
     .pic-queue-tag { font-size: 0.8rem; color: var(--text-muted); }
@@ -603,7 +604,7 @@
       <h2 class="section-title">ImanI 2026–2027 Economic Fast Calendar</h2>
       <div class="doctrine-card">
         <p style="font-size: 1.05rem; color: var(--text-muted); margin-bottom: 20px;">
-          Click any federal holiday below to instantly reveal its date, the live countdown, and the sovereign reason why we observe our 7-day economic fast!
+          Click any federal holiday below to instantly reveal its date, the live countdown, a brief overview, and the full sovereign reason why we observe our 7-day economic fast!
         </p>
         
         <div class="vault-grid">
@@ -617,9 +618,8 @@
             <div class="rev-tag" id="info-holiday-date">November 11, 2026</div>
             <h3 class="rev-title" id="info-holiday-title" style="font-size: 1.5rem;">Veterans Day</h3>
             <div style="font-size: 0.95rem; color: var(--emerald-accent); font-weight: 800;" id="info-holiday-countdown">⏳ Calculating countdown...</div>
-            <p class="rev-content" id="info-holiday-desc" style="font-size: 1.05rem; line-height: 1.6;">
-              Click any holiday on the left to learn why we fast, cut off commercial spending, and reclaim our sovereign independence.
-            </p>
+            <p class="rev-content" id="info-holiday-brief" style="font-size: 0.98rem; line-height: 1.5; color: var(--text-muted);"></p>
+            <p class="rev-content" id="info-holiday-desc" style="font-size: 1.05rem; line-height: 1.6;"></p>
           </div>
         </div>
       </div>
@@ -965,51 +965,61 @@
       { 
         name: "Veterans Day", 
         date: "2026-11-11T00:00:00", 
+        brief: "A federal holiday honoring military veterans, co-opted into consumer retail sales.",
         why: "We fast from Veterans Day because true honor for life and peace cannot be celebrated through militaristic pageantry that drains community wealth. Instead of financing corporate parades, we observe our 7-day economic fast to redirect those vital resources inward toward family self-reliance and community protection." 
       },
       { 
         name: "Thanksgiving Day", 
         date: "2026-11-26T00:00:00", 
+        brief: "Packaged as gratitude, but masking historical displacement and retail shopping frenzies.",
         why: "Thanksgiving is packaged as gratitude, but it masks historical displacement and empty commercial consumerism. We use this 7-day economic fast to break free from the retail holiday shopping stampede, feeding our households from our own sovereign strength rather than buying into corporate feasts." 
       },
       { 
         name: "Christmas Day", 
         date: "2026-12-25T00:00:00", 
+        brief: "Commercialized into an annual debt trap designed to extract community wealth.",
         why: "Christmas has been completely commercialized into an annual debt trap designed to extract every hard-earned dollar from our communities. By taking a 7-day economic pause, we reject debt-driven gift-giving and focus on spiritual unity, family bonding, and true inner wealth." 
       },
       { 
         name: "New Year's Day", 
         date: "2027-01-01T00:00:00", 
+        brief: "The calendar reset, often tied to outside corporate ledgers and consumer resolutions.",
         why: "The calendar resets every January, yet outside systems expect our economic habits to remain chained to their ledgers. We initiate the new year with clarity, discipline, and a strict 7-day fast to secure our financial independence from day one." 
       },
       { 
         name: "Martin Luther King Jr. Day", 
         date: "2027-01-18T00:00:00", 
+        brief: "Sanitized into a corporate sales weekend instead of economic justice.",
         why: "Dr. King's radical call for economic justice and self-determination has been sanitized into a corporate sales weekend. We reclaim his true legacy through our 7-day economic fast, prioritizing cooperative economics (Ujamaa) over retail discounts." 
       },
       { 
         name: "Presidents' Day", 
         date: "2027-02-15T00:00:00", 
+        brief: "Marketed solely as a clearance sale event for mattresses and vehicles.",
         why: "Presidents' Day is marketed solely as a mattress and car sale event. We fast from this commercialized holiday because our allegiance is to our own sovereign future, not to political pageantry or retail clearance traps." 
       },
       { 
         name: "Memorial Day", 
         date: "2027-05-31T00:00:00", 
+        brief: "Kicks off the summer consumer spending blitz and retail promotions.",
         why: "Memorial Day kicks off the summer consumer spending blitz. We choose a quiet 7-day economic withdrawal to safeguard our household budgets and reflect on real community resilience." 
       },
       { 
         name: "Juneteenth National Independence Day", 
         date: "2027-06-19T00:00:00", 
+        brief: "Emancipation commemoration, susceptible to corporate sponsorships.",
         why: "True emancipation requires complete economic sovereignty. We observe our fast around Juneteenth to ensure our independence isn't commercialized into corporate sponsorships, but honored through genuine self-reliance." 
       },
       { 
         name: "Independence Day", 
         date: "2027-07-05T00:00:00", 
+        brief: "Celebrates an independence that historically excluded emancipated people.",
         why: "July 4th celebrates an independence that historically excluded us. We stand tall in our own sovereign identity, utilizing this 7-day fast to practice absolute financial independence and community solidarity." 
       },
       { 
         name: "Labor Day", 
         date: "2027-09-06T00:00:00", 
+        brief: "Honors workers, yet community labor remains exploited by outside commercial systems.",
         why: "Labor Day honors workers, yet our labor is too often exploited by outside systems. We fast to honor true worker sovereignty, retaining our capital and building our own independent economic engines." 
       }
     ];
@@ -1068,8 +1078,9 @@
           <div class="pic-queue-meta">
             <span class="pic-queue-title">${holiday.name}</span>
             <span class="pic-queue-tag">📅 ${formattedDate} (${daysAway > 0 ? daysAway + ' days away' : 'Today / Passed'})</span>
+            <span style="font-size: 0.78rem; color: var(--text-main); margin-top: 2px;">${holiday.brief}</span>
           </div>
-          <span style="color: var(--gold-accent); font-weight: 700; font-size: 0.82rem;">Tap to Explore ⚡</span>
+          <span style="color: var(--gold-accent); font-weight: 700; font-size: 0.82rem; white-space: nowrap;">Tap for Reason ⚡</span>
         `;
 
         item.onclick = () => {
@@ -1086,10 +1097,11 @@
     }
 
     function displayHolidayInfo(holiday, daysAway, formattedDate) {
-      document.getElementById('info-holiday-date').innerText = `Date: ${formattedDate}`;
+      document.getElementById('info-holiday-date').innerText = `Date: ${formattedDate} (${daysAway > 0 ? daysAway + ' days away' : 'Today'})`;
       document.getElementById('info-holiday-title').innerText = holiday.name;
-      document.getElementById('info-holiday-countdown').innerText = `⏳ Countdown: ${daysAway > 0 ? daysAway + ' days remaining until fast' : 'Observance Active'}`;
-      document.getElementById('info-holiday-desc').innerHTML = `<strong>Why We Fast From ${holiday.name}:</strong> ${holiday.why}`;
+      document.getElementById('info-holiday-countdown').innerText = `⏳ Live Countdown: ${daysAway > 0 ? daysAway + ' days remaining until fast' : 'Observance Active'}`;
+      document.getElementById('info-holiday-brief').innerText = `Overview: ${holiday.brief}`;
+      document.getElementById('info-holiday-desc').innerHTML = `<strong>Full Sovereign Reasoning:</strong> ${holiday.why}`;
     }
 
     window.addEventListener('DOMContentLoaded', () => {
