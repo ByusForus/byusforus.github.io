@@ -206,6 +206,29 @@
       font-weight: 700; 
     }
 
+    /* AUDIO PLAYLIST ITEM STYLING */
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      background: rgba(30, 30, 30, 0.95);
+      border: 1.5px solid var(--onyx-border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 6px;
+    }
+    .playlist-item:hover, .playlist-item.active {
+      border-color: var(--gold-accent);
+      background: rgba(255, 209, 92, 0.15);
+    }
+    .playlist-item .track-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
     /* UNIFIED GOLD BAR TAB BUTTONS */
     .audio-tab-btn, .filter-tag-btn {
       background: linear-gradient(135deg, #3d2f00 0%, #b8860b 25%, #ffd700 50%, #daa520 75%, #2a2000 100%);
@@ -1237,6 +1260,108 @@
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
     }
 
+    // Audio Library with Strict Member-Only Locks on Mysteries and Agreements
+    let permanentAudioLibrary = [
+      { title: "I M Imani", category: "ImanI story", src: "media/audio/story/i-m-imani.mp3", isLocked: false },
+      { title: "I M Imani Because", category: "ImanI story", src: "media/audio/story/i-m-imani-because.mp3", isLocked: false },
+      { title: "I M Onyx in the Middle", category: "ImanI story", src: "media/audio/story/i-m-onyx-in-the-middle.mp3", isLocked: false },
+      { title: "I M Unlocking the Imani Mind", category: "ImanI story", src: "media/audio/story/i-m-unlocking-the-imani-mind.mp3", isLocked: false },
+      { title: "I M We R Imani", category: "ImanI story", src: "media/audio/story/i-m-we-r-imani.mp3", isLocked: false },
+      { title: "I M We R Imani 2", category: "ImanI story", src: "media/audio/story/i-m-we-r-imani2.mp3", isLocked: false },
+      { title: "I M Reparations Now", category: "ImanI story", src: "media/audio/story/i-m-reparations-now.mp3", isLocked: false },
+      { title: "I M Strategic Disengagement", category: "ImanI story", src: "media/audio/story/i-m-strategic-disengagement.mp3", isLocked: false },
+      { title: "ImanI Ignited", category: "ImanI story", src: "media/audio/story/imani-ignited.mp3", isLocked: false },
+      { title: "ImanI Code of Alignment", category: "ImanI story", src: "media/audio/story/imani-code-of-alignment.mp3", isLocked: false },
+      { title: "ImanI Code of Alliance", category: "ImanI story", src: "media/audio/story/imani-code-of-alliance.mp3", isLocked: false },
+      { title: "Written in the Law", category: "ImanI story", src: "media/audio/story/written-in-the-law.mp3", isLocked: false },
+      { title: "Declaration of the New Breed", category: "ImanI story", src: "media/audio/story/declaration-of-the-new-breed.mp3", isLocked: false },
+      { title: "Checkmate Mindset", category: "ImanI story", src: "media/audio/story/checkmate-mindset.mp3", isLocked: false },
+      { title: "Mystery 1 Cycle of ImanI Female", category: "The mysteries", src: "media/audio/mysteries/mystery-01-female.mp3", isLocked: true },
+      { title: "Mystery 1 Cycle of ImanI male", category: "The mysteries", src: "media/audio/mysteries/mystery-01-male.mp3", isLocked: true },
+      { title: "Mystery 2 The Mirror That Doesn't Lie", category: "The mysteries", src: "media/audio/mysteries/mystery-02-mirror.wav", isLocked: true },
+      { title: "Mystery 3 Between the Pillars", category: "The mysteries", src: "media/audio/mysteries/mystery-03-pillars.mp3", isLocked: true },
+      { title: "Mystery 4 Solar and Lunar Power", category: "The mysteries", src: "media/audio/mysteries/mystery-04-solar-lunar.mp3", isLocked: true },
+      { title: "Mystery 5 I and I, Essence and Unity", category: "The mysteries", src: "media/audio/mysteries/mystery-05-essence-unity.mp3", isLocked: true },
+      { title: "Mystery 6 I M is I Am", category: "The mysteries", src: "media/audio/mysteries/mystery-06-i-m-is-i-am.mp3", isLocked: true },
+      { title: "Mystery 7 I M ani I M Beautiful", category: "The mysteries", src: "media/audio/mysteries/mystery-07-very-beautiful.mp3", isLocked: true },
+      { title: "Mystery 8 The Initiation The Sacred Circle", category: "The mysteries", src: "media/audio/mysteries/mystery-08-sacred-circle.wav", isLocked: true },
+      { title: "Mystery 9 We Got Systems Too", category: "The mysteries", src: "media/audio/mysteries/mystery-09-systems.mp3", isLocked: true },
+      { title: "Mystery 10 Rhythm of Return", category: "The mysteries", src: "media/audio/mysteries/mystery-10-return.wav", isLocked: true },
+      { title: "Agreement 1: Law of the Resonant Word", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-resonant-word.mp3", isLocked: true },
+      { title: "Agreement 1: Words of Power", category: "Audio Agreements", src: "media/audio/agreements/agreement-1-words-of-power.mp3", isLocked: true },
+      { title: "Agreement 2: Immunity to Poison", category: "Audio Agreements", src: "media/audio/agreements/agreement-2-immunity-to-poison.wav", isLocked: true },
+      { title: "Agreement 3: Don't Make Assumptions", category: "Audio Agreements", src: "media/audio/agreements/agreement-3-no-assumptions.wav", isLocked: true },
+      { title: "Agreement 3: Rewrite Our Story", category: "Audio Agreements", src: "media/audio/agreements/agreement-3-rewrite-our-story.wav", isLocked: true },
+      { title: "Agreement 4: Always Do Your Best", category: "Audio Agreements", src: "media/audio/agreements/agreement-4-always-do-your-best.mp3", isLocked: true },
+      { title: "Agreement 5: Be Skeptical, But Learn to Listen", category: "Audio Agreements", src: "media/audio/agreements/agreement-5-listen.mp3", isLocked: true }
+    ];
+
+    let currentAudioCategory = "ALL";
+    let activeTrackIndex = 0;
+    let isContinuousPlay = true;
+    let isRandomPlay = false;
+
+    function setAudioCategory(category, btn) {
+      currentAudioCategory = category;
+      document.querySelectorAll('.audio-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      activeTrackIndex = 0;
+      renderPlaylistItems();
+    }
+
+    function getFilteredTrackPool() {
+      if (!currentAudioCategory || currentAudioCategory === "ALL") return permanentAudioLibrary;
+      return permanentAudioLibrary.filter(t => t.category === currentAudioCategory);
+    }
+
+    function renderPlaylistItems() {
+      const container = document.getElementById('playlist-items-container');
+      if (!container) return;
+      container.innerHTML = '';
+      const filtered = getFilteredTrackPool();
+      const unlocked = isMemberUnlocked();
+
+      filtered.forEach((track, index) => {
+        const isTrackLocked = (track.isLocked || track.category === "The mysteries" || track.category === "Audio Agreements") && !unlocked;
+        const item = document.createElement('div');
+        item.className = `playlist-item ${index === activeTrackIndex ? 'active' : ''}`;
+        let statusBadge = index === activeTrackIndex ? '▶ Playing' : '▶ Play';
+        if (isTrackLocked) statusBadge = '🔒 Members Only';
+
+        item.innerHTML = `
+          <div>
+            <div class="track-title" style="font-size: 1rem;">${track.title}</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">${isTrackLocked ? '🔒 ' + track.category : track.category}</div>
+          </div>
+          <span class="track-duration" style="${isTrackLocked ? 'color: var(--gold-accent); font-weight:800;' : ''} font-size: 0.88rem;">${statusBadge}</span>
+        `;
+        item.onclick = () => {
+          if (isTrackLocked) {
+            openMembershipModal();
+          } else {
+            playTrackByIndex(index);
+          }
+        };
+        container.appendChild(item);
+      });
+    }
+
+    function playTrackByIndex(index) {
+      const filtered = getFilteredTrackPool();
+      if (index < 0 || index >= filtered.length) return;
+      const track = filtered[index];
+      const isTrackLocked = (track.isLocked || track.category === "The mysteries" || track.category === "Audio Agreements") && !isMemberUnlocked();
+      if (isTrackLocked) { openMembershipModal(); return; }
+
+      activeTrackIndex = index;
+      document.getElementById('current-title').innerText = track.title;
+      document.getElementById('current-category').innerText = track.category;
+      const audio = document.getElementById('main-audio');
+      audio.src = track.src;
+      audio.play().catch(() => {});
+      renderPlaylistItems();
+    }
+
     // Chatty's Wisdom 99-Card Engine with Daily Auto-Rotation
     const chattyWisdomDeck = [
       { id: 1, title: "The Checkmate Perspective", quote: "Look three steps ahead of the distraction. A calculated response always disarms a sudden reaction.", tag: "Strategy" },
@@ -1292,32 +1417,23 @@
       displayWisdomCard(0);
     }
 
-    function filterWisdomDeck() {
-      const query = document.getElementById('wisdom-search').value.toLowerCase();
-      const found = chattyWisdomDeck.find(c => c.title.toLowerCase().includes(query) || c.quote.toLowerCase().includes(query));
-      if (found) {
-        document.getElementById('deck-title').innerText = found.title;
-        document.getElementById('deck-quote').innerText = `"${found.quote}"`;
-        document.getElementById('deck-number').innerText = `Card ${String(found.id).padStart(2, '0')} • Search Match`;
-      }
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
       if (isEditModeActive()) document.body.classList.add("admin-mode");
 
       localStorage.removeItem('imani_header_emblem');
 
+      // 1. RENDER AUDIO VAULT PLAYLIST
       renderPlaylistItems();
       renderStreamArchive();
       
-      // PICTURE GALLERIES INITIALIZED HERE
+      // 2. RENDER PICTURE GALLERIES
       renderPictureList('boycott-list-container', boycottPictureLibrary, activeBoycottIndex, selectBoycottPicture);
       renderPictureList('still-list-container', stillPictureLibrary, activeStillIndex, selectStillPicture);
       
+      // 3. RENDER WISDOM & COUNTDOWN CALENDAR
       const dailyIndex = getDailyWisdomIndex();
       displayWisdomCard(dailyIndex);
       
-      // COUNTDOWN & CALENDAR INITIALIZED HERE
       updateHolidayCountdown();
       setInterval(updateHolidayCountdown, 1000);
       renderHolidayCalendar();
